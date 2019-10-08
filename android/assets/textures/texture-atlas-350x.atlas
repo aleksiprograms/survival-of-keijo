@@ -1,0 +1,514 @@
+
+texture-atlas-350x.png
+size: 4096,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bar_fill
+  rotate: false
+  xy: 1120, 1680
+  size: 280, 280
+  split: 14, 14, 28, 28
+  pad: 0, 0, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+bar_fill_background
+  rotate: false
+  xy: 840, 840
+  size: 280, 280
+  split: 14, 14, 14, 14
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+bar_fill_health
+  rotate: false
+  xy: 3080, 1680
+  size: 280, 280
+  split: 14, 14, 28, 28
+  pad: 0, 0, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+bar_fill_upgrade
+  rotate: false
+  xy: 840, 1400
+  size: 280, 280
+  split: 14, 14, 14, 14
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+bar_fill_value
+  rotate: false
+  xy: 560, 1120
+  size: 280, 280
+  split: 14, 14, 14, 14
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+bar_fill_value_alt
+  rotate: false
+  xy: 2520, 1680
+  size: 280, 280
+  split: 14, 14, 14, 14
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+bought_icon
+  rotate: false
+  xy: 560, 0
+  size: 280, 280
+  split: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_achievements_disabled
+  rotate: false
+  xy: 2520, 1400
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_achievements_down
+  rotate: false
+  xy: 0, 560
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_achievements_up
+  rotate: false
+  xy: 1960, 1400
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_close_down
+  rotate: false
+  xy: 1680, 1400
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_close_up
+  rotate: false
+  xy: 280, 280
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_down
+  rotate: false
+  xy: 1400, 1680
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_down_green
+  rotate: false
+  xy: 840, 280
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_down_red
+  rotate: false
+  xy: 1400, 560
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_backpack_down
+  rotate: false
+  xy: 0, 280
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_backpack_up
+  rotate: false
+  xy: 1960, 1120
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_down_down
+  rotate: false
+  xy: 840, 560
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_down_up
+  rotate: false
+  xy: 2520, 1120
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_enter_down
+  rotate: false
+  xy: 0, 1680
+  size: 560, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 560, 280
+  offset: 0, 0
+  index: -1
+button_game_enter_up
+  rotate: false
+  xy: 560, 1680
+  size: 560, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 560, 280
+  offset: 0, 0
+  index: -1
+button_game_left_down
+  rotate: false
+  xy: 2800, 1400
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_left_up
+  rotate: false
+  xy: 1680, 560
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_pause_down
+  rotate: false
+  xy: 0, 0
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_pause_up
+  rotate: false
+  xy: 1680, 840
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_reload_down
+  rotate: false
+  xy: 1400, 1400
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_reload_up
+  rotate: false
+  xy: 560, 840
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_right_down
+  rotate: false
+  xy: 1680, 1120
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_right_up
+  rotate: false
+  xy: 1400, 0
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_up_down
+  rotate: false
+  xy: 2240, 1120
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_game_up_up
+  rotate: false
+  xy: 840, 0
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_leaderboards_disabled
+  rotate: false
+  xy: 280, 0
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_leaderboards_down
+  rotate: false
+  xy: 2800, 1680
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_leaderboards_up
+  rotate: false
+  xy: 1400, 840
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_minus_disabled
+  rotate: false
+  xy: 1680, 1680
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_minus_down
+  rotate: false
+  xy: 560, 280
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_minus_up
+  rotate: false
+  xy: 2240, 1680
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_plus_disabled
+  rotate: false
+  xy: 1400, 1120
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_plus_down
+  rotate: false
+  xy: 1120, 840
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_plus_up
+  rotate: false
+  xy: 840, 1120
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_savedgames_disabled
+  rotate: false
+  xy: 1960, 840
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_savedgames_down
+  rotate: false
+  xy: 280, 560
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_savedgames_up
+  rotate: false
+  xy: 0, 840
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_selectbox_down
+  rotate: false
+  xy: 0, 1400
+  size: 560, 280
+  split: 28, 266, 28, 28
+  pad: 14, 266, 14, 14
+  orig: 560, 280
+  offset: 0, 0
+  index: -1
+button_selectbox_up
+  rotate: false
+  xy: 0, 1120
+  size: 560, 280
+  split: 28, 266, 28, 28
+  pad: 14, 266, 14, 14
+  orig: 560, 280
+  offset: 0, 0
+  index: -1
+button_settings_down
+  rotate: false
+  xy: 1120, 0
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+button_settings_up
+  rotate: false
+  xy: 1960, 1680
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+check_mark
+  rotate: false
+  xy: 1120, 1120
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+checkbox_on
+  rotate: false
+  xy: 2240, 1400
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+coin
+  rotate: false
+  xy: 280, 840
+  size: 280, 280
+  split: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+games_controller_signed_in
+  rotate: false
+  xy: 560, 1400
+  size: 280, 280
+  split: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+games_controller_signed_out
+  rotate: false
+  xy: 1400, 280
+  size: 280, 280
+  split: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+screen_background_on_dialog_box
+  rotate: false
+  xy: 1120, 560
+  size: 280, 280
+  split: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+scroll_pane_knob
+  rotate: false
+  xy: 3360, 1680
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+table_background
+  rotate: false
+  xy: 1120, 280
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+table_background_secondary
+  rotate: false
+  xy: 1120, 1400
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 0, 0, 0, 0
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+ui_elem_bg_or_up_or_off
+  rotate: false
+  xy: 560, 560
+  size: 280, 280
+  split: 28, 28, 28, 28
+  pad: 14, 14, 14, 14
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
