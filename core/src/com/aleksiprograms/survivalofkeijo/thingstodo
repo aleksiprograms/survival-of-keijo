@@ -1,0 +1,48 @@
+---MODELS (AND THEIR HIT BOXES)---
+OK -walkable-ground-h10
+OK -walkable-ground-h20
+OK -walkable-ground-h30
+OK -walkable-ground-v5
+OK -walkable-ground-v11
+OK -walkable-grass
+OK -building-enemy-emitter
+-building-shop
+-building-hospital
+-collectible-coin-gold
+-collectible-coin-silver
+-collectible-coin-bronze
+OK FOR NOW -sky-blue              *texture ok?
+OK FOR NOW -person-player         *animations when player die
+OK FOR NOW -person-enemy
+-weapon-knife-player              *hit animations
+-weapon-knife-enemy               *hit animations
+-weapon-pistol-player             *mag change from pocket and mag scale to tiny when in pocket
+-weapon-pistol-enemy              *mag change from pocket and mag scale to tiny when in pocket
+OK -weapon-assault-rifle-player
+OK -weapon-assault-rifle-enemy
+-weapon-shotgun-player
+-weapon-shotgun-enemy
+-weapon-sniper-player
+-weapon-sniper-enemy
+-weapon-machine-gun-player
+-weapon-machine-gun-enemy
+-weapon-rocket-launcher-player
+-weapon-rocket-launcher-enemy
+OK -ammunition-bullet-player
+OK -ammunition-bullet-enemy
+-ammunition-shot-player
+-ammunition-shot-enemy
+OK -ammunition-case-player
+OK -ammunition-case-enemy
+OK -particle-emit-space
+OK -particle-grass
+
+---TEXTURES---
+-name changes (_ to -)
+-texture atlases for different screen densities
+
+---PROBLEMS---
+-fps drops (begin of the level)
+-can fps be improved for low end devices
+-enemies sometimes have weapon with player weapon model
+-scaling down for small screens
