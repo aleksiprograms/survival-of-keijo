@@ -415,7 +415,7 @@ public class InGameHud extends AbstractHud {
         //labelMoney.setText(game.styles.getFormattedFloatMoney(game.gameWorld.player.money) + " \u20AC");
     }
 
-    public void setBtEnterGunStoreVisibility(boolean visible) {
+    public void setButtonEnterShopVisibility(boolean visible) {
         if (visible != btEnterGunStoreVisibility) {
             btEnterGunStoreVisibility = visible;
             btEnterShop.setVisible(visible);
