@@ -1,7 +1,7 @@
 package com.aleksiprograms.survivalofkeijo.managers;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.EnemyEmitter;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.EnemyEmitter;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;

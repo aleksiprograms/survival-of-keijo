@@ -1,9 +1,10 @@
 package com.aleksiprograms.survivalofkeijo.gameworld;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.Building;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.Coin;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.Shop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.EnemyEmitter;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Building;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles.Coin;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Shop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletPlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CaseEnemy;

@@ -1,7 +1,7 @@
 package com.aleksiprograms.survivalofkeijo.gameworld;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.Coin;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles.Coin;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.PhysicalObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SolidObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Person;

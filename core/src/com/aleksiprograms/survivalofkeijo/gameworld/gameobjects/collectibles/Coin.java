@@ -1,6 +1,7 @@
-package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects;
+package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.GhostObject;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 import com.badlogic.gdx.graphics.g3d.Model;

@@ -1,6 +1,6 @@
 package com.aleksiprograms.survivalofkeijo.managers;
 
-import com.aleksiprograms.survivalofkeijo.gameworld.CoinEmitter;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.CoinEmitter;
 import com.aleksiprograms.survivalofkeijo.toolbox.CoinType;
 import com.badlogic.gdx.utils.Array;
 

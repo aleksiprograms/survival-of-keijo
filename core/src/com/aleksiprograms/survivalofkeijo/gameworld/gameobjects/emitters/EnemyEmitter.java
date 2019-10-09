@@ -1,4 +1,4 @@
-package com.aleksiprograms.survivalofkeijo.gameworld;
+package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.RenderableObject;

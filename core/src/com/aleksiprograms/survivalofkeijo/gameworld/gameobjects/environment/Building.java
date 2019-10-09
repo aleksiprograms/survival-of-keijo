@@ -1,4 +1,4 @@
-package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects;
+package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SolidObject;

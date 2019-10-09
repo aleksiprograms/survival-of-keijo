@@ -1,11 +1,11 @@
 package com.aleksiprograms.survivalofkeijo.resources;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.CoinEmitter;
-import com.aleksiprograms.survivalofkeijo.gameworld.EnemyEmitter;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.CoinEmitter;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.EnemyEmitter;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGrass128px;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGround128px;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.Coin;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles.Coin;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletPlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CaseEnemy;

@@ -2,7 +2,7 @@ package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.data.WeaponData;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.Shop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Shop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.PhysicalObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.BigAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;

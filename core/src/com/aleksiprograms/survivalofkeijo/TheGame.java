@@ -12,7 +12,6 @@ import com.aleksiprograms.survivalofkeijo.screens.GameScreen;
 import com.aleksiprograms.survivalofkeijo.screens.HomeScreen;
 import com.aleksiprograms.survivalofkeijo.screens.LoadingScreen;
 import com.aleksiprograms.survivalofkeijo.screens.SettingsScreen;
-import com.aleksiprograms.survivalofkeijo.screens.StatsScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -49,7 +48,6 @@ public class TheGame extends Game {
 	public HomeScreen homeScreen;
 	public CreditsScreen creditsScreen;
 	public SettingsScreen settingsScreen;
-	public StatsScreen statsScreen;
 	public LoadingScreen loadingScreen;
 
 	@Override
@@ -134,7 +132,6 @@ public class TheGame extends Game {
 		homeScreen = new HomeScreen(this);
 		creditsScreen = new CreditsScreen(this);
 		settingsScreen = new SettingsScreen(this);
-		statsScreen = new StatsScreen(this);
 	}
 
 	public void changeLocale() {
