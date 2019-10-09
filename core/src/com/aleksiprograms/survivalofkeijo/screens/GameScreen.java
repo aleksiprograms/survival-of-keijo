@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.screens.huds.BackpackHud;
+import com.aleksiprograms.survivalofkeijo.screens.huds.GameOverHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.ShopHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.InGameHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.PausedHud;
@@ -17,9 +18,7 @@ public class GameScreen extends AbstractScreen {
     public PausedHud pausedHud;
     public ShopHud shopHud;
     public BackpackHud backpackHud;
-    //public GameOverHud gameOverHud;
-    //private LevelState currentLevelState;
-    //private LevelState previousLevelState;
+    public GameOverHud gameOverHud;
 
     public GameScreen(TheGame game) {
         super(game);
@@ -28,7 +27,7 @@ public class GameScreen extends AbstractScreen {
         pausedHud = new PausedHud(game);
         shopHud = new ShopHud(game);
         backpackHud = new BackpackHud(game);
-        //gameOverHud = new GameOverHud(gameBAS);
+        gameOverHud = new GameOverHud(game);
     }
 
     @Override

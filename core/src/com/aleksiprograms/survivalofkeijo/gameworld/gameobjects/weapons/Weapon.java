@@ -188,7 +188,7 @@ public abstract class Weapon extends RenderableObject {
         } else {
             if (visibleToPlayer || playerWeapon) {
                 updateTransform();
-                if (!playerWeapon) {
+                if (!playerWeapon && !game.gameWorld.player.dead) {
                     if (shootCallback.hasHit() && shootCallback.getCollisionObject().userData == target) {
                         /*if (bigArea.area == game.gameWorld.player.bigArea.area && smallArea.area == game.gameWorld.player.smallArea.area) {
                             if (((ammoHitPoint.x - shootRayFrom.x) * (ammoHitPoint.x - shootRayFrom.x) + (ammoHitPoint.y - shootRayFrom.y) * (ammoHitPoint.y - shootRayFrom.y)) < 1) {
@@ -249,7 +249,7 @@ public abstract class Weapon extends RenderableObject {
             }
         }
         calculateWeaponAngle = false;
-        if (!playerWeapon) {
+        if (!playerWeapon && !game.gameWorld.player.dead) {
             setShootRayFromNotAccurate();
             setShootRayToWithTarget();
             shootCallback.setCollisionObject(null);

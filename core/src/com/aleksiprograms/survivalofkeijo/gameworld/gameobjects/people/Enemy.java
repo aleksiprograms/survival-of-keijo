@@ -180,7 +180,6 @@ public class Enemy extends Person {
             animationController.update(deltaTime);
         }
         if (dead || onExplosion) {
-            weapon.ownerDead = true;
             if (deadOnGround && destroyBody) {
                 deadOnGroundTimer += deltaTime;
             }
@@ -204,6 +203,7 @@ public class Enemy extends Person {
             }
             if (!bodyState.equals(BodyState.DEAD)) {
                 bodyState = BodyState.DEAD;
+                weapon.ownerDead = true;
                 animationController.setAnimation("Armature|die", 1, 2, animationListenerOnDead);
                 if (weapon.animateOnMoving) {
                     weapon.animationController.setAnimation("Armature|stand", -1);
@@ -370,6 +370,10 @@ public class Enemy extends Person {
                 stopToWait = false;
             }
 
+            if (game.gameWorld.player.dead) {
+                stopToWait = true;
+            }
+
             if (!initStand) {
                 if (inAir) {
                     if (lookingRight) {
@@ -435,18 +439,18 @@ public class Enemy extends Person {
                     }
                 }
 
-                if (stopToWait || stopToAttack) {
-                    velocity.set(0, rigidBody.getLinearVelocity().y, 0);
-                    rigidBody.setLinearVelocity(velocity);
+                if (inAir) {
+                    if (lookingRight) {
+                        velocity.set(1.3f, rigidBody.getLinearVelocity().y, 0);
+                        rigidBody.setLinearVelocity(velocity);
+                    } else {
+                        velocity.set(-1.3f, rigidBody.getLinearVelocity().y, 0);
+                        rigidBody.setLinearVelocity(velocity);
+                    }
                 } else {
-                    if (inAir) {
-                        if (lookingRight) {
-                            velocity.set(1.3f, rigidBody.getLinearVelocity().y, 0);
-                            rigidBody.setLinearVelocity(velocity);
-                        } else {
-                            velocity.set(-1.3f, rigidBody.getLinearVelocity().y, 0);
-                            rigidBody.setLinearVelocity(velocity);
-                        }
+                    if (stopToWait || stopToAttack) {
+                        velocity.set(0, rigidBody.getLinearVelocity().y, 0);
+                        rigidBody.setLinearVelocity(velocity);
                     } else {
                         if (lookingRight) {
                             velocity.set(1.5f, rigidBody.getLinearVelocity().y, 0);

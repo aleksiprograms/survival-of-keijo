@@ -360,7 +360,11 @@ public class InGameHud extends AbstractHud {
             tableWaveBeginning.setVisible(false);
         }
         labelHealthTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("inGameTitleHealth"));
-        labelHealth.setText(game.styles.getFormattedInt(game.gameWorld.player.health));
+        if (game.gameWorld.player.health <= 0) {
+            labelHealth.setText(game.styles.getFormattedInt(0));
+        } else {
+            labelHealth.setText(game.styles.getFormattedInt(game.gameWorld.player.health));
+        }
         labelHealthLow.setText(game.styles.getFormattedInt(game.gameWorld.player.health));
         if (game.gameWorld.player.health < 0.1f * game.gameWorld.player.maxHealth) {
             labelHealth.setVisible(false);
