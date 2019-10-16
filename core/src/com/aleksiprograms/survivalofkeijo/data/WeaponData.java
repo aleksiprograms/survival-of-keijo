@@ -81,7 +81,7 @@ public abstract class WeaponData {
         this.price = price;
         bought = false;
         this.ammoPrice = ammoPrice;
-        numberOfAmmo = 100;
+        numberOfAmmo = 1000;
         this.fireType = fireType;
         this.pointsHit = pointsHit;
         this.pointsKill = pointsKill;
@@ -145,7 +145,7 @@ public abstract class WeaponData {
         this.price = price;
         bought = false;
         this.ammoPrice = ammoPrice;
-        numberOfAmmo = 100;
+        numberOfAmmo = 1000;
         this.fireType = fireType;
         this.pointsHit = pointsHit;
         this.pointsKill = pointsKill;
@@ -203,7 +203,7 @@ public abstract class WeaponData {
         this.price = price;
         bought = false;
         this.ammoPrice = ammoPrice;
-        numberOfAmmo = 100;
+        numberOfAmmo = 1000;
         this.fireType = fireType;
         this.pointsHit = pointsHit;
         this.pointsKill = pointsKill;

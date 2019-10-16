@@ -15,9 +15,9 @@ public class KnifeData extends WeaponData {
                 1000,
                 30,
                 300,
-                33,
+                30,
                 new ObjectMap<Integer, WeaponUpgradeInteger>(4),
-                5,
+                1.5f,
                 new ObjectMap<Integer, WeaponUpgradeFloat>(4));
 
         meleeDamageUpgrades.put(1, new WeaponUpgradeInteger(1,500));

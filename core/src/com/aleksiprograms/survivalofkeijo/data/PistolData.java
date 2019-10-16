@@ -17,7 +17,7 @@ public class PistolData extends WeaponData {
                 "Semi Automatic",
                 20,
                 200,
-                40,
+                30,
                 new ObjectMap<Integer, WeaponUpgradeInteger>(4),
                 10,
                 new ObjectMap<Integer, WeaponUpgradeFloat>(4),

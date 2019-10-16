@@ -25,7 +25,7 @@ public class AssaultRifleData extends WeaponData {
                 new ObjectMap<Integer, WeaponUpgradeFloat>(4),
                 30,
                 new ObjectMap<Integer, WeaponUpgradeInteger>(4),
-                5,
+                4,
                 new ObjectMap<Integer, WeaponUpgradeFloat>(4),
                 5,
                 new ObjectMap<Integer, WeaponUpgradeFloat>(4));
@@ -50,10 +50,10 @@ public class AssaultRifleData extends WeaponData {
         magazineSizeUpgrades.put(3, new WeaponUpgradeInteger(5,500));
         magazineSizeUpgrades.put(4, new WeaponUpgradeInteger(5,500));
 
-        reloadTimeUpgrades.put(1, new WeaponUpgradeFloat(-0.8f,500));
-        reloadTimeUpgrades.put(2, new WeaponUpgradeFloat(-0.8f,500));
-        reloadTimeUpgrades.put(3, new WeaponUpgradeFloat(-0.8f,500));
-        reloadTimeUpgrades.put(4, new WeaponUpgradeFloat(-0.8f,500));
+        reloadTimeUpgrades.put(1, new WeaponUpgradeFloat(-0.6f,500));
+        reloadTimeUpgrades.put(2, new WeaponUpgradeFloat(-0.6f,500));
+        reloadTimeUpgrades.put(3, new WeaponUpgradeFloat(-0.6f,500));
+        reloadTimeUpgrades.put(4, new WeaponUpgradeFloat(-0.6f,500));
 
         weightUpgrades.put(1, new WeaponUpgradeFloat(-0.5f,500));
         weightUpgrades.put(2, new WeaponUpgradeFloat(-0.5f,500));

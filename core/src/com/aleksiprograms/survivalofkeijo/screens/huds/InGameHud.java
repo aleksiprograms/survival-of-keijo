@@ -355,6 +355,7 @@ public class InGameHud extends AbstractHud {
         super.updateHud();
         if (game.gameWorld.enemyManager.inTheBeginningOfNewWave) {
             tableWaveBeginning.setVisible(true);
+            //labelWaveBeginningWaveTitle.setText("");//remove
             labelWaveBeginningWave.setText(game.styles.getFormattedInt(game.gameWorld.enemyManager.wave));
         } else {
             tableWaveBeginning.setVisible(false);
