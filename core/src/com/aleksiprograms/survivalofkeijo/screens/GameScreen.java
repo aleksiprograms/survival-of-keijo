@@ -40,7 +40,7 @@ public class GameScreen extends AbstractScreen {
         inGameHud.updateHudData();
         game.camera.position.set(0, 0, 8);
         game.camera.near = 1;
-        game.camera.far = 40;
+        game.camera.far = 60;
         game.camera.update();
     }
 

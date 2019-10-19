@@ -13,7 +13,7 @@ public class Sky extends RenderableObject {
         super(
                 game,
                 new ModelInstance(game.assetManager.get(Constants.MODEL_SKY_BLUE, Model.class)));
-        objectScale = new Vector3(80, 40, 1);
+        objectScale = new Vector3(120, 60, 1);
     }
 
     @Override
