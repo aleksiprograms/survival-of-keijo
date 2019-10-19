@@ -1,6 +1,3 @@
--case rotation velocity angles
--sky (remove from git ´hub and make new one and add it to github)
-
 ---MODELS (AND THEIR HIT BOXES)---
 DONE -walkable-ground-h10
 DONE -walkable-ground-h20
@@ -19,8 +16,8 @@ OK -person-player                 *animations when player die
 OK -person-enemy
 -weapon-knife-player              *hit animations
 -weapon-knife-enemy               *hit animations
--weapon-pistol-player             *mag change from pocket and mag scale to tiny when in pocket
--weapon-pistol-enemy              *mag change from pocket and mag scale to tiny when in pocket
+DONE -weapon-pistol-player
+DONE -weapon-pistol-enemy
 DONE -weapon-assault-rifle-player
 DONE -weapon-assault-rifle-enemy
 -weapon-shotgun-player

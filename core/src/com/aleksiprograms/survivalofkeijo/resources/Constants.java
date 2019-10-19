@@ -12,6 +12,9 @@ public class Constants {
     public static final int NUMBER_OF_LEVELS = 6;
     public static final int NUMBER_OF_WEAPONS = 7;
 
+    public static final float ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND = 4f;
+    public static final float CASE_VISIBLE_TIME                       = 4f;
+
     public static float SCROLL_PANE_MIN_SPEED = 300f;
     public static float SCROLL_PANE_MAX_SPEED = 1500f;
 

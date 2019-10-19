@@ -22,7 +22,7 @@ public abstract class Case extends PhysicalObject {
                         .mass(0.1f)
                         .linearDamping(0.1f)
                         .angularDamping(0.1f)
-                        .friction(0.1f)
+                        .friction(0.2f)
                         .lockAxisZ(false)
                         .categoryBits(Constants.CATEGORY_CASE)
                         .maskBits(Constants.MASK_CASE)
@@ -41,7 +41,7 @@ public abstract class Case extends PhysicalObject {
     public void update(float deltaTime) {
         super.update(deltaTime);
         timer += deltaTime;
-        if (timer > 5) {
+        if (timer > Constants.CASE_VISIBLE_TIME) {
             free = true;
         }
     }

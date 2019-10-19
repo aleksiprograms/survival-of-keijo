@@ -537,7 +537,7 @@ public class Enemy extends Person {
                 fallenAfterDeadTimer += deltaTime;
             }
         }
-        if (deadOnGroundTimer > 5) {
+        if (deadOnGroundTimer > Constants.ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND) {
             free = true;
             weapon.free = true;
         }
