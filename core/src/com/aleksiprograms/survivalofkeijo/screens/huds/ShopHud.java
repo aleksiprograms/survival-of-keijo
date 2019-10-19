@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.aleksiprograms.survivalofkeijo.toolbox.StackWithID;
 import com.aleksiprograms.survivalofkeijo.toolbox.TableWithID;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -272,78 +273,78 @@ public class ShopHud extends AbstractHud {
     public ShopHud(final TheGame game) {
         super(game);
 
-        super.pad(Constants.GAP);
+        super.pad(UIDimensions.GAP);
         super.center();
         super.setFillParent(true);
 
-        uselessLabel = new Label("0", game.styles.skinLabelBlueSmall);
+        uselessLabel = new Label("0", game.styles.labelStyleBlueSmall);
 
-        labelBasicInfoFireType = new Label("", game.styles.skinLabelBlueSmall);
-        labelBasicInfoAmmoPrice = new Label("", game.styles.skinLabelBlueSmall);
-        labelBasicInfoPointsHit = new Label("", game.styles.skinLabelBlueSmall);
-        labelBasicInfoPointsKill = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoPriceUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelPointsTitleHit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelPointsTitleKill = new Label("", game.styles.skinLabelWhiteSmall);
-        labelFireTypeTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoPriceTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelPointsTitle = new Label("", game.styles.skinLabelWhiteTiny);
+        labelBasicInfoFireType = new Label("", game.styles.labelStyleBlueSmall);
+        labelBasicInfoAmmoPrice = new Label("", game.styles.labelStyleBlueSmall);
+        labelBasicInfoPointsHit = new Label("", game.styles.labelStyleBlueSmall);
+        labelBasicInfoPointsKill = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoPriceUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelPointsTitleHit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelPointsTitleKill = new Label("", game.styles.labelStyleWhiteSmall);
+        labelFireTypeTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoPriceTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelPointsTitle = new Label("", game.styles.labelStyleWhiteTiny);
 
-        labelWeaponNameNotBought = new Label("", game.styles.skinLabelWhiteMedium);
-        labelWeaponNameBought = new Label("", game.styles.skinLabelWhiteMedium);
-        labelWeaponPrice = new Label("", game.styles.skinLabelWhiteMedium);
-        labelNumberOfAmmoTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelNumberOfAmmo = new Label("", game.styles.skinLabelWhiteMedium);
+        labelWeaponNameNotBought = new Label("", game.styles.labelStyleWhiteMedium);
+        labelWeaponNameBought = new Label("", game.styles.labelStyleWhiteMedium);
+        labelWeaponPrice = new Label("", game.styles.labelStyleWhiteMedium);
+        labelNumberOfAmmoTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelNumberOfAmmo = new Label("", game.styles.labelStyleWhiteMedium);
 
-        labelRateOfFireTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelRateOfFireValue = new Label("", game.styles.skinLabelBlueSmall);
-        labelRateOfFireUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelRateOfFireLevelTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelRateOfFireLevel = new Label("", game.styles.skinLabelBlueSmall);
-        labelRateOfFireMaxLevel = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoDamageTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoDamageValue = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoDamageUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoDamageLevelTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoDamageLevel = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoDamageMaxLevel = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoSpeedTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoSpeedValue = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoSpeedUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoSpeedLevelTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoSpeedLevel = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoSpeedMaxLevel = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMagazineSizeTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMagazineSizeValue = new Label("", game.styles.skinLabelBlueSmall);
-        labelMagazineSizeUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMagazineSizeLevelTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMagazineSizeLevel = new Label("", game.styles.skinLabelBlueSmall);
-        labelMagazineSizeMaxLevel = new Label("", game.styles.skinLabelWhiteSmall);
-        labelReloadTimeTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelReloadTimeValue = new Label("", game.styles.skinLabelBlueSmall);
-        labelReloadTimeUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelReloadTimeLevelTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelReloadTimeLevel = new Label("", game.styles.skinLabelBlueSmall);
-        labelReloadTimeMaxLevel = new Label("", game.styles.skinLabelWhiteSmall);
-        labelWeightTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelWeightValue = new Label("", game.styles.skinLabelBlueSmall);
-        labelWeightUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelWeightLevelTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelWeightLevel = new Label("", game.styles.skinLabelBlueSmall);
-        labelWeightMaxLevel = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMeleeDamageTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMeleeDamageValue = new Label("", game.styles.skinLabelBlueSmall);
-        labelMeleeDamageUnit = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMeleeDamageLevelTitle = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMeleeDamageLevel = new Label("", game.styles.skinLabelBlueSmall);
-        labelMeleeDamageMaxLevel = new Label("", game.styles.skinLabelWhiteSmall);
-        progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.skinProgressBarValueNotBought);
-        progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.skinProgressBarValueNotBought);
-        progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.skinProgressBarValueNotBought);
-        progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.skinProgressBarValueNotBought);
-        progressBarReloadTime = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.skinProgressBarValueNotBought);
-        progressBarWeight = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.skinProgressBarValueNotBought);
-        progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.skinProgressBarValueNotBought);
+        labelRateOfFireTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelRateOfFireValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelRateOfFireUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelRateOfFireLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelRateOfFireLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelRateOfFireMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoDamageValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoSpeedValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoSpeedUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoSpeedLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoSpeedMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMagazineSizeValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelMagazineSizeUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMagazineSizeLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelMagazineSizeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelReloadTimeValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelReloadTimeUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelReloadTimeLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelReloadTimeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelWeightValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelWeightUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelWeightLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelWeightMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMeleeDamageValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelMeleeDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMeleeDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelMeleeDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarReloadTime = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarWeight = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         labelRateOfFireValue.setAlignment(Align.topRight);
         labelAmmoDamageValue.setAlignment(Align.topRight);
         labelAmmoSpeedValue.setAlignment(Align.topRight);
@@ -352,93 +353,93 @@ public class ShopHud extends AbstractHud {
         labelWeightValue.setAlignment(Align.topRight);
         labelMeleeDamageValue.setAlignment(Align.topRight);
 
-        labelWeaponNameUpgrade = new Label("", game.styles.skinLabelWhiteMedium);
-        labelYourMoneyTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelYourMoneyUpgrade = new Label("", game.styles.skinLabelWhiteMedium);
-        labelRateOfFireTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelRateOfFireValueUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelRateOfFireUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelRateOfFireLevelTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelRateOfFireLevelUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelRateOfFireMaxLevelUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelRateOfFireUpgradeUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelRateOfFireUpgradeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelRateOfFirePriceUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelRateOfFirePriceUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoDamageTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoDamageValueUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoDamageUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoDamageLevelTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoDamageLevelUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoDamageMaxLevelUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoDamageUpgradeUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelAmmoDamageUpgradeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoDamagePriceUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelAmmoDamagePriceUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoSpeedTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoSpeedValueUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoSpeedUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoSpeedLevelTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoSpeedLevelUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelAmmoSpeedMaxLevelUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoSpeedUpgradeUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelAmmoSpeedUpgradeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelAmmoSpeedPriceUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelAmmoSpeedPriceUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMagazineSizeTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMagazineSizeValueUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelMagazineSizeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMagazineSizeLevelTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMagazineSizeLevelUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelMagazineSizeMaxLevelUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMagazineSizeUpgradeUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelMagazineSizeUpgradeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMagazineSizePriceUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelMagazineSizePriceUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelReloadTimeTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelReloadTimeValueUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelReloadTimeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelReloadTimeLevelTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelReloadTimeLevelUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelReloadTimeMaxLevelUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelReloadTimeUpgradeUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelReloadTimeUpgradeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelReloadTimePriceUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelReloadTimePriceUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelWeightTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelWeightValueUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelWeightUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelWeightLevelTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelWeightLevelUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelWeightMaxLevelUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelWeightUpgradeUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelWeightUpgradeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelWeightPriceUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelWeightPriceUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMeleeDamageTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMeleeDamageValueUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelMeleeDamageUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMeleeDamageLevelTitleUpgrade = new Label("", game.styles.skinLabelWhiteTiny);
-        labelMeleeDamageLevelUpgrade = new Label("", game.styles.skinLabelBlueSmall);
-        labelMeleeDamageMaxLevelUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMeleeDamageUpgradeUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelMeleeDamageUpgradeUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMeleeDamagePriceUpgrade = new Label("", game.styles.skinLabelGreenSmall);
-        labelMeleeDamagePriceUnitUpgrade = new Label("", game.styles.skinLabelWhiteSmall);
-        progressBarRateOfFireValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.skinProgressBarValueBought);
-        progressBarRateOfFireUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.skinProgressBarUpgradeBought);
-        progressBarAmmoDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.skinProgressBarValueBought);
-        progressBarAmmoDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.skinProgressBarUpgradeBought);
-        progressBarAmmoSpeedValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.skinProgressBarValueBought);
-        progressBarAmmoSpeedUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.skinProgressBarUpgradeBought);
-        progressBarMagazineSizeValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.skinProgressBarValueBought);
-        progressBarMagazineSizeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.skinProgressBarUpgradeBought);
-        progressBarReloadTimeValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.skinProgressBarValueBoughtMinus);
-        progressBarReloadTimeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.skinProgressBarUpgradeBoughtMinus);
-        progressBarWeightValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.skinProgressBarValueBoughtMinus);
-        progressBarWeightUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.skinProgressBarUpgradeBoughtMinus);
-        progressBarMeleeDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.skinProgressBarValueBought);
-        progressBarMeleeDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.skinProgressBarUpgradeBought);
+        labelWeaponNameUpgrade = new Label("", game.styles.labelStyleWhiteMedium);
+        labelYourMoneyTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelYourMoneyUpgrade = new Label("", game.styles.labelStyleWhiteMedium);
+        labelRateOfFireTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelRateOfFireValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelRateOfFireUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelRateOfFireLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelRateOfFireLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelRateOfFireMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelRateOfFireUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelRateOfFireUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelRateOfFirePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelRateOfFirePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoDamageValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoDamageUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoDamageLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoDamageMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelAmmoDamageUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamagePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelAmmoDamagePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoSpeedValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoSpeedUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoSpeedLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoSpeedMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelAmmoSpeedUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedPriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelAmmoSpeedPriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMagazineSizeValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelMagazineSizeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMagazineSizeLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelMagazineSizeMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelMagazineSizeUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelMagazineSizePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelReloadTimeValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelReloadTimeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelReloadTimeLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelReloadTimeMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelReloadTimeUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelReloadTimePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelWeightValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelWeightUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelWeightLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelWeightMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelWeightUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightPriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelWeightPriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamageTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMeleeDamageValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelMeleeDamageUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamageLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMeleeDamageLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
+        labelMeleeDamageMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamageUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelMeleeDamageUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamagePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
+        labelMeleeDamagePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        progressBarRateOfFireValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueBought);
+        progressBarRateOfFireUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarAmmoDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueBought);
+        progressBarAmmoDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarAmmoSpeedValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueBought);
+        progressBarAmmoSpeedUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarMagazineSizeValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueBought);
+        progressBarMagazineSizeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarReloadTimeValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleValueBoughtMinus);
+        progressBarReloadTimeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleUpgradeBoughtMinus);
+        progressBarWeightValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleValueBoughtMinus);
+        progressBarWeightUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleUpgradeBoughtMinus);
+        progressBarMeleeDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueBought);
+        progressBarMeleeDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
         labelRateOfFireValueUpgrade.setAlignment(Align.topRight);
         labelRateOfFireUpgradeUpgrade.setAlignment(Align.topRight);
         labelRateOfFirePriceUpgrade.setAlignment(Align.topRight);
@@ -461,25 +462,25 @@ public class ShopHud extends AbstractHud {
         labelMeleeDamageUpgradeUpgrade.setAlignment(Align.topRight);
         labelMeleeDamagePriceUpgrade.setAlignment(Align.topRight);
 
-        labelWeaponNameBuyAmmo = new Label("", game.styles.skinLabelWhiteMedium);
-        labelYourAmmoTitleBuyAmmo = new Label("", game.styles.skinLabelWhiteTiny);
-        labelYourAmmoBuyAmmo = new Label("", game.styles.skinLabelWhiteMedium);
-        labelNumberOfMagsOrAmmoBuyAmmo = new Label("1", game.styles.skinLabelWhiteMedium);
-        labelGuideBuyAmmo = new Label("", game.styles.skinLabelWhiteSmall);
-        labelMagsBuyAmmo = new Label("", game.styles.skinLabelWhiteTiny);
-        labelAmmoBuyAmmo = new Label("", game.styles.skinLabelWhiteTiny);
-        labelNumberOfMagsOrAmmoTitleBuyAmmo = new Label("", game.styles.skinLabelWhiteTiny);
-        labelYourMoneyTitleBuyAmmo = new Label("", game.styles.skinLabelWhiteTiny);
-        labelYourMoneyBuyAmmo = new Label("", game.styles.skinLabelWhiteMedium);
-        labelPriceBuyAmmo = new Label("", game.styles.skinLabelWhiteMedium);
+        labelWeaponNameBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
+        labelYourAmmoTitleBuyAmmo = new Label("", game.styles.labelStyleWhiteTiny);
+        labelYourAmmoBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
+        labelNumberOfMagsOrAmmoBuyAmmo = new Label("1", game.styles.labelStyleWhiteMedium);
+        labelGuideBuyAmmo = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagsBuyAmmo = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoBuyAmmo = new Label("", game.styles.labelStyleWhiteTiny);
+        labelNumberOfMagsOrAmmoTitleBuyAmmo = new Label("", game.styles.labelStyleWhiteTiny);
+        labelYourMoneyTitleBuyAmmo = new Label("", game.styles.labelStyleWhiteTiny);
+        labelYourMoneyBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
+        labelPriceBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
 
-        buttonUpgradeRateOfFire = new ImageButton(game.styles.skinImageButtonPlus);
-        buttonUpgradeAmmoDamage = new ImageButton(game.styles.skinImageButtonPlus);
-        buttonUpgradeAmmoSpeed = new ImageButton(game.styles.skinImageButtonPlus);
-        buttonUpgradeMagazineSize = new ImageButton(game.styles.skinImageButtonPlus);
-        buttonUpgradeReloadTime = new ImageButton(game.styles.skinImageButtonMinus);
-        buttonUpgradeWeight = new ImageButton(game.styles.skinImageButtonMinus);
-        buttonUpgradeMeleeDamage = new ImageButton(game.styles.skinImageButtonPlus);
+        buttonUpgradeRateOfFire = new ImageButton(game.styles.imageButtonStylePlus);
+        buttonUpgradeAmmoDamage = new ImageButton(game.styles.imageButtonStylePlus);
+        buttonUpgradeAmmoSpeed = new ImageButton(game.styles.imageButtonStylePlus);
+        buttonUpgradeMagazineSize = new ImageButton(game.styles.imageButtonStylePlus);
+        buttonUpgradeReloadTime = new ImageButton(game.styles.imageButtonStyleMinus);
+        buttonUpgradeWeight = new ImageButton(game.styles.imageButtonStyleMinus);
+        buttonUpgradeMeleeDamage = new ImageButton(game.styles.imageButtonStylePlus);
 
         buttonUpgradeRateOfFire.addListener(new InputListener() {
             @Override
@@ -489,14 +490,14 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireMaxLevel) {
                         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).price) {
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).upgrade;
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel++;
                             updateWeaponUpgradeTable();
-                            updateHud();
+                            updateHudData();
                         }
                     }
                 }
@@ -510,14 +511,14 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageMaxLevel) {
                         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).price) {
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).upgrade;
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel++;
                             updateWeaponUpgradeTable();
-                            updateHud();
+                            updateHudData();
                         }
                     }
                 }
@@ -531,14 +532,14 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedMaxLevel) {
                         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).price) {
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).upgrade;
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel++;
                             updateWeaponUpgradeTable();
-                            updateHud();
+                            updateHudData();
                         }
                     }
                 }
@@ -552,14 +553,14 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeMaxLevel) {
                         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).price) {
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).upgrade;
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel++;
                             updateWeaponUpgradeTable();
-                            updateHud();
+                            updateHudData();
                         }
                     }
                 }
@@ -573,14 +574,14 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel) {
                         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price) {
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).upgrade;
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel++;
                             updateWeaponUpgradeTable();
-                            updateHud();
+                            updateHudData();
                         }
                     }
                 }
@@ -594,14 +595,14 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel) {
                         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price) {
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).upgrade;
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel++;
                             updateWeaponUpgradeTable();
-                            updateHud();
+                            updateHudData();
                         }
                     }
                 }
@@ -615,27 +616,27 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageMaxLevel) {
                         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).price) {
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).upgrade;
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel++;
                             updateWeaponUpgradeTable();
-                            updateHud();
+                            updateHudData();
                         }
                     }
                 }
             }
         });
 
-        progressBarRateOfFireUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.skinProgressBarUpgradeDone);
-        progressBarAmmoDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.skinProgressBarUpgradeDone);
-        progressBarAmmoSpeedUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.skinProgressBarUpgradeDone);
-        progressBarMagazineSizeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.skinProgressBarUpgradeDone);
-        progressBarReloadTimeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.skinProgressBarUpgradeDone);
-        progressBarWeightUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.skinProgressBarUpgradeDone);
-        progressBarMeleeDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.skinProgressBarUpgradeDone);
+        progressBarRateOfFireUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarAmmoDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarAmmoSpeedUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarMagazineSizeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarReloadTimeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarWeightUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarMeleeDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarRateOfFireUpgradeDone.setVisible(false);
         progressBarAmmoDamageUpgradeDone.setVisible(false);
         progressBarAmmoSpeedUpgradeDone.setVisible(false);
@@ -685,7 +686,7 @@ public class ShopHud extends AbstractHud {
             tableWeaponButton.setTouchable(Touchable.enabled);
             StackWithID stack = new StackWithID(WEAPONS_IDS[i]);
             stack.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP))));
-            tableWeaponButton.add(stack).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
+            tableWeaponButton.add(stack).width(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).height(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
             weaponButtonStacks.add(stack);
             tableWeaponButton.addListener(new InputListener() {
                 @Override
@@ -699,7 +700,7 @@ public class ShopHud extends AbstractHud {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_HUGE) {
+                    if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_HUGE) {
                         for (int k = 0; k < weaponButtons.size; k++) {
                             if (weaponButtons.get(k).ID == checkedWeaponID) {
                                 weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
@@ -711,23 +712,23 @@ public class ShopHud extends AbstractHud {
                                 weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
                             }
                         }
-                        updateHud();
+                        updateHudData();
                     }
                 }
             });
             weaponButtons.add(tableWeaponButton);
-            tableWeaponButtons.add(tableWeaponButton).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
-            if ((i + 1) % Constants.UI_WEAPONS_IN_ROW == 0) {
+            tableWeaponButtons.add(tableWeaponButton).width(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).height(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).padRight(UIDimensions.GAP).padBottom(i < UIDimensions.UI_WEAPONS_IN_FULL_ROW ? UIDimensions.GAP : 0);
+            if ((i + 1) % UIDimensions.UI_WEAPONS_IN_ROW == 0) {
                 tableWeaponButtons.row();
             }
         }
 
-        ScrollPane scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.skinScrollPane);
+        ScrollPane scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
         scrollPaneWeapons.setScrollingDisabled(true, false);
         scrollPaneWeapons.setForceScroll(false, true);
-        scrollPaneWeapons.setupOverscroll(Constants.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
+        scrollPaneWeapons.setupOverscroll(UIDimensions.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
         scrollPaneWeapons.setFadeScrollBars(false);
-        scrollPaneWeapons.setFlickScrollTapSquareSize(Constants.SCROLL_PANE_SQUARE_SIZE);
+        scrollPaneWeapons.setFlickScrollTapSquareSize(UIDimensions.SCROLL_PANE_SQUARE_SIZE);
         scrollPaneWeapons.updateVisualScroll();
         scrollPaneWeapons.layout();
 
@@ -738,7 +739,7 @@ public class ShopHud extends AbstractHud {
                 if (weaponButtonStacks.get(j).ID == WEAPONS_IDS[i]) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(WEAPONS_IDS[i]).bought) {
                         Table table = new Table();
-                        table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
+                        table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.topLeft).expand().width(UIDimensions.BOUGHT_ICON_SIZE).height(UIDimensions.BOUGHT_ICON_SIZE).pad(UIDimensions.GAP);
                         weaponButtonStacks.get(j).add(table);
                     }
                 }
@@ -747,28 +748,28 @@ public class ShopHud extends AbstractHud {
 
         Table tableWeapons = new Table();
         tableWeapons.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        tableWeapons.add(scrollPaneWeapons).growY().pad(Constants.GAP);
+        tableWeapons.add(scrollPaneWeapons).growY().pad(UIDimensions.GAP);
 
-        labelScreenTitle = new Label("", game.styles.skinLabelWhiteHuge);
-        labelMoney = new Label("", game.styles.skinLabelWhiteBig);
-        final ImageButton btClose = new ImageButton(game.styles.skinImageButtonClose);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        labelMoney = new Label("", game.styles.labelStyleWhiteBig);
+        final ImageButton btClose = new ImageButton(game.styles.imageButtonStyleClose);
         Table tableTopRight = new Table();
-        tableTopRight.add(labelMoney).align(Align.right).padRight(Constants.GAP * 2).expandX();
-        tableTopRight.add(btClose).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+        tableTopRight.add(labelMoney).align(Align.right).padRight(UIDimensions.GAP * 2).expandX();
+        tableTopRight.add(btClose).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
         Table tableTop = new Table();
-        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL * 5).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add().width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL * 5).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(labelScreenTitle).expandX().align(Align.center);
-        tableTop.add(tableTopRight).width(Constants.IMAGE_BUTTON_SIZE_SMALL * 5).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+        tableTop.add(tableTopRight).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL * 5).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
 
         tableWeapon = new Table();
         tableWeapon.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
         tableWeaponRows = new Table();
-        scrollPaneWeapon = new ScrollPane(tableWeaponRows, game.styles.skinScrollPane);
+        scrollPaneWeapon = new ScrollPane(tableWeaponRows, game.styles.scrollPaneStyle);
         scrollPaneWeapon.setScrollingDisabled(true, false);
         scrollPaneWeapon.setForceScroll(false, true);
-        scrollPaneWeapon.setupOverscroll(Constants.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
+        scrollPaneWeapon.setupOverscroll(UIDimensions.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
         scrollPaneWeapon.setFadeScrollBars(false);
-        scrollPaneWeapon.setFlickScrollTapSquareSize(Constants.SCROLL_PANE_SQUARE_SIZE);
+        scrollPaneWeapon.setFlickScrollTapSquareSize(UIDimensions.SCROLL_PANE_SQUARE_SIZE);
         scrollPaneWeapon.updateVisualScroll();
         scrollPaneWeapon.layout();
 
@@ -779,17 +780,17 @@ public class ShopHud extends AbstractHud {
         createTableWeaponUpgrade();
         createTableBuyAmmo();
 
-        super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
+        super.add(tableTop).height(UIDimensions.TABLE_TOP_HEIGHT).growX().padBottom(UIDimensions.GAP).align(Align.top).colspan(2);
         super.row();
-        super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_SCROLL_SIZE);
-        super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH_VALUE).align(Align.right).growY();
+        super.add(tableWeapons).growY().align(Align.left).width(UIDimensions.UI_WEAPONS_IN_ROW * (UIDimensions.IMAGE_BUTTON_SIZE_HUGE + UIDimensions.GAP) + 2 * UIDimensions.GAP + UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        super.add(tableWeapon).width(UIDimensions.WEAPON_TABLE_WIDTH_VALUE).align(Align.right).growY();
 
         btClose.addListener(inputListenerClose);
     }
 
     @Override
-    public void updateHud() {
-        super.updateHud();
+    public void updateHudData() {
+        super.updateHudData();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleShop"));
         tableWeapon.clearChildren();
         tableWeaponRows.clearChildren();
@@ -799,13 +800,13 @@ public class ShopHud extends AbstractHud {
         if (!(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).bought)) {
             tableWeapon.add(tableWeaponTopNotBought).align(Align.left).growX();
             tableWeapon.row();
-            tableWeapon.add(scrollPaneWeapon).align(Align.left).grow().padRight(Constants.GAP).padLeft(Constants.GAP);
+            tableWeapon.add(scrollPaneWeapon).align(Align.left).grow().padRight(UIDimensions.GAP).padLeft(UIDimensions.GAP);
             tableWeapon.row();
             tableWeapon.add(tableWeaponBottomNotBought).align(Align.left).growX();
         } else {
             tableWeapon.add(tableWeaponTopBought).align(Align.left).growX();
             tableWeapon.row();
-            tableWeapon.add(scrollPaneWeapon).align(Align.left).grow().padRight(Constants.GAP).padLeft(Constants.GAP);
+            tableWeapon.add(scrollPaneWeapon).align(Align.left).grow().padRight(UIDimensions.GAP).padLeft(UIDimensions.GAP);
             tableWeapon.row();
             tableWeapon.add(tableWeaponBottomBought).align(Align.left).growX();
         }
@@ -851,41 +852,41 @@ public class ShopHud extends AbstractHud {
 
     private void recreateTableWeaponScrollPane() {
         weaponNumberOfRows = 0;
-        tableWeaponRows.add(tableWeaponInfoBox).padBottom(Constants.GAP).padRight(Constants.GAP).height(3 * uselessLabel.getHeight() + 2 * Constants.GAP);
+        tableWeaponRows.add(tableWeaponInfoBox).padBottom(UIDimensions.GAP).padRight(UIDimensions.GAP).height(3 * uselessLabel.getHeight() + 2 * UIDimensions.GAP);
         tableWeaponRows.row();
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isRateOfFire) {
             weaponNumberOfRows++;
-            tableWeaponRows.add(tableRateOfFire).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRows.add(tableRateOfFire).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoDamage) {
             weaponNumberOfRows++;
-            tableWeaponRows.add(tableAmmoDamage).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRows.add(tableAmmoDamage).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
             weaponNumberOfRows++;
-            tableWeaponRows.add(tableMeleeDamage).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRows.add(tableMeleeDamage).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoSpeed) {
             weaponNumberOfRows++;
-            tableWeaponRows.add(tableAmmoSpeed).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRows.add(tableAmmoSpeed).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMagazineSize) {
             weaponNumberOfRows++;
-            tableWeaponRows.add(tableMagazineSize).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRows.add(tableMagazineSize).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isReloadTime) {
             weaponNumberOfRows++;
-            tableWeaponRows.add(tableReloadTime).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRows.add(tableReloadTime).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
             weaponNumberOfRows++;
-            tableWeaponRows.add(tableWeight).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRows.add(tableWeight).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRows.row();
         }
 
@@ -899,37 +900,37 @@ public class ShopHud extends AbstractHud {
         weaponNumberOfRowsUpgrade = 0;
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isRateOfFire) {
             weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableRateOfFireUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRowsUpgrade.add(tableRateOfFireUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRowsUpgrade.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoDamage) {
             weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableAmmoDamageUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRowsUpgrade.add(tableAmmoDamageUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRowsUpgrade.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
             weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableMeleeDamageUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRowsUpgrade.add(tableMeleeDamageUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRowsUpgrade.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoSpeed) {
             weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableAmmoSpeedUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRowsUpgrade.add(tableAmmoSpeedUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRowsUpgrade.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMagazineSize) {
             weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableMagazineSizeUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRowsUpgrade.add(tableMagazineSizeUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRowsUpgrade.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isReloadTime) {
             weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableReloadTimeUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRowsUpgrade.add(tableReloadTimeUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRowsUpgrade.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
             weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableWeightUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
+            tableWeaponRowsUpgrade.add(tableWeightUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
             tableWeaponRowsUpgrade.row();
         }
 
@@ -1328,33 +1329,33 @@ public class ShopHud extends AbstractHud {
         tableDataRow2.add(labelBasicInfoPointsKill).growX().align(Align.topLeft);
         Table tableRows = new Table();
         tableRows.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        tableRows.add(labelFireTypeTitle).align(Align.bottomLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padTop(Constants.GAP);
-        tableRows.add(tableDataRow1).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP).padTop(Constants.GAP);
+        tableRows.add(labelFireTypeTitle).align(Align.bottomLeft).width(UIDimensions.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(UIDimensions.GAP).padTop(UIDimensions.GAP);
+        tableRows.add(tableDataRow1).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(UIDimensions.GAP).padTop(UIDimensions.GAP);
         tableRows.row();
-        tableRows.add(labelPointsTitle).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP);
-        tableRows.add(tableDataRow2).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP);
+        tableRows.add(labelPointsTitle).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(UIDimensions.GAP);
+        tableRows.add(tableDataRow2).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(UIDimensions.GAP);
         tableRows.row();
-        tableRows.add(labelAmmoPriceTitle).align(Align.left).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padBottom(Constants.GAP);
-        tableRows.add(tableDataRow3).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP).padBottom(Constants.GAP);
+        tableRows.add(labelAmmoPriceTitle).align(Align.left).width(UIDimensions.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(UIDimensions.GAP).padBottom(UIDimensions.GAP);
+        tableRows.add(tableDataRow3).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(UIDimensions.GAP).padBottom(UIDimensions.GAP);
         return tableRows;
     }
 
     private Table createRow(Label title, Label value, Label unit, Label levelTitle, Label level, Label maxLevel, ProgressBar valueProgress) {
         Table tableData = new Table();
-        tableData.add(title).width(Constants.WEAPON_TITLE_WIDTH).align(Align.left);
-        tableData.add(value).width(Constants.WEAPON_VALUE_WIDTH).align(Align.topLeft);
-        tableData.add(unit).width(Constants.WEAPON_UNIT_WIDTH).align(Align.topLeft);
+        tableData.add(title).width(UIDimensions.WEAPON_TITLE_WIDTH).align(Align.left);
+        tableData.add(value).width(UIDimensions.WEAPON_VALUE_WIDTH).align(Align.topLeft);
+        tableData.add(unit).width(UIDimensions.WEAPON_UNIT_WIDTH).align(Align.topLeft);
         Table tableLevel = new Table();
         tableLevel.add(levelTitle).align(Align.right).expandX();
         tableLevel.add(level).align(Align.topRight);
-        tableLevel.add(new Label("/", game.styles.skinLabelWhiteSmall)).align(Align.topRight);
+        tableLevel.add(new Label("/", game.styles.labelStyleWhiteSmall)).align(Align.topRight);
         tableLevel.add(maxLevel).align(Align.topRight);
-        tableData.add(tableLevel).width(Constants.WEAPON_LEVEL_WIDTH).align(Align.topLeft);
+        tableData.add(tableLevel).width(UIDimensions.WEAPON_LEVEL_WIDTH).align(Align.topLeft);
         tableData.row();
-        tableData.add(valueProgress).colspan(5).width(Constants.WEAPON_BAR_WIDTH_VALUE).height(Constants.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
+        tableData.add(valueProgress).colspan(5).width(UIDimensions.WEAPON_BAR_WIDTH_VALUE).height(UIDimensions.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();
         tableRow.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        tableRow.add(tableData).growY().pad(Constants.GAP);
+        tableRow.add(tableData).growY().pad(UIDimensions.GAP);
         return tableRow;
     }
 
@@ -1363,21 +1364,21 @@ public class ShopHud extends AbstractHud {
         stackUpgrade.add(buttonUpgrade);
         stackUpgrade.add(imageDone);
         Table tableData = new Table();
-        tableData.add(title).width(Constants.WEAPON_TITLE_WIDTH_UPGRADE).align(Align.left);
-        tableData.add(value).width(Constants.WEAPON_VALUE_WIDTH_UPGRADE).align(Align.topLeft);
-        tableData.add(unit).width(Constants.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
+        tableData.add(title).width(UIDimensions.WEAPON_TITLE_WIDTH_UPGRADE).align(Align.left);
+        tableData.add(value).width(UIDimensions.WEAPON_VALUE_WIDTH_UPGRADE).align(Align.topLeft);
+        tableData.add(unit).width(UIDimensions.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
         Table tableLevel = new Table();
         tableLevel.add(levelTitle).align(Align.right).expandX();
         tableLevel.add(level).align(Align.topRight);
-        tableLevel.add(new Label("/", game.styles.skinLabelWhiteSmall)).align(Align.topRight);
+        tableLevel.add(new Label("/", game.styles.labelStyleWhiteSmall)).align(Align.topRight);
         tableLevel.add(maxLevel).align(Align.topRight);
-        tableData.add(tableLevel).width(Constants.WEAPON_LEVEL_WIDTH_UPGRADE).align(Align.topLeft);
-        tableData.add(upgrade).width(Constants.WEAPON_UPGRADE_WIDTH_UPGRADE).align(Align.topLeft);
-        tableData.add(unitUpgrade).width(Constants.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
+        tableData.add(tableLevel).width(UIDimensions.WEAPON_LEVEL_WIDTH_UPGRADE).align(Align.topLeft);
+        tableData.add(upgrade).width(UIDimensions.WEAPON_UPGRADE_WIDTH_UPGRADE).align(Align.topLeft);
+        tableData.add(unitUpgrade).width(UIDimensions.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
         Table tablePrice = new Table();
         tablePrice.add(price).expandX().align(Align.topRight);
         tablePrice.add(priceUnit).align(Align.topRight);
-        tableData.add(tablePrice).width(Constants.WEAPON_PRICE_WIDTH_UPGRADE).align(Align.topLeft);
+        tableData.add(tablePrice).width(UIDimensions.WEAPON_PRICE_WIDTH_UPGRADE).align(Align.topLeft);
         Stack stack = new Stack();
         if (negativeUpgrade) {
             stack.add(valueProgress);
@@ -1388,31 +1389,31 @@ public class ShopHud extends AbstractHud {
         }
         stack.add(doneProgress);
         tableData.row();
-        tableData.add(stack).colspan(7).width(Constants.WEAPON_BAR_WIDTH_UPGRADE).height(Constants.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
+        tableData.add(stack).colspan(7).width(UIDimensions.WEAPON_BAR_WIDTH_UPGRADE).height(UIDimensions.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();
         tableRow.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        tableRow.add(tableData).growY().pad(Constants.GAP);
-        tableRow.add(stackUpgrade).width(Constants.IMAGE_BUTTON_SIZE_TINY).height(Constants.IMAGE_BUTTON_SIZE_TINY).align(Align.left).padTop(Constants.GAP).padBottom(Constants.GAP).padRight(Constants.GAP);
+        tableRow.add(tableData).growY().pad(UIDimensions.GAP);
+        tableRow.add(stackUpgrade).width(UIDimensions.IMAGE_BUTTON_SIZE_TINY).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY).align(Align.left).padTop(UIDimensions.GAP).padBottom(UIDimensions.GAP).padRight(UIDimensions.GAP);
         return tableRow;
     }
 
     private void createTableWeaponTopNotBought() {
         tableWeaponTopNotBought = new Table();
-        tableWeaponTopNotBought.add(labelWeaponNameNotBought).pad(Constants.GAP).align(Align.left).growX();
+        tableWeaponTopNotBought.add(labelWeaponNameNotBought).pad(UIDimensions.GAP).align(Align.left).growX();
     }
 
     private void createTableWeaponTopBought() {
         tableWeaponTopBought = new Table();
-        tableWeaponTopBought.add(labelWeaponNameBought).pad(Constants.GAP).align(Align.left);
-        tableWeaponTopBought.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.left).growX().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE);
-        tableWeaponTopBought.add(labelNumberOfAmmoTitle).padTop(Constants.GAP).padBottom(Constants.GAP).align(Align.right);
-        tableWeaponTopBought.add(labelNumberOfAmmo).pad(Constants.GAP).align(Align.right);
+        tableWeaponTopBought.add(labelWeaponNameBought).pad(UIDimensions.GAP).align(Align.left);
+        tableWeaponTopBought.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.left).growX().width(UIDimensions.BOUGHT_ICON_SIZE).height(UIDimensions.BOUGHT_ICON_SIZE);
+        tableWeaponTopBought.add(labelNumberOfAmmoTitle).padTop(UIDimensions.GAP).padBottom(UIDimensions.GAP).align(Align.right);
+        tableWeaponTopBought.add(labelNumberOfAmmo).pad(UIDimensions.GAP).align(Align.right);
     }
 
     private void createTableWeaponBottomNotBought() {
         tableWeaponBottomNotBought = new Table();
         final Table tableSelectedBuy = new Table();
-        buttonBuyWeapon = new TextButton("", game.styles.skinTextButtonOrange);
+        buttonBuyWeapon = new TextButton("", game.styles.textButtonStyleOrange);
         buttonBuyWeapon.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -1425,11 +1426,11 @@ public class ShopHud extends AbstractHud {
                     if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).price) {
                         game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).bought = true;
                         game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).price;
-                        updateHud();
+                        updateHudData();
                         for (int i = 0; i < weaponButtonStacks.size; i++) {
                             if (weaponButtonStacks.get(i).ID == checkedWeaponID) {
                                 Table table = new Table();
-                                table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
+                                table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.topLeft).expand().width(UIDimensions.BOUGHT_ICON_SIZE).height(UIDimensions.BOUGHT_ICON_SIZE).pad(UIDimensions.GAP);
                                 weaponButtonStacks.get(i).add(table);
                             }
                         }
@@ -1453,14 +1454,14 @@ public class ShopHud extends AbstractHud {
             }
         });
         tableSelectedBuy.add(labelWeaponPrice).expandX().align(Align.right);
-        tableSelectedBuy.add(buttonBuyWeapon).padLeft(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
-        tableWeaponBottomNotBought.add(tableSelectedBuy).growX().pad(Constants.GAP).align(Align.bottomRight);
+        tableSelectedBuy.add(buttonBuyWeapon).padLeft(UIDimensions.GAP).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableWeaponBottomNotBought.add(tableSelectedBuy).growX().pad(UIDimensions.GAP).align(Align.bottomRight);
     }
 
     private void createTableWeaponBottomBought() {
         tableWeaponBottomBought = new Table();
 
-        buttonGetAmmo = new TextButton("", game.styles.skinTextButtonOrange);
+        buttonGetAmmo = new TextButton("", game.styles.textButtonStyleOrange);
         buttonGetAmmo.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -1480,7 +1481,7 @@ public class ShopHud extends AbstractHud {
             }
         });
 
-        buttonUpgrade = new TextButton("", game.styles.skinTextButtonOrange);
+        buttonUpgrade = new TextButton("", game.styles.textButtonStyleOrange);
         buttonUpgrade.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -1501,13 +1502,13 @@ public class ShopHud extends AbstractHud {
         });
 
         Table tableButtons = new Table();
-        tableButtons.add(buttonGetAmmo).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottomRight).growX().padRight(Constants.GAP);
-        tableButtons.add(buttonUpgrade).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottomRight);
-        tableWeaponBottomBought.add(tableButtons).growX().pad(Constants.GAP).align(Align.bottomRight);
+        tableButtons.add(buttonGetAmmo).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.bottomRight).growX().padRight(UIDimensions.GAP);
+        tableButtons.add(buttonUpgrade).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.bottomRight);
+        tableWeaponBottomBought.add(tableButtons).growX().pad(UIDimensions.GAP).align(Align.bottomRight);
     }
 
     private void createTableWeaponUpgrade() {
-        final ImageButton btCloseInDialogBox = new ImageButton(game.styles.skinImageButtonClose);
+        final ImageButton btCloseInDialogBox = new ImageButton(game.styles.imageButtonStyleClose);
         btCloseInDialogBox.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -1516,50 +1517,50 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_SMALL) {
                     game.gameScreen.setShowStageDialogBox(false);
-                    updateHud();
+                    updateHudData();
                 }
             }
         });
         Table tableTop = new Table();
         tableTop.add(labelWeaponNameUpgrade).align(Align.topLeft).growX().expandY();
-        tableTop.add(btCloseInDialogBox).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padLeft(Constants.GAP).align(Align.right);
+        tableTop.add(btCloseInDialogBox).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).padLeft(UIDimensions.GAP).align(Align.right);
 
         tableWeaponRowsUpgrade = new Table();
-        scrollPaneWeaponUpgrade = new ScrollPane(tableWeaponRowsUpgrade, game.styles.skinScrollPane);
+        scrollPaneWeaponUpgrade = new ScrollPane(tableWeaponRowsUpgrade, game.styles.scrollPaneStyle);
         scrollPaneWeaponUpgrade.setScrollingDisabled(true, false);
         scrollPaneWeaponUpgrade.setForceScroll(false, true);
-        scrollPaneWeaponUpgrade.setupOverscroll(Constants.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
+        scrollPaneWeaponUpgrade.setupOverscroll(UIDimensions.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
         scrollPaneWeaponUpgrade.setFadeScrollBars(false);
-        scrollPaneWeaponUpgrade.setFlickScrollTapSquareSize(Constants.SCROLL_PANE_SQUARE_SIZE);
+        scrollPaneWeaponUpgrade.setFlickScrollTapSquareSize(UIDimensions.SCROLL_PANE_SQUARE_SIZE);
         scrollPaneWeaponUpgrade.updateVisualScroll();
         scrollPaneWeaponUpgrade.layout();
 
         Table tableBottom = new Table();
-        tableBottom.add(labelYourMoneyTitleUpgrade).padRight(Constants.GAP).align(Align.left);
+        tableBottom.add(labelYourMoneyTitleUpgrade).padRight(UIDimensions.GAP).align(Align.left);
         tableBottom.add(labelYourMoneyUpgrade).align(Align.left).expandX();
 
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        table.add(tableTop).pad(Constants.GAP).align(Align.left).growX();
+        table.add(tableTop).pad(UIDimensions.GAP).align(Align.left).growX();
         table.row();
-        table.add(scrollPaneWeaponUpgrade).align(Align.left).grow().padRight(Constants.GAP).padLeft(Constants.GAP);
+        table.add(scrollPaneWeaponUpgrade).align(Align.left).grow().padRight(UIDimensions.GAP).padLeft(UIDimensions.GAP);
         table.row();
-        table.add(tableBottom).pad(Constants.GAP).align(Align.left).growX();
+        table.add(tableBottom).pad(UIDimensions.GAP).align(Align.left).growX();
 
         tableWeaponUpgrade = new Table();
         tableWeaponUpgrade.setFillParent(true);
         tableWeaponUpgrade.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND_ON_DIALOG_BOX)));
-        tableWeaponUpgrade.add(table).width(Constants.DIALOG_BOX_WIDTH_WEAPON).height(Constants.DIALOG_BOX_HEIGHT_WEAPON);
+        tableWeaponUpgrade.add(table).width(UIDimensions.DIALOG_BOX_WIDTH_WEAPON).height(UIDimensions.DIALOG_BOX_HEIGHT_WEAPON);
     }
 
     private void createTableBuyAmmo() {
         Table tableRow11 = new Table();
         tableRow11.add(labelWeaponNameBuyAmmo).align(Align.left).growX();
-        tableRow11.add(labelYourAmmoTitleBuyAmmo).padRight(Constants.GAP).align(Align.right);
+        tableRow11.add(labelYourAmmoTitleBuyAmmo).padRight(UIDimensions.GAP).align(Align.right);
         tableRow11.add(labelYourAmmoBuyAmmo).align(Align.right);
-        final ImageButton btCloseInDialogBox = new ImageButton(game.styles.skinImageButtonClose);
+        final ImageButton btCloseInDialogBox = new ImageButton(game.styles.imageButtonStyleClose);
         btCloseInDialogBox.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -1568,18 +1569,18 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_SMALL) {
                     game.gameScreen.setShowStageDialogBox(false);
-                    updateHud();
+                    updateHudData();
                 }
             }
         });
         Table tableRow1 = new Table();
         tableRow1.add(tableRow11).align(Align.topLeft).expandY().growX();
-        tableRow1.add(btCloseInDialogBox).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padLeft(Constants.GAP).align(Align.right);
+        tableRow1.add(btCloseInDialogBox).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).padLeft(UIDimensions.GAP).align(Align.right);
         Table tableRow2 = new Table();
         tableRow2.add(labelGuideBuyAmmo).align(Align.left).expandX();
-        ImageButton buttonMags = new ImageButton(game.styles.skinImageButtonMagazines);
+        ImageButton buttonMags = new ImageButton(game.styles.imageButtonStyleMagazines);
         buttonMags.setChecked(true);
         buttonMags.addListener(new InputListener() {
             @Override
@@ -1589,14 +1590,14 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     sliderNumberOfMagsBuyAmmo.setVisible(true);
                     sliderNumberOfAmmoBuyAmmo.setVisible(false);
                     updateBuyAmmoTable();
                 }
             }
         });
-        ImageButton buttonAmmo = new ImageButton(game.styles.skinImageButtonMagazines);
+        ImageButton buttonAmmo = new ImageButton(game.styles.imageButtonStyleMagazines);
         buttonAmmo.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -1605,7 +1606,7 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_TINY) {
                     sliderNumberOfMagsBuyAmmo.setVisible(false);
                     sliderNumberOfAmmoBuyAmmo.setVisible(true);
                     updateBuyAmmoTable();
@@ -1617,31 +1618,31 @@ public class ShopHud extends AbstractHud {
         btgMagsOrAmmo.setMinCheckCount(1);
         btgMagsOrAmmo.setUncheckLast(true);
         Table tableRow3 = new Table();
-        tableRow3.add(buttonMags).width(Constants.IMAGE_BUTTON_SIZE_TINY).height(Constants.IMAGE_BUTTON_SIZE_TINY).padRight(Constants.GAP / 2f);
-        tableRow3.add(labelMagsBuyAmmo).padRight(Constants.GAP * 2);
-        tableRow3.add(buttonAmmo).width(Constants.IMAGE_BUTTON_SIZE_TINY).height(Constants.IMAGE_BUTTON_SIZE_TINY).padRight(Constants.GAP / 2f);
+        tableRow3.add(buttonMags).width(UIDimensions.IMAGE_BUTTON_SIZE_TINY).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY).padRight(UIDimensions.GAP / 2f);
+        tableRow3.add(labelMagsBuyAmmo).padRight(UIDimensions.GAP * 2);
+        tableRow3.add(buttonAmmo).width(UIDimensions.IMAGE_BUTTON_SIZE_TINY).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY).padRight(UIDimensions.GAP / 2f);
         tableRow3.add(labelAmmoBuyAmmo);
         Table tableRow4 = new Table();
-        tableRow4.add(labelNumberOfMagsOrAmmoTitleBuyAmmo).padRight(Constants.GAP);
+        tableRow4.add(labelNumberOfMagsOrAmmoTitleBuyAmmo).padRight(UIDimensions.GAP);
         tableRow4.add(labelNumberOfMagsOrAmmoBuyAmmo);
-        sliderNumberOfMagsBuyAmmo = new Slider(1, 50, 1, false, game.styles.skinSlider);
+        sliderNumberOfMagsBuyAmmo = new Slider(1, 50, 1, false, game.styles.sliderStyle);
         sliderNumberOfMagsBuyAmmo.setValue(20);
-        sliderNumberOfMagsBuyAmmo.getStyle().background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        sliderNumberOfMagsBuyAmmo.getStyle().knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        sliderNumberOfMagsBuyAmmo.getStyle().knob.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
-        sliderNumberOfMagsBuyAmmo.getStyle().knob.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
+        sliderNumberOfMagsBuyAmmo.getStyle().background.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        sliderNumberOfMagsBuyAmmo.getStyle().knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        sliderNumberOfMagsBuyAmmo.getStyle().knob.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
+        sliderNumberOfMagsBuyAmmo.getStyle().knob.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
         sliderNumberOfMagsBuyAmmo.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 updateBuyAmmoTable();
             }
         });
-        sliderNumberOfAmmoBuyAmmo = new Slider(1, 50, 1, false, game.styles.skinSlider);
+        sliderNumberOfAmmoBuyAmmo = new Slider(1, 50, 1, false, game.styles.sliderStyle);
         sliderNumberOfAmmoBuyAmmo.setValue(30);
-        sliderNumberOfAmmoBuyAmmo.getStyle().background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        sliderNumberOfAmmoBuyAmmo.getStyle().knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        sliderNumberOfAmmoBuyAmmo.getStyle().knob.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
-        sliderNumberOfAmmoBuyAmmo.getStyle().knob.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
+        sliderNumberOfAmmoBuyAmmo.getStyle().background.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        sliderNumberOfAmmoBuyAmmo.getStyle().knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        sliderNumberOfAmmoBuyAmmo.getStyle().knob.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
+        sliderNumberOfAmmoBuyAmmo.getStyle().knob.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
         sliderNumberOfAmmoBuyAmmo.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
@@ -1654,7 +1655,7 @@ public class ShopHud extends AbstractHud {
         stack.add(sliderNumberOfAmmoBuyAmmo);
         Table tableRow5 = new Table();
         tableRow5.add(stack).growX();
-        buttonBuyAmmo = new TextButton("", game.styles.skinTextButtonOrange);
+        buttonBuyAmmo = new TextButton("", game.styles.textButtonStyleOrange);
         buttonBuyAmmo.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -1663,7 +1664,7 @@ public class ShopHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
                     if (sliderNumberOfMagsBuyAmmo.isVisible()) {
                         if (game.gameWorld.player.money >= ((int) (sliderNumberOfMagsBuyAmmo.getValue()) * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoPrice)) {
                             game.gameWorld.player.money -= ((int) (sliderNumberOfMagsBuyAmmo.getValue()) * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoPrice);
@@ -1678,34 +1679,34 @@ public class ShopHud extends AbstractHud {
                         }
                     }
                     updateBuyAmmoTable();
-                    updateHud();
-                    game.gameScreen.inGameHud.updateHud();
+                    updateHudData();
+                    game.gameScreen.inGameHud.updateHudData();
                 }
             }
         });
         Table tableRow6 = new Table();
-        tableRow6.add(labelYourMoneyTitleBuyAmmo).padRight(Constants.GAP).align(Align.left);
+        tableRow6.add(labelYourMoneyTitleBuyAmmo).padRight(UIDimensions.GAP).align(Align.left);
         tableRow6.add(labelYourMoneyBuyAmmo).align(Align.left);
         tableRow6.add(labelPriceBuyAmmo).expandX().align(Align.right);
-        tableRow6.add(buttonBuyAmmo).padLeft(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableRow6.add(buttonBuyAmmo).padLeft(UIDimensions.GAP).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.right);
 
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
 
-        table.add(tableRow1).padLeft(Constants.GAP).padRight(Constants.GAP).padTop(Constants.GAP).padBottom(Constants.GAP).growX().expandY().align(Align.top);
+        table.add(tableRow1).padLeft(UIDimensions.GAP).padRight(UIDimensions.GAP).padTop(UIDimensions.GAP).padBottom(UIDimensions.GAP).growX().expandY().align(Align.top);
         table.row();
-        table.add(tableRow2).padLeft(Constants.GAP).padRight(Constants.GAP).padBottom(Constants.GAP).expandX().align(Align.bottomLeft);
+        table.add(tableRow2).padLeft(UIDimensions.GAP).padRight(UIDimensions.GAP).padBottom(UIDimensions.GAP).expandX().align(Align.bottomLeft);
         table.row();
-        table.add(tableRow3).padLeft(Constants.GAP).padRight(Constants.GAP).padBottom(Constants.GAP).expandX().align(Align.bottomLeft);
+        table.add(tableRow3).padLeft(UIDimensions.GAP).padRight(UIDimensions.GAP).padBottom(UIDimensions.GAP).expandX().align(Align.bottomLeft);
         table.row();
-        table.add(tableRow4).padLeft(Constants.GAP).padRight(Constants.GAP).padBottom(Constants.GAP).expandX().align(Align.topLeft);
+        table.add(tableRow4).padLeft(UIDimensions.GAP).padRight(UIDimensions.GAP).padBottom(UIDimensions.GAP).expandX().align(Align.topLeft);
         table.row();
-        table.add(tableRow5).padLeft(Constants.GAP).padRight(Constants.GAP).padBottom(Constants.GAP).growX().align(Align.topLeft);
+        table.add(tableRow5).padLeft(UIDimensions.GAP).padRight(UIDimensions.GAP).padBottom(UIDimensions.GAP).growX().align(Align.topLeft);
         table.row();
-        table.add(tableRow6).padLeft(Constants.GAP).padRight(Constants.GAP).padBottom(Constants.GAP).growX().expandY().align(Align.bottom);
+        table.add(tableRow6).padLeft(UIDimensions.GAP).padRight(UIDimensions.GAP).padBottom(UIDimensions.GAP).growX().expandY().align(Align.bottom);
         tableBuyAmmo = new Table();
         tableBuyAmmo.setFillParent(true);
         tableBuyAmmo.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND_ON_DIALOG_BOX)));
-        tableBuyAmmo.add(table).width(Constants.DIALOG_BOX_WIDTH_WEAPON).height(Constants.DIALOG_BOX_HEIGHT_WEAPON);
+        tableBuyAmmo.add(table).width(UIDimensions.DIALOG_BOX_WIDTH_WEAPON).height(UIDimensions.DIALOG_BOX_HEIGHT_WEAPON);
     }
 }

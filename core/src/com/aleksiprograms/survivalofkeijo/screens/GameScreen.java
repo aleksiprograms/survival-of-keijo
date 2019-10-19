@@ -1,6 +1,8 @@
 package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
+import com.aleksiprograms.survivalofkeijo.resources.Styles;
+import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.aleksiprograms.survivalofkeijo.screens.huds.BackpackHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.GameOverHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.ShopHud;
@@ -35,7 +37,7 @@ public class GameScreen extends AbstractScreen {
         super.updateScreen();
         game.gameWorld.createWorld();
         stage.addActor(inGameHud);
-        inGameHud.updateHud();
+        inGameHud.updateHudData();
         game.camera.position.set(0, 0, 8);
         game.camera.near = 1;
         game.camera.far = 40;
@@ -86,6 +88,14 @@ public class GameScreen extends AbstractScreen {
         game.camera.viewportWidth = width;
         game.camera.update();
         viewport.update(width, height, true);
+
+        System.out.println("width = " + Gdx.graphics.getWidth() + " and height = " + Gdx.graphics.getHeight());
+
+        UIDimensions.calculate();
+        game.styles.setStyles();
+        inGameHud.createHudTable();
+        //stage.clear();
+        //game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
     }
 
     @Override
@@ -107,7 +117,7 @@ public class GameScreen extends AbstractScreen {
             game.gameScreen.stage.getActors().get(i).remove();
         }
         game.gameWorld.paused = true;
-        game.gameScreen.pausedHud.updateHud();
+        game.gameScreen.pausedHud.updateHudData();
         game.gameScreen.stage.addActor(game.gameScreen.pausedHud);
     }
 }

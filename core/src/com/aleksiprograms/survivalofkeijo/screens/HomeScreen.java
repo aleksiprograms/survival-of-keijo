@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.aleksiprograms.survivalofkeijo.toolbox.LevelInfo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -66,49 +67,49 @@ public class HomeScreen extends AbstractScreen {
 
     private void initScreen() {
         Image imageGameController = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_GAMES_CONRTROLLER_SIGNED_IN)));
-        final ImageButton buttonAchievements = new ImageButton(game.styles.skinImageButtonAchievements);
-        final ImageButton buttonLeaderboards = new ImageButton(game.styles.skinImageButtonLeaderboards);
+        final ImageButton buttonAchievements = new ImageButton(game.styles.imageButtonStyleAchievements);
+        final ImageButton buttonLeaderboards = new ImageButton(game.styles.imageButtonStyleLeaderboards);
 
         Table tableGPGS = new Table();
         tableGPGS.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        tableGPGS.add(imageGameController).pad(Constants.GAP).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL);
+        tableGPGS.add(imageGameController).pad(UIDimensions.GAP).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL);
         tableGPGS.row();
-        tableGPGS.add(buttonAchievements).padLeft(Constants.GAP).padRight(Constants.GAP).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL);
+        tableGPGS.add(buttonAchievements).padLeft(UIDimensions.GAP).padRight(UIDimensions.GAP).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL);
         tableGPGS.row();
-        tableGPGS.add(buttonLeaderboards).pad(Constants.GAP).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL);
+        tableGPGS.add(buttonLeaderboards).pad(UIDimensions.GAP).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL);
 
-        final ImageButton buttonSettings = new ImageButton(game.styles.skinImageButtonSettings);
+        final ImageButton buttonSettings = new ImageButton(game.styles.imageButtonStyleSettings);
 
         Table tableLevels = new Table();
         for (int i = 0; i < Constants.NUMBER_OF_LEVELS; i++) {
-            tableLevels.add(initLevelTable(levelInfos[i], i)).align(Align.center).growY().width((int)((Gdx.graphics.getWidth() - 2 * Constants.GAP - Constants.TEXT_BUTTON_WIDTH - 3 * Constants.GAP) / 3)).padRight(i < Constants.NUMBER_OF_LEVELS - 1 ? Constants.GAP : 0).padBottom(Constants.GAP);
+            tableLevels.add(initLevelTable(levelInfos[i], i)).align(Align.center).growY().width((int)((Gdx.graphics.getWidth() - 2 * UIDimensions.GAP - UIDimensions.TEXT_BUTTON_WIDTH - 3 * UIDimensions.GAP) / 3)).padRight(i < Constants.NUMBER_OF_LEVELS - 1 ? UIDimensions.GAP : 0).padBottom(UIDimensions.GAP);
         }
 
-        ScrollPane scrollPaneLevels = new ScrollPane(tableLevels, game.styles.skinScrollPane);
+        ScrollPane scrollPaneLevels = new ScrollPane(tableLevels, game.styles.scrollPaneStyle);
         scrollPaneLevels.setScrollingDisabled(false, true);
         scrollPaneLevels.setForceScroll(true, false);
-        scrollPaneLevels.setupOverscroll(Constants.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
+        scrollPaneLevels.setupOverscroll(UIDimensions.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
         scrollPaneLevels.setFadeScrollBars(false);
-        scrollPaneLevels.setFlickScrollTapSquareSize(Constants.SCROLL_PANE_SQUARE_SIZE);
+        scrollPaneLevels.setFlickScrollTapSquareSize(UIDimensions.SCROLL_PANE_SQUARE_SIZE);
         scrollPaneLevels.updateVisualScroll();
         scrollPaneLevels.layout();
 
-        labelScreenTitle = new Label("", game.styles.skinLabelWhiteHuge);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
         Table tableTop = new Table();
-        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add().width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(labelScreenTitle).expandX().align(Align.center);
-        tableTop.add(buttonSettings).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+        tableTop.add(buttonSettings).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
 
         Table tableContent = new Table();
-        tableContent.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
+        tableContent.add(tableTop).height(UIDimensions.TABLE_TOP_HEIGHT).growX().padBottom(UIDimensions.GAP).align(Align.top).colspan(2);
         tableContent.row();
-        tableContent.add(scrollPaneLevels).fill().expand().align(Align.center).padRight(Constants.GAP);
-        tableContent.add(tableGPGS).align(Align.right).expandY().width(Constants.IMAGE_BUTTON_SIZE_SMALL + 2 * Constants.GAP).height(3 * Constants.IMAGE_BUTTON_SIZE_SMALL + 4 * Constants.GAP);
+        tableContent.add(scrollPaneLevels).fill().expand().align(Align.center).padRight(UIDimensions.GAP);
+        tableContent.add(tableGPGS).align(Align.right).expandY().width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL + 2 * UIDimensions.GAP).height(3 * UIDimensions.IMAGE_BUTTON_SIZE_SMALL + 4 * UIDimensions.GAP);
 
         Table table = new Table();
         table.setFillParent(true);
         //table.background(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_BACKGROUND))));
-        table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
+        table.add(tableContent).align(Align.center).grow().pad(UIDimensions.GAP);
 
         stage.addActor(table);
 
@@ -230,7 +231,7 @@ public class HomeScreen extends AbstractScreen {
     private void showQuitBox() {
         /*if (!quitBoxShown) {
             quitBoxShown = true;
-            final Dialog dialog = new Dialog("", gameBAS.styles.skinDialogBox) {
+            final Dialog dialog = new Dialog("", gameBAS.styles.dialogBoxStyle) {
                 @Override
                 protected void result(Object object) {
                 }

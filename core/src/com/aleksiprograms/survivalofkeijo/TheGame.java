@@ -7,6 +7,7 @@ import com.aleksiprograms.survivalofkeijo.managers.SaveDataManager;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.resources.GamePools;
 import com.aleksiprograms.survivalofkeijo.resources.Styles;
+import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.aleksiprograms.survivalofkeijo.screens.CreditsScreen;
 import com.aleksiprograms.survivalofkeijo.screens.GameScreen;
 import com.aleksiprograms.survivalofkeijo.screens.HomeScreen;
@@ -52,6 +53,7 @@ public class TheGame extends Game {
 
 	@Override
 	public void create() {
+		UIDimensions.calculate();
 		camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		saveDataManager = new SaveDataManager();
 		assetManager = new AssetManager();

@@ -51,7 +51,7 @@ public class WeaponWithAmmo<A extends Ammunition> extends Weapon {
                 if (!noAmmo) {
                     reloading = true;
                     useTimer = true;
-                    game.gameScreen.inGameHud.updateHud();
+                    game.gameScreen.inGameHud.updateHudData();
                     if (owner.upState.equals(UpState.STAND)) {
                         animationController.setAnimation("Armature|magazine-empty-stand", 1, 1 / (weaponData.reloadTime * 3f / 4f), animationListenerAfterMagazineEmpty);
                     } else if (owner.upState.equals(UpState.CROUCH)) {
@@ -112,7 +112,7 @@ public class WeaponWithAmmo<A extends Ammunition> extends Weapon {
                 animate = false;
                 useTimer = false;
                 changeMagWithoutReload = false;
-                game.gameScreen.inGameHud.updateHud();
+                game.gameScreen.inGameHud.updateHudData();
             }
 
             @Override
@@ -133,7 +133,7 @@ public class WeaponWithAmmo<A extends Ammunition> extends Weapon {
                 useTimer = true;
                 animate = true;
                 onCriticalAnimation = true;
-                game.gameScreen.inGameHud.updateHud();
+                game.gameScreen.inGameHud.updateHudData();
                 if (owner.upState.equals(UpState.STAND)) {
                     animationController.setAnimation("Armature|magazine-empty-stand", 1, 1 / (weaponData.reloadTime * 3f / 4f), animationListenerAfterMagazineEmpty);
                 } else if (owner.upState.equals(UpState.CROUCH)) {
@@ -162,7 +162,7 @@ public class WeaponWithAmmo<A extends Ammunition> extends Weapon {
                 reloading = true;
                 useTimer = true;
                 changeMagWithoutReload = true;
-                game.gameScreen.inGameHud.updateHud();
+                game.gameScreen.inGameHud.updateHudData();
                 if (owner.upState.equals(UpState.STAND)) {
                     animationController.setAnimation("Armature|magazine-not-empty-stand", 1, 1 / (weaponData.reloadTime * 9f / 10f), animationListenerAfterMagazineNotEmpty);
                 } else if (owner.upState.equals(UpState.CROUCH)) {
@@ -229,7 +229,7 @@ public class WeaponWithAmmo<A extends Ammunition> extends Weapon {
             ammoVelocity = ammoVelocity.scl(weaponData.ammoSpeed);
             game.gameWorld.addAmmunition(ammoPool.obtain(), weaponData.ammoDamage, x1, y1, lookingRight ? ammoOffsetZ : -ammoOffsetZ, weaponAngleDeg, ammoVelocity, playerWeapon ? Constants.CATEGORY_WEAPON_PLAYER : Constants.CATEGORY_WEAPON_ENEMY, playerWeapon ? Constants.MASK_WEAPON_PLAYER : Constants.MASK_WEAPON_ENEMY);
             used();
-            game.gameScreen.inGameHud.updateHud();
+            game.gameScreen.inGameHud.updateHudData();
             //game.gameWorld.addParticleEffect(game.gamePools.rocketSmokePool.obtain(), new Vector3(x1, y1, 0), MathUtils.radiansToDegrees * MathUtils.atan2(y2 - y1, x2 - x1)-5+90, MathUtils.radiansToDegrees * MathUtils.atan2(y2 - y1, x2 - x1)+5+90);
         }
     }
@@ -246,7 +246,7 @@ public class WeaponWithAmmo<A extends Ammunition> extends Weapon {
                     reloading = true;
                     useTimer = true;
                     changeMagWithoutReload = true;
-                    game.gameScreen.inGameHud.updateHud();
+                    game.gameScreen.inGameHud.updateHudData();
                     if (owner.upState.equals(UpState.STAND)) {
                         animationController.setAnimation("Armature|magazine-not-empty-stand", 1, 1 / (weaponData.reloadTime * 9f / 10f), animationListenerAfterMagazineNotEmpty);
                     } else if (owner.upState.equals(UpState.CROUCH)) {

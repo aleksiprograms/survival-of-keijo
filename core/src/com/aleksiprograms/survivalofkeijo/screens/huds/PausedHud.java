@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -37,7 +38,7 @@ public class PausedHud extends AbstractHud {
     public PausedHud(TheGame game) {
         super(game);
 
-        super.pad(Constants.GAP);
+        super.pad(UIDimensions.GAP);
         super.center();
         super.setFillParent(true);
 
@@ -98,21 +99,21 @@ public class PausedHud extends AbstractHud {
         tableInfo.row();
         tableInfo.add(tableScoreLimits).colspan(2).align(Align.topLeft).expandX().padLeft(20);
 */
-        buttonContinue = new TextButton("", game.styles.skinTextButtonOrange);
-        buttonRestart = new TextButton("", game.styles.skinTextButtonRed);
-        buttonHome = new TextButton("", game.styles.skinTextButtonRed);
+        buttonContinue = new TextButton("", game.styles.textButtonStyleOrange);
+        buttonRestart = new TextButton("", game.styles.textButtonStyleRed);
+        buttonHome = new TextButton("", game.styles.textButtonStyleRed);
         Table tableButtons = new Table();
-        tableButtons.add(buttonContinue).padBottom(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableButtons.add(buttonContinue).padBottom(UIDimensions.GAP).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.right);
         tableButtons.row();
-        tableButtons.add(buttonRestart).padBottom(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableButtons.add(buttonRestart).padBottom(UIDimensions.GAP).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.right);
         tableButtons.row();
-        tableButtons.add(buttonHome).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableButtons.add(buttonHome).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.right);
 
-        labelScreenTitle = new Label("", game.styles.skinLabelWhiteHuge);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
         Table tableTop = new Table();
         tableTop.add(labelScreenTitle).align(Align.center);
 
-        super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
+        super.add(tableTop).height(UIDimensions.TABLE_TOP_HEIGHT).growX().padBottom(UIDimensions.GAP).align(Align.top).colspan(2);
         super.row();
         //super.add(tableInfo).align(Align.topLeft).expandY();
         super.add(tableButtons).expand().align(Align.right);
@@ -123,8 +124,8 @@ public class PausedHud extends AbstractHud {
     }
 
     @Override
-    public void updateHud() {
-        super.updateHud();
+    public void updateHudData() {
+        super.updateHudData();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titlePaused"));
         buttonContinue.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonContinue"));
         buttonRestart.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonRestart"));

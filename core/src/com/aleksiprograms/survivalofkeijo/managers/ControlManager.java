@@ -43,32 +43,32 @@ public class ControlManager {
         if (timeFromLastBtReloadPress > 0.05f)
             btReloadPressed = false;
 
-        if (InGameHud.btLeftPressed || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (InGameHud.buttonLeftPressed || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             timeFromLastBtLeftPress = 0;
             if (!btLeftPressed)
                 btLeftPressed = true;
         }
-        if (InGameHud.btRightPressed || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (InGameHud.buttonRightPressed || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             timeFromLastBtRightPress = 0;
             if (!btRightPressed)
                 btRightPressed = true;
         }
-        if (InGameHud.btUpPressed || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (InGameHud.buttonUpPressed || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
             timeFromLastBtUpPress = 0;
             if (!btUpPressed)
                 btUpPressed = true;
         }
-        if (InGameHud.btDownPressed || Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (InGameHud.buttonDownPressed || Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
             timeFromLastBtDownPress = 0;
             if (!btDownPressed)
                 btDownPressed = true;
         }
-        if (InGameHud.btShootPressed || Gdx.input.isKeyPressed(Input.Keys.PERIOD)) {
+        if (InGameHud.buttonShootPressed || Gdx.input.isKeyPressed(Input.Keys.PERIOD)) {
             timeFromLastBtShootPress = 0;
             if (!btShootPressed)
                 btShootPressed = true;
         }
-        if (InGameHud.btReloadPressed) {
+        if (InGameHud.buttonReloadPressed) {
             timeFromLastBtReloadPress = 0;
             if (!btReloadPressed)
                 btReloadPressed = true;

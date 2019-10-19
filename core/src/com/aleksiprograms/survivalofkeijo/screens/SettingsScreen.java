@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -31,12 +32,12 @@ public class SettingsScreen extends AbstractScreen {
 
     public SettingsScreen(TheGame game) {
         super(game);
-        checkBoxSounds = new CheckBox("   Sounds", game.styles.skinCheckbox);
-        checkBoxDebugDrawWorld = new CheckBox("   Debug Draw World", game.styles.skinCheckbox);
-        checkBoxDebugDrawMenus = new CheckBox("   Debug Draw Menus", game.styles.skinCheckbox);
-        checkBoxShowPauseButton = new CheckBox("   Show Pause Button", game.styles.skinCheckbox);
-        checkBoxAspectRatio169 = new CheckBox("   Aspect Ration 16:9", game.styles.skinCheckbox);
-        selectBoxLanguage = new SelectBox<String>(game.styles.skinSelectBox);
+        checkBoxSounds = new CheckBox("   Sounds", game.styles.checkBoxStyle);
+        checkBoxDebugDrawWorld = new CheckBox("   Debug Draw World", game.styles.checkBoxStyle);
+        checkBoxDebugDrawMenus = new CheckBox("   Debug Draw Menus", game.styles.checkBoxStyle);
+        checkBoxShowPauseButton = new CheckBox("   Show Pause Button", game.styles.checkBoxStyle);
+        checkBoxAspectRatio169 = new CheckBox("   Aspect Ration 16:9", game.styles.checkBoxStyle);
+        selectBoxLanguage = new SelectBox<String>(game.styles.selectBoxStyle);
         Array<String> languages = new Array<String>();
         languages.add(Constants.STRING_ENGLISH);
         languages.add(Constants.STRING_FINNISH);
@@ -79,7 +80,7 @@ public class SettingsScreen extends AbstractScreen {
     private void initScreen() {
         /*Table tableSoundVolume = new Table();
         Label lSoundVolumeTitle = new Label("Volume", gameBAS.styles.skinLabelSettingsTitle);
-        sliderSoundVolume = new Slider(0.0f, 1.0f, 0.1f, false, gameBAS.styles.skinSlider);
+        sliderSoundVolume = new Slider(0.0f, 1.0f, 0.1f, false, gameBAS.styles.sliderStyle);
         sliderSoundVolume.getStyle().background.setMinWidth(500);
         sliderSoundVolume.getStyle().background.setMinHeight(15);
         sliderSoundVolume.getStyle().knobBefore.setMinWidth(500);
@@ -90,35 +91,35 @@ public class SettingsScreen extends AbstractScreen {
         tableSoundVolume.add(sliderSoundVolume).width(500).height(50);*/
 
         Table tableSettings = new Table();
-        tableSettings.add(checkBoxSounds).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxSounds).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxDebugDrawWorld).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxDebugDrawWorld).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxDebugDrawMenus).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxDebugDrawMenus).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxShowPauseButton).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxShowPauseButton).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxAspectRatio169).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxAspectRatio169).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(selectBoxLanguage).width(Constants.TEXT_BUTTON_WIDTH*2).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(selectBoxLanguage).width(UIDimensions.TEXT_BUTTON_WIDTH*2).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         //tableSettings.add(tableSoundVolume).padBottom(20);
 
-        labelScreenTitle = new Label("", game.styles.skinLabelWhiteHuge);
-        final ImageButton buttonClose = new ImageButton(game.styles.skinImageButtonClose);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        final ImageButton buttonClose = new ImageButton(game.styles.imageButtonStyleClose);
         Table tableTop = new Table();
-        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add().width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(labelScreenTitle).expandX().align(Align.center);
-        tableTop.add(buttonClose).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+        tableTop.add(buttonClose).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
 
         Table tableContent = new Table();
-        tableContent.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top);
+        tableContent.add(tableTop).height(UIDimensions.TABLE_TOP_HEIGHT).growX().padBottom(UIDimensions.GAP).align(Align.top);
         tableContent.row();
         tableContent.add(tableSettings).expand();
 
         Table table = new Table();
         table.setFillParent(true);
         //table.background(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_BACKGROUND))));
-        table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
+        table.add(tableContent).align(Align.center).grow().pad(UIDimensions.GAP);
 
         stage.addActor(table);
 

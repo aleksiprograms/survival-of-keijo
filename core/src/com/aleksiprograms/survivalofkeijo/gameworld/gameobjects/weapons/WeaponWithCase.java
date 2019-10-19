@@ -33,10 +33,10 @@ public class WeaponWithCase<B extends Case> extends WeaponWithAmmo {
         if (doThingsAtUse) {
             if (lookingRight) {
                 caseVelocity.set(-MathUtils.random(2f, 3f) * MathUtils.sinDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.cosDeg(weaponAngleDeg), MathUtils.random(2f, 3f) * MathUtils.cosDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.sinDeg(weaponAngleDeg), MathUtils.random(0.3f, 0.6f));
-                caseAngularVelocity.set(0, -MathUtils.random(8f, 12f), MathUtils.random(3f, 8f));
+                caseAngularVelocity.set(0, -MathUtils.random(8f, 12f), MathUtils.random(8f, 12f));
             } else {
                 caseVelocity.set(MathUtils.random(2f, 3f) * MathUtils.sinDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.cosDeg(weaponAngleDeg), -MathUtils.random(2f, 3f) * MathUtils.cosDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.sinDeg(weaponAngleDeg), -MathUtils.random(0.3f, 0.6f));
-                caseAngularVelocity.set(0, MathUtils.random(8f, 12f), -MathUtils.random(3f, 8f));
+                caseAngularVelocity.set(0, MathUtils.random(8f, 12f), -MathUtils.random(8f, 12f));
             }
             game.gameWorld.addCase(
                     casePool.obtain(),

@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -48,176 +47,229 @@ public class Styles {
     private final String FONT_PATH = "fonts/RobotoCondensed-Regular.ttf";
     private final String FONT_BOLD_PATH = "fonts/RobotoCondensed-Bold.ttf";
 
-    public Skin skinLabelWhiteHuge;
-    public Skin skinLabelWhiteBig;
-    public Skin skinLabelRedBig;
-    public Skin skinLabelWhiteMedium;
-    public Skin skinLabelWhiteSmall;
-    public Skin skinLabelRedSmall;
-    public Skin skinLabelWhiteTiny;
-    public Skin skinLabelBlueSmall;
-    public Skin skinLabelGreenSmall;
+    public Label.LabelStyle labelStyleWhiteHuge;
+    public Label.LabelStyle labelStyleWhiteBig;
+    public Label.LabelStyle labelStyleRedBig;
+    public Label.LabelStyle labelStyleWhiteMedium;
+    public Label.LabelStyle labelStyleWhiteSmall;
+    public Label.LabelStyle labelStyleRedSmall;
+    public Label.LabelStyle labelStyleWhiteTiny;
+    public Label.LabelStyle labelStyleBlueSmall;
+    public Label.LabelStyle labelStyleGreenSmall;
 
-    public Skin skinTextButtonOrange;
-    public Skin skinTextButtonGreen;
-    public Skin skinTextButtonRed;
+    public TextButton.TextButtonStyle textButtonStyleOrange;
+    public TextButton.TextButtonStyle textButtonStyleGreen;
+    public TextButton.TextButtonStyle textButtonStyleRed;
 
-    public Skin skinImageButtonClose;
-    public Skin skinImageButtonPlus;
-    public Skin skinImageButtonMinus;
-    public Skin skinImageButtonMagazines;
-    public Skin skinImageButtonSettings;
-    public Skin skinImageButtonPause;
-    public Skin skinImageButtonRight;
-    public Skin skinImageButtonLeft;
-    public Skin skinImageButtonUp;
-    public Skin skinImageButtonDown;
-    public Skin skinImageButtonBackpack;
-    public Skin skinImageButtonReload;
-    public Skin skinImageButtonEnter;
-    public Skin skinImageButtonAchievements;
-    public Skin skinImageButtonLeaderboards;
+    public ImageButton.ImageButtonStyle imageButtonStyleClose;
+    public ImageButton.ImageButtonStyle imageButtonStylePlus;
+    public ImageButton.ImageButtonStyle imageButtonStyleMinus;
+    public ImageButton.ImageButtonStyle imageButtonStyleMagazines;
+    public ImageButton.ImageButtonStyle imageButtonStyleSettings;
+    public ImageButton.ImageButtonStyle imageButtonStylePause;
+    public ImageButton.ImageButtonStyle imageButtonStyleRight;
+    public ImageButton.ImageButtonStyle imageButtonStyleLeft;
+    public ImageButton.ImageButtonStyle imageButtonStyleUp;
+    public ImageButton.ImageButtonStyle imageButtonStyleDown;
+    public ImageButton.ImageButtonStyle imageButtonStyleBackpack;
+    public ImageButton.ImageButtonStyle imageButtonStyleReload;
+    public ImageButton.ImageButtonStyle imageButtonStyleEnter;
+    public ImageButton.ImageButtonStyle imageButtonStyleAchievements;
+    public ImageButton.ImageButtonStyle imageButtonStyleLeaderboards;
 
     public Label.LabelStyle labelStyleLoggedInGPGS;
     public Label.LabelStyle labelStyleLoggedOutGPGS;
 
-    public Skin skinScrollPane;
-    public Skin skinSlider;
-    public Skin skinCheckbox;
-    public Skin skinDialogBox;
-    public Skin skinSelectBox;
-    public Skin skinProgressBar;
-    public Skin skinProgressBarHealth;
-    public Skin skinProgressBarValueNotBought;
-    public Skin skinProgressBarValueBought;
-    public Skin skinProgressBarUpgradeBought;
-    public Skin skinProgressBarValueBoughtMinus;
-    public Skin skinProgressBarUpgradeBoughtMinus;
-    public Skin skinProgressBarUpgradeDone;
+    public ScrollPane.ScrollPaneStyle scrollPaneStyle;
+    public Slider.SliderStyle sliderStyle;
+    public CheckBox.CheckBoxStyle checkBoxStyle;
+    public Dialog.WindowStyle dialogBoxStyle;
+    public SelectBox.SelectBoxStyle selectBoxStyle;
+    public ProgressBar.ProgressBarStyle progressBarStyle;
+    public ProgressBar.ProgressBarStyle progressBarStyleHealth;
+    public ProgressBar.ProgressBarStyle progressBarStyleValueNotBought;
+    public ProgressBar.ProgressBarStyle progressBarStyleValueBought;
+    public ProgressBar.ProgressBarStyle progressBarStyleUpgradeBought;
+    public ProgressBar.ProgressBarStyle progressBarStyleValueBoughtMinus;
+    public ProgressBar.ProgressBarStyle progressBarStyleUpgradeBoughtMinus;
+    public ProgressBar.ProgressBarStyle progressBarStyleUpgradeDone;
+
+    private NinePatchDrawable ninePatchDrawable;
 
     public Styles(TheGame game) {
         this.game = game;
         setLocale();
 
-        skinLabelWhiteHuge = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_HUGE, colorWhite);
-        skinLabelWhiteBig = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_BIG, colorWhite);
-        skinLabelRedBig = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_BIG, colorRed);
-        skinLabelWhiteMedium = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_MEDIUM, colorWhite);
-        skinLabelWhiteSmall = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_SMALL, colorWhite);
-        skinLabelRedSmall = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_SMALL, colorRed);
-        skinLabelWhiteTiny = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_TINY, colorWhite);
-        skinLabelBlueSmall = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_SMALL, colorLBlue);
-        skinLabelGreenSmall = getSkinLabel(FONT_PATH, Constants.TEXT_SIZE_SMALL, colorGreen);
+        labelStyleWhiteHuge = new Label.LabelStyle();
+        labelStyleWhiteBig = new Label.LabelStyle();
+        labelStyleRedBig = new Label.LabelStyle();
+        labelStyleWhiteMedium = new Label.LabelStyle();
+        labelStyleWhiteSmall = new Label.LabelStyle();
+        labelStyleRedSmall = new Label.LabelStyle();
+        labelStyleWhiteTiny = new Label.LabelStyle();
+        labelStyleBlueSmall = new Label.LabelStyle();
+        labelStyleGreenSmall = new Label.LabelStyle();
 
-        skinTextButtonOrange = getSkinTextButton(
-                FONT_BOLD_PATH, Constants.TEXT_BUTTON_TEXT_SIZE, colorOrange, colorOrange, colorDisabled,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
+        textButtonStyleOrange = new TextButton.TextButtonStyle();
+        textButtonStyleGreen = new TextButton.TextButtonStyle();
+        textButtonStyleRed = new TextButton.TextButtonStyle();
+
+        imageButtonStyleClose = new ImageButton.ImageButtonStyle();
+        imageButtonStylePlus = new ImageButton.ImageButtonStyle();
+        imageButtonStyleMinus = new ImageButton.ImageButtonStyle();
+        imageButtonStyleMagazines = new ImageButton.ImageButtonStyle();
+        imageButtonStyleSettings = new ImageButton.ImageButtonStyle();
+        imageButtonStylePause = new ImageButton.ImageButtonStyle();
+        imageButtonStyleRight = new ImageButton.ImageButtonStyle();
+        imageButtonStyleLeft = new ImageButton.ImageButtonStyle();
+        imageButtonStyleUp = new ImageButton.ImageButtonStyle();
+        imageButtonStyleDown = new ImageButton.ImageButtonStyle();
+        imageButtonStyleBackpack = new ImageButton.ImageButtonStyle();
+        imageButtonStyleReload = new ImageButton.ImageButtonStyle();
+        imageButtonStyleEnter = new ImageButton.ImageButtonStyle();
+        imageButtonStyleAchievements = new ImageButton.ImageButtonStyle();
+        imageButtonStyleLeaderboards = new ImageButton.ImageButtonStyle();
+
+        scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
+        sliderStyle = new Slider.SliderStyle();
+        checkBoxStyle = new CheckBox.CheckBoxStyle();
+        dialogBoxStyle = new Dialog.WindowStyle();
+        selectBoxStyle = new SelectBox.SelectBoxStyle();
+        progressBarStyle = new ProgressBar.ProgressBarStyle();
+        progressBarStyleHealth = new ProgressBar.ProgressBarStyle();
+
+        progressBarStyleValueNotBought = new ProgressBar.ProgressBarStyle();
+        progressBarStyleValueBought = new ProgressBar.ProgressBarStyle();
+        progressBarStyleUpgradeBought = new ProgressBar.ProgressBarStyle();
+        progressBarStyleValueBoughtMinus = new ProgressBar.ProgressBarStyle();
+        progressBarStyleUpgradeBoughtMinus = new ProgressBar.ProgressBarStyle();
+        progressBarStyleUpgradeDone = new ProgressBar.ProgressBarStyle();
+
+        ninePatchDrawable = new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF));
+
+        setStyles();
+    }
+
+    public static void dispose() {}
+
+    public void setStyles() {
+        setLabelStyle(labelStyleWhiteHuge, FONT_PATH, UIDimensions.TEXT_SIZE_HUGE, colorWhite);
+        setLabelStyle(labelStyleWhiteBig, FONT_PATH, UIDimensions.TEXT_SIZE_BIG, colorWhite);
+        setLabelStyle(labelStyleRedBig, FONT_PATH, UIDimensions.TEXT_SIZE_BIG, colorRed);
+        setLabelStyle(labelStyleWhiteMedium, FONT_PATH, UIDimensions.TEXT_SIZE_MEDIUM, colorWhite);
+        setLabelStyle(labelStyleWhiteSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorWhite);
+        setLabelStyle(labelStyleRedSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorRed);
+        setLabelStyle(labelStyleWhiteTiny, FONT_PATH, UIDimensions.TEXT_SIZE_TINY, colorWhite);
+        setLabelStyle(labelStyleBlueSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorLBlue);
+        setLabelStyle(labelStyleGreenSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorGreen);
+
+        setTextButtonStyle(textButtonStyleOrange,
+                FONT_BOLD_PATH, UIDimensions.TEXT_BUTTON_TEXT_SIZE, colorOrange, colorOrange, colorDisabled,
+                ninePatchDrawable,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
-        skinTextButtonGreen = getSkinTextButton(
-                FONT_BOLD_PATH, Constants.TEXT_BUTTON_TEXT_SIZE, colorGreen, colorGreen, colorDisabled,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
+        setTextButtonStyle(textButtonStyleGreen,
+                FONT_BOLD_PATH, UIDimensions.TEXT_BUTTON_TEXT_SIZE, colorGreen, colorGreen, colorDisabled,
+                ninePatchDrawable,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D_GREEN)));
-        skinTextButtonRed = getSkinTextButton(
-                FONT_BOLD_PATH, Constants.TEXT_BUTTON_TEXT_SIZE, colorRed, colorRed, colorDisabled,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
+        setTextButtonStyle(textButtonStyleRed,
+                FONT_BOLD_PATH, UIDimensions.TEXT_BUTTON_TEXT_SIZE, colorRed, colorRed, colorDisabled,
+                ninePatchDrawable,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D_RED)));
 
-        skinImageButtonClose = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleClose,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_CLOSE_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_CLOSE_DOWN)));
-        skinImageButtonPlus = getSkinImageButtonWithDisabled(
+        setImageButtonStyleWithDisabled(imageButtonStylePlus,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_PLUS_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_PLUS_DOWN)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_PLUS_DISABLED)));
-        skinImageButtonMinus = getSkinImageButtonWithDisabled(
+        setImageButtonStyleWithDisabled(imageButtonStyleMinus,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_MINUS_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_MINUS_DOWN)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_MINUS_DISABLED)));
-        skinImageButtonMagazines = getSkinImageButtonWithChecked(
+        setImageButtonStyleWithChecked(imageButtonStyleMagazines,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)));
-        skinImageButtonSettings = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleSettings,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SETTINGS_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SETTINGS_DOWN)));
-        skinImageButtonPause = getSkinImageButton(
+        setImageButtonStyle(imageButtonStylePause,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_PAUSE_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_PAUSE_DOWN)));
-        skinImageButtonRight = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleRight,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_DOWN)));
-        skinImageButtonLeft = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleLeft,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_LEFT_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_LEFT_DOWN)));
-        skinImageButtonUp = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleUp,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_UP_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_UP_DOWN)));
-        skinImageButtonDown = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleDown,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_DOWN_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_DOWN_DOWN)));
-        skinImageButtonBackpack = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleBackpack,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_BACKPACK_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_BACKPACK_DOWN)));
-        skinImageButtonReload = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleReload,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RELOAD_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RELOAD_DOWN)));
-        skinImageButtonEnter = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleEnter,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_ENTER_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_ENTER_DOWN)));
-        skinImageButtonAchievements = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleAchievements,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_DOWN)));
-        skinImageButtonLeaderboards = getSkinImageButton(
+        setImageButtonStyle(imageButtonStyleLeaderboards,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_LEADERBOARDS_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_LEADERBOARDS_DOWN)));
 
-        labelStyleLoggedInGPGS = getLabelStyle(FONT_PATH, 35, colorGreen);
-        labelStyleLoggedOutGPGS = getLabelStyle(FONT_PATH, 35, colorRed);
-
-        skinScrollPane = getSkinScrollPane(
+        setScrollPaneStyle(scrollPaneStyle,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCROLL_PANE_KNOB)));
-        skinSlider = getSkinSlider(
+        setSliderStyle(sliderStyle,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)));
-        skinCheckbox = getSkinCheckbox(FONT_PATH, Constants.TEXT_SIZE_SMALL, colorWhite,
+        setCheckBoxStyle(checkBoxStyle,
+                FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
-        skinDialogBox = getSkinDialogBox(FONT_PATH, Constants.TEXT_SIZE_MEDIUM, colorWhite,
+        setDialogBoxStyle(dialogBoxStyle,
+                FONT_PATH, UIDimensions.TEXT_SIZE_MEDIUM, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        skinSelectBox = getSkinSelectBox(FONT_PATH, Constants.TEXT_SIZE_SMALL, colorOrange, colorWhite,
+        setSelectBoxStyle(selectBoxStyle,
+                FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorOrange, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SELECT_BOX_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SELECT_BOX_DOWN)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCROLL_PANE_KNOB)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
-        skinProgressBar = getSkinProgressBar(
+        setProgressBarStyle(progressBarStyle,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL)));
-        skinProgressBarHealth = getSkinProgressBar(
+        setProgressBarStyle(progressBarStyleHealth,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_HEALTH)));
 
-        skinProgressBarValueNotBought = getSkinProgressBarData(
+        setProgressBarStyleData(progressBarStyleValueNotBought,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_BACKGROUND)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE)));
-        skinProgressBarValueBought = getSkinProgressBarData(
+        setProgressBarStyleData(progressBarStyleValueBought,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE)));
-        skinProgressBarUpgradeBought = getSkinProgressBarData(
+        setProgressBarStyleData(progressBarStyleUpgradeBought,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_BACKGROUND)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_UPGRADE)));
-        skinProgressBarValueBoughtMinus = getSkinProgressBarData(
+        setProgressBarStyleData(progressBarStyleValueBoughtMinus,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_BACKGROUND)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_UPGRADE)));
-        skinProgressBarUpgradeBoughtMinus = getSkinProgressBarData(
+        setProgressBarStyleData(progressBarStyleUpgradeBoughtMinus,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE_ATL)));
-        skinProgressBarUpgradeDone = getSkinProgressBarData(
+        setProgressBarStyleData(progressBarStyleUpgradeDone,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_BACKGROUND)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE)));
     }
-
-    public static void dispose() {}
 
     private BitmapFont getFont(
             String fontFilePath,
@@ -234,30 +286,17 @@ public class Styles {
         return font;
     }
 
-    private Skin getSkinLabel(
+    private void setLabelStyle(
+            Label.LabelStyle labelStyle,
             String fontFilePath,
             int fontSize,
             Color fontColor) {
-        Skin skin = new Skin();
-        skin.add("default", getFont(fontFilePath, fontSize));
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = skin.getFont("default");
-        labelStyle.fontColor = fontColor;
-        skin.add("default", labelStyle);
-        return skin;
-    }
-
-    private Label.LabelStyle getLabelStyle(
-            String fontFilePath,
-            int fontSize,
-            Color fontColor) {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = getFont(fontFilePath, fontSize);
         labelStyle.fontColor = fontColor;
-        return labelStyle;
     }
 
-    private Skin getSkinTextButton(
+    private void setTextButtonStyle(
+            TextButton.TextButtonStyle textButtonStyle,
             String fontFilePath,
             int fontSize,
             Color fontColorUp,
@@ -265,123 +304,102 @@ public class Styles {
             Color fontColorDisabled,
             NinePatchDrawable drawableUp,
             NinePatchDrawable drawableDown) {
-        Skin skin = new Skin();
-        skin.add("default", getFont(fontFilePath, fontSize));
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = skin.getFont("default");
+        textButtonStyle.font = getFont(fontFilePath, fontSize);
         textButtonStyle.fontColor = fontColorUp;
         textButtonStyle.downFontColor = fontColorDown;
         textButtonStyle.disabledFontColor = fontColorDisabled;
         textButtonStyle.up = drawableUp;
         textButtonStyle.down = drawableDown;
         textButtonStyle.disabled = drawableUp;
-        skin.add("default", textButtonStyle);
-        return skin;
     }
 
-    private Skin getSkinImageButton(
+    private void setImageButtonStyle(
+            ImageButton.ImageButtonStyle imageButtonStyle,
             NinePatchDrawable textureUp,
             NinePatchDrawable textureDown) {
-        Skin skin = new Skin();
-        ImageButton.ImageButtonStyle imageButtonStyle = new ImageButton.ImageButtonStyle();
         imageButtonStyle.up = textureUp;
         imageButtonStyle.down = textureDown;
-        skin.add("default", imageButtonStyle);
-        return skin;
     }
 
-    private Skin getSkinImageButtonWithChecked(
+    private void setImageButtonStyleWithChecked(
+            ImageButton.ImageButtonStyle imageButtonStyle,
             NinePatchDrawable textureUp,
             NinePatchDrawable textureDown) {
-        Skin skin = new Skin();
-        ImageButton.ImageButtonStyle imageButtonStyle = new ImageButton.ImageButtonStyle();
         imageButtonStyle.up = textureUp;
         imageButtonStyle.down = textureUp;
         imageButtonStyle.checked = textureDown;
-        skin.add("default", imageButtonStyle);
-        return skin;
     }
 
-    private Skin getSkinImageButtonWithDisabled(
+    private void setImageButtonStyleWithDisabled(
+            ImageButton.ImageButtonStyle imageButtonStyle,
             NinePatchDrawable textureUp,
             NinePatchDrawable textureDown,
             NinePatchDrawable textureDisabled) {
-        Skin skin = new Skin();
-        ImageButton.ImageButtonStyle imageButtonStyle = new ImageButton.ImageButtonStyle();
         imageButtonStyle.up = textureUp;
         imageButtonStyle.down = textureDown;
         imageButtonStyle.disabled = textureDisabled;
-        skin.add("default", imageButtonStyle);
-        return skin;
     }
 
-    private Skin getSkinDialogBox(
+    private void setDialogBoxStyle(
+            Dialog.WindowStyle windowStyle,
             String fontFilePath,
             int fontSize,
             Color fontColorLabel,
             NinePatchDrawable background) {
-        Skin skin = new Skin();
-        skin.add("default", getFont(fontFilePath, fontSize));
-        Dialog.WindowStyle windowStyle = new Dialog.WindowStyle();
         windowStyle.background = background;
-        windowStyle.titleFont = skin.getFont("default");
+        windowStyle.titleFont = getFont(fontFilePath, fontSize);
         windowStyle.titleFontColor = fontColorLabel;
-        skin.add("default", windowStyle);
-        return skin;
     }
 
-    private Skin getSkinScrollPane(
+    private void setScrollPaneStyle(
+            ScrollPane.ScrollPaneStyle scrollPaneStyle,
             NinePatchDrawable scroll,
             NinePatchDrawable scrollKnob) {
-        Skin skin = new Skin();
-        ScrollPane.ScrollPaneStyle scrollPaneStyle = new ScrollPane.ScrollPaneStyle(null, scroll, scrollKnob, scroll, scrollKnob);
-        scrollPaneStyle.hScroll.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.hScrollKnob.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.vScroll.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.vScrollKnob.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
-        skin.add("default", scrollPaneStyle);
-        return skin;
+        scrollPaneStyle.hScroll = scroll;
+        scrollPaneStyle.hScrollKnob = scrollKnob;
+        scrollPaneStyle.vScroll = scroll;
+        scrollPaneStyle.vScrollKnob = scrollKnob;
+        scrollPaneStyle.hScroll.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.hScrollKnob.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.vScroll.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.vScrollKnob.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
     }
 
-    private Skin getSkinSlider(
+    private void setSliderStyle(
+            Slider.SliderStyle sliderStyle,
             NinePatchDrawable background,
             NinePatchDrawable knobBefore,
             NinePatchDrawable knob) {
-        Skin skin = new Skin();
-        Slider.SliderStyle sliderStyle = new Slider.SliderStyle(background, knob);
+        sliderStyle.background = background;
+        sliderStyle.knob = knob;
         sliderStyle.knobBefore = knobBefore;
-        sliderStyle.background.setMinWidth(Constants.PROGRESS_BAR_WIDTH_HEALTH);
-        sliderStyle.background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        sliderStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_WIDTH_HEALTH);
-        sliderStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        sliderStyle.knob.setMinWidth(Constants.IMAGE_BUTTON_SIZE_SMALL);
-        sliderStyle.knob.setMinHeight(Constants.IMAGE_BUTTON_SIZE_SMALL);
-        skin.add("default-horizontal", sliderStyle);
-        return skin;
+        sliderStyle.background.setMinWidth(UIDimensions.PROGRESS_BAR_WIDTH_HEALTH);
+        sliderStyle.background.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        sliderStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_WIDTH_HEALTH);
+        sliderStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        sliderStyle.knob.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_SMALL);
+        sliderStyle.knob.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_SMALL);
     }
 
-    private Skin getSkinCheckbox(
+    private void setCheckBoxStyle(
+            CheckBox.CheckBoxStyle checkBoxStyle,
             String fontFilePath,
             int fontSize,
             Color fontColor,
             NinePatchDrawable checked,
             NinePatchDrawable unchecked) {
-        Skin skin = new Skin();
-        skin.add("default", getFont(fontFilePath, fontSize));
-        CheckBox.CheckBoxStyle checkBoxStyle = new CheckBox.CheckBoxStyle(
-                unchecked,
-                checked,
-                skin.getFont("default"),
-                fontColor);
-        checkBoxStyle.checkboxOn.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
-        checkBoxStyle.checkboxOn.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
-        checkBoxStyle.checkboxOff.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
-        checkBoxStyle.checkboxOff.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
-        skin.add("default", checkBoxStyle);
-        return skin;
+        checkBoxStyle.checkboxOff = unchecked;
+        checkBoxStyle.checkboxOn = checked;
+        checkBoxStyle.font = getFont(fontFilePath, fontSize);
+        checkBoxStyle.fontColor = fontColor;
+        checkBoxStyle.checkboxOn.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
+        checkBoxStyle.checkboxOn.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
+        checkBoxStyle.checkboxOff.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
+        checkBoxStyle.checkboxOff.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
     }
 
-    private Skin getSkinSelectBox(
+    private void setSelectBoxStyle(
+            SelectBox.SelectBoxStyle selectBoxStyle,
             String fontFilePath,
             int fontSize,
             Color fontColorSelected,
@@ -392,64 +410,50 @@ public class Styles {
             NinePatchDrawable scroll,
             NinePatchDrawable scrollKnob,
             NinePatchDrawable selection) {
-        Skin skin = new Skin();
-        skin.add("default", getFont(fontFilePath, fontSize));
-        SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle();
         selectBoxStyle.background = selectBoxUp;
         selectBoxStyle.backgroundOpen = selectBoxDown;
-        selectBoxStyle.font = skin.getFont("default");
+        selectBoxStyle.font = getFont(fontFilePath, fontSize);
         selectBoxStyle.fontColor = fontColorUnselected;
         selectBoxStyle.scrollStyle = new ScrollPane.ScrollPaneStyle(background, scroll, scrollKnob, scroll, scrollKnob);
-        selectBoxStyle.scrollStyle.hScroll.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.hScrollKnob.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.vScroll.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.vScrollKnob.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.hScroll.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.hScrollKnob.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.vScroll.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.vScrollKnob.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
         selectBoxStyle.listStyle = new List.ListStyle(
                 getFont(fontFilePath, fontSize),
                 fontColorSelected,
                 fontColorUnselected,
                 selection);
-        skin.add("default", selectBoxStyle);
-        return skin;
     }
 
-    private Skin getSkinProgressBar(
+    private void setProgressBarStyle(
+            ProgressBar.ProgressBarStyle progressBarStyle,
             NinePatchDrawable background,
             NinePatchDrawable knobBefore) {
-        Skin skin = new Skin();
-        ProgressBar.ProgressBarStyle progressBarStyle = new ProgressBar.ProgressBarStyle();
         progressBarStyle.background = background;
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
-        progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
-        skin.add("default-horizontal", progressBarStyle);
-        return skin;
+        progressBarStyle.background.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        progressBarStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
+        progressBarStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_MIN_WIDTH);
     }
 
-    private Skin getSkinProgressBarData(
+    private void setProgressBarStyleData(
+            ProgressBar.ProgressBarStyle progressBarStyle,
             NinePatchDrawable background,
             NinePatchDrawable knobBefore) {
-        Skin skin = new Skin();
-        ProgressBar.ProgressBarStyle progressBarStyle = new ProgressBar.ProgressBarStyle();
         progressBarStyle.background = background;
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
-        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
-        progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
-        skin.add("default-horizontal", progressBarStyle);
-        return skin;
+        progressBarStyle.background.setMinHeight(UIDimensions.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_MIN_WIDTH);
     }
 
-    private Skin getSkinProgressBarData(
+    private void setProgressBarStyleData(
+            ProgressBar.ProgressBarStyle progressBarStyle,
             NinePatchDrawable knobBefore) {
-        Skin skin = new Skin();
-        ProgressBar.ProgressBarStyle progressBarStyle = new ProgressBar.ProgressBarStyle();
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
-        progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
-        skin.add("default-horizontal", progressBarStyle);
-        return skin;
+        progressBarStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_MIN_WIDTH);
     }
 
     public String getFormattedFloat(float number) {
