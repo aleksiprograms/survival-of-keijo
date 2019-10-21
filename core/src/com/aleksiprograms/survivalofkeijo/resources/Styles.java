@@ -46,6 +46,9 @@ public class Styles {
 
     private final String FONT_PATH = "fonts/RobotoCondensed-Regular.ttf";
     private final String FONT_BOLD_PATH = "fonts/RobotoCondensed-Bold.ttf";
+    private FreeTypeFontGenerator fontGeneratorRegular;
+    private FreeTypeFontGenerator fontGeneratorBold;
+    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
 
     public Label.LabelStyle labelStyleWhiteHuge;
     public Label.LabelStyle labelStyleWhiteBig;
@@ -94,10 +97,11 @@ public class Styles {
     public ProgressBar.ProgressBarStyle progressBarStyleUpgradeBoughtMinus;
     public ProgressBar.ProgressBarStyle progressBarStyleUpgradeDone;
 
-    private NinePatchDrawable ninePatchDrawable;
-
     public Styles(TheGame game) {
         this.game = game;
+        fontGeneratorRegular = new FreeTypeFontGenerator(Gdx.files.internal(FONT_PATH));
+        fontGeneratorBold = new FreeTypeFontGenerator(Gdx.files.internal(FONT_BOLD_PATH));
+        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         setLocale();
 
         labelStyleWhiteHuge = new Label.LabelStyle();
@@ -145,35 +149,33 @@ public class Styles {
         progressBarStyleUpgradeBoughtMinus = new ProgressBar.ProgressBarStyle();
         progressBarStyleUpgradeDone = new ProgressBar.ProgressBarStyle();
 
-        ninePatchDrawable = new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF));
-
         setStyles();
     }
 
     public static void dispose() {}
 
-    public void setStyles() {
-        setLabelStyle(labelStyleWhiteHuge, FONT_PATH, UIDimensions.TEXT_SIZE_HUGE, colorWhite);
-        setLabelStyle(labelStyleWhiteBig, FONT_PATH, UIDimensions.TEXT_SIZE_BIG, colorWhite);
-        setLabelStyle(labelStyleRedBig, FONT_PATH, UIDimensions.TEXT_SIZE_BIG, colorRed);
-        setLabelStyle(labelStyleWhiteMedium, FONT_PATH, UIDimensions.TEXT_SIZE_MEDIUM, colorWhite);
-        setLabelStyle(labelStyleWhiteSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorWhite);
-        setLabelStyle(labelStyleRedSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorRed);
-        setLabelStyle(labelStyleWhiteTiny, FONT_PATH, UIDimensions.TEXT_SIZE_TINY, colorWhite);
-        setLabelStyle(labelStyleBlueSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorLBlue);
-        setLabelStyle(labelStyleGreenSmall, FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorGreen);
+    private void setStyles() {
+        setLabelStyle(labelStyleWhiteHuge, false, Constants.TEXT_SIZE_HUGE, colorWhite);
+        setLabelStyle(labelStyleWhiteBig, false, Constants.TEXT_SIZE_BIG, colorWhite);
+        setLabelStyle(labelStyleRedBig, false, Constants.TEXT_SIZE_BIG, colorRed);
+        setLabelStyle(labelStyleWhiteMedium, false, Constants.TEXT_SIZE_MEDIUM, colorWhite);
+        setLabelStyle(labelStyleWhiteSmall, false, Constants.TEXT_SIZE_SMALL, colorWhite);
+        setLabelStyle(labelStyleRedSmall, false, Constants.TEXT_SIZE_SMALL, colorRed);
+        setLabelStyle(labelStyleWhiteTiny, false, Constants.TEXT_SIZE_TINY, colorWhite);
+        setLabelStyle(labelStyleBlueSmall, false, Constants.TEXT_SIZE_SMALL, colorLBlue);
+        setLabelStyle(labelStyleGreenSmall, false, Constants.TEXT_SIZE_SMALL, colorGreen);
 
         setTextButtonStyle(textButtonStyleOrange,
-                FONT_BOLD_PATH, UIDimensions.TEXT_BUTTON_TEXT_SIZE, colorOrange, colorOrange, colorDisabled,
-                ninePatchDrawable,
+                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorOrange, colorOrange, colorDisabled,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
         setTextButtonStyle(textButtonStyleGreen,
-                FONT_BOLD_PATH, UIDimensions.TEXT_BUTTON_TEXT_SIZE, colorGreen, colorGreen, colorDisabled,
-                ninePatchDrawable,
+                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorGreen, colorGreen, colorDisabled,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D_GREEN)));
         setTextButtonStyle(textButtonStyleRed,
-                FONT_BOLD_PATH, UIDimensions.TEXT_BUTTON_TEXT_SIZE, colorRed, colorRed, colorDisabled,
-                ninePatchDrawable,
+                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorRed, colorRed, colorDisabled,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D_RED)));
 
         setImageButtonStyle(imageButtonStyleClose,
@@ -217,12 +219,14 @@ public class Styles {
         setImageButtonStyle(imageButtonStyleEnter,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_ENTER_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_ENTER_DOWN)));
-        setImageButtonStyle(imageButtonStyleAchievements,
+        setImageButtonStyleWithDisabled(imageButtonStyleAchievements,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_UP)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_DOWN)));
-        setImageButtonStyle(imageButtonStyleLeaderboards,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_DOWN)),
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_DISABLED)));
+        setImageButtonStyleWithDisabled(imageButtonStyleLeaderboards,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_LEADERBOARDS_UP)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_LEADERBOARDS_DOWN)));
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_LEADERBOARDS_DOWN)),
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_LEADERBOARDS_DISABLED)));
 
         setScrollPaneStyle(scrollPaneStyle,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
@@ -232,14 +236,14 @@ public class Styles {
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)));
         setCheckBoxStyle(checkBoxStyle,
-                FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorWhite,
+                false, Constants.TEXT_SIZE_SMALL, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
         setDialogBoxStyle(dialogBoxStyle,
-                FONT_PATH, UIDimensions.TEXT_SIZE_MEDIUM, colorWhite,
+                false, Constants.TEXT_SIZE_MEDIUM, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
         setSelectBoxStyle(selectBoxStyle,
-                FONT_PATH, UIDimensions.TEXT_SIZE_SMALL, colorOrange, colorWhite,
+                false, Constants.TEXT_SIZE_SMALL, colorOrange, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SELECT_BOX_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SELECT_BOX_DOWN)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
@@ -272,39 +276,38 @@ public class Styles {
     }
 
     private BitmapFont getFont(
-            String fontFilePath,
+            boolean bold,
             int fontSize) {
-        BitmapFont font;
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontFilePath));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = fontSize;
-        parameter.minFilter = Texture.TextureFilter.Linear;
-        parameter.magFilter = Texture.TextureFilter.Linear;
-        font = generator.generateFont(parameter);
-        generator.dispose();
-        return font;
+        fontParameter.size = fontSize;
+        fontParameter.minFilter = Texture.TextureFilter.Linear;
+        fontParameter.magFilter = Texture.TextureFilter.Linear;
+        //fontGeneratorRegular.dispose();
+        if (bold) {
+            return fontGeneratorBold.generateFont(fontParameter);
+        } else {
+            return fontGeneratorRegular.generateFont(fontParameter);
+        }
     }
 
     private void setLabelStyle(
             Label.LabelStyle labelStyle,
-            String fontFilePath,
+            boolean bold,
             int fontSize,
             Color fontColor) {
-        labelStyle.font = getFont(fontFilePath, fontSize);
+        labelStyle.font = getFont(bold, fontSize);
         labelStyle.fontColor = fontColor;
     }
 
     private void setTextButtonStyle(
             TextButton.TextButtonStyle textButtonStyle,
-            String fontFilePath,
+            boolean bold,
             int fontSize,
             Color fontColorUp,
             Color fontColorDown,
             Color fontColorDisabled,
             NinePatchDrawable drawableUp,
             NinePatchDrawable drawableDown) {
-        textButtonStyle.font = getFont(fontFilePath, fontSize);
+        textButtonStyle.font = getFont(bold, fontSize);
         textButtonStyle.fontColor = fontColorUp;
         textButtonStyle.downFontColor = fontColorDown;
         textButtonStyle.disabledFontColor = fontColorDisabled;
@@ -342,12 +345,12 @@ public class Styles {
 
     private void setDialogBoxStyle(
             Dialog.WindowStyle windowStyle,
-            String fontFilePath,
+            boolean bold,
             int fontSize,
             Color fontColorLabel,
             NinePatchDrawable background) {
         windowStyle.background = background;
-        windowStyle.titleFont = getFont(fontFilePath, fontSize);
+        windowStyle.titleFont = getFont(bold, fontSize);
         windowStyle.titleFontColor = fontColorLabel;
     }
 
@@ -359,10 +362,10 @@ public class Styles {
         scrollPaneStyle.hScrollKnob = scrollKnob;
         scrollPaneStyle.vScroll = scroll;
         scrollPaneStyle.vScrollKnob = scrollKnob;
-        scrollPaneStyle.hScroll.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.hScrollKnob.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.vScroll.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.vScrollKnob.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.hScroll.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.hScrollKnob.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.vScroll.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.vScrollKnob.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
     }
 
     private void setSliderStyle(
@@ -373,34 +376,34 @@ public class Styles {
         sliderStyle.background = background;
         sliderStyle.knob = knob;
         sliderStyle.knobBefore = knobBefore;
-        sliderStyle.background.setMinWidth(UIDimensions.PROGRESS_BAR_WIDTH_HEALTH);
-        sliderStyle.background.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
-        sliderStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_WIDTH_HEALTH);
-        sliderStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
-        sliderStyle.knob.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_SMALL);
-        sliderStyle.knob.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_SMALL);
+        sliderStyle.background.setMinWidth(Constants.PROGRESS_BAR_WIDTH_HEALTH);
+        sliderStyle.background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        sliderStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_WIDTH_HEALTH);
+        sliderStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        sliderStyle.knob.setMinWidth(Constants.IMAGE_BUTTON_SIZE_SMALL);
+        sliderStyle.knob.setMinHeight(Constants.IMAGE_BUTTON_SIZE_SMALL);
     }
 
     private void setCheckBoxStyle(
             CheckBox.CheckBoxStyle checkBoxStyle,
-            String fontFilePath,
+            boolean bold,
             int fontSize,
             Color fontColor,
             NinePatchDrawable checked,
             NinePatchDrawable unchecked) {
         checkBoxStyle.checkboxOff = unchecked;
         checkBoxStyle.checkboxOn = checked;
-        checkBoxStyle.font = getFont(fontFilePath, fontSize);
+        checkBoxStyle.font = getFont(bold, fontSize);
         checkBoxStyle.fontColor = fontColor;
-        checkBoxStyle.checkboxOn.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
-        checkBoxStyle.checkboxOn.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
-        checkBoxStyle.checkboxOff.setMinWidth(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
-        checkBoxStyle.checkboxOff.setMinHeight(UIDimensions.IMAGE_BUTTON_SIZE_TINY);
+        checkBoxStyle.checkboxOn.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
+        checkBoxStyle.checkboxOn.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
+        checkBoxStyle.checkboxOff.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
+        checkBoxStyle.checkboxOff.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
     }
 
     private void setSelectBoxStyle(
             SelectBox.SelectBoxStyle selectBoxStyle,
-            String fontFilePath,
+            boolean bold,
             int fontSize,
             Color fontColorSelected,
             Color fontColorUnselected,
@@ -412,15 +415,15 @@ public class Styles {
             NinePatchDrawable selection) {
         selectBoxStyle.background = selectBoxUp;
         selectBoxStyle.backgroundOpen = selectBoxDown;
-        selectBoxStyle.font = getFont(fontFilePath, fontSize);
+        selectBoxStyle.font = getFont(bold, fontSize);
         selectBoxStyle.fontColor = fontColorUnselected;
         selectBoxStyle.scrollStyle = new ScrollPane.ScrollPaneStyle(background, scroll, scrollKnob, scroll, scrollKnob);
-        selectBoxStyle.scrollStyle.hScroll.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.hScrollKnob.setMinHeight(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.vScroll.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.vScrollKnob.setMinWidth(UIDimensions.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.hScroll.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.hScrollKnob.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.vScroll.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
+        selectBoxStyle.scrollStyle.vScrollKnob.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
         selectBoxStyle.listStyle = new List.ListStyle(
-                getFont(fontFilePath, fontSize),
+                getFont(bold, fontSize),
                 fontColorSelected,
                 fontColorUnselected,
                 selection);
@@ -432,9 +435,9 @@ public class Styles {
             NinePatchDrawable knobBefore) {
         progressBarStyle.background = background;
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.background.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
-        progressBarStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
-        progressBarStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_MIN_WIDTH);
+        progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
     }
 
     private void setProgressBarStyleData(
@@ -443,17 +446,17 @@ public class Styles {
             NinePatchDrawable knobBefore) {
         progressBarStyle.background = background;
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.background.setMinHeight(UIDimensions.PROGRESS_BAR_DATA_HEIGHT);
-        progressBarStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_DATA_HEIGHT);
-        progressBarStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_MIN_WIDTH);
+        progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
     }
 
     private void setProgressBarStyleData(
             ProgressBar.ProgressBarStyle progressBarStyle,
             NinePatchDrawable knobBefore) {
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_DATA_HEIGHT);
-        progressBarStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_MIN_WIDTH);
+        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
     }
 
     public String getFormattedFloat(float number) {

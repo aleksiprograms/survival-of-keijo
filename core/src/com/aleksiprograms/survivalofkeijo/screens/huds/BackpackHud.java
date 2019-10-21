@@ -2,7 +2,6 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.aleksiprograms.survivalofkeijo.toolbox.TableWithID;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -110,133 +109,7 @@ public class BackpackHud extends AbstractHud {
 
     public BackpackHud(final TheGame game) {
         super(game);
-
-        super.pad(UIDimensions.GAP);
-        super.center();
-        super.setFillParent(true);
-
-        checkedWeaponID = -1;
-
-        uselessLabel = new Label("0", game.styles.labelStyleBlueSmall);
-
-        labelBasicInfoFireType = new Label("", game.styles.labelStyleBlueSmall);
-        labelBasicInfoAmmoPrice = new Label("", game.styles.labelStyleBlueSmall);
-        labelBasicInfoPointsHit = new Label("", game.styles.labelStyleBlueSmall);
-        labelBasicInfoPointsKill = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoPriceUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelPointsTitleHit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelPointsTitleKill = new Label("", game.styles.labelStyleWhiteSmall);
-        labelFireTypeTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoPriceTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelPointsTitle = new Label("", game.styles.labelStyleWhiteTiny);
-
-        labelWeaponName = new Label("", game.styles.labelStyleWhiteMedium);
-        labelNumberOfAmmoTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelNumberOfAmmo = new Label("", game.styles.labelStyleWhiteMedium);
-        labelRateOfFireTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelRateOfFireValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelRateOfFireUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelRateOfFireLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelRateOfFireLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelRateOfFireMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoDamageValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoSpeedTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoSpeedValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoSpeedUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoSpeedLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoSpeedLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoSpeedMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMagazineSizeTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMagazineSizeValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelMagazineSizeUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMagazineSizeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMagazineSizeLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelMagazineSizeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelReloadTimeTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelReloadTimeValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelReloadTimeUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelReloadTimeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelReloadTimeLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelReloadTimeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarReloadTime = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarWeight = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-
-        labelRateOfFireValue.setAlignment(Align.topRight);
-        labelAmmoDamageValue.setAlignment(Align.topRight);
-        labelAmmoSpeedValue.setAlignment(Align.topRight);
-        labelMagazineSizeValue.setAlignment(Align.topRight);
-        labelReloadTimeValue.setAlignment(Align.topRight);
-        labelWeightValue.setAlignment(Align.topRight);
-        labelMeleeDamageValue.setAlignment(Align.topRight);
-
-        tableWeaponInfoBox = createBasicInfoBox();
-
-        tableRateOfFire = createRow(labelRateOfFireTitle, labelRateOfFireValue, labelRateOfFireUnit, labelRateOfFireLevelTitle, labelRateOfFireLevel, labelRateOfFireMaxLevel, progressBarRateOfFire);
-        tableAmmoDamage = createRow(labelAmmoDamageTitle, labelAmmoDamageValue, labelAmmoDamageUnit, labelAmmoDamageLevelTitle, labelAmmoDamageLevel, labelAmmoDamageMaxLevel, progressBarAmmoDamage);
-        tableAmmoSpeed = createRow(labelAmmoSpeedTitle, labelAmmoSpeedValue, labelAmmoSpeedUnit, labelAmmoSpeedLevelTitle, labelAmmoSpeedLevel, labelAmmoSpeedMaxLevel, progressBarAmmoSpeed);
-        tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, labelMagazineSizeLevelTitle, labelMagazineSizeLevel, labelMagazineSizeMaxLevel, progressBarMagazineSize);
-        tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, labelReloadTimeLevelTitle, labelReloadTimeLevel, labelReloadTimeMaxLevel, progressBarReloadTime);
-        tableWeight = createRow(labelWeightTitle, labelWeightValue, labelWeightUnit, labelWeightLevelTitle, labelWeightLevel, labelWeightMaxLevel, progressBarWeight);
-        tableMeleeDamage = createRow(labelMeleeDamageTitle, labelMeleeDamageValue, labelMeleeDamageUnit, labelMeleeDamageLevelTitle, labelMeleeDamageLevel, labelMeleeDamageMaxLevel, progressBarMeleeDamage);
-
-        buttonWeapons = new Array<TableWithID>();
-        tableWeaponButtons = new Table();
-
-        ScrollPane scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
-        scrollPaneWeapons.setScrollingDisabled(true, false);
-        scrollPaneWeapons.setForceScroll(false, true);
-        scrollPaneWeapons.setupOverscroll(UIDimensions.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
-        scrollPaneWeapons.setFadeScrollBars(false);
-        scrollPaneWeapons.setFlickScrollTapSquareSize(UIDimensions.SCROLL_PANE_SQUARE_SIZE);
-        scrollPaneWeapons.updateVisualScroll();
-        scrollPaneWeapons.layout();
-
-        Table tableWeapons = new Table();
-        tableWeapons.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        tableWeapons.add(scrollPaneWeapons).growY().pad(UIDimensions.GAP);
-
-        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
-        labelMoney = new Label("", game.styles.labelStyleWhiteBig);
-        final ImageButton btClose = new ImageButton(game.styles.imageButtonStyleClose);
-        Table tableTopRight = new Table();
-        tableTopRight.add(labelMoney).align(Align.right).padRight(UIDimensions.GAP * 2).expandX();
-        tableTopRight.add(btClose).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
-        Table tableTop = new Table();
-        tableTop.add().width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL * 5).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
-        tableTop.add(labelScreenTitle).expandX().align(Align.center);
-        tableTop.add(tableTopRight).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL * 5).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
-
-        tableWeapon = new Table();
-        createTableWeapon();
-
-        super.add(tableTop).height(UIDimensions.TABLE_TOP_HEIGHT).growX().padBottom(UIDimensions.GAP).align(Align.top).colspan(2);
-        super.row();
-        super.add(tableWeapons).growY().align(Align.left).width(UIDimensions.UI_WEAPONS_IN_ROW * (UIDimensions.IMAGE_BUTTON_SIZE_HUGE + UIDimensions.GAP) + 2 * UIDimensions.GAP + UIDimensions.SCROLL_PANE_SCROLL_SIZE);
-        super.add(tableWeapon).width(UIDimensions.WEAPON_TABLE_WIDTH_VALUE).align(Align.right).growY();
-
-        btClose.addListener(inputListenerContinue);
+        initializeHud();
     }
 
     @Override
@@ -254,7 +127,7 @@ public class BackpackHud extends AbstractHud {
         updateWeaponInfoBox();
         updateWeaponRowsData();
         updateSelectedWeaponRows();
-        tableWeapon.add(tableWeaponData).width(UIDimensions.WEAPON_TABLE_WIDTH_VALUE).growY();
+        tableWeapon.add(tableWeaponData).width(Constants.WEAPON_TABLE_WIDTH_VALUE).growY();
     }
 
     private void updateWeaponsTable() {
@@ -263,7 +136,7 @@ public class BackpackHud extends AbstractHud {
             final TableWithID table = new TableWithID(game.gameWorld.player.weapons.get(i).weaponData.ID);
             table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
             table.setTouchable(Touchable.enabled);
-            table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP)))).width(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).height(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
+            table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP)))).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
             table.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -276,7 +149,7 @@ public class BackpackHud extends AbstractHud {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_HUGE) {
+                    if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_HUGE) {
                         for (int k = 0; k < buttonWeapons.size; k++) {
                             if (buttonWeapons.get(k).ID == checkedWeaponID) {
                                 buttonWeapons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
@@ -303,11 +176,11 @@ public class BackpackHud extends AbstractHud {
         tableWeaponButtons.clearChildren();
         for (int i = 0; i < Constants.NUMBER_OF_WEAPONS; i++) {
             if (i < buttonWeapons.size) {
-                tableWeaponButtons.add(buttonWeapons.get(i)).width(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).height(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).padRight(UIDimensions.GAP).padBottom(i < UIDimensions.UI_WEAPONS_IN_FULL_ROW ? UIDimensions.GAP : 0);
+                tableWeaponButtons.add(buttonWeapons.get(i)).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
             } else {
-                tableWeaponButtons.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)))).width(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).height(UIDimensions.IMAGE_BUTTON_SIZE_HUGE).padRight(UIDimensions.GAP).padBottom(i < UIDimensions.UI_WEAPONS_IN_FULL_ROW ? UIDimensions.GAP : 0);
+                tableWeaponButtons.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)))).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
             }
-            if ((i + 1) % UIDimensions.UI_WEAPONS_IN_ROW == 0) {
+            if ((i + 1) % Constants.UI_WEAPONS_IN_ROW == 0) {
                 tableWeaponButtons.row();
             }
         }
@@ -321,41 +194,41 @@ public class BackpackHud extends AbstractHud {
 
     private void updateSelectedWeaponRows() {
         weaponInfoRows = 0;
-        tableWeaponRows.add(tableWeaponInfoBox).padBottom(UIDimensions.GAP).padRight(UIDimensions.GAP).height(3 * uselessLabel.getHeight() + 2 * UIDimensions.GAP);
+        tableWeaponRows.add(tableWeaponInfoBox).padBottom(Constants.GAP).padRight(Constants.GAP).height(3 * uselessLabel.getHeight() + 2 * Constants.GAP);
         tableWeaponRows.row();
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isRateOfFire) {
             weaponInfoRows++;
-            tableWeaponRows.add(tableRateOfFire).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
+            tableWeaponRows.add(tableRateOfFire).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoDamage) {
             weaponInfoRows++;
-            tableWeaponRows.add(tableAmmoDamage).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
+            tableWeaponRows.add(tableAmmoDamage).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
             weaponInfoRows++;
-            tableWeaponRows.add(tableMeleeDamage).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
+            tableWeaponRows.add(tableMeleeDamage).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoSpeed) {
             weaponInfoRows++;
-            tableWeaponRows.add(tableAmmoSpeed).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
+            tableWeaponRows.add(tableAmmoSpeed).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMagazineSize) {
             weaponInfoRows++;
-            tableWeaponRows.add(tableMagazineSize).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
+            tableWeaponRows.add(tableMagazineSize).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isReloadTime) {
             weaponInfoRows++;
-            tableWeaponRows.add(tableReloadTime).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
+            tableWeaponRows.add(tableReloadTime).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
             weaponInfoRows++;
-            tableWeaponRows.add(tableWeight).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? UIDimensions.GAP : 0).padRight(UIDimensions.GAP).height(UIDimensions.IMAGE_BUTTON_SIZE_TINY + 2 * UIDimensions.GAP);
+            tableWeaponRows.add(tableWeight).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
 
@@ -454,6 +327,135 @@ public class BackpackHud extends AbstractHud {
         }
     }
 
+    private void initializeHud() {
+        super.pad(Constants.GAP);
+        super.center();
+        super.setFillParent(true);
+
+        checkedWeaponID = -1;
+
+        uselessLabel = new Label("0", game.styles.labelStyleBlueSmall);
+
+        labelBasicInfoFireType = new Label("", game.styles.labelStyleBlueSmall);
+        labelBasicInfoAmmoPrice = new Label("", game.styles.labelStyleBlueSmall);
+        labelBasicInfoPointsHit = new Label("", game.styles.labelStyleBlueSmall);
+        labelBasicInfoPointsKill = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoPriceUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelPointsTitleHit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelPointsTitleKill = new Label("", game.styles.labelStyleWhiteSmall);
+        labelFireTypeTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoPriceTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelPointsTitle = new Label("", game.styles.labelStyleWhiteTiny);
+
+        labelWeaponName = new Label("", game.styles.labelStyleWhiteMedium);
+        labelNumberOfAmmoTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelNumberOfAmmo = new Label("", game.styles.labelStyleWhiteMedium);
+        labelRateOfFireTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelRateOfFireValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelRateOfFireUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelRateOfFireLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelRateOfFireLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelRateOfFireMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoDamageValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoSpeedValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoSpeedUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelAmmoSpeedLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelAmmoSpeedMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMagazineSizeValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelMagazineSizeUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMagazineSizeLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelMagazineSizeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelReloadTimeValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelReloadTimeUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelReloadTimeLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelReloadTimeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelWeightValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelWeightUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelWeightLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelWeightLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelWeightMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMeleeDamageValue = new Label("", game.styles.labelStyleBlueSmall);
+        labelMeleeDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMeleeDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
+        labelMeleeDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
+        labelMeleeDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
+        progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarReloadTime = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarWeight = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+
+        labelRateOfFireValue.setAlignment(Align.topRight);
+        labelAmmoDamageValue.setAlignment(Align.topRight);
+        labelAmmoSpeedValue.setAlignment(Align.topRight);
+        labelMagazineSizeValue.setAlignment(Align.topRight);
+        labelReloadTimeValue.setAlignment(Align.topRight);
+        labelWeightValue.setAlignment(Align.topRight);
+        labelMeleeDamageValue.setAlignment(Align.topRight);
+
+        tableWeaponInfoBox = createBasicInfoBox();
+
+        tableRateOfFire = createRow(labelRateOfFireTitle, labelRateOfFireValue, labelRateOfFireUnit, labelRateOfFireLevelTitle, labelRateOfFireLevel, labelRateOfFireMaxLevel, progressBarRateOfFire);
+        tableAmmoDamage = createRow(labelAmmoDamageTitle, labelAmmoDamageValue, labelAmmoDamageUnit, labelAmmoDamageLevelTitle, labelAmmoDamageLevel, labelAmmoDamageMaxLevel, progressBarAmmoDamage);
+        tableAmmoSpeed = createRow(labelAmmoSpeedTitle, labelAmmoSpeedValue, labelAmmoSpeedUnit, labelAmmoSpeedLevelTitle, labelAmmoSpeedLevel, labelAmmoSpeedMaxLevel, progressBarAmmoSpeed);
+        tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, labelMagazineSizeLevelTitle, labelMagazineSizeLevel, labelMagazineSizeMaxLevel, progressBarMagazineSize);
+        tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, labelReloadTimeLevelTitle, labelReloadTimeLevel, labelReloadTimeMaxLevel, progressBarReloadTime);
+        tableWeight = createRow(labelWeightTitle, labelWeightValue, labelWeightUnit, labelWeightLevelTitle, labelWeightLevel, labelWeightMaxLevel, progressBarWeight);
+        tableMeleeDamage = createRow(labelMeleeDamageTitle, labelMeleeDamageValue, labelMeleeDamageUnit, labelMeleeDamageLevelTitle, labelMeleeDamageLevel, labelMeleeDamageMaxLevel, progressBarMeleeDamage);
+
+        buttonWeapons = new Array<TableWithID>();
+        tableWeaponButtons = new Table();
+
+        ScrollPane scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
+        scrollPaneWeapons.setScrollingDisabled(true, false);
+        scrollPaneWeapons.setForceScroll(false, true);
+        scrollPaneWeapons.setupOverscroll(Constants.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
+        scrollPaneWeapons.setFadeScrollBars(false);
+        scrollPaneWeapons.setFlickScrollTapSquareSize(Constants.SCROLL_PANE_SQUARE_SIZE);
+        scrollPaneWeapons.updateVisualScroll();
+        scrollPaneWeapons.layout();
+
+        Table tableWeapons = new Table();
+        tableWeapons.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
+        tableWeapons.add(scrollPaneWeapons).growY().pad(Constants.GAP);
+
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        labelMoney = new Label("", game.styles.labelStyleWhiteBig);
+        final ImageButton btClose = new ImageButton(game.styles.imageButtonStyleClose);
+        Table tableTopRight = new Table();
+        tableTopRight.add(labelMoney).align(Align.right).padRight(Constants.GAP * 2).expandX();
+        tableTopRight.add(btClose).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+        Table tableTop = new Table();
+        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL * 5).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add(labelScreenTitle).expandX().align(Align.center);
+        tableTop.add(tableTopRight).width(Constants.IMAGE_BUTTON_SIZE_SMALL * 5).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+
+        tableWeapon = new Table();
+        createTableWeapon();
+
+        super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
+        super.row();
+        super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_SCROLL_SIZE);
+        super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH_VALUE).align(Align.right).growY();
+
+        btClose.addListener(inputListenerContinue);
+    }
+
     private Table createBasicInfoBox() {
         Table tableDataRow1 = new Table();
         tableDataRow1.add(labelBasicInfoFireType).growX().align(Align.topLeft);
@@ -467,33 +469,33 @@ public class BackpackHud extends AbstractHud {
         tableDataRow2.add(labelBasicInfoPointsKill).growX().align(Align.topLeft);
         Table tableRows = new Table();
         tableRows.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        tableRows.add(labelFireTypeTitle).align(Align.bottomLeft).width(UIDimensions.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(UIDimensions.GAP).padTop(UIDimensions.GAP);
-        tableRows.add(tableDataRow1).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(UIDimensions.GAP).padTop(UIDimensions.GAP);
+        tableRows.add(labelFireTypeTitle).align(Align.bottomLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padTop(Constants.GAP);
+        tableRows.add(tableDataRow1).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP).padTop(Constants.GAP);
         tableRows.row();
-        tableRows.add(labelPointsTitle).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(UIDimensions.GAP);
-        tableRows.add(tableDataRow2).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(UIDimensions.GAP);
+        tableRows.add(labelPointsTitle).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP);
+        tableRows.add(tableDataRow2).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP);
         tableRows.row();
-        tableRows.add(labelAmmoPriceTitle).align(Align.left).width(UIDimensions.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(UIDimensions.GAP).padBottom(UIDimensions.GAP);
-        tableRows.add(tableDataRow3).align(Align.topLeft).width(UIDimensions.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(UIDimensions.GAP).padBottom(UIDimensions.GAP);
+        tableRows.add(labelAmmoPriceTitle).align(Align.left).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padBottom(Constants.GAP);
+        tableRows.add(tableDataRow3).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP).padBottom(Constants.GAP);
         return tableRows;
     }
 
     private Table createRow(Label title, Label value, Label unit, Label levelTitle, Label level, Label maxLevel, ProgressBar valueProgress) {
         Table tableData = new Table();
-        tableData.add(title).width(UIDimensions.WEAPON_TITLE_WIDTH).align(Align.left);
-        tableData.add(value).width(UIDimensions.WEAPON_VALUE_WIDTH).align(Align.topLeft);
-        tableData.add(unit).width(UIDimensions.WEAPON_UNIT_WIDTH).align(Align.topLeft);
+        tableData.add(title).width(Constants.WEAPON_TITLE_WIDTH).align(Align.left);
+        tableData.add(value).width(Constants.WEAPON_VALUE_WIDTH).align(Align.topLeft);
+        tableData.add(unit).width(Constants.WEAPON_UNIT_WIDTH).align(Align.topLeft);
         Table tableLevel = new Table();
         tableLevel.add(levelTitle).align(Align.right).expandX();
         tableLevel.add(level).align(Align.topRight);
         tableLevel.add(new Label("/", game.styles.labelStyleWhiteSmall)).align(Align.topRight);
         tableLevel.add(maxLevel).align(Align.topRight);
-        tableData.add(tableLevel).width(UIDimensions.WEAPON_LEVEL_WIDTH).align(Align.topLeft);
+        tableData.add(tableLevel).width(Constants.WEAPON_LEVEL_WIDTH).align(Align.topLeft);
         tableData.row();
-        tableData.add(valueProgress).colspan(5).width(UIDimensions.WEAPON_BAR_WIDTH_VALUE).height(UIDimensions.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
+        tableData.add(valueProgress).colspan(5).width(Constants.WEAPON_BAR_WIDTH_VALUE).height(Constants.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();
         tableRow.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        tableRow.add(tableData).growY().pad(UIDimensions.GAP);
+        tableRow.add(tableData).growY().pad(Constants.GAP);
         return tableRow;
     }
 
@@ -502,18 +504,18 @@ public class BackpackHud extends AbstractHud {
         scrollPaneWeapon = new ScrollPane(tableWeaponRows, game.styles.scrollPaneStyle);
         scrollPaneWeapon.setScrollingDisabled(true, false);
         scrollPaneWeapon.setForceScroll(false, true);
-        scrollPaneWeapon.setupOverscroll(UIDimensions.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
+        scrollPaneWeapon.setupOverscroll(Constants.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
         scrollPaneWeapon.setFadeScrollBars(false);
-        scrollPaneWeapon.setFlickScrollTapSquareSize(UIDimensions.SCROLL_PANE_SQUARE_SIZE);
+        scrollPaneWeapon.setFlickScrollTapSquareSize(Constants.SCROLL_PANE_SQUARE_SIZE);
         scrollPaneWeapon.updateVisualScroll();
         scrollPaneWeapon.layout();
 
         tableWeaponData = new Table();
         tableWeaponData.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        tableWeaponData.add(labelWeaponName).pad(UIDimensions.GAP).align(Align.left).growX();
-        tableWeaponData.add(labelNumberOfAmmoTitle).padTop(UIDimensions.GAP).padBottom(UIDimensions.GAP).align(Align.right);
-        tableWeaponData.add(labelNumberOfAmmo).pad(UIDimensions.GAP).align(Align.right);
+        tableWeaponData.add(labelWeaponName).pad(Constants.GAP).align(Align.left).growX();
+        tableWeaponData.add(labelNumberOfAmmoTitle).padTop(Constants.GAP).padBottom(Constants.GAP).align(Align.right);
+        tableWeaponData.add(labelNumberOfAmmo).pad(Constants.GAP).align(Align.right);
         tableWeaponData.row();
-        tableWeaponData.add(scrollPaneWeapon).colspan(3).align(Align.left).grow().padBottom(UIDimensions.GAP).padRight(UIDimensions.GAP).padLeft(UIDimensions.GAP);
+        tableWeaponData.add(scrollPaneWeapon).colspan(3).align(Align.left).grow().padBottom(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.GAP);
     }
 }

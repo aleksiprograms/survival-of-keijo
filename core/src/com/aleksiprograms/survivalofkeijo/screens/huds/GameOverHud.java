@@ -2,7 +2,6 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,28 +16,7 @@ public class GameOverHud extends AbstractHud {
 
     public GameOverHud(TheGame game) {
         super(game);
-
-        super.pad(UIDimensions.GAP);
-        super.center();
-        super.setFillParent(true);
-
-        buttonRestart = new TextButton("", game.styles.textButtonStyleRed);
-        buttonHome = new TextButton("", game.styles.textButtonStyleRed);
-        Table tableButtons = new Table();
-        tableButtons.add(buttonRestart).padBottom(UIDimensions.GAP).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.right);
-        tableButtons.row();
-        tableButtons.add(buttonHome).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.right);
-
-        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
-        Table tableTop = new Table();
-        tableTop.add(labelScreenTitle).align(Align.center);
-
-        super.add(tableTop).height(UIDimensions.TABLE_TOP_HEIGHT).growX().padBottom(UIDimensions.GAP).align(Align.top).colspan(2);
-        super.row();
-        super.add(tableButtons).expand().align(Align.right);
-
-        buttonRestart.addListener(inputListenerRestart);
-        buttonHome.addListener(inputListenerHome);
+        initializeHud();
     }
 
     @Override
@@ -47,5 +25,29 @@ public class GameOverHud extends AbstractHud {
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleGameOver"));
         buttonRestart.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonRestart"));
         buttonHome.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonHome"));
+    }
+
+    private void initializeHud() {
+        super.pad(Constants.GAP);
+        super.center();
+        super.setFillParent(true);
+
+        buttonRestart = new TextButton("", game.styles.textButtonStyleRed);
+        buttonHome = new TextButton("", game.styles.textButtonStyleRed);
+        Table tableButtons = new Table();
+        tableButtons.add(buttonRestart).padBottom(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableButtons.row();
+        tableButtons.add(buttonHome).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        Table tableTop = new Table();
+        tableTop.add(labelScreenTitle).align(Align.center);
+
+        super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
+        super.row();
+        super.add(tableButtons).expand().align(Align.right);
+
+        buttonRestart.addListener(inputListenerRestart);
+        buttonHome.addListener(inputListenerHome);
     }
 }

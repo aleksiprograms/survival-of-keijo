@@ -9,8 +9,67 @@ public class Constants {
     public static final String STRING_FINNISH = "SUOMI";
 
     public static final float FIXED_TIME_STEP = 1f/60f;
+    public static final int FIELD_OF_VIEW_Y = 67;
+    public static final int VIRTUAL_WIDTH = 1920;
+    public static final int VIRTUAL_HEIGHT = 1080;
     public static final int NUMBER_OF_LEVELS = 6;
     public static final int NUMBER_OF_WEAPONS = 7;
+
+    public static final int UI_WEAPONS_IN_ROW = 3;
+    public static final int UI_WEAPONS_IN_FULL_ROW = Constants.NUMBER_OF_WEAPONS - (Constants.NUMBER_OF_WEAPONS % UI_WEAPONS_IN_ROW);
+
+    public static final int GAP                        = 24;
+    public static final int IMAGE_BUTTON_SIZE_HUGE     = 240;
+    public static final int IMAGE_BUTTON_SIZE_BIG      = 220;
+    public static final int IMAGE_BUTTON_SIZE_MEDIUM   = 160;
+    public static final int IMAGE_BUTTON_SIZE_SMALL    = 130;
+    public static final int IMAGE_BUTTON_SIZE_TINY     = 100;
+    public static final int TEXT_BUTTON_WIDTH          = 2 * IMAGE_BUTTON_SIZE_SMALL + 3 * GAP;
+    public static final int TEXT_BUTTON_HEIGHT         = 130;
+    public static final int TEXT_SIZE_HUGE             = 80;
+    public static final int TEXT_SIZE_BIG              = 60;
+    public static final int TEXT_SIZE_MEDIUM           = 55;
+    public static final int TEXT_SIZE_SMALL            = 50;
+    public static final int TEXT_SIZE_TINY             = 40;
+    public static final int TEXT_BUTTON_TEXT_SIZE      = 50;
+    public static final int BOUGHT_ICON_SIZE           = 40;
+    public static final int SCROLL_PANE_SQUARE_SIZE    = 80;
+    public static final int SCROLL_PANE_OVER_SCROLL    = 160;
+    public static final int SCROLL_PANE_SCROLL_SIZE    = 50;
+    public static final int TABLE_TOP_HEIGHT           = IMAGE_BUTTON_SIZE_SMALL;
+    public static final int PROGRESS_BAR_WIDTH_LOADING = 800;
+    public static final int PROGRESS_BAR_WIDTH_HEALTH  = 500;
+    public static final int PROGRESS_BAR_MIN_WIDTH     = 50;
+    public static final int PROGRESS_BAR_HEIGHT        = 50;
+    public static final int PROGRESS_BAR_DATA_HEIGHT   = 20;
+    public static final int TEXT_RIGHT_GAP             = 25;
+    public static final int TEXT_BOTTOM_GAP            = 10;
+    public static final int SETTINGS_CELL_BOTTOM_GAP   = 25;
+
+    public static final int WEAPON_TITLE_WIDTH = 360;
+    public static final int WEAPON_VALUE_WIDTH = 160;
+    public static final int WEAPON_UNIT_WIDTH  = 130;
+    public static final int WEAPON_LEVEL_WIDTH = 240;
+
+    public static final int WEAPON_BAR_WIDTH_VALUE   = WEAPON_TITLE_WIDTH + WEAPON_VALUE_WIDTH + WEAPON_UNIT_WIDTH + WEAPON_LEVEL_WIDTH;
+    public static final int WEAPON_TABLE_WIDTH_VALUE = 5 * GAP + SCROLL_PANE_SCROLL_SIZE + WEAPON_BAR_WIDTH_VALUE;
+    public static final int WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH = 370;
+    public static final int WEAPON_BASIC_INFO_DATA_TABLE_WIDTH  = WEAPON_BAR_WIDTH_VALUE - WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH;
+
+    public static final int WEAPON_TITLE_WIDTH_UPGRADE   = 350;
+    public static final int WEAPON_VALUE_WIDTH_UPGRADE   = 160;
+    public static final int WEAPON_UNIT_WIDTH_UPGRADE    = 110;
+    public static final int WEAPON_LEVEL_WIDTH_UPGRADE   = 180;
+    public static final int WEAPON_UPGRADE_WIDTH_UPGRADE = 130;
+    public static final int WEAPON_PRICE_WIDTH_UPGRADE   = 160;
+
+    public static final int WEAPON_BAR_WIDTH_UPGRADE     = WEAPON_TITLE_WIDTH_UPGRADE + WEAPON_VALUE_WIDTH_UPGRADE + WEAPON_UNIT_WIDTH_UPGRADE + WEAPON_LEVEL_WIDTH_UPGRADE + WEAPON_UPGRADE_WIDTH_UPGRADE + WEAPON_UNIT_WIDTH_UPGRADE + WEAPON_PRICE_WIDTH_UPGRADE;
+    public static final int WEAPON_TABLE_WIDTH_UPGRADE   = 6 * GAP + IMAGE_BUTTON_SIZE_TINY + SCROLL_PANE_SCROLL_SIZE + WEAPON_BAR_WIDTH_UPGRADE;
+
+    public static final int DIALOG_BOX_WIDTH_WEAPON  = WEAPON_TABLE_WIDTH_UPGRADE;
+    public static final int DIALOG_BOX_HEIGHT_WEAPON = 800;
+    public static final int DIALOG_BOX_WIDTH         = (int)((2 * TEXT_BUTTON_WIDTH + 3 * GAP) * 1.5f);
+    public static final int DIALOG_BOX_HEIGHT        = (int)(DIALOG_BOX_WIDTH * 0.6f);
 
     public static final float ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND = 4f;
     public static final float CASE_VISIBLE_TIME                       = 4f;
@@ -142,6 +201,59 @@ public class Constants {
     public static final short MASK_ENEMY_SENSOR_PLAYER = CATEGORY_PLAYER | CATEGORY_ENEMY | CATEGORY_SOLID;
     public static final short MASK_ENEMY_SHOOTABLE     = CATEGORY_ENEMY | CATEGORY_SOLID;
     public static final short MASK_COIN                = CATEGORY_PLAYER;
+
+    /*GAP                         = (int)(scale * Gdx.graphics.getPpcY() * 0.15f);
+        IMAGE_BUTTON_SIZE_HUGE      = (int)(scale * Gdx.graphics.getPpcY() * 1.5f);
+        IMAGE_BUTTON_SIZE_BIG       = (int)(scale * Gdx.graphics.getPpcY() * 1.4f);
+        IMAGE_BUTTON_SIZE_MEDIUM    = (int)(scale * Gdx.graphics.getPpcY() * 1.0f);
+        IMAGE_BUTTON_SIZE_SMALL     = (int)(scale * Gdx.graphics.getPpcY() * 0.8f);
+        IMAGE_BUTTON_SIZE_TINY      = (int)(scale * Gdx.graphics.getPpcY() * 0.6f);
+        TEXT_BUTTON_WIDTH           = 2 * IMAGE_BUTTON_SIZE_SMALL + 3 * GAP;
+        TEXT_BUTTON_HEIGHT          = (int)(scale * Gdx.graphics.getPpcY() * 0.8f);
+        TEXT_SIZE_HUGE              = (int)(scale * Gdx.graphics.getPpcY() * 0.5f);
+        TEXT_SIZE_BIG               = (int)(scale * Gdx.graphics.getPpcY() * 0.4f);
+        TEXT_SIZE_MEDIUM            = (int)(scale * Gdx.graphics.getPpcY() * 0.35f);
+        TEXT_SIZE_SMALL             = (int)(scale * Gdx.graphics.getPpcY() * 0.3f);
+        TEXT_SIZE_TINY              = (int)(scale * Gdx.graphics.getPpcY() * 0.24f);
+        TEXT_BUTTON_TEXT_SIZE       = (int)(scale * Gdx.graphics.getPpcY() * 0.32f);
+        BOUGHT_ICON_SIZE            = (int)(scale * Gdx.graphics.getPpcY() * 0.24f);
+        SCROLL_PANE_SQUARE_SIZE     = (int)(scale * Gdx.graphics.getPpcY() * 0.5f);
+        SCROLL_PANE_OVER_SCROLL     = (int)(scale * Gdx.graphics.getPpcY() * 1.0f);
+        SCROLL_PANE_SCROLL_SIZE     = (int)(scale * Gdx.graphics.getPpcY() * 0.3f);
+        TABLE_TOP_HEIGHT            = IMAGE_BUTTON_SIZE_SMALL;
+        PROGRESS_BAR_WIDTH_LOADING  = (int)(scale * Gdx.graphics.getWidth() / 2f);
+        PROGRESS_BAR_WIDTH_HEALTH   = (int)(scale * Gdx.graphics.getPpcY() * 3.5f);
+        PROGRESS_BAR_MIN_WIDTH      = (int)(scale * Gdx.graphics.getPpcY() * 0.3f);
+        PROGRESS_BAR_HEIGHT         = (int)(scale * Gdx.graphics.getPpcY() * 0.3f);
+        PROGRESS_BAR_DATA_HEIGHT    = (int)(scale * Gdx.graphics.getPpcY() * 0.13f);
+        TEXT_RIGHT_GAP              = (int)(scale * Gdx.graphics.getPpcY() * 0.15f);
+        TEXT_BOTTOM_GAP             = (int)(scale * Gdx.graphics.getPpcY() * 0.075f);
+        SETTINGS_CELL_BOTTOM_GAP    = (int)(scale * Gdx.graphics.getPpcY() * 0.15f);
+
+        WEAPON_TITLE_WIDTH = (int)(scale * Gdx.graphics.getPpcY() * 2.3f);
+        WEAPON_VALUE_WIDTH = (int)(scale * Gdx.graphics.getPpcY() * 1.0f);
+        WEAPON_UNIT_WIDTH  = (int)(scale * Gdx.graphics.getPpcY() * 0.8f);
+        WEAPON_LEVEL_WIDTH = (int)(scale * Gdx.graphics.getPpcY() * 1.5f);
+
+        WEAPON_BAR_WIDTH_VALUE   = WEAPON_TITLE_WIDTH + WEAPON_VALUE_WIDTH + WEAPON_UNIT_WIDTH + WEAPON_LEVEL_WIDTH;
+        WEAPON_TABLE_WIDTH_VALUE = 5 * GAP + SCROLL_PANE_SCROLL_SIZE + WEAPON_BAR_WIDTH_VALUE;
+        WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH = (int) (scale * Gdx.graphics.getPpcY() * 2.3f);
+        WEAPON_BASIC_INFO_DATA_TABLE_WIDTH  = WEAPON_BAR_WIDTH_VALUE - WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH;
+
+        WEAPON_TITLE_WIDTH_UPGRADE   = (int)(scale * Gdx.graphics.getPpcY() * 2.2f);
+        WEAPON_VALUE_WIDTH_UPGRADE   = (int)(scale * Gdx.graphics.getPpcY() * 0.8f);
+        WEAPON_UNIT_WIDTH_UPGRADE    = (int)(scale * Gdx.graphics.getPpcY() * 0.7f);
+        WEAPON_LEVEL_WIDTH_UPGRADE   = (int)(scale * Gdx.graphics.getPpcY() * 1.1f);
+        WEAPON_UPGRADE_WIDTH_UPGRADE = (int)(scale * Gdx.graphics.getPpcY() * 0.8f);
+        WEAPON_PRICE_WIDTH_UPGRADE   = (int)(scale * Gdx.graphics.getPpcY() * 1.0f);
+
+        WEAPON_BAR_WIDTH_UPGRADE     = WEAPON_TITLE_WIDTH_UPGRADE + WEAPON_VALUE_WIDTH_UPGRADE + WEAPON_UNIT_WIDTH_UPGRADE + WEAPON_LEVEL_WIDTH_UPGRADE + WEAPON_UPGRADE_WIDTH_UPGRADE + WEAPON_UNIT_WIDTH_UPGRADE + WEAPON_PRICE_WIDTH_UPGRADE;
+        WEAPON_TABLE_WIDTH_UPGRADE   = 6 * GAP + IMAGE_BUTTON_SIZE_TINY + SCROLL_PANE_SCROLL_SIZE + WEAPON_BAR_WIDTH_UPGRADE;
+
+        DIALOG_BOX_WIDTH_WEAPON  = WEAPON_TABLE_WIDTH_UPGRADE;
+        DIALOG_BOX_HEIGHT_WEAPON = (int)(scale * Gdx.graphics.getPpcY() * 5f);
+        DIALOG_BOX_WIDTH         = (int)((2 * TEXT_BUTTON_WIDTH + 3 * GAP) * 1.5f);
+        DIALOG_BOX_HEIGHT        = (int)(DIALOG_BOX_WIDTH * 0.6f);*/
 
     private Constants() {}
 }

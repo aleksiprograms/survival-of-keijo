@@ -2,7 +2,6 @@ package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,7 +25,7 @@ public class LoadingScreen extends AbstractScreen {
 
     public LoadingScreen(TheGame game) {
         super(game);
-        initScreen();
+        initializeScreen();
         progress = 0f;
         game.loadAssets();
     }
@@ -37,7 +36,7 @@ public class LoadingScreen extends AbstractScreen {
         progress = game.assetManager.getProgress();
         if (game.assetManager.update()) {
             game.loadRest();
-            game.homeScreen.updateScreen();
+            game.homeScreen.updateScreenData();
             game.setScreen(game.homeScreen);
         } else {
             progressBar.setValue(progress);
@@ -52,26 +51,26 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     @Override
-    public void updateScreen() {
-        super.updateScreen();
+    public void updateScreenData() {
+        super.updateScreenData();
         labelInstruction.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLoading"));
     }
 
-    private void initScreen() {
+    private void initializeScreen() {
         Skin skinProgressBar = new Skin();
         ProgressBar.ProgressBarStyle progressBarStyle = new ProgressBar.ProgressBarStyle();
         progressBarStyle.background = new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF));
         progressBarStyle.knobBefore = new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL));
-        progressBarStyle.background.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
-        progressBarStyle.knobBefore.setMinHeight(UIDimensions.PROGRESS_BAR_HEIGHT);
-        progressBarStyle.knobBefore.setMinWidth(UIDimensions.PROGRESS_BAR_MIN_WIDTH);
+        progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
         skinProgressBar.add("default-horizontal", progressBarStyle);
 
         BitmapFont font;
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/RobotoCondensed-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter;
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = UIDimensions.TEXT_SIZE_SMALL;
+        parameter.size = Constants.TEXT_SIZE_SMALL;
         parameter.minFilter = Texture.TextureFilter.Linear;
         parameter.magFilter = Texture.TextureFilter.Linear;
         font = generator.generateFont(parameter);
@@ -92,14 +91,14 @@ public class LoadingScreen extends AbstractScreen {
 
         Table tableContent = new Table();
         //tableContent.add(imageGame).align(Align.center).expand().width(300).height(300);
-        tableContent.add(progressBar).width(UIDimensions.PROGRESS_BAR_WIDTH_LOADING).padBottom(UIDimensions.GAP);
+        tableContent.add(progressBar).width(Constants.PROGRESS_BAR_WIDTH_LOADING).padBottom(Constants.GAP);
         tableContent.row();
         tableContent.add(labelInstruction);
 
         Table table = new Table();
         table.setFillParent(true);
         //table.background(new TextureRegionDrawable(new TextureRegion(gameBAS.getStartTexture("background"))));
-        table.add(tableContent).align(Align.center).grow().pad(UIDimensions.GAP);
+        table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
 
         stage.addActor(table);
     }

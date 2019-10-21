@@ -232,7 +232,7 @@ public class GameWorld {
         weaponManagerEnemy.reset();
         player = game.gamePools.playerPool.obtain();
         player.init(0, 0.9f, 0, 0);
-        player.addWeapon(game.gamePools.pistolPlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID), player, null, true);
+        player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
         enemyManager.init();
         game.particleEffectManager.clear();
     }
@@ -542,12 +542,12 @@ public class GameWorld {
         }
         player = game.gamePools.playerPool.obtain();
         player.init(0, 0.9f, 0, 0);
-        player.addWeapon(game.gamePools.pistolPlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID), player, null, true);
+        player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
         //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
-        //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);
+        //player.currentWeapon.updateScreenData(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);
         //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
-        //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
+        //player.currentWeapon.updateScreenData(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
         background = game.gamePools.backgroundPool.obtain();
 

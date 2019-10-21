@@ -29,8 +29,8 @@ public class EnemyManager {
     private int weaponsIndex;
     private int[][] numberOfWeapons;
     private float[][] percentsOfWeapons = {
-            {0.5f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f},
-            {0.0f, 0.2f, 0.3f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f},
+            {0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f},
+            {0.2f, 0.2f, 0.3f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
@@ -132,7 +132,7 @@ public class EnemyManager {
         } else if (wave >= 5) {
             maxEnemiesInWorld = 4;
         } else if (wave >= 0) {
-            maxEnemiesInWorld = 3;
+            maxEnemiesInWorld = 4; //3
         }
         maxEnemiesInWave = 30 + (wave - 1) * 5;
         setNumberOfWeapons(wave - 1);

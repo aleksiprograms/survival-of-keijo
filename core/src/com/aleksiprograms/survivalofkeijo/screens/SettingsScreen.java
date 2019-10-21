@@ -2,7 +2,6 @@ package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -49,7 +48,7 @@ public class SettingsScreen extends AbstractScreen {
         } else {
             selectBoxLanguage.setSelected(Constants.STRING_ENGLISH);
         }
-        initScreen();
+        initializeScreen();
     }
 
     @Override
@@ -62,7 +61,7 @@ public class SettingsScreen extends AbstractScreen {
     public void render(float deltaTime) {
         super.render(deltaTime);
         if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            game.homeScreen.updateScreen();
+            game.homeScreen.updateScreenData();
             game.setScreen(game.homeScreen);
         }
     }
@@ -77,7 +76,23 @@ public class SettingsScreen extends AbstractScreen {
         //gameBAS.saveManager.saveData.setSoundVolume(sliderSoundVolume.getValue());
     }
 
-    private void initScreen() {
+    @Override
+    public void dispose() {
+        super.dispose();
+    }
+
+    @Override
+    public void updateScreenData() {
+        super.updateScreenData();
+        labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleSettings"));
+        checkBoxSounds.setChecked(game.saveDataManager.saveData.isSounds());
+        checkBoxDebugDrawWorld.setChecked(game.saveDataManager.saveData.isDebugDrawWorld());
+        checkBoxDebugDrawMenus.setChecked(game.saveDataManager.saveData.isDebugDrawUI());
+        checkBoxShowPauseButton.setChecked(game.saveDataManager.saveData.isShowPauseButton());
+        checkBoxAspectRatio169.setChecked(game.saveDataManager.saveData.isAspectRatio169());
+    }
+
+    private void initializeScreen() {
         /*Table tableSoundVolume = new Table();
         Label lSoundVolumeTitle = new Label("Volume", gameBAS.styles.skinLabelSettingsTitle);
         sliderSoundVolume = new Slider(0.0f, 1.0f, 0.1f, false, gameBAS.styles.sliderStyle);
@@ -91,35 +106,35 @@ public class SettingsScreen extends AbstractScreen {
         tableSoundVolume.add(sliderSoundVolume).width(500).height(50);*/
 
         Table tableSettings = new Table();
-        tableSettings.add(checkBoxSounds).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxSounds).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxDebugDrawWorld).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxDebugDrawWorld).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxDebugDrawMenus).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxDebugDrawMenus).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxShowPauseButton).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxShowPauseButton).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(checkBoxAspectRatio169).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(checkBoxAspectRatio169).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(selectBoxLanguage).width(UIDimensions.TEXT_BUTTON_WIDTH*2).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).padBottom(UIDimensions.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        tableSettings.add(selectBoxLanguage).width(Constants.TEXT_BUTTON_WIDTH*2).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
         //tableSettings.add(tableSoundVolume).padBottom(20);
 
         labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
         final ImageButton buttonClose = new ImageButton(game.styles.imageButtonStyleClose);
         Table tableTop = new Table();
-        tableTop.add().width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(labelScreenTitle).expandX().align(Align.center);
-        tableTop.add(buttonClose).width(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).height(UIDimensions.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+        tableTop.add(buttonClose).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
 
         Table tableContent = new Table();
-        tableContent.add(tableTop).height(UIDimensions.TABLE_TOP_HEIGHT).growX().padBottom(UIDimensions.GAP).align(Align.top);
+        tableContent.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top);
         tableContent.row();
         tableContent.add(tableSettings).expand();
 
         Table table = new Table();
         table.setFillParent(true);
         //table.background(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_BACKGROUND))));
-        table.add(tableContent).align(Align.center).grow().pad(UIDimensions.GAP);
+        table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
 
         stage.addActor(table);
 
@@ -165,7 +180,7 @@ public class SettingsScreen extends AbstractScreen {
                 game.saveDataManager.saveData.setLanguage(selectBoxLanguage.getSelected());
                 game.changeLocale();
                 game.styles.setLocale();
-                updateScreen();
+                updateScreenData();
             }
         });
 
@@ -190,21 +205,10 @@ public class SettingsScreen extends AbstractScreen {
                 if (x > 0 && x < buttonClose.getWidth() && y > 0 && y < buttonClose.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.saveData.getSoundVolume());
                     game.saveDataManager.save();
-                    game.homeScreen.updateScreen();
+                    game.homeScreen.updateScreenData();
                     game.setScreen(game.homeScreen);
                 }
             }
         });
-    }
-
-    @Override
-    public void updateScreen() {
-        super.updateScreen();
-        labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleSettings"));
-        checkBoxSounds.setChecked(game.saveDataManager.saveData.isSounds());
-        checkBoxDebugDrawWorld.setChecked(game.saveDataManager.saveData.isDebugDrawWorld());
-        checkBoxDebugDrawMenus.setChecked(game.saveDataManager.saveData.isDebugDrawUI());
-        checkBoxShowPauseButton.setChecked(game.saveDataManager.saveData.isShowPauseButton());
-        checkBoxAspectRatio169.setChecked(game.saveDataManager.saveData.isAspectRatio169());
     }
 }

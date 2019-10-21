@@ -2,7 +2,6 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -14,7 +13,9 @@ import com.badlogic.gdx.utils.Align;
 
 public abstract class AbstractHud extends Table {
 
-    TheGame game;
+    public TheGame game;
+    private Table tableDialogBoxMainMenu;
+    private Table tableDialogBoxRestart;
     InputListener inputListenerPause;
     InputListener inputListenerContinue;
     InputListener inputListenerClose;
@@ -23,14 +24,17 @@ public abstract class AbstractHud extends Table {
     InputListener inputListenerEnterShop;
     InputListener inputListenerEnterBackpack;
     InputListener inputListenerEnterHome;
-    Table tableDialogBoxMainMenu;
-    Table tableDialogBoxRestart;
 
     AbstractHud(final TheGame game) {
         this.game = game;
+        initializeHud();
+    }
 
-        initDialogBoxMainMenu();
-        initDialogBoxRestart();
+    public void updateHudData() {}
+
+    private void initializeHud() {
+        initializeDialogBoxMainMenu();
+        initializeDialogBoxRestart();
 
         /*inputListenerHome = new InputListener() {
             @Override
@@ -41,7 +45,7 @@ public abstract class AbstractHud extends Table {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (y > 0 && y < btHome.getHeight() && x > 0 && x < btHome.getWidth()) {
-                    //gameBAS.sounds.getSoundByID(UIDimensions.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.saveData.getSoundVolume());
+                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.saveData.getSoundVolume());
                     stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                         @Override
                         public void run() {
@@ -60,7 +64,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
                     game.gameScreen.stage.clear();
                     game.gameWorld.paused = true;
                     game.gameScreen.pausedHud.updateHudData();
@@ -77,7 +81,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     game.gameScreen.stage.clear();
                     game.gameWorld.paused = false;
                     game.gameScreen.inGameHud.updateHudData();
@@ -94,7 +98,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_SMALL) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
                     game.gameScreen.stage.clear();
                     game.gameWorld.paused = false;
                     game.gameScreen.inGameHud.updateHudData();
@@ -111,8 +115,8 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
-                    game.gameScreen.stage.clear();
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.gameScreen.stageDialogBox.clear();
                     game.gameScreen.stageDialogBox.addActor(tableDialogBoxRestart);
                     game.gameScreen.setShowStageDialogBox(true);
                 }
@@ -127,8 +131,8 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
-                    game.gameScreen.stage.clear();
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.gameScreen.stageDialogBox.clear();
                     game.gameScreen.stageDialogBox.addActor(tableDialogBoxMainMenu);
                     game.gameScreen.setShowStageDialogBox(true);
                 }
@@ -143,7 +147,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
                     game.gameScreen.stage.clear();
                     game.gameWorld.paused = true;
                     game.gameScreen.shopHud.updateHudData();
@@ -160,7 +164,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
                     game.gameScreen.stage.clear();
                     game.gameWorld.paused = true;
                     game.gameScreen.backpackHud.updateHudData();
@@ -177,7 +181,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < UIDimensions.IMAGE_BUTTON_SIZE_MEDIUM) {}
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {}
             }
         };
 
@@ -215,13 +219,7 @@ public abstract class AbstractHud extends Table {
         }*/
     }
 
-    public void initializeHud() {}
-
-    public void createHudTable() {}
-
-    public void updateHudData() {}
-
-    private void initDialogBoxMainMenu() {
+    private void initializeDialogBoxMainMenu() {
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
         TextButton buttonYes = new TextButton("YES", game.styles.textButtonStyleGreen);
@@ -233,10 +231,10 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     game.gameScreen.stage.clear();
                     game.gameWorld.clearWorld();
-                    game.homeScreen.updateScreen();
+                    game.homeScreen.updateScreenData();
                     game.setScreen(game.homeScreen);
                 }
             }
@@ -250,28 +248,28 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     game.gameScreen.setShowStageDialogBox(false);
                 }
             }
         });
-        table.add(new Label("CONFIRM EXIT", game.styles.labelStyleWhiteMedium)).growX().align(Align.topLeft).pad(UIDimensions.GAP);
+        table.add(new Label("CONFIRM EXIT", game.styles.labelStyleWhiteMedium)).growX().align(Align.topLeft).pad(Constants.GAP);
         table.row();
         Label labelText = new Label("Do you want to return to main menu?\nUnsaved data will lost.", game.styles.labelStyleWhiteSmall);
         labelText.setAlignment(Align.center);
-        table.add(labelText).expand().align(Align.center).pad(UIDimensions.GAP);
+        table.add(labelText).expand().align(Align.center).pad(Constants.GAP);
         table.row();
         Table tableButtons = new Table();
-        tableButtons.add(buttonNo).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(UIDimensions.GAP);
-        tableButtons.add(buttonYes).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.bottom);
-        table.add(tableButtons).growX().align(Align.bottom).pad(UIDimensions.GAP);
+        tableButtons.add(buttonNo).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(Constants.GAP);
+        tableButtons.add(buttonYes).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom);
+        table.add(tableButtons).growX().align(Align.bottom).pad(Constants.GAP);
         tableDialogBoxMainMenu = new Table();
         tableDialogBoxMainMenu.setFillParent(true);
         tableDialogBoxMainMenu.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND_ON_DIALOG_BOX)));
-        tableDialogBoxMainMenu.add(table).width(UIDimensions.DIALOG_BOX_WIDTH).height(UIDimensions.DIALOG_BOX_HEIGHT);
+        tableDialogBoxMainMenu.add(table).width(Constants.DIALOG_BOX_WIDTH).height(Constants.DIALOG_BOX_HEIGHT);
     }
 
-    private void initDialogBoxRestart() {
+    private void initializeDialogBoxRestart() {
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
         TextButton buttonYes = new TextButton("YES", game.styles.textButtonStyleGreen);
@@ -283,7 +281,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     game.gameScreen.stage.clear();
                     game.gameWorld.resetWorld();
                     game.gameScreen.inGameHud.updateHudData();
@@ -301,24 +299,24 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < UIDimensions.TEXT_BUTTON_WIDTH && y > 0 && y < UIDimensions.TEXT_BUTTON_HEIGHT) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     game.gameScreen.setShowStageDialogBox(false);
                 }
             }
         });
-        table.add(new Label("CONFIRM RESTART", game.styles.labelStyleWhiteMedium)).growX().align(Align.topLeft).pad(UIDimensions.GAP);
+        table.add(new Label("CONFIRM RESTART", game.styles.labelStyleWhiteMedium)).growX().align(Align.topLeft).pad(Constants.GAP);
         table.row();
         Label labelText = new Label("Do you want to RESTART the game?\nYou will lose previous save to this level!", game.styles.labelStyleWhiteSmall);
         labelText.setAlignment(Align.center);
-        table.add(labelText).expand().align(Align.center).pad(UIDimensions.GAP);
+        table.add(labelText).expand().align(Align.center).pad(Constants.GAP);
         table.row();
         Table tableButtons = new Table();
-        tableButtons.add(buttonNo).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(UIDimensions.GAP);
-        tableButtons.add(buttonYes).width(UIDimensions.TEXT_BUTTON_WIDTH).height(UIDimensions.TEXT_BUTTON_HEIGHT).align(Align.bottom);
-        table.add(tableButtons).growX().align(Align.bottom).pad(UIDimensions.GAP);
+        tableButtons.add(buttonNo).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(Constants.GAP);
+        tableButtons.add(buttonYes).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom);
+        table.add(tableButtons).growX().align(Align.bottom).pad(Constants.GAP);
         tableDialogBoxRestart = new Table();
         tableDialogBoxRestart.setFillParent(true);
         tableDialogBoxRestart.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND_ON_DIALOG_BOX)));
-        tableDialogBoxRestart.add(table).width(UIDimensions.DIALOG_BOX_WIDTH).height(UIDimensions.DIALOG_BOX_HEIGHT);
+        tableDialogBoxRestart.add(table).width(Constants.DIALOG_BOX_WIDTH).height(Constants.DIALOG_BOX_HEIGHT);
     }
 }

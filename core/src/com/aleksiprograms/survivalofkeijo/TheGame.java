@@ -7,16 +7,15 @@ import com.aleksiprograms.survivalofkeijo.managers.SaveDataManager;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.resources.GamePools;
 import com.aleksiprograms.survivalofkeijo.resources.Styles;
-import com.aleksiprograms.survivalofkeijo.resources.UIDimensions;
 import com.aleksiprograms.survivalofkeijo.screens.CreditsScreen;
 import com.aleksiprograms.survivalofkeijo.screens.GameScreen;
 import com.aleksiprograms.survivalofkeijo.screens.HomeScreen;
 import com.aleksiprograms.survivalofkeijo.screens.LoadingScreen;
 import com.aleksiprograms.survivalofkeijo.screens.SettingsScreen;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -40,7 +39,8 @@ public class TheGame extends Game {
 	public SpriteBatch spriteBatch;
 	public AssetManager assetManager;
 	public Styles styles;
-	public PerspectiveCamera camera;
+	public PerspectiveCamera cameraGame;
+	public OrthographicCamera cameraUI;
 	public ParticleEffectManager particleEffectManager;
 	public SaveDataManager saveDataManager;
 	public LevelManager levelManager;
@@ -53,8 +53,8 @@ public class TheGame extends Game {
 
 	@Override
 	public void create() {
-		UIDimensions.calculate();
-		camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		cameraGame = new PerspectiveCamera(Constants.FIELD_OF_VIEW_Y, Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT);
+		cameraUI = new OrthographicCamera();
 		saveDataManager = new SaveDataManager();
 		assetManager = new AssetManager();
 		if (saveDataManager.saveData.getLanguage() == null) {
@@ -73,7 +73,7 @@ public class TheGame extends Game {
 		assetManager.finishLoading();
 		spriteBatch = new SpriteBatch();
 		loadingScreen = new LoadingScreen(this);
-		loadingScreen.updateScreen();
+		loadingScreen.updateScreenData();
 		setScreen(loadingScreen);
 	}
 
@@ -112,7 +112,7 @@ public class TheGame extends Game {
 
 		particleEffectManager = new ParticleEffectManager(this);
 		PointSpriteParticleBatch pointSpriteParticleBatch = new PointSpriteParticleBatch();
-		pointSpriteParticleBatch.setCamera(camera);
+		pointSpriteParticleBatch.setCamera(cameraGame);
 		ModelInstanceParticleBatch modelInstanceParticleBatch = new ModelInstanceParticleBatch();
 		particleEffectManager.add(pointSpriteParticleBatch);
 		particleEffectManager.add(modelInstanceParticleBatch);

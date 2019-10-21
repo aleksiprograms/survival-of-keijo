@@ -1,33 +1,30 @@
 package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
+import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public abstract class AbstractScreen implements Screen {
 
     public TheGame game;
-    public Viewport viewport;
+    public ExtendViewport viewport;
     public Stage stage;
-    public Viewport viewportDialogBox;
     public Stage stageDialogBox;
     public boolean showStageDialogBox;
 
     public AbstractScreen(TheGame game) {
         this.game = game;
-        viewport = new ScreenViewport(new OrthographicCamera());
+        viewport = new ExtendViewport(Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT, game.cameraUI);
         stage = new Stage(viewport, game.spriteBatch);
-        viewportDialogBox = new ScreenViewport(new OrthographicCamera());
         stageDialogBox = new Stage(viewport, game.spriteBatch);
         showStageDialogBox = false;
     }
 
-    public void updateScreen() {
+    public void updateScreenData() {
         setShowStageDialogBox(false);
         stage.setDebugAll(game.saveDataManager.saveData.isDebugDrawUI());
         stageDialogBox.setDebugAll(game.saveDataManager.saveData.isDebugDrawUI());
@@ -52,7 +49,7 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width, height, true);
     }
 
     @Override
