@@ -8,13 +8,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -63,10 +60,10 @@ public class Styles {
     public TextButton.TextButtonStyle textButtonStyleOrange;
     public TextButton.TextButtonStyle textButtonStyleGreen;
     public TextButton.TextButtonStyle textButtonStyleRed;
+    public TextButton.TextButtonStyle textButtonStyleNoTexture;
 
     public ImageButton.ImageButtonStyle imageButtonStyleClose;
     public ImageButton.ImageButtonStyle imageButtonStylePlus;
-    public ImageButton.ImageButtonStyle imageButtonStyleMinus;
     public ImageButton.ImageButtonStyle imageButtonStyleMagazines;
     public ImageButton.ImageButtonStyle imageButtonStyleSettings;
     public ImageButton.ImageButtonStyle imageButtonStylePause;
@@ -86,15 +83,11 @@ public class Styles {
     public ScrollPane.ScrollPaneStyle scrollPaneStyle;
     public Slider.SliderStyle sliderStyle;
     public CheckBox.CheckBoxStyle checkBoxStyle;
-    public Dialog.WindowStyle dialogBoxStyle;
-    public SelectBox.SelectBoxStyle selectBoxStyle;
     public ProgressBar.ProgressBarStyle progressBarStyle;
     public ProgressBar.ProgressBarStyle progressBarStyleHealth;
     public ProgressBar.ProgressBarStyle progressBarStyleValueNotBought;
     public ProgressBar.ProgressBarStyle progressBarStyleValueBought;
-    public ProgressBar.ProgressBarStyle progressBarStyleUpgradeBought;
-    public ProgressBar.ProgressBarStyle progressBarStyleValueBoughtMinus;
-    public ProgressBar.ProgressBarStyle progressBarStyleUpgradeBoughtMinus;
+    public ProgressBar.ProgressBarStyle progressBarStyleUpgrade;
     public ProgressBar.ProgressBarStyle progressBarStyleUpgradeDone;
 
     public Styles(TheGame game) {
@@ -117,10 +110,10 @@ public class Styles {
         textButtonStyleOrange = new TextButton.TextButtonStyle();
         textButtonStyleGreen = new TextButton.TextButtonStyle();
         textButtonStyleRed = new TextButton.TextButtonStyle();
+        textButtonStyleNoTexture = new TextButton.TextButtonStyle();
 
         imageButtonStyleClose = new ImageButton.ImageButtonStyle();
         imageButtonStylePlus = new ImageButton.ImageButtonStyle();
-        imageButtonStyleMinus = new ImageButton.ImageButtonStyle();
         imageButtonStyleMagazines = new ImageButton.ImageButtonStyle();
         imageButtonStyleSettings = new ImageButton.ImageButtonStyle();
         imageButtonStylePause = new ImageButton.ImageButtonStyle();
@@ -137,16 +130,12 @@ public class Styles {
         scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
         sliderStyle = new Slider.SliderStyle();
         checkBoxStyle = new CheckBox.CheckBoxStyle();
-        dialogBoxStyle = new Dialog.WindowStyle();
-        selectBoxStyle = new SelectBox.SelectBoxStyle();
         progressBarStyle = new ProgressBar.ProgressBarStyle();
         progressBarStyleHealth = new ProgressBar.ProgressBarStyle();
 
         progressBarStyleValueNotBought = new ProgressBar.ProgressBarStyle();
         progressBarStyleValueBought = new ProgressBar.ProgressBarStyle();
-        progressBarStyleUpgradeBought = new ProgressBar.ProgressBarStyle();
-        progressBarStyleValueBoughtMinus = new ProgressBar.ProgressBarStyle();
-        progressBarStyleUpgradeBoughtMinus = new ProgressBar.ProgressBarStyle();
+        progressBarStyleUpgrade = new ProgressBar.ProgressBarStyle();
         progressBarStyleUpgradeDone = new ProgressBar.ProgressBarStyle();
 
         setStyles();
@@ -177,6 +166,8 @@ public class Styles {
                 true, Constants.TEXT_BUTTON_TEXT_SIZE, colorRed, colorRed, colorDisabled,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D_RED)));
+        setTextButtonStyle(textButtonStyleNoTexture,
+                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorOrange, colorOrange, colorDisabled);
 
         setImageButtonStyle(imageButtonStyleClose,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_CLOSE_UP)),
@@ -185,10 +176,6 @@ public class Styles {
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_PLUS_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_PLUS_DOWN)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_PLUS_DISABLED)));
-        setImageButtonStyleWithDisabled(imageButtonStyleMinus,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_MINUS_UP)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_MINUS_DOWN)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_MINUS_DISABLED)));
         setImageButtonStyleWithChecked(imageButtonStyleMagazines,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)));
@@ -239,17 +226,6 @@ public class Styles {
                 false, Constants.TEXT_SIZE_SMALL, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
-        setDialogBoxStyle(dialogBoxStyle,
-                false, Constants.TEXT_SIZE_MEDIUM, colorWhite,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        setSelectBoxStyle(selectBoxStyle,
-                false, Constants.TEXT_SIZE_SMALL, colorOrange, colorWhite,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SELECT_BOX_UP)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_SELECT_BOX_DOWN)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCROLL_PANE_KNOB)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
         setProgressBarStyle(progressBarStyle,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL)));
@@ -262,14 +238,9 @@ public class Styles {
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE)));
         setProgressBarStyleData(progressBarStyleValueBought,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE)));
-        setProgressBarStyleData(progressBarStyleUpgradeBought,
+        setProgressBarStyleData(progressBarStyleUpgrade,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_BACKGROUND)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_UPGRADE)));
-        setProgressBarStyleData(progressBarStyleValueBoughtMinus,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_BACKGROUND)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_UPGRADE)));
-        setProgressBarStyleData(progressBarStyleUpgradeBoughtMinus,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE_ATL)));
         setProgressBarStyleData(progressBarStyleUpgradeDone,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_BACKGROUND)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL_VALUE)));
@@ -316,6 +287,21 @@ public class Styles {
         textButtonStyle.disabled = drawableUp;
     }
 
+    private void setTextButtonStyle(
+            TextButton.TextButtonStyle textButtonStyle,
+            boolean bold,
+            int fontSize,
+            Color fontColorUp,
+            Color fontColorDown,
+            Color fontColorChecked,
+            Color fontColorDisabled) {
+        textButtonStyle.font = getFont(bold, fontSize);
+        textButtonStyle.fontColor = fontColorUp;
+        textButtonStyle.downFontColor = fontColorDown;
+        textButtonStyle.checkedFontColor = fontColorChecked;
+        textButtonStyle.disabledFontColor = fontColorDisabled;
+    }
+
     private void setImageButtonStyle(
             ImageButton.ImageButtonStyle imageButtonStyle,
             NinePatchDrawable textureUp,
@@ -341,17 +327,6 @@ public class Styles {
         imageButtonStyle.up = textureUp;
         imageButtonStyle.down = textureDown;
         imageButtonStyle.disabled = textureDisabled;
-    }
-
-    private void setDialogBoxStyle(
-            Dialog.WindowStyle windowStyle,
-            boolean bold,
-            int fontSize,
-            Color fontColorLabel,
-            NinePatchDrawable background) {
-        windowStyle.background = background;
-        windowStyle.titleFont = getFont(bold, fontSize);
-        windowStyle.titleFontColor = fontColorLabel;
     }
 
     private void setScrollPaneStyle(
@@ -399,34 +374,6 @@ public class Styles {
         checkBoxStyle.checkboxOn.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
         checkBoxStyle.checkboxOff.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
         checkBoxStyle.checkboxOff.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
-    }
-
-    private void setSelectBoxStyle(
-            SelectBox.SelectBoxStyle selectBoxStyle,
-            boolean bold,
-            int fontSize,
-            Color fontColorSelected,
-            Color fontColorUnselected,
-            NinePatchDrawable selectBoxUp,
-            NinePatchDrawable selectBoxDown,
-            NinePatchDrawable background,
-            NinePatchDrawable scroll,
-            NinePatchDrawable scrollKnob,
-            NinePatchDrawable selection) {
-        selectBoxStyle.background = selectBoxUp;
-        selectBoxStyle.backgroundOpen = selectBoxDown;
-        selectBoxStyle.font = getFont(bold, fontSize);
-        selectBoxStyle.fontColor = fontColorUnselected;
-        selectBoxStyle.scrollStyle = new ScrollPane.ScrollPaneStyle(background, scroll, scrollKnob, scroll, scrollKnob);
-        selectBoxStyle.scrollStyle.hScroll.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.hScrollKnob.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.vScroll.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.scrollStyle.vScrollKnob.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
-        selectBoxStyle.listStyle = new List.ListStyle(
-                getFont(bold, fontSize),
-                fontColorSelected,
-                fontColorUnselected,
-                selection);
     }
 
     private void setProgressBarStyle(

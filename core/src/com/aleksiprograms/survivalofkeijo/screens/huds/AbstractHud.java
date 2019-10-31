@@ -10,12 +10,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.I18NBundle;
 
 public abstract class AbstractHud extends Table {
 
     public TheGame game;
     private Table tableDialogBoxMainMenu;
     private Table tableDialogBoxRestart;
+    private Label labelDialogBoxToHomeTitle;
+    private Label labelDialogBoxRestartTitle;
+    private Label labelDialogBoxToHomeText;
+    private Label labelDialogBoxRestartText;
+    private TextButton buttonToHomeYes;
+    private TextButton buttonToHomeNo;
+    private TextButton buttonRestartYes;
+    private TextButton buttonRestartNo;
     InputListener inputListenerPause;
     InputListener inputListenerContinue;
     InputListener inputListenerClose;
@@ -30,10 +39,19 @@ public abstract class AbstractHud extends Table {
         initializeHud();
     }
 
-    public void updateHudData() {}
+    public void updateHudData() {
+        labelDialogBoxToHomeTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelDialogBoxToHomeTitle"));
+        labelDialogBoxRestartTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelDialogBoxRestartTitle"));
+        labelDialogBoxToHomeText.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelDialogBoxToHomeText"));
+        labelDialogBoxRestartText.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelDialogBoxRestartText"));
+        buttonToHomeYes.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonYes"));
+        buttonToHomeNo.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonNo"));
+        buttonRestartYes.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonYes"));
+        buttonRestartNo.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonNo"));
+    }
 
     private void initializeHud() {
-        initializeDialogBoxMainMenu();
+        initializeDialogBoxToHome();
         initializeDialogBoxRestart();
 
         /*inputListenerHome = new InputListener() {
@@ -45,7 +63,7 @@ public abstract class AbstractHud extends Table {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (y > 0 && y < btHome.getHeight() && x > 0 && x < btHome.getWidth()) {
-                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.saveData.getSoundVolume());
+                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
                     stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                         @Override
                         public void run() {
@@ -186,15 +204,15 @@ public abstract class AbstractHud extends Table {
         };
 
         /*if (hud.btPausePressed) {
-            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_POS).play(gameBAS.saveManager.saveData.getSoundVolume());
+            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_POS).play(gameBAS.saveManager.savedData.getSoundVolume());
             hud.btPausePressed = false;
             gameBAS.gameStateManager.setLevelPaused();
         }
         if (hud.btReplayPressed) {
             gameBAS.sounds.gameMusic.stop();
-            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_POS).play(gameBAS.saveManager.saveData.getSoundVolume());
+            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_POS).play(gameBAS.saveManager.savedData.getSoundVolume());
             if (gameBAS.gameStateManager.getLevelState().equals(LevelState.PAUSED)) {
-                gameBAS.saveManager.saveData.addToLevelsAbandoned();
+                gameBAS.saveManager.savedData.addToLevelsAbandoned();
                 gameBAS.achievementsManager.unlockAchievement(AchievementsIDs.ACH_ABANDONED);
             }
             hud.btReplayPressed = false;
@@ -202,15 +220,15 @@ public abstract class AbstractHud extends Table {
             gameBAS.setScreen(gameBAS.weaponsScreen);
         }
         if (hud.btPlayPressed) {
-            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_POS).play(gameBAS.saveManager.saveData.getSoundVolume());
+            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_POS).play(gameBAS.saveManager.savedData.getSoundVolume());
             hud.btPlayPressed = false;
             gameBAS.gameStateManager.setLevelGaming();
         }
         if (hud.btHomePressed) {
             gameBAS.sounds.gameMusic.stop();
-            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_NEG).play(gameBAS.saveManager.saveData.getSoundVolume());
+            gameBAS.sounds.getSoundByID(SoundIDs.BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
             if (gameBAS.gameStateManager.getLevelState().equals(LevelState.PAUSED)) {
-                gameBAS.saveManager.saveData.addToLevelsAbandoned();
+                gameBAS.saveManager.savedData.addToLevelsAbandoned();
                 gameBAS.achievementsManager.unlockAchievement(AchievementsIDs.ACH_ABANDONED);
             }
             hud.btHomePressed = false;
@@ -219,11 +237,11 @@ public abstract class AbstractHud extends Table {
         }*/
     }
 
-    private void initializeDialogBoxMainMenu() {
+    private void initializeDialogBoxToHome() {
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        TextButton buttonYes = new TextButton("YES", game.styles.textButtonStyleGreen);
-        buttonYes.addListener(new InputListener() {
+        buttonToHomeYes = new TextButton("", game.styles.textButtonStyleGreen);
+        buttonToHomeYes.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -232,6 +250,7 @@ public abstract class AbstractHud extends Table {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.gameScreen.setShowStageDialogBox(false);
                     game.gameScreen.stage.clear();
                     game.gameWorld.clearWorld();
                     game.homeScreen.updateScreenData();
@@ -239,8 +258,8 @@ public abstract class AbstractHud extends Table {
                 }
             }
         });
-        TextButton buttonNo = new TextButton("NO", game.styles.textButtonStyleRed);
-        buttonNo.addListener(new InputListener() {
+        buttonToHomeNo = new TextButton("", game.styles.textButtonStyleRed);
+        buttonToHomeNo.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -253,15 +272,16 @@ public abstract class AbstractHud extends Table {
                 }
             }
         });
-        table.add(new Label("CONFIRM EXIT", game.styles.labelStyleWhiteMedium)).growX().align(Align.topLeft).pad(Constants.GAP);
+        labelDialogBoxToHomeTitle = new Label("", game.styles.labelStyleWhiteMedium);
+        table.add(labelDialogBoxToHomeTitle).growX().align(Align.topLeft).pad(Constants.GAP);
         table.row();
-        Label labelText = new Label("Do you want to return to main menu?\nUnsaved data will lost.", game.styles.labelStyleWhiteSmall);
-        labelText.setAlignment(Align.center);
-        table.add(labelText).expand().align(Align.center).pad(Constants.GAP);
+        labelDialogBoxToHomeText = new Label("", game.styles.labelStyleWhiteSmall);
+        labelDialogBoxToHomeText.setAlignment(Align.center);
+        table.add(labelDialogBoxToHomeText).expand().align(Align.center).pad(Constants.GAP);
         table.row();
         Table tableButtons = new Table();
-        tableButtons.add(buttonNo).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(Constants.GAP);
-        tableButtons.add(buttonYes).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom);
+        tableButtons.add(buttonToHomeNo).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(Constants.GAP);
+        tableButtons.add(buttonToHomeYes).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom);
         table.add(tableButtons).growX().align(Align.bottom).pad(Constants.GAP);
         tableDialogBoxMainMenu = new Table();
         tableDialogBoxMainMenu.setFillParent(true);
@@ -272,8 +292,8 @@ public abstract class AbstractHud extends Table {
     private void initializeDialogBoxRestart() {
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        TextButton buttonYes = new TextButton("YES", game.styles.textButtonStyleGreen);
-        buttonYes.addListener(new InputListener() {
+        buttonRestartYes = new TextButton("", game.styles.textButtonStyleGreen);
+        buttonRestartYes.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -282,16 +302,16 @@ public abstract class AbstractHud extends Table {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.gameScreen.setShowStageDialogBox(false);
                     game.gameScreen.stage.clear();
                     game.gameWorld.resetWorld();
                     game.gameScreen.inGameHud.updateHudData();
                     game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
-                    game.gameScreen.setShowStageDialogBox(false);
                 }
             }
         });
-        TextButton buttonNo = new TextButton("NO", game.styles.textButtonStyleRed);
-        buttonNo.addListener(new InputListener() {
+        buttonRestartNo = new TextButton("", game.styles.textButtonStyleRed);
+        buttonRestartNo.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -304,15 +324,16 @@ public abstract class AbstractHud extends Table {
                 }
             }
         });
-        table.add(new Label("CONFIRM RESTART", game.styles.labelStyleWhiteMedium)).growX().align(Align.topLeft).pad(Constants.GAP);
+        labelDialogBoxRestartTitle = new Label("", game.styles.labelStyleWhiteMedium);
+        table.add(labelDialogBoxRestartTitle).growX().align(Align.topLeft).pad(Constants.GAP);
         table.row();
-        Label labelText = new Label("Do you want to RESTART the game?\nYou will lose previous save to this level!", game.styles.labelStyleWhiteSmall);
-        labelText.setAlignment(Align.center);
-        table.add(labelText).expand().align(Align.center).pad(Constants.GAP);
+        labelDialogBoxRestartText = new Label("", game.styles.labelStyleWhiteSmall);
+        labelDialogBoxRestartText.setAlignment(Align.center);
+        table.add(labelDialogBoxRestartText).expand().align(Align.center).pad(Constants.GAP);
         table.row();
         Table tableButtons = new Table();
-        tableButtons.add(buttonNo).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(Constants.GAP);
-        tableButtons.add(buttonYes).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom);
+        tableButtons.add(buttonRestartNo).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(Constants.GAP);
+        tableButtons.add(buttonRestartYes).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom);
         table.add(tableButtons).growX().align(Align.bottom).pad(Constants.GAP);
         tableDialogBoxRestart = new Table();
         tableDialogBoxRestart.setFillParent(true);

@@ -303,7 +303,7 @@ public class BackpackHud extends AbstractHud {
             labelReloadTimeLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
             labelReloadTimeLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel + "");
             labelReloadTimeMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel + "");
-            progressBarReloadTime.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
+            progressBarReloadTime.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
         }
 
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
@@ -313,7 +313,7 @@ public class BackpackHud extends AbstractHud {
             labelWeightLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
             labelWeightLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel + "");
             labelWeightMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel + "");
-            progressBarWeight.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
+            progressBarWeight.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
         }
 
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
@@ -396,8 +396,8 @@ public class BackpackHud extends AbstractHud {
         progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarReloadTime = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarWeight = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarReloadTime = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarWeight = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
 
         labelRateOfFireValue.setAlignment(Align.topRight);

@@ -126,7 +126,7 @@ public class HomeScreen extends AbstractScreen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < buttonSettings.getWidth() && y > 0 && y < buttonSettings.getHeight()) {
-                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.saveData.getSoundVolume());
+                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
                     game.settingsScreen.updateScreenData();
                     game.setScreen(game.settingsScreen);
                 }
@@ -215,17 +215,17 @@ public class HomeScreen extends AbstractScreen {
     private void updateGameModeData() {
         /*for (int i = 0; i < levelInfos.length; i++) {
             btLevel[i].background(new TextureRegionDrawable(gameBAS.getTextureRegionByID(Constants.TEX_SRC_RECTANGLE_GREY)));
-            levelData[i].labelScore.setText(gameBAS.styles.getFormattedNumber(gameBAS.saveManager.saveData.getLevelScore(levelInfos[i].ID)));
-            levelData[i].labelDistance.setText(gameBAS.styles.getFormattedNumber(gameBAS.saveManager.saveData.getLevelDistance(levelInfos[i].ID)) + " m");
-            if (gameBAS.saveManager.saveData.getLevelStars(levelInfos[i].ID) >= 1)
+            levelData[i].labelScore.setText(gameBAS.styles.getFormattedNumber(gameBAS.saveManager.savedData.getLevelScore(levelInfos[i].ID)));
+            levelData[i].labelDistance.setText(gameBAS.styles.getFormattedNumber(gameBAS.saveManager.savedData.getLevelDistance(levelInfos[i].ID)) + " m");
+            if (gameBAS.saveManager.savedData.getLevelStars(levelInfos[i].ID) >= 1)
                 levelData[i].imageStar1.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_UNLOCKED))));
             else
                 levelData[i].imageStar1.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_LOCKED))));
-            if (gameBAS.saveManager.saveData.getLevelStars(levelInfos[i].ID) >= 2)
+            if (gameBAS.saveManager.savedData.getLevelStars(levelInfos[i].ID) >= 2)
                 levelData[i].imageStar2.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_UNLOCKED))));
             else
                 levelData[i].imageStar2.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_LOCKED))));
-            if (gameBAS.saveManager.saveData.getLevelStars(levelInfos[i].ID) >= 3)
+            if (gameBAS.saveManager.savedData.getLevelStars(levelInfos[i].ID) >= 3)
                 levelData[i].imageStar3.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_UNLOCKED))));
             else
                 levelData[i].imageStar3.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_LOCKED))));
@@ -262,7 +262,7 @@ public class HomeScreen extends AbstractScreen {
                     if (y > 0 && y < + btNo.getHeight()) {
                         if (x > 0 && x < btNo.getWidth()) {
                             quitBoxShown = false;
-                            gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.saveData.getSoundVolume());
+                            gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
                             dialog.hide();
                         }
                     }
@@ -279,7 +279,7 @@ public class HomeScreen extends AbstractScreen {
                 public void touchUp(InputEvent event, float x, float y, int pointer, final int button) {
                     if (y > 0 && y < + btYes.getHeight()) {
                         if (x > 0 && x < btYes.getWidth()) {
-                            gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_POS).play(gameBAS.saveManager.saveData.getSoundVolume());
+                            gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_POS).play(gameBAS.saveManager.savedData.getSoundVolume());
                             stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                                 @Override
                                 public void run() {

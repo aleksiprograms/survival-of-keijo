@@ -3,7 +3,7 @@ package com.aleksiprograms.survivalofkeijo;
 import com.aleksiprograms.survivalofkeijo.gameworld.GameWorld;
 import com.aleksiprograms.survivalofkeijo.managers.LevelManager;
 import com.aleksiprograms.survivalofkeijo.managers.ParticleEffectManager;
-import com.aleksiprograms.survivalofkeijo.managers.SaveDataManager;
+import com.aleksiprograms.survivalofkeijo.managers.SavedDataManager;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.resources.GamePools;
 import com.aleksiprograms.survivalofkeijo.resources.Styles;
@@ -13,6 +13,7 @@ import com.aleksiprograms.survivalofkeijo.screens.HomeScreen;
 import com.aleksiprograms.survivalofkeijo.screens.LoadingScreen;
 import com.aleksiprograms.survivalofkeijo.screens.SettingsScreen;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,7 +43,7 @@ public class TheGame extends Game {
 	public PerspectiveCamera cameraGame;
 	public OrthographicCamera cameraUI;
 	public ParticleEffectManager particleEffectManager;
-	public SaveDataManager saveDataManager;
+	public SavedDataManager savedDataManager;
 	public LevelManager levelManager;
 
 	public GameScreen gameScreen;
@@ -53,11 +54,11 @@ public class TheGame extends Game {
 
 	@Override
 	public void create() {
-		cameraGame = new PerspectiveCamera(Constants.FIELD_OF_VIEW_Y, Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT);
+		cameraGame = new PerspectiveCamera(Constants.FIELD_OF_VIEW_Y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cameraUI = new OrthographicCamera();
-		saveDataManager = new SaveDataManager();
+		savedDataManager = new SavedDataManager();
 		assetManager = new AssetManager();
-		if (saveDataManager.saveData.getLanguage() == null) {
+		if (savedDataManager.savedData.getLanguage() == null) {
 			if (java.util.Locale.getDefault().getLanguage().equals("fi")) {
 				locale = Constants.LOCALE_FINNISH;
 			} else {
@@ -78,9 +79,9 @@ public class TheGame extends Game {
 	}
 
 	private void setLocale() {
-		if (saveDataManager.saveData.getLanguage().equals(Constants.STRING_ENGLISH)) {
+		if (savedDataManager.savedData.getLanguage().equals(Constants.STRING_ENGLISH)) {
 			locale = Constants.LOCALE_ENGLISH;
-		} else if (saveDataManager.saveData.getLanguage().equals(Constants.STRING_FINNISH)) {
+		} else if (savedDataManager.savedData.getLanguage().equals(Constants.STRING_FINNISH)) {
 			locale = Constants.LOCALE_FINNISH;
 		} else {
 			locale = Constants.LOCALE_ENGLISH;
@@ -152,7 +153,7 @@ public class TheGame extends Game {
 	@Override
 	public void pause() {
 		super.pause();
-		saveDataManager.save();
+		savedDataManager.save();
 	}
 
 	@Override

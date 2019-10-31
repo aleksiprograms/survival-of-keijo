@@ -3,48 +3,58 @@ package com.aleksiprograms.survivalofkeijo.resources;
 import java.util.Locale;
 
 public class Constants {
+
+    //DEVELOPMENT SETTINGS (THESE SHOULD BE FALSE IN PRODUCTION)
+    public static final boolean DEBUG_DRAW_WORLD      = false;
+    public static final boolean DEBUG_DRAW_UI         = false;
+    public static final boolean USE_169_ASPECT_RATION = false;
+
     public static final Locale LOCALE_ENGLISH = new Locale("en");
     public static final Locale LOCALE_FINNISH = new Locale("fi");
     public static final String STRING_ENGLISH = "ENGLISH";
     public static final String STRING_FINNISH = "SUOMI";
 
     public static final float FIXED_TIME_STEP = 1f/60f;
+    public static final int MAX_SUB_STEPS = 1;
     public static final int FIELD_OF_VIEW_Y = 67;
     public static final int VIRTUAL_WIDTH = 1920;
     public static final int VIRTUAL_HEIGHT = 1080;
+    public static final String SAVED_DATA_FILE_NAME = "saveddata.json";
+
     public static final int NUMBER_OF_LEVELS = 6;
     public static final int NUMBER_OF_WEAPONS = 7;
 
     public static final int UI_WEAPONS_IN_ROW = 3;
     public static final int UI_WEAPONS_IN_FULL_ROW = Constants.NUMBER_OF_WEAPONS - (Constants.NUMBER_OF_WEAPONS % UI_WEAPONS_IN_ROW);
 
-    public static final int GAP                        = 24;
-    public static final int IMAGE_BUTTON_SIZE_HUGE     = 240;
-    public static final int IMAGE_BUTTON_SIZE_BIG      = 220;
-    public static final int IMAGE_BUTTON_SIZE_MEDIUM   = 160;
-    public static final int IMAGE_BUTTON_SIZE_SMALL    = 130;
-    public static final int IMAGE_BUTTON_SIZE_TINY     = 100;
-    public static final int TEXT_BUTTON_WIDTH          = 2 * IMAGE_BUTTON_SIZE_SMALL + 3 * GAP;
-    public static final int TEXT_BUTTON_HEIGHT         = 130;
-    public static final int TEXT_SIZE_HUGE             = 80;
-    public static final int TEXT_SIZE_BIG              = 60;
-    public static final int TEXT_SIZE_MEDIUM           = 55;
-    public static final int TEXT_SIZE_SMALL            = 50;
-    public static final int TEXT_SIZE_TINY             = 40;
-    public static final int TEXT_BUTTON_TEXT_SIZE      = 50;
-    public static final int BOUGHT_ICON_SIZE           = 40;
-    public static final int SCROLL_PANE_SQUARE_SIZE    = 80;
-    public static final int SCROLL_PANE_OVER_SCROLL    = 160;
-    public static final int SCROLL_PANE_SCROLL_SIZE    = 50;
-    public static final int TABLE_TOP_HEIGHT           = IMAGE_BUTTON_SIZE_SMALL;
-    public static final int PROGRESS_BAR_WIDTH_LOADING = 800;
-    public static final int PROGRESS_BAR_WIDTH_HEALTH  = 500;
-    public static final int PROGRESS_BAR_MIN_WIDTH     = 50;
-    public static final int PROGRESS_BAR_HEIGHT        = 50;
-    public static final int PROGRESS_BAR_DATA_HEIGHT   = 20;
-    public static final int TEXT_RIGHT_GAP             = 25;
-    public static final int TEXT_BOTTOM_GAP            = 10;
-    public static final int SETTINGS_CELL_BOTTOM_GAP   = 25;
+    public static final int GAP                         = 24;
+    public static final int IMAGE_BUTTON_SIZE_HUGE      = 240;
+    public static final int IMAGE_BUTTON_SIZE_BIG       = 220;
+    public static final int IMAGE_BUTTON_SIZE_MEDIUM    = 160;
+    public static final int IMAGE_BUTTON_SIZE_SMALL     = 130;
+    public static final int IMAGE_BUTTON_SIZE_TINY      = 100;
+    public static final int TEXT_BUTTON_WIDTH           = 2 * IMAGE_BUTTON_SIZE_SMALL + 3 * GAP;
+    public static final int TEXT_BUTTON_HEIGHT          = 130;
+    public static final int TEXT_BUTTON_LANGUAGE_HEIGHT = 90;
+    public static final int TEXT_SIZE_HUGE              = 80;
+    public static final int TEXT_SIZE_BIG               = 60;
+    public static final int TEXT_SIZE_MEDIUM            = 55;
+    public static final int TEXT_SIZE_SMALL             = 50;
+    public static final int TEXT_SIZE_TINY              = 40;
+    public static final int TEXT_BUTTON_TEXT_SIZE       = 50;
+    public static final int BOUGHT_ICON_SIZE            = 40;
+    public static final int SCROLL_PANE_SQUARE_SIZE     = 80;
+    public static final int SCROLL_PANE_OVER_SCROLL     = 160;
+    public static final int SCROLL_PANE_SCROLL_SIZE     = 50;
+    public static final int TABLE_TOP_HEIGHT            = IMAGE_BUTTON_SIZE_SMALL;
+    public static final int PROGRESS_BAR_WIDTH_LOADING  = 1200;
+    public static final int PROGRESS_BAR_WIDTH_HEALTH   = 500;
+    public static final int PROGRESS_BAR_MIN_WIDTH      = 50;
+    public static final int PROGRESS_BAR_HEIGHT         = 50;
+    public static final int PROGRESS_BAR_DATA_HEIGHT    = 20;
+    public static final int TEXT_RIGHT_GAP              = 25;
+    public static final int TEXT_BOTTOM_GAP             = 10;
+    public static final int SETTINGS_CELL_BOTTOM_GAP    = 25;
 
     public static final int WEAPON_TITLE_WIDTH = 360;
     public static final int WEAPON_VALUE_WIDTH = 160;
@@ -71,8 +81,8 @@ public class Constants {
     public static final int DIALOG_BOX_WIDTH         = (int)((2 * TEXT_BUTTON_WIDTH + 3 * GAP) * 1.5f);
     public static final int DIALOG_BOX_HEIGHT        = (int)(DIALOG_BOX_WIDTH * 0.6f);
 
-    public static final float ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND = 4f;
-    public static final float CASE_VISIBLE_TIME                       = 4f;
+    public static final float ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND = 3f;
+    public static final float CASE_VISIBLE_TIME                       = 1.5f;
 
     public static float SCROLL_PANE_MIN_SPEED = 300f;
     public static float SCROLL_PANE_MAX_SPEED = 1500f;
@@ -137,9 +147,6 @@ public class Constants {
     public static final String TEXTURE_BUTTON_LEADERBOARDS_UP       = "button_leaderboards_up";
     public static final String TEXTURE_BUTTON_LEADERBOARDS_DOWN     = "button_leaderboards_down";
     public static final String TEXTURE_BUTTON_LEADERBOARDS_DISABLED = "button_leaderboards_disabled";
-    public static final String TEXTURE_BUTTON_SAVEDGAMES_UP         = "button_savedgames_up";
-    public static final String TEXTURE_BUTTON_SAVEDGAMES_DOWN       = "button_savedgames_down";
-    public static final String TEXTURE_BUTTON_SAVEDGAMES_DISABLED   = "button_savedgames_disabled";
     public static final String TEXTURE_GAMES_CONRTROLLER_SIGNED_IN  = "games_controller_signed_in";
     public static final String TEXTURE_GAMES_CONRTROLLER_SIGNED_OUT = "games_controller_signed_out";
     public static final String TEXTURE_TABLE_BACKGROUND             = "table_background";
@@ -147,16 +154,13 @@ public class Constants {
     public static final String TEXTURE_SCREEN_BACKGROUND_ON_DIALOG_BOX = "screen_background_on_dialog_box";
     public static final String TEXTURE_BAR_FILL_BACKGROUND = "bar_fill_background";
     public static final String TEXTURE_BAR_FILL_VALUE      = "bar_fill_value";
-    public static final String TEXTURE_BAR_FILL_VALUE_ATL  = "bar_fill_value_alt";
     public static final String TEXTURE_BAR_FILL_UPGRADE    = "bar_fill_upgrade";
-    public static final String TEXTURE_PARTICLE       = "particle";
     public static final String TEXTURE_BUTTON_D       = "button_down";
     public static final String TEXTURE_BUTTON_D_GREEN = "button_down_green";
     public static final String TEXTURE_BUTTON_D_RED   = "button_down_red";
     public static final String TEXTURE_CHECKBOX_ON    = "checkbox_on";
     public static final String TEXTURE_CHECK_MARK     = "check_mark";
     public static final String TEXTURE_BOUGHT_ICON    = "bought_icon";
-    public static final String TEXTURE_COIN           = "coin";
     public static final String TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF = "ui_elem_bg_or_up_or_off";
     public static final String TEXTURE_SCROLL_PANE_KNOB        = "scroll_pane_knob";
     public static final String TEXTURE_BAR_FILL                = "bar_fill";

@@ -502,7 +502,7 @@ public class ShopHud extends AbstractHud {
             labelReloadTimeLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
             labelReloadTimeLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel + "");
             labelReloadTimeMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel + "");
-            progressBarReloadTime.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
+            progressBarReloadTime.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
         }
 
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
@@ -512,7 +512,7 @@ public class ShopHud extends AbstractHud {
             labelWeightLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
             labelWeightLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel + "");
             labelWeightMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel + "");
-            progressBarWeight.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
+            progressBarWeight.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
         }
 
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
@@ -702,7 +702,7 @@ public class ShopHud extends AbstractHud {
                 progressBarReloadTimeValueBought.setVisible(false);
                 progressBarReloadTimeUpgradeBought.setVisible(false);
                 progressBarReloadTimeUpgradeDone.setVisible(true);
-                progressBarReloadTimeUpgradeDone.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
+                progressBarReloadTimeUpgradeDone.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
                 buttonUpgradeReloadTime.setVisible(false);
                 imageUpgradeReloadTimeDone.setVisible(true);
             } else {
@@ -713,8 +713,8 @@ public class ShopHud extends AbstractHud {
                 progressBarReloadTimeValueBought.setVisible(true);
                 progressBarReloadTimeUpgradeBought.setVisible(true);
                 progressBarReloadTimeUpgradeDone.setVisible(false);
-                progressBarReloadTimeValueBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
-                progressBarReloadTimeUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).upgrade);
+                progressBarReloadTimeValueBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
+                progressBarReloadTimeUpgradeBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime - game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).upgrade);
                 buttonUpgradeReloadTime.setVisible(true);
                 if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price) {
                     buttonUpgradeReloadTime.setDisabled(false);
@@ -740,7 +740,7 @@ public class ShopHud extends AbstractHud {
                 progressBarWeightValueBought.setVisible(false);
                 progressBarWeightUpgradeBought.setVisible(false);
                 progressBarWeightUpgradeDone.setVisible(true);
-                progressBarWeightUpgradeDone.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
+                progressBarWeightUpgradeDone.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
                 buttonUpgradeWeight.setVisible(false);
                 imageUpgradeWeightDone.setVisible(true);
             } else {
@@ -751,8 +751,8 @@ public class ShopHud extends AbstractHud {
                 progressBarWeightValueBought.setVisible(true);
                 progressBarWeightUpgradeBought.setVisible(true);
                 progressBarWeightUpgradeDone.setVisible(false);
-                progressBarWeightValueBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
-                progressBarWeightUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).upgrade);
+                progressBarWeightValueBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
+                progressBarWeightUpgradeBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight - game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).upgrade);
                 buttonUpgradeWeight.setVisible(true);
                 if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price) {
                     buttonUpgradeWeight.setDisabled(false);
@@ -872,8 +872,8 @@ public class ShopHud extends AbstractHud {
         progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarReloadTime = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarWeight = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarReloadTime = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
+        progressBarWeight = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         labelRateOfFireValue.setAlignment(Align.topRight);
         labelAmmoDamageValue.setAlignment(Align.topRight);
@@ -957,19 +957,19 @@ public class ShopHud extends AbstractHud {
         labelMeleeDamagePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
         labelMeleeDamagePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarRateOfFireValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueBought);
-        progressBarRateOfFireUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarRateOfFireUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarAmmoDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueBought);
-        progressBarAmmoDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarAmmoDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarAmmoSpeedValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueBought);
-        progressBarAmmoSpeedUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarAmmoSpeedUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarMagazineSizeValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueBought);
-        progressBarMagazineSizeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
-        progressBarReloadTimeValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleValueBoughtMinus);
-        progressBarReloadTimeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleUpgradeBoughtMinus);
-        progressBarWeightValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleValueBoughtMinus);
-        progressBarWeightUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleUpgradeBoughtMinus);
+        progressBarMagazineSizeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgrade);
+        progressBarReloadTimeValueBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueBought);
+        progressBarReloadTimeUpgradeBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleUpgrade);
+        progressBarWeightValueBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueBought);
+        progressBarWeightUpgradeBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarMeleeDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueBought);
-        progressBarMeleeDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleUpgradeBought);
+        progressBarMeleeDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleUpgrade);
         labelRateOfFireValueUpgrade.setAlignment(Align.topRight);
         labelRateOfFireUpgradeUpgrade.setAlignment(Align.topRight);
         labelRateOfFirePriceUpgrade.setAlignment(Align.topRight);
@@ -1008,8 +1008,8 @@ public class ShopHud extends AbstractHud {
         buttonUpgradeAmmoDamage = new ImageButton(game.styles.imageButtonStylePlus);
         buttonUpgradeAmmoSpeed = new ImageButton(game.styles.imageButtonStylePlus);
         buttonUpgradeMagazineSize = new ImageButton(game.styles.imageButtonStylePlus);
-        buttonUpgradeReloadTime = new ImageButton(game.styles.imageButtonStyleMinus);
-        buttonUpgradeWeight = new ImageButton(game.styles.imageButtonStyleMinus);
+        buttonUpgradeReloadTime = new ImageButton(game.styles.imageButtonStylePlus);
+        buttonUpgradeWeight = new ImageButton(game.styles.imageButtonStylePlus);
         buttonUpgradeMeleeDamage = new ImageButton(game.styles.imageButtonStylePlus);
 
         buttonUpgradeRateOfFire.addListener(new InputListener() {
@@ -1164,8 +1164,8 @@ public class ShopHud extends AbstractHud {
         progressBarAmmoDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarAmmoSpeedUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarMagazineSizeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
-        progressBarReloadTimeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minReloadTime, game.gameWorld.weaponManagerPlayer.maxReloadTime, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
-        progressBarWeightUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minWeight, game.gameWorld.weaponManagerPlayer.maxWeight, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarReloadTimeUpgradeDone = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
+        progressBarWeightUpgradeDone = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarMeleeDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarRateOfFireUpgradeDone.setVisible(false);
         progressBarAmmoDamageUpgradeDone.setVisible(false);
@@ -1382,13 +1382,8 @@ public class ShopHud extends AbstractHud {
         tablePrice.add(priceUnit).align(Align.topRight);
         tableData.add(tablePrice).width(Constants.WEAPON_PRICE_WIDTH_UPGRADE).align(Align.topLeft);
         Stack stack = new Stack();
-        if (negativeUpgrade) {
-            stack.add(valueProgress);
-            stack.add(upgradeProgress);
-        } else {
-            stack.add(upgradeProgress);
-            stack.add(valueProgress);
-        }
+        stack.add(upgradeProgress);
+        stack.add(valueProgress);
         stack.add(doneProgress);
         tableData.row();
         tableData.add(stack).colspan(7).width(Constants.WEAPON_BAR_WIDTH_UPGRADE).height(Constants.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);

@@ -81,8 +81,8 @@ public abstract class PhysicalObject extends RenderableObject {
         objectTransform.set(objectPosition, objectQuaternion, objectScale);
         rigidBody.setWorldTransform(objectTransform);
         transform.set(rigidBody.getWorldTransform());
-        rigidBody.setLinearVelocity(new Vector3(0,0,0));
-        rigidBody.setAngularVelocity(new Vector3(0,0,0));
+        rigidBody.setLinearVelocity(Vector3.Zero);
+        rigidBody.setAngularVelocity(Vector3.Zero);
         if (!(this instanceof SolidObject)) {
             rigidBody.forceActivationState(Collision.DISABLE_DEACTIVATION);
         }

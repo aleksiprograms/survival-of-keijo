@@ -25,9 +25,8 @@ public abstract class AbstractScreen implements Screen {
     }
 
     public void updateScreenData() {
-        setShowStageDialogBox(false);
-        stage.setDebugAll(game.saveDataManager.saveData.isDebugDrawUI());
-        stageDialogBox.setDebugAll(game.saveDataManager.saveData.isDebugDrawUI());
+        stage.setDebugAll(Constants.DEBUG_DRAW_UI);
+        stageDialogBox.setDebugAll(Constants.DEBUG_DRAW_UI);
     }
 
     @Override

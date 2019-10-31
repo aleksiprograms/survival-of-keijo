@@ -246,27 +246,27 @@ public class InGameHud extends AbstractHud {
         tableShootBottomRow1.add(tableWaveBeginning);
 
         Table tableBottomRow1 = new Table();
-        tableBottomRow1.add(btBackpack).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(game.saveDataManager.saveData.isAspectRatio169() ? 200 : 0);
+        tableBottomRow1.add(btBackpack).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
         tableBottomRow1.add(tableShootBottomRow1).grow();
-        tableBottomRow1.add(buttonReload).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padLeft(Constants.GAP).padRight(game.saveDataManager.saveData.isAspectRatio169() ? 200 : 0);
+        tableBottomRow1.add(buttonReload).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padLeft(Constants.GAP).padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0);
 
         Table tableShootBottomRow2 = new Table();
         tableShootBottomRow2.setTouchable(Touchable.enabled);
         tableShootBottomRow2.add(stackEnterBuilding).expand().align(Align.bottom).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM);
 
         Table tableBottomRow2 = new Table();
-        tableBottomRow2.add(buttonLeft).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(game.saveDataManager.saveData.isAspectRatio169() ? 200 : 0);
+        tableBottomRow2.add(buttonLeft).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
         tableBottomRow2.add(buttonRight).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP);
         tableBottomRow2.add(tableShootBottomRow2).grow().align(Align.bottom).padLeft(Constants.GAP).padRight(Constants.GAP);
         tableBottomRow2.add(buttonDown).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP);
-        tableBottomRow2.add(buttonUp).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(game.saveDataManager.saveData.isAspectRatio169() ? 200 : 0);
+        tableBottomRow2.add(buttonUp).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0);
 
         Table tableMiddle = new Table();
         tableMiddle.setTouchable(Touchable.enabled);
 
         super.pad(Constants.GAP);
-        super.add(tableData).align(Align.topLeft).growX().padLeft(game.saveDataManager.saveData.isAspectRatio169() ? 200 : 0);
-        super.add(tableTopRight).fillY().padRight(game.saveDataManager.saveData.isAspectRatio169() ? 200 : 0).align(Align.topRight);
+        super.add(tableData).align(Align.topLeft).growX().padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
+        super.add(tableTopRight).fillY().padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0).align(Align.topRight);
         super.row();
         super.add(tableMiddle).colspan(2).grow();
         super.row();

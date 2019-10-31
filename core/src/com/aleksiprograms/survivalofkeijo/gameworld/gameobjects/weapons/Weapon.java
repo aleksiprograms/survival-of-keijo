@@ -20,7 +20,7 @@ public abstract class Weapon extends RenderableObject {
     public Person owner;
     public Person target;
     private Node weaponBone;
-    private Vector3 uselessVector3;
+    private Vector3 uselessPosition;
     public boolean ownerDead;
     public Vector3 ownerDeadPosition;
     public UpState upStateCurrent;
@@ -72,6 +72,7 @@ public abstract class Weapon extends RenderableObject {
         weaponPosition = new Vector3();
         weaponQuaternion = new Quaternion();
         weaponScale = new Vector3(1, 1, 1);
+        uselessPosition = new Vector3();
         ammoHitPoint = new Vector3();
         lastShot = 0;
         canUse = true;
@@ -84,6 +85,9 @@ public abstract class Weapon extends RenderableObject {
         visibleToPlayer = true;
         animate = true;
         dimensions.set(1.8f, 1.8f, 1);
+        shootRayFrom = new Vector3();
+        shootRayTo = new Vector3();
+        shootCallback = new ClosestRayResultCallback(shootRayFrom, shootRayTo);
         animationController = new AnimationController(this);
         animationListener = new AnimationController.AnimationListener() {
             @Override
@@ -106,14 +110,12 @@ public abstract class Weapon extends RenderableObject {
         this.playerWeapon = playerWeapon;
         this.automatic = true;
         weaponBone = owner.getNode("Empty");
-        uselessVector3 = new Vector3();
         ownerDead = false;
         lookingRight = false;
         reactionTime = 0.5f;
         readyToShootTimer = 0;
-        shootRayFrom = new Vector3();
-        shootRayTo = new Vector3();
-        shootCallback = new ClosestRayResultCallback(shootRayFrom, shootRayTo);
+        shootRayFrom.set(Vector3.Zero);
+        shootRayTo.set(Vector3.Zero);
         shootCallback.setCollisionFilterGroup(Constants.CATEGORY_ENEMY_SENSOR_PLAYER);
         shootCallback.setCollisionFilterMask(Constants.MASK_ENEMY_SENSOR_PLAYER);
         canUse = true;
@@ -163,9 +165,9 @@ public abstract class Weapon extends RenderableObject {
             }
             if (lookingRight) {
                 weaponPosition.set(
-                        ownerDeadPosition.x + weaponBone.globalTransform.getTranslation(uselessVector3).x,
-                        ownerDeadPosition.y + weaponBone.globalTransform.getTranslation(uselessVector3).y,
-                        ownerDeadPosition.z + weaponBone.globalTransform.getTranslation(uselessVector3).z);
+                        ownerDeadPosition.x + weaponBone.globalTransform.getTranslation(uselessPosition).x,
+                        ownerDeadPosition.y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
+                        ownerDeadPosition.z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
                 if (!animateOnMoving) {
                     weaponQuaternion.set(Vector3.Z, -66);
                 } else {
@@ -174,9 +176,9 @@ public abstract class Weapon extends RenderableObject {
                 transform.set(weaponPosition, weaponQuaternion, weaponScale);
             } else {
                 weaponPosition.set(
-                        ownerDeadPosition.x - weaponBone.globalTransform.getTranslation(uselessVector3).x,
-                        ownerDeadPosition.y + weaponBone.globalTransform.getTranslation(uselessVector3).y,
-                        ownerDeadPosition.z + weaponBone.globalTransform.getTranslation(uselessVector3).z);
+                        ownerDeadPosition.x - weaponBone.globalTransform.getTranslation(uselessPosition).x,
+                        ownerDeadPosition.y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
+                        ownerDeadPosition.z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
                 if (!animateOnMoving) {
                     weaponQuaternion.set(Vector3.Z, 66);
                 } else {
@@ -280,16 +282,16 @@ public abstract class Weapon extends RenderableObject {
         }
         if (lookingRight) {
             weaponPosition.set(
-                    owner.rigidBody.getCenterOfMassPosition().x + weaponBone.globalTransform.getTranslation(uselessVector3).x,
-                    owner.rigidBody.getCenterOfMassPosition().y + weaponBone.globalTransform.getTranslation(uselessVector3).y,
-                    owner.rigidBody.getCenterOfMassPosition().z + weaponBone.globalTransform.getTranslation(uselessVector3).z);
+                    owner.rigidBody.getCenterOfMassPosition().x + weaponBone.globalTransform.getTranslation(uselessPosition).x,
+                    owner.rigidBody.getCenterOfMassPosition().y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
+                    owner.rigidBody.getCenterOfMassPosition().z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
             weaponQuaternion.set(Vector3.Z, weaponAngleDeg - 90);
             transform.set(weaponPosition, weaponQuaternion, weaponScale);
         } else {
             weaponPosition.set(
-                    owner.rigidBody.getCenterOfMassPosition().x + weaponBone.globalTransform.getTranslation(uselessVector3).x,
-                    owner.rigidBody.getCenterOfMassPosition().y + weaponBone.globalTransform.getTranslation(uselessVector3).y,
-                    owner.rigidBody.getCenterOfMassPosition().z + weaponBone.globalTransform.getTranslation(uselessVector3).z);
+                    owner.rigidBody.getCenterOfMassPosition().x + weaponBone.globalTransform.getTranslation(uselessPosition).x,
+                    owner.rigidBody.getCenterOfMassPosition().y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
+                    owner.rigidBody.getCenterOfMassPosition().z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
             weaponQuaternion.set(Vector3.Z, weaponAngleDeg - 90);
             transform.set(weaponPosition, weaponQuaternion, weaponScale);
             transform.rotate(Vector3.Y, 180);

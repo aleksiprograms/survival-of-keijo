@@ -82,7 +82,6 @@ public class EnemyManager {
                                 break;
                             }
                         }
-                        System.out.println("MODEL_PERSON_ENEMY FROM = " + emitEnemyFrom);
                         weaponsIndex = MathUtils.random(0, weapons.size - 1);
                         weaponID = weapons.get(weaponsIndex);
                         weapons.removeIndex(weaponsIndex);

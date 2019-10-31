@@ -122,7 +122,7 @@ public class GameWorld {
     private Vector3 enemyShootableRayFrom;
     private Vector3 enemyShootableRayTo;
     private ClosestRayResultCallback enemyShootableCallback;
-    private Vector3 uselessObjectPosition;
+    private Vector3 objectPositionForVisibilityCheck;
     public WeaponManager weaponManagerPlayer;
     public WeaponManager weaponManagerEnemy;
 
@@ -168,7 +168,7 @@ public class GameWorld {
         enemyShootableCallback.setCollisionFilterGroup(Constants.CATEGORY_ENEMY_SHOOTABLE);
         enemyShootableCallback.setCollisionFilterMask(Constants.MASK_ENEMY_SHOOTABLE);
 
-        uselessObjectPosition = new Vector3();
+        objectPositionForVisibilityCheck = new Vector3();
 
         weaponManagerPlayer = new WeaponManager();
         weaponManagerEnemy = new WeaponManager();
@@ -344,21 +344,21 @@ public class GameWorld {
         modelBatch.render(game.particleEffectManager, environment);
         modelBatch.end();
 
-        if (game.saveDataManager.saveData.isDebugDrawWorld()) {
+        if (Constants.DEBUG_DRAW_WORLD) {
             debugDrawer.begin(camera);
             dynamicsWorld.debugDrawWorld();
             debugDrawer.end();
         }
 
         if (!paused) {
-            dynamicsWorld.stepSimulation(deltaTime, 1, Constants.FIXED_TIME_STEP);
+            dynamicsWorld.stepSimulation(deltaTime, Constants.MAX_SUB_STEPS, Constants.FIXED_TIME_STEP);
         }
     }
 
     private boolean isObjectVisible(PerspectiveCamera camera, RenderableObject gameObject) {
-        gameObject.transform.getTranslation(uselessObjectPosition);
-        uselessObjectPosition.add(gameObject.center);
-        return camera.frustum.boundsInFrustum(uselessObjectPosition, gameObject.dimensions);
+        gameObject.transform.getTranslation(objectPositionForVisibilityCheck);
+        objectPositionForVisibilityCheck.add(gameObject.center);
+        return camera.frustum.boundsInFrustum(objectPositionForVisibilityCheck, gameObject.dimensions);
     }
 
     private PhysicalObject isEnemyClosestToPlayer(PhysicalObject current, PhysicalObject object) {

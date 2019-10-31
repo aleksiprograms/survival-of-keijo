@@ -17,11 +17,11 @@ import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
 public class WorldContactListener extends ContactListener {
 
     private TheGame game;
-    private Vector3 uselessVector;
+    private Vector3 uselessPosition;
 
     public WorldContactListener(TheGame game) {
         this.game = game;
-        uselessVector = new Vector3();
+        uselessPosition = new Vector3();
     }
 
     @Override
@@ -65,21 +65,21 @@ public class WorldContactListener extends ContactListener {
         if (colObj0.userData instanceof Ammunition && colObj1.userData instanceof Person) {
             if (!(((Ammunition) colObj0.userData).hit)) {
                 ((Person) colObj1.userData).onHit(((Ammunition) colObj0.userData).damage);
-                ((Ammunition) colObj0.userData).onHit(colObj0.getWorldTransform().getTranslation(uselessVector), (PhysicalObject) colObj1.userData);
+                ((Ammunition) colObj0.userData).onHit(colObj0.getWorldTransform().getTranslation(uselessPosition), (PhysicalObject) colObj1.userData);
             }
         }
         if (colObj0.userData instanceof Person && colObj1.userData instanceof Ammunition) {
             if (!(((Ammunition) colObj1.userData).hit)) {
                 ((Person) colObj0.userData).onHit(((Ammunition) colObj1.userData).damage);
-                ((Ammunition) colObj1.userData).onHit(colObj1.getWorldTransform().getTranslation(uselessVector), (PhysicalObject) colObj0.userData);
+                ((Ammunition) colObj1.userData).onHit(colObj1.getWorldTransform().getTranslation(uselessPosition), (PhysicalObject) colObj0.userData);
             }
         }
 
         if (colObj0.userData instanceof Ammunition && colObj1.userData instanceof SolidObject) {
-            ((Ammunition) colObj0.userData).onHit(colObj0.getWorldTransform().getTranslation(uselessVector), (PhysicalObject) colObj1.userData);
+            ((Ammunition) colObj0.userData).onHit(colObj0.getWorldTransform().getTranslation(uselessPosition), (PhysicalObject) colObj1.userData);
         }
         if (colObj0.userData instanceof SolidObject && colObj1.userData instanceof Ammunition) {
-            ((Ammunition) colObj1.userData).onHit(colObj1.getWorldTransform().getTranslation(uselessVector), (PhysicalObject) colObj0.userData);
+            ((Ammunition) colObj1.userData).onHit(colObj1.getWorldTransform().getTranslation(uselessPosition), (PhysicalObject) colObj0.userData);
         }
         /*if (colObj0.userData instanceof PhysicalObject && colObj1.userData instanceof PhysicalObject) {
             ((PhysicalObject) colObj0.userData).onCollision(colObj0.getInterpolationLinearVelocity());
