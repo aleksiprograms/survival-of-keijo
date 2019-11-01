@@ -1,6 +1,7 @@
 package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
+import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.screens.huds.BackpackHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.GameOverHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.ShopHud;
@@ -77,6 +78,18 @@ public class GameScreen extends AbstractScreen {
         if (showStageDialogBox) {
             stageDialogBox.act();
             stageDialogBox.draw();
+        }
+        if (Gdx.input.isTouched()) {
+            showStagePopup = false;
+        }
+        if (showStagePopup) {
+            popupTimer += deltaTime;
+            if (popupTimer > Constants.POPUP_VISIBLE_TIME) {
+                showStagePopup = false;
+            } else {
+                stagePopup.act();
+                stagePopup.draw();
+            }
         }
     }
 

@@ -80,6 +80,10 @@ public class Constants {
     public static final int DIALOG_BOX_HEIGHT_WEAPON = 800;
     public static final int DIALOG_BOX_WIDTH         = (int)((2 * TEXT_BUTTON_WIDTH + 3 * GAP) * 1.5f);
     public static final int DIALOG_BOX_HEIGHT        = (int)(DIALOG_BOX_WIDTH * 0.6f);
+    public static final int POPUP_WIDTH              = DIALOG_BOX_WIDTH;
+    public static final int POPUP_HEIGHT             = 200;
+    public static final int POPUP_BOTTOM_PAD         = 150;
+    public static final float POPUP_VISIBLE_TIME     = 5f;
 
     public static final float ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND = 3f;
     public static final float CASE_VISIBLE_TIME                       = 1.5f;

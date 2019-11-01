@@ -142,7 +142,7 @@ public class Player extends Person {
         lockUpMovement = true;
         bigArea = game.gameWorld.bigAreaManagers.get(0).bigAreaNull;
         smallArea = game.gameWorld.bigAreaManagers.get(0).smallAreaNull;
-        money = 1000000.0f;
+        money = 100000.0f;
         weapons.clear();
     }
 
