@@ -23,7 +23,6 @@ public class HomeScreen extends AbstractScreen {
     private Label labelScreenTitle;
     private LevelInfo[] levelInfos;
     private Table[] btLevel = new Table[Constants.NUMBER_OF_LEVELS];
-    private boolean quitBoxShown;
 
     class LevelData {
         Label labelScore;
@@ -44,23 +43,11 @@ public class HomeScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
-        quitBoxShown = false;
-        updateGameModeData();
-        super.show();
-    }
-
-    @Override
     public void render(float deltaTime) {
         super.render(deltaTime);
-        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            showQuitBox();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            game.alertManager.confirmExitGame();
         }
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
     }
 
     @Override
@@ -210,94 +197,5 @@ public class HomeScreen extends AbstractScreen {
             }
         });
         return btLevel[index];
-    }
-
-    private void updateGameModeData() {
-        /*for (int i = 0; i < levelInfos.length; i++) {
-            btLevel[i].background(new TextureRegionDrawable(gameBAS.getTextureRegionByID(Constants.TEX_SRC_RECTANGLE_GREY)));
-            levelData[i].labelScore.setText(gameBAS.styles.getFormattedNumber(gameBAS.saveManager.savedData.getLevelScore(levelInfos[i].ID)));
-            levelData[i].labelDistance.setText(gameBAS.styles.getFormattedNumber(gameBAS.saveManager.savedData.getLevelDistance(levelInfos[i].ID)) + " m");
-            if (gameBAS.saveManager.savedData.getLevelStars(levelInfos[i].ID) >= 1)
-                levelData[i].imageStar1.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_UNLOCKED))));
-            else
-                levelData[i].imageStar1.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_LOCKED))));
-            if (gameBAS.saveManager.savedData.getLevelStars(levelInfos[i].ID) >= 2)
-                levelData[i].imageStar2.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_UNLOCKED))));
-            else
-                levelData[i].imageStar2.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_LOCKED))));
-            if (gameBAS.saveManager.savedData.getLevelStars(levelInfos[i].ID) >= 3)
-                levelData[i].imageStar3.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_UNLOCKED))));
-            else
-                levelData[i].imageStar3.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_STAR_LOCKED))));
-        }*/
-    }
-
-    private void showQuitBox() {
-        /*if (!quitBoxShown) {
-            quitBoxShown = true;
-            final Dialog dialog = new Dialog("", gameBAS.styles.dialogBoxStyle) {
-                @Override
-                protected void result(Object object) {
-                }
-            };
-            dialog.padTop(20);
-            Label labelText = new Label("Do you want to quit the game?", gameBAS.styles.skinLabelDialogText);
-            labelText.setWrap(true);
-            labelText.setAlignment(Align.center);
-            dialog.getContentTable().add(labelText).align(Align.center).width(550).height(250).padLeft(20).padRight(20);
-            final TextButton btNo = new TextButton("No", gameBAS.styles.skinButtonDialog);
-            final TextButton btYes = new TextButton("Yes", gameBAS.styles.skinButtonDialog);
-            dialog.getButtonTable().pad(20);
-            dialog.getButtonTable().add(btNo).padRight(20).width(Constants.BUTTON_WIDTH_DIALOG).height(Constants.BUTTON_HEIGHT_DIALOG);
-            dialog.getButtonTable().add(btYes).width(Constants.BUTTON_WIDTH_DIALOG).height(Constants.BUTTON_HEIGHT_DIALOG);
-
-            btNo.addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    return true;
-                }
-
-                @Override
-                public void touchUp(InputEvent event, float x, float y, int pointer, final int button) {
-                    if (y > 0 && y < + btNo.getHeight()) {
-                        if (x > 0 && x < btNo.getWidth()) {
-                            quitBoxShown = false;
-                            gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
-                            dialog.hide();
-                        }
-                    }
-                }
-            });
-
-            btYes.addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    return true;
-                }
-
-                @Override
-                public void touchUp(InputEvent event, float x, float y, int pointer, final int button) {
-                    if (y > 0 && y < + btYes.getHeight()) {
-                        if (x > 0 && x < btYes.getWidth()) {
-                            gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_POS).play(gameBAS.saveManager.savedData.getSoundVolume());
-                            stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Gdx.app.exit();
-                                }
-                            })));
-                        }
-                    }
-                }
-            });
-
-            dialog.setModal(true);
-            dialog.setMovable(false);
-            dialog.setResizable(false);
-            dialog.invalidateHierarchy();
-            dialog.invalidate();
-            dialog.layout();
-            dialog.show(stage);
-        }*/
     }
 }

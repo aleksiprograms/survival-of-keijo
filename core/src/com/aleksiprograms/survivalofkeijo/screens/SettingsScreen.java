@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 public class SettingsScreen extends AbstractScreen {
 
     private Label labelScreenTitle;
+    private Label labelSoundVolumeTitle;
     private Slider sliderSoundVolume;
     private final CheckBox checkBoxSounds;
     private Label labelLanguageTitle;
@@ -37,18 +38,13 @@ public class SettingsScreen extends AbstractScreen {
     private TextButton buttonSuomi;
     private String previousLanguage;
     private String selectedLanguage;
+    private TextButton buttonCredits;
 
     public SettingsScreen(TheGame game) {
         super(game);
         checkBoxSounds = new CheckBox("   Sounds", game.styles.checkBoxStyle);
         initializeScreen();
         initializeDialogBoxLanguage();
-    }
-
-    @Override
-    public void show() {
-        //sliderSoundVolume.setValue(gameBAS.saveManager.savedData.getSoundVolume());
-        super.show();
     }
 
     @Override
@@ -71,14 +67,10 @@ public class SettingsScreen extends AbstractScreen {
     }
 
     @Override
-    public void dispose() {
-        super.dispose();
-    }
-
-    @Override
     public void updateScreenData() {
         super.updateScreenData();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleSettings"));
+        labelSoundVolumeTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("settingsSoundVolumeTitle"));
         checkBoxSounds.setChecked(game.savedDataManager.savedData.isSounds());
         labelLanguageTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("settingsLanguageTitle"));
         buttonChangeLanguage.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonChange"));
@@ -95,34 +87,39 @@ public class SettingsScreen extends AbstractScreen {
             buttonEnglish.setChecked(true);
             labelLanguage.setText(Constants.STRING_ENGLISH);
         }
+        buttonCredits.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonCredits"));
     }
 
     private void initializeScreen() {
-        /*Table tableSoundVolume = new Table();
-        Label lSoundVolumeTitle = new Label("Volume", gameBAS.styles.skinLabelSettingsTitle);
-        sliderSoundVolume = new Slider(0.0f, 1.0f, 0.1f, false, gameBAS.styles.sliderStyle);
-        sliderSoundVolume.getStyle().background.setMinWidth(500);
-        sliderSoundVolume.getStyle().background.setMinHeight(15);
-        sliderSoundVolume.getStyle().knobBefore.setMinWidth(500);
-        sliderSoundVolume.getStyle().knobBefore.setMinHeight(15);
-        sliderSoundVolume.getStyle().knob.setMinWidth(50);
-        sliderSoundVolume.getStyle().knob.setMinHeight(50);
-        tableSoundVolume.add(lSoundVolumeTitle).padRight(30);
-        tableSoundVolume.add(sliderSoundVolume).width(500).height(50);*/
+        Table tableSoundVolume = new Table();
+        labelSoundVolumeTitle = new Label("", game.styles.labelStyleWhiteSmall);
+        sliderSoundVolume = new Slider(0f, 1f, 0.1f, false, game.styles.sliderStyle);
+        sliderSoundVolume.setValue(0.5f);
+        sliderSoundVolume.getStyle().background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        sliderSoundVolume.getStyle().knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
+        sliderSoundVolume.getStyle().knob.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
+        sliderSoundVolume.getStyle().knob.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);
+        tableSoundVolume.add(labelSoundVolumeTitle).padRight(Constants.GAP);
+        tableSoundVolume.add(sliderSoundVolume).width(800);
 
         Table tableLanguage = new Table();
-        labelLanguageTitle = new Label("", game.styles.labelStyleWhiteMedium);
-        labelLanguage = new Label("", game.styles.labelStyleWhiteMedium);
+        labelLanguageTitle = new Label("", game.styles.labelStyleWhiteSmall);
+        labelLanguage = new Label("", game.styles.labelStyleWhiteBig);
         buttonChangeLanguage = new TextButton("", game.styles.textButtonStyleOrange);
-        tableLanguage.add(labelLanguageTitle).padRight(Constants.GAP);
-        tableLanguage.add(labelLanguage).padRight(Constants.GAP);
-        tableLanguage.add(buttonChangeLanguage).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT);
+        tableLanguage.add(labelLanguageTitle).padRight(Constants.GAP).growX().align(Align.left);
+        tableLanguage.add(labelLanguage).padRight(Constants.GAP).align(Align.right);
+        tableLanguage.add(buttonChangeLanguage).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
 
         Table tableSettings = new Table();
-        tableSettings.add(checkBoxSounds).padBottom(Constants.SETTINGS_CELL_BOTTOM_GAP).align(Align.left);
+        //tableSettings.add(checkBoxSounds).padBottom(Constants.GAP).align(Align.left).expandX();
+        //tableSettings.row();
+        tableSettings.add(tableSoundVolume).padBottom(Constants.GAP).align(Align.left);
         tableSettings.row();
-        tableSettings.add(tableLanguage).align(Align.left);
-        //tableSettings.add(tableSoundVolume).padBottom(20);
+        tableSettings.add(tableLanguage).align(Align.left).growX();
+
+        buttonCredits = new TextButton("", game.styles.textButtonStyleOrange);
+        Table tableButtons = new Table();
+        tableButtons.add(buttonCredits).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
 
         labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
         final ImageButton buttonClose = new ImageButton(game.styles.imageButtonStyleClose);
@@ -132,9 +129,10 @@ public class SettingsScreen extends AbstractScreen {
         tableTop.add(buttonClose).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
 
         Table tableContent = new Table();
-        tableContent.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top);
+        tableContent.add(tableTop).colspan(2).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top);
         tableContent.row();
         tableContent.add(tableSettings).expand();
+        tableContent.add(tableButtons).expandY().align(Align.right);
 
         Table table = new Table();
         table.setFillParent(true);
@@ -150,15 +148,32 @@ public class SettingsScreen extends AbstractScreen {
             }
         });
 
-        /*sliderSoundVolume.addListener(new ChangeListener() {
+        sliderSoundVolume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                if (sliderSoundVolume.getValue() > gameBAS.saveManager.savedData.getSoundVolume() + 0.001f ||
+                /*if (sliderSoundVolume.getValue() > gameBAS.saveManager.savedData.getSoundVolume() + 0.001f ||
                         sliderSoundVolume.getValue() < gameBAS.saveManager.savedData.getSoundVolume() - 0.001f) {
                     gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_POS).play(sliderSoundVolume.getValue());
+                }*/
+            }
+        });
+
+        buttonChangeLanguage.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < buttonChangeLanguage.getWidth() && y > 0 && y < buttonChangeLanguage.getHeight()) {
+                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
+                    game.settingsScreen.stageExtra.clear();
+                    game.settingsScreen.stageExtra.addActor(tableDialogBoxLanguage);
+                    game.settingsScreen.setShowStageExtra(true);
                 }
             }
-        });*/
+        });
 
         buttonClose.addListener(new InputListener() {
             @Override
@@ -177,7 +192,7 @@ public class SettingsScreen extends AbstractScreen {
             }
         });
 
-        buttonChangeLanguage.addListener(new InputListener() {
+        buttonCredits.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -185,11 +200,11 @@ public class SettingsScreen extends AbstractScreen {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < buttonChangeLanguage.getWidth() && y > 0 && y < buttonChangeLanguage.getHeight()) {
+                if (x > 0 && x < buttonCredits.getWidth() && y > 0 && y < buttonCredits.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
-                    game.settingsScreen.stageDialogBox.clear();
-                    game.settingsScreen.stageDialogBox.addActor(tableDialogBoxLanguage);
-                    game.settingsScreen.setShowStageDialogBox(true);
+                    game.savedDataManager.save();
+                    game.creditsScreen.updateScreenData();
+                    game.setScreen(game.creditsScreen);
                 }
             }
         });
@@ -209,7 +224,7 @@ public class SettingsScreen extends AbstractScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     previousLanguage = selectedLanguage;
-                    game.settingsScreen.setShowStageDialogBox(false);
+                    game.settingsScreen.setShowStageExtra(false);
                 }
             }
         });
@@ -227,7 +242,7 @@ public class SettingsScreen extends AbstractScreen {
                     game.changeLocale();
                     game.styles.setLocale();
                     updateScreenData();
-                    game.settingsScreen.setShowStageDialogBox(false);
+                    game.settingsScreen.setShowStageExtra(false);
                 }
             }
         });

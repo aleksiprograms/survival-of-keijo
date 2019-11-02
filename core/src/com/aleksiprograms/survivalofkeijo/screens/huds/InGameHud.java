@@ -42,7 +42,7 @@ public class InGameHud extends AbstractHud {
     private Label labelWaveBeginningWave;
 
     private ImageButton btEnterShop;
-    private ImageButton btEnterHome;
+    private ImageButton btEnterHospital;
     private boolean btEnterGunStoreVisibility;
     private boolean btEnterHomeVisibility;
 
@@ -68,7 +68,7 @@ public class InGameHud extends AbstractHud {
     public void setBtEnterHospitalVisibility(boolean visible) {
         if (visible != btEnterHomeVisibility) {
             btEnterHomeVisibility = visible;
-            btEnterHome.setVisible(visible);
+            btEnterHospital.setVisible(visible);
         }
     }
 
@@ -217,14 +217,14 @@ public class InGameHud extends AbstractHud {
         ImageButton btBackpack = new ImageButton(game.styles.imageButtonStyleBackpack);
         ImageButton buttonReload = new ImageButton(game.styles.imageButtonStyleReload);
         btEnterShop = new ImageButton(game.styles.imageButtonStyleEnter);
-        btEnterHome = new ImageButton(game.styles.imageButtonStyleEnter);
+        btEnterHospital = new ImageButton(game.styles.imageButtonStyleEnter);
         Stack stackEnterBuilding = new Stack();
         stackEnterBuilding.add(btEnterShop);
-        stackEnterBuilding.add(btEnterHome);
+        stackEnterBuilding.add(btEnterHospital);
         btEnterShop.setVisible(false);
-        btEnterHome.setVisible(false);
+        btEnterHospital.setVisible(false);
         btEnterShop.addListener(inputListenerEnterShop);
-        btEnterHome.addListener(inputListenerEnterHome);
+        btEnterHospital.addListener(inputListenerEnterHospital);
 
         Table tableShootTopRight = new Table();
         tableShootTopRight.setTouchable(Touchable.enabled);

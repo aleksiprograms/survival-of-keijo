@@ -7,13 +7,17 @@ import com.aleksiprograms.survivalofkeijo.managers.SavedDataManager;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.resources.GamePools;
 import com.aleksiprograms.survivalofkeijo.resources.Styles;
+import com.aleksiprograms.survivalofkeijo.screens.AbstractScreen;
 import com.aleksiprograms.survivalofkeijo.screens.CreditsScreen;
 import com.aleksiprograms.survivalofkeijo.screens.GameScreen;
 import com.aleksiprograms.survivalofkeijo.screens.HomeScreen;
 import com.aleksiprograms.survivalofkeijo.screens.LoadingScreen;
 import com.aleksiprograms.survivalofkeijo.screens.SettingsScreen;
+import com.aleksiprograms.survivalofkeijo.managers.AlertManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,6 +32,7 @@ import com.badlogic.gdx.graphics.g3d.particles.batches.ModelInstanceParticleBatc
 import com.badlogic.gdx.graphics.g3d.particles.batches.PointSpriteParticleBatch;
 import com.badlogic.gdx.physics.bullet.Bullet;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.Locale;
 
@@ -42,20 +47,26 @@ public class TheGame extends Game {
 	public Styles styles;
 	public PerspectiveCamera cameraGame;
 	public OrthographicCamera cameraUI;
+	public ExtendViewport viewport;
 	public ParticleEffectManager particleEffectManager;
 	public SavedDataManager savedDataManager;
 	public LevelManager levelManager;
 
+	public AbstractScreen currentScreen;
 	public GameScreen gameScreen;
 	public HomeScreen homeScreen;
 	public CreditsScreen creditsScreen;
 	public SettingsScreen settingsScreen;
 	public LoadingScreen loadingScreen;
 
+	public AlertManager alertManager;
+
 	@Override
 	public void create() {
+		Gdx.input.setCatchKey(Input.Keys.BACK, true);
 		cameraGame = new PerspectiveCamera(Constants.FIELD_OF_VIEW_Y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cameraUI = new OrthographicCamera();
+		viewport = new ExtendViewport(Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT, cameraUI);
 		savedDataManager = new SavedDataManager();
 		assetManager = new AssetManager();
 		if (savedDataManager.savedData.getLanguage() == null) {
@@ -76,6 +87,12 @@ public class TheGame extends Game {
 		loadingScreen = new LoadingScreen(this);
 		loadingScreen.updateScreenData();
 		setScreen(loadingScreen);
+	}
+
+	@Override
+	public void setScreen(Screen screen) {
+		super.setScreen(screen);
+		currentScreen = (AbstractScreen) screen;
 	}
 
 	private void setLocale() {
@@ -135,6 +152,8 @@ public class TheGame extends Game {
 		homeScreen = new HomeScreen(this);
 		creditsScreen = new CreditsScreen(this);
 		settingsScreen = new SettingsScreen(this);
+
+		alertManager = new AlertManager(this);
 	}
 
 	public void changeLocale() {
@@ -148,6 +167,15 @@ public class TheGame extends Game {
 	@Override
 	public void render () {
 		super.render();
+		if (!(currentScreen instanceof LoadingScreen)) {
+			alertManager.updateAndDraw(Gdx.graphics.getDeltaTime());
+		}
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		super.resize(width, height);
+		viewport.update(width, height, true);
 	}
 
 	@Override

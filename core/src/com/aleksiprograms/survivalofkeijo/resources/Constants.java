@@ -37,10 +37,10 @@ public class Constants {
     public static final int TEXT_BUTTON_HEIGHT          = 130;
     public static final int TEXT_BUTTON_LANGUAGE_HEIGHT = 90;
     public static final int TEXT_SIZE_HUGE              = 80;
-    public static final int TEXT_SIZE_BIG               = 60;
+    public static final int TEXT_SIZE_BIG               = 65;
     public static final int TEXT_SIZE_MEDIUM            = 55;
-    public static final int TEXT_SIZE_SMALL             = 50;
-    public static final int TEXT_SIZE_TINY              = 40;
+    public static final int TEXT_SIZE_SMALL             = 45;
+    public static final int TEXT_SIZE_TINY              = 35;
     public static final int TEXT_BUTTON_TEXT_SIZE       = 50;
     public static final int BOUGHT_ICON_SIZE            = 40;
     public static final int SCROLL_PANE_SQUARE_SIZE     = 80;
@@ -54,7 +54,6 @@ public class Constants {
     public static final int PROGRESS_BAR_DATA_HEIGHT    = 20;
     public static final int TEXT_RIGHT_GAP              = 25;
     public static final int TEXT_BOTTOM_GAP             = 10;
-    public static final int SETTINGS_CELL_BOTTOM_GAP    = 25;
 
     public static final int WEAPON_TITLE_WIDTH = 360;
     public static final int WEAPON_VALUE_WIDTH = 160;

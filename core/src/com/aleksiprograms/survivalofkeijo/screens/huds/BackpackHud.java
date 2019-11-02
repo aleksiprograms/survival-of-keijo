@@ -453,7 +453,7 @@ public class BackpackHud extends AbstractHud {
         super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_SCROLL_SIZE);
         super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH_VALUE).align(Align.right).growY();
 
-        btClose.addListener(inputListenerContinue);
+        btClose.addListener(inputListenerClose);
     }
 
     private Table createBasicInfoBox() {

@@ -46,11 +46,6 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     @Override
-    public void dispose() {
-        super.dispose();
-    }
-
-    @Override
     public void updateScreenData() {
         super.updateScreenData();
         labelInstruction.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLoading"));

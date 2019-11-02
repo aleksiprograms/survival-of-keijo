@@ -9,6 +9,7 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAre
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Weapon;
 import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 import com.aleksiprograms.survivalofkeijo.toolbox.BodyState;
+import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
 import com.aleksiprograms.survivalofkeijo.toolbox.UpState;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
@@ -886,9 +887,8 @@ public class Player extends Person {
             if (currentWeapon.animateOnMoving) {
                 currentWeapon.animationController.setAnimation("Armature|stand", -1);
             }
-            for (int i = 0; i < game.gameScreen.stage.getActors().size; i++) {
-                game.gameScreen.stage.getActors().get(i).remove();
-            }
+            game.gameScreen.setGameState(GameState.GAME_OVER);
+            game.gameScreen.stage.clear();
             game.gameScreen.gameOverHud.updateHudData();
             game.gameScreen.stage.addActor(game.gameScreen.gameOverHud);
         }
