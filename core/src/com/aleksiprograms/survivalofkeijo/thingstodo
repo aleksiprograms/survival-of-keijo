@@ -37,12 +37,7 @@ DONE -ammunition-case-enemy
 DONE -particle-emit-space
 DONE -particle-grass
 
----TEXTURES---
--name changes (_ to -)
--texture atlases for different screen densities
-
 ---PROBLEMS---
 -fps drops (begin of the level)
 -can fps be improved for low end devices
 -enemies sometimes have weapon with player weapon model (player model is used currently for shotgun, machine gun, ...)
--scaling down for small screens

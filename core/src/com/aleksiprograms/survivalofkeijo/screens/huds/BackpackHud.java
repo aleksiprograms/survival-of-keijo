@@ -134,7 +134,7 @@ public class BackpackHud extends AbstractHud {
         buttonWeapons.clear();
         for (int i = 0; i < game.gameWorld.player.weapons.size; i++) {
             final TableWithID table = new TableWithID(game.gameWorld.player.weapons.get(i).weaponData.ID);
-            table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+            table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
             table.setTouchable(Touchable.enabled);
             table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP)))).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
             table.addListener(new InputListener() {
@@ -152,13 +152,13 @@ public class BackpackHud extends AbstractHud {
                     if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_HUGE) {
                         for (int k = 0; k < buttonWeapons.size; k++) {
                             if (buttonWeapons.get(k).ID == checkedWeaponID) {
-                                buttonWeapons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+                                buttonWeapons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
                             }
                         }
                         checkedWeaponID = table.ID;
                         for (int k = 0; k < buttonWeapons.size; k++) {
                             if (buttonWeapons.get(k).ID == checkedWeaponID) {
-                                buttonWeapons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
+                                buttonWeapons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
                             }
                         }
                         updateSelectedWeaponTable();
@@ -178,7 +178,7 @@ public class BackpackHud extends AbstractHud {
             if (i < buttonWeapons.size) {
                 tableWeaponButtons.add(buttonWeapons.get(i)).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
             } else {
-                tableWeaponButtons.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)))).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
+                tableWeaponButtons.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)))).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
             }
             if ((i + 1) % Constants.UI_WEAPONS_IN_ROW == 0) {
                 tableWeaponButtons.row();
@@ -187,7 +187,7 @@ public class BackpackHud extends AbstractHud {
         checkedWeaponID = game.gameWorld.player.currentWeapon.weaponData.ID;
         for (int i = 0; i < buttonWeapons.size; i++) {
             if (checkedWeaponID == buttonWeapons.get(i).ID) {
-                buttonWeapons.get(i).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
+                buttonWeapons.get(i).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
             }
         }
     }

@@ -1226,7 +1226,7 @@ public class ShopHud extends AbstractHud {
         Table tableWeaponButtons = new Table();
         for (int i = 0; i < Constants.NUMBER_OF_WEAPONS; i++) {
             final TableWithID tableWeaponButton = new TableWithID(WEAPONS_IDS[i]);
-            tableWeaponButton.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+            tableWeaponButton.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
             tableWeaponButton.setTouchable(Touchable.enabled);
             StackWithID stack = new StackWithID(WEAPONS_IDS[i]);
             stack.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP))));
@@ -1247,13 +1247,13 @@ public class ShopHud extends AbstractHud {
                     if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_HUGE) {
                         for (int k = 0; k < weaponButtons.size; k++) {
                             if (weaponButtons.get(k).ID == checkedWeaponID) {
-                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
                             }
                         }
                         checkedWeaponID = tableWeaponButton.ID;
                         for (int k = 0; k < weaponButtons.size; k++) {
                             if (weaponButtons.get(k).ID == checkedWeaponID) {
-                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
+                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
                             }
                         }
                         updateHudData();
@@ -1277,13 +1277,13 @@ public class ShopHud extends AbstractHud {
         scrollPaneWeapons.layout();
 
         checkedWeaponID = weaponButtons.get(0).ID;
-        weaponButtons.get(0).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
+        weaponButtons.get(0).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
         for (int i = 0; i < Constants.NUMBER_OF_WEAPONS; i++) {
             for (int j = 0; j < Constants.NUMBER_OF_WEAPONS; j++) {
                 if (weaponButtonStacks.get(j).ID == WEAPONS_IDS[i]) {
                     if (game.gameWorld.weaponManagerPlayer.getWeaponData(WEAPONS_IDS[i]).bought) {
                         Table table = new Table();
-                        table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
+                        table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
                         weaponButtonStacks.get(j).add(table);
                     }
                 }
@@ -1416,7 +1416,7 @@ public class ShopHud extends AbstractHud {
     private void createTableWeaponTopBought() {
         tableWeaponTopBought = new Table();
         tableWeaponTopBought.add(labelWeaponNameBought).pad(Constants.GAP).align(Align.left);
-        tableWeaponTopBought.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.left).growX().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE);
+        tableWeaponTopBought.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)))).align(Align.left).growX().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE);
         tableWeaponTopBought.add(labelNumberOfAmmoTitle).padTop(Constants.GAP).padBottom(Constants.GAP).align(Align.right);
         tableWeaponTopBought.add(labelNumberOfAmmo).pad(Constants.GAP).align(Align.right);
     }
@@ -1441,7 +1441,7 @@ public class ShopHud extends AbstractHud {
                         for (int i = 0; i < weaponButtonStacks.size; i++) {
                             if (weaponButtonStacks.get(i).ID == checkedWeaponID) {
                                 Table table = new Table();
-                                table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BOUGHT_ICON)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
+                                table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
                                 weaponButtonStacks.get(i).add(table);
                             }
                         }

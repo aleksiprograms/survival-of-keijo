@@ -51,8 +51,8 @@ public class SettingsScreen extends AbstractScreen {
     public void render(float deltaTime) {
         super.render(deltaTime);
         if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            game.homeScreen.updateScreenData();
-            game.setScreen(game.homeScreen);
+            game.mainMenuScreen.updateScreenData();
+            game.setScreen(game.mainMenuScreen);
         }
     }
 
@@ -136,7 +136,7 @@ public class SettingsScreen extends AbstractScreen {
 
         Table table = new Table();
         table.setFillParent(true);
-        //table.background(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_BACKGROUND))));
+        table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND)));
         table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
 
         stage.addActor(table);
@@ -186,8 +186,8 @@ public class SettingsScreen extends AbstractScreen {
                 if (x > 0 && x < buttonClose.getWidth() && y > 0 && y < buttonClose.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
                     game.savedDataManager.save();
-                    game.homeScreen.updateScreenData();
-                    game.setScreen(game.homeScreen);
+                    game.mainMenuScreen.updateScreenData();
+                    game.setScreen(game.mainMenuScreen);
                 }
             }
         });

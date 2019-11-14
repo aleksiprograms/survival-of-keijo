@@ -10,7 +10,7 @@ import com.aleksiprograms.survivalofkeijo.resources.Styles;
 import com.aleksiprograms.survivalofkeijo.screens.AbstractScreen;
 import com.aleksiprograms.survivalofkeijo.screens.CreditsScreen;
 import com.aleksiprograms.survivalofkeijo.screens.GameScreen;
-import com.aleksiprograms.survivalofkeijo.screens.HomeScreen;
+import com.aleksiprograms.survivalofkeijo.screens.MainMenuScreen;
 import com.aleksiprograms.survivalofkeijo.screens.LoadingScreen;
 import com.aleksiprograms.survivalofkeijo.screens.SettingsScreen;
 import com.aleksiprograms.survivalofkeijo.managers.AlertManager;
@@ -54,7 +54,7 @@ public class TheGame extends Game {
 
 	public AbstractScreen currentScreen;
 	public GameScreen gameScreen;
-	public HomeScreen homeScreen;
+	public MainMenuScreen mainMenuScreen;
 	public CreditsScreen creditsScreen;
 	public SettingsScreen settingsScreen;
 	public LoadingScreen loadingScreen;
@@ -149,7 +149,7 @@ public class TheGame extends Game {
 		gameWorld = new GameWorld(this);
 
 		gameScreen = new GameScreen(this);
-		homeScreen = new HomeScreen(this);
+		mainMenuScreen = new MainMenuScreen(this);
 		creditsScreen = new CreditsScreen(this);
 		settingsScreen = new SettingsScreen(this);
 

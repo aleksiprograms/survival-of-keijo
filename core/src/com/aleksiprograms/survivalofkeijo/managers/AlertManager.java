@@ -125,7 +125,7 @@ public class AlertManager {
 
     private void initializePopupTable() {
         Table table = new Table();
-        table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
+        table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_POPUP_BACKGROUND)));
         labelPopupText = new Label("", game.styles.labelStyleWhiteSmall);
         labelPopupText.setAlignment(Align.center);
         table.add(labelPopupText).expand().align(Align.center);
@@ -199,8 +199,8 @@ public class AlertManager {
                     setShowStageDialogBox(false);
                     game.gameScreen.stage.clear();
                     game.gameWorld.clearWorld();
-                    game.homeScreen.updateScreenData();
-                    game.setScreen(game.homeScreen);
+                    game.mainMenuScreen.updateScreenData();
+                    game.setScreen(game.mainMenuScreen);
                 }
             }
         });

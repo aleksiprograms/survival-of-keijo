@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 
-public class HomeScreen extends AbstractScreen {
+public class MainMenuScreen extends AbstractScreen {
 
     private Label labelScreenTitle;
     private LevelInfo[] levelInfos;
@@ -33,7 +33,7 @@ public class HomeScreen extends AbstractScreen {
     }
     private LevelData[] levelData = new LevelData[Constants.NUMBER_OF_LEVELS];
 
-    public HomeScreen(TheGame game) {
+    public MainMenuScreen(TheGame game) {
         super(game);
         levelInfos = game.levelManager.getLevelInfos();
         for (int i = 0; i < 3; i++) {
@@ -53,27 +53,18 @@ public class HomeScreen extends AbstractScreen {
     @Override
     public void updateScreenData() {
         super.updateScreenData();
-        labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleHome"));
+        labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleMainMenu"));
     }
 
     private void initializeScreen() {
         Image imageGameController = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_GAMES_CONRTROLLER_SIGNED_IN)));
         final ImageButton buttonAchievements = new ImageButton(game.styles.imageButtonStyleAchievements);
         final ImageButton buttonLeaderboards = new ImageButton(game.styles.imageButtonStyleLeaderboards);
-
-        Table tableGPGS = new Table();
-        tableGPGS.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
-        tableGPGS.add(imageGameController).pad(Constants.GAP).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL);
-        tableGPGS.row();
-        tableGPGS.add(buttonAchievements).padLeft(Constants.GAP).padRight(Constants.GAP).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL);
-        tableGPGS.row();
-        tableGPGS.add(buttonLeaderboards).pad(Constants.GAP).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL);
-
         final ImageButton buttonSettings = new ImageButton(game.styles.imageButtonStyleSettings);
 
         Table tableLevels = new Table();
         for (int i = 0; i < Constants.NUMBER_OF_LEVELS; i++) {
-            tableLevels.add(initLevelTable(levelInfos[i], i)).align(Align.center).growY().width((int)((Gdx.graphics.getWidth() - 2 * Constants.GAP - Constants.TEXT_BUTTON_WIDTH - 3 * Constants.GAP) / 3)).padRight(i < Constants.NUMBER_OF_LEVELS - 1 ? Constants.GAP : 0).padBottom(Constants.GAP);
+            tableLevels.add(initLevelTable(levelInfos[i], i)).align(Align.center).width(Constants.LEVEL_BUTTON_WIDTH).height(Constants.LEVEL_BUTTON_HEIGHT).padRight(i < Constants.NUMBER_OF_LEVELS - 1 ? Constants.GAP : 0).padBottom(Constants.GAP);
         }
 
         ScrollPane scrollPaneLevels = new ScrollPane(tableLevels, game.styles.scrollPaneStyle);
@@ -87,19 +78,22 @@ public class HomeScreen extends AbstractScreen {
 
         labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
         Table tableTop = new Table();
-        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add(imageGameController).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add(buttonAchievements).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padLeft(Constants.GAP).padRight(Constants.GAP).align(Align.left);
+        tableTop.add(buttonLeaderboards).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(labelScreenTitle).expandX().align(Align.center);
+        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
+        tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padLeft(Constants.GAP).padRight(Constants.GAP).align(Align.right);
         tableTop.add(buttonSettings).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.right);
 
         Table tableContent = new Table();
         tableContent.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
         tableContent.row();
-        tableContent.add(scrollPaneLevels).fill().expand().align(Align.center).padRight(Constants.GAP);
-        tableContent.add(tableGPGS).align(Align.right).expandY().width(Constants.IMAGE_BUTTON_SIZE_SMALL + 2 * Constants.GAP).height(3 * Constants.IMAGE_BUTTON_SIZE_SMALL + 4 * Constants.GAP);
+        tableContent.add(scrollPaneLevels).fill().expand().align(Align.center);
 
         Table table = new Table();
         table.setFillParent(true);
-        //table.background(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_BACKGROUND))));
+        table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND)));
         table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
 
         stage.addActor(table);
@@ -123,7 +117,7 @@ public class HomeScreen extends AbstractScreen {
 
     private Table initLevelTable(final LevelInfo levelInfo, final int index) {
         /*Table tableTop = new Table();
-        tableTop.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+        tableTop.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
         Label labelTitle = new Label(levelInfo.nameID, gameBAS.styles.skinLabelTitle2);
         tableTop.add(labelTitle).expandX().align(Align.center);
 
@@ -166,7 +160,7 @@ public class HomeScreen extends AbstractScreen {
         stackInfo.add(tableInfo);
 */
         btLevel[index] = new Table();
-        btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+        btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
         btLevel[index].setTouchable(Touchable.enabled);
         /*btLevel[index].add(tableTop).height(70).fill().expandX();
         btLevel[index].row();
@@ -175,14 +169,14 @@ public class HomeScreen extends AbstractScreen {
         btLevel[index].addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_D)));
+                btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
                 return true;
             }
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 if(!(y > 0 && y < btLevel[index].getHeight()) || !(x > 0 && x < btLevel[index].getWidth())) {
-                    btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+                    btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
                 }
             }
 
@@ -193,7 +187,7 @@ public class HomeScreen extends AbstractScreen {
                     game.gameScreen.updateScreenData();
                     game.setScreen(game.gameScreen);
                 }
-                btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF)));
+                btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
             }
         });
         return btLevel[index];

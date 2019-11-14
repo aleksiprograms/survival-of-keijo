@@ -40,7 +40,7 @@ public abstract class AbstractHud extends Table {
                     stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                         @Override
                         public void run() {
-                            //gameBAS.setScreen(gameBAS.homeScreen);
+                            //gameBAS.setScreen(gameBAS.mainMenuScreen);
                         }
                     })));
                 }
@@ -219,7 +219,7 @@ public abstract class AbstractHud extends Table {
             }
             hud.btHomePressed = false;
             gameBAS.game.clearWorld2();
-            gameBAS.setScreen(new HomeScreen(gameBAS));
+            gameBAS.setScreen(new MainMenuScreen(gameBAS));
         }*/
     }
 }

@@ -4,12 +4,14 @@ import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 
@@ -27,8 +29,8 @@ public class CreditsScreen extends AbstractScreen {
     public void render(float deltaTime) {
         super.render(deltaTime);
         if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            game.homeScreen.updateScreenData();
-            game.setScreen(game.homeScreen);
+            game.mainMenuScreen.updateScreenData();
+            game.setScreen(game.mainMenuScreen);
         }
     }
 
@@ -73,11 +75,10 @@ public class CreditsScreen extends AbstractScreen {
 
         Table table = new Table();
         table.setFillParent(true);
-        //table.background(new TextureRegionDrawable(new TextureRegion(game.getTextureRegionByID(Constants.TEX_SRC_BACKGROUND))));
+        table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND)));
         table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
 
         stage.addActor(table);
-        //stage.setDebugAll(true);
 
         buttonClose.addListener(new InputListener() {
             @Override
@@ -89,8 +90,8 @@ public class CreditsScreen extends AbstractScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < buttonClose.getWidth() && y > 0 && y < buttonClose.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
-                    game.homeScreen.updateScreenData();
-                    game.setScreen(game.homeScreen);
+                    game.mainMenuScreen.updateScreenData();
+                    game.setScreen(game.mainMenuScreen);
                 }
             }
         });

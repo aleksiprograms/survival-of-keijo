@@ -36,8 +36,8 @@ public class LoadingScreen extends AbstractScreen {
         progress = game.assetManager.getProgress();
         if (game.assetManager.update()) {
             game.loadRest();
-            game.homeScreen.updateScreenData();
-            game.setScreen(game.homeScreen);
+            game.mainMenuScreen.updateScreenData();
+            game.setScreen(game.mainMenuScreen);
         } else {
             progressBar.setValue(progress);
             stage.act();
@@ -54,7 +54,7 @@ public class LoadingScreen extends AbstractScreen {
     private void initializeScreen() {
         Skin skinProgressBar = new Skin();
         ProgressBar.ProgressBarStyle progressBarStyle = new ProgressBar.ProgressBarStyle();
-        progressBarStyle.background = new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_UI_ELEM_BG_OR_UP_OR_OFF));
+        progressBarStyle.background = new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG));
         progressBarStyle.knobBefore = new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL));
         progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
         progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_HEIGHT);
@@ -92,7 +92,7 @@ public class LoadingScreen extends AbstractScreen {
 
         Table table = new Table();
         table.setFillParent(true);
-        //table.background(new TextureRegionDrawable(new TextureRegion(gameBAS.getStartTexture("background"))));
+        table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS_LOADING, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND)));
         table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
 
         stage.addActor(table);
