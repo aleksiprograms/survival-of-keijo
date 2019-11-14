@@ -1,0 +1,445 @@
+
+texture-atlas.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bar-data-background
+  rotate: false
+  xy: 1616, 404
+  size: 200, 200
+  split: 10, 10, 10, 10
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bar-data-upgrade
+  rotate: false
+  xy: 1616, 606
+  size: 200, 200
+  split: 10, 10, 10, 10
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bar-data-value
+  rotate: false
+  xy: 202, 404
+  size: 200, 200
+  split: 10, 10, 10, 10
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bar-fill
+  rotate: false
+  xy: 1818, 404
+  size: 200, 200
+  split: 10, 10, 20, 20
+  pad: 0, 0, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bar-fill-health
+  rotate: false
+  xy: 1212, 404
+  size: 200, 200
+  split: 10, 10, 20, 20
+  pad: 0, 0, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-achievements-disabled
+  rotate: false
+  xy: 808, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-achievements-down
+  rotate: false
+  xy: 404, 404
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-achievements-up
+  rotate: false
+  xy: 202, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-close-down
+  rotate: false
+  xy: 808, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-close-up
+  rotate: false
+  xy: 606, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-down
+  rotate: false
+  xy: 202, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-down-green
+  rotate: false
+  xy: 202, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-down-red
+  rotate: false
+  xy: 606, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-backpack-down
+  rotate: false
+  xy: 1010, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-backpack-up
+  rotate: false
+  xy: 1212, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-down-down
+  rotate: false
+  xy: 808, 404
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-down-up
+  rotate: false
+  xy: 404, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-empty-down
+  rotate: false
+  xy: 0, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-empty-up
+  rotate: false
+  xy: 1616, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-left-down
+  rotate: false
+  xy: 1818, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-left-up
+  rotate: false
+  xy: 0, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-reload-down
+  rotate: false
+  xy: 1414, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-reload-up
+  rotate: false
+  xy: 606, 404
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-right-down
+  rotate: false
+  xy: 404, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-right-up
+  rotate: false
+  xy: 1010, 404
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-up-down
+  rotate: false
+  xy: 1818, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-game-up-up
+  rotate: false
+  xy: 1414, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-leaderboards-disabled
+  rotate: false
+  xy: 1818, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-leaderboards-down
+  rotate: false
+  xy: 1212, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-leaderboards-up
+  rotate: false
+  xy: 1010, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-pause-down
+  rotate: false
+  xy: 0, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-pause-up
+  rotate: false
+  xy: 1010, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-plus-disabled
+  rotate: false
+  xy: 1414, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-plus-down
+  rotate: false
+  xy: 404, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-plus-up
+  rotate: false
+  xy: 606, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-settings-down
+  rotate: false
+  xy: 1212, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-settings-up
+  rotate: false
+  xy: 1212, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button-up-or-off-or-bg
+  rotate: false
+  xy: 1616, 0
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+check-mark
+  rotate: false
+  xy: 1414, 404
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+checkbox-on
+  rotate: false
+  xy: 1414, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+games-controller-signed-in
+  rotate: false
+  xy: 606, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+games-controller-signed-out
+  rotate: false
+  xy: 808, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+pupup-background
+  rotate: false
+  xy: 1010, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+screen-background
+  rotate: false
+  xy: 0, 202
+  size: 200, 200
+  split: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+screen-background-on-dialog-box
+  rotate: false
+  xy: 808, 606
+  size: 200, 200
+  split: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+scroll-pane-knob
+  rotate: false
+  xy: 1616, 808
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+slider-knob
+  rotate: false
+  xy: 202, 202
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 10, 10, 10, 10
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+table-background
+  rotate: false
+  xy: 0, 404
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+table-background-secondary
+  rotate: false
+  xy: 404, 606
+  size: 200, 200
+  split: 20, 20, 20, 20
+  pad: 0, 0, 0, 0
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
