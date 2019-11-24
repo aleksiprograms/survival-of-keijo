@@ -121,11 +121,10 @@ public class TheGame extends Game {
 		assetManager.load(Constants.MODEL_WEAPON_KNIFE_ENEMY, Model.class);
 		assetManager.load(Constants.MODEL_BUILDING_ENEMY_EMITTER, Model.class);
 		assetManager.load(Constants.MODEL_SKY_BLUE, Model.class);
-		assetManager.load(Constants.MODEL_WALKABLE_GROUND_H30, Model.class);
 		assetManager.load(Constants.MODEL_WALKABLE_GROUND_H10, Model.class);
-		assetManager.load(Constants.MODEL_WALKABLE_GROUND_H20, Model.class);
 		assetManager.load(Constants.MODEL_WALKABLE_GROUND_V5, Model.class);
 		assetManager.load(Constants.MODEL_WALKABLE_GROUND_V11, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_GROUND_TOP, Model.class);
 		assetManager.load(Constants.MODEL_WALKABLE_GRASS, Model.class);
 
 		particleEffectManager = new ParticleEffectManager(this);

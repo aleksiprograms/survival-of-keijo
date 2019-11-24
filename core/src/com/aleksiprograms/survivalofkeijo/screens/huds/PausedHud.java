@@ -131,6 +131,6 @@ public class PausedHud extends AbstractHud {
 
         buttonContinue.addListener(inputListenerContinue);
         buttonRestart.addListener(inputListenerRestart);
-        buttonHome.addListener(inputListenerHome);
+        buttonHome.addListener(inputListenerMainMenu);
     }
 }

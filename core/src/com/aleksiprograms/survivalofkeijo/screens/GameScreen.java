@@ -73,18 +73,19 @@ public class GameScreen extends AbstractScreen {
         game.cameraGame.viewportHeight = height;
         game.cameraGame.viewportWidth = width;
         game.cameraGame.update();
+        game.gameWorld.sky.scale((float)width/(float)height);
     }
 
     @Override
     public void pause() {
-        if (!game.gameWorld.paused) {
+        if (currentGameState.equals(GameState.IN_GAME)) {
             pauseGame();
         }
     }
 
     @Override
     public void hide() {
-        if (!game.gameWorld.paused) {
+        if (currentGameState.equals(GameState.IN_GAME)) {
             pauseGame();
         }
     }

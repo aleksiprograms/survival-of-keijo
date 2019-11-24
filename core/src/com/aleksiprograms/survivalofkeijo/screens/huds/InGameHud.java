@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 
@@ -19,10 +20,6 @@ public class InGameHud extends AbstractHud {
 
     private Label labelHealthTitle;
     private ProgressBar progressBarHealth;
-    private Label labelHealth;
-    private Label labelHealthLow;
-    private Label labelMaxHealth;
-    private Label labelHealthSeparator;
     private Label labelAmmoTitle;
     private Label labelAmmoInMag;
     private Label labelAmmoInMagLow;
@@ -41,10 +38,10 @@ public class InGameHud extends AbstractHud {
     private Label labelWaveBeginningWaveTitle;
     private Label labelWaveBeginningWave;
 
-    private ImageButton btEnterShop;
-    private ImageButton btEnterHospital;
-    private boolean btEnterGunStoreVisibility;
-    private boolean btEnterHomeVisibility;
+    private TextButton buttonEnterShop;
+    private TextButton buttonEnterHospital;
+    private boolean buttonEnterShopVisibility;
+    private boolean buttonEnterHospitalVisibility;
 
     public static boolean buttonRightPressed = false;
     public static boolean buttonLeftPressed = false;
@@ -59,22 +56,24 @@ public class InGameHud extends AbstractHud {
     }
 
     public void setButtonEnterShopVisibility(boolean visible) {
-        if (visible != btEnterGunStoreVisibility) {
-            btEnterGunStoreVisibility = visible;
-            btEnterShop.setVisible(visible);
+        if (visible != buttonEnterShopVisibility) {
+            buttonEnterShopVisibility = visible;
+            buttonEnterShop.setVisible(visible);
         }
     }
 
     public void setBtEnterHospitalVisibility(boolean visible) {
-        if (visible != btEnterHomeVisibility) {
-            btEnterHomeVisibility = visible;
-            btEnterHospital.setVisible(visible);
+        if (visible != buttonEnterHospitalVisibility) {
+            buttonEnterHospitalVisibility = visible;
+            buttonEnterHospital.setVisible(visible);
         }
     }
 
     @Override
     public void updateHudData() {
         super.updateHudData();
+        buttonEnterShop.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonEnterBuilding"));
+        buttonEnterHospital.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonEnterBuilding"));
         if (game.gameWorld.enemyManager.inTheBeginningOfNewWave) {
             tableWaveBeginning.setVisible(true);
             labelWaveBeginningWaveTitle.setText("");//remove
@@ -84,21 +83,6 @@ public class InGameHud extends AbstractHud {
             tableWaveBeginning.setVisible(false);
         }
         labelHealthTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("inGameTitleHealth"));
-        if (game.gameWorld.player.health <= 0) {
-            labelHealth.setText(game.styles.getFormattedInt(0));
-        } else {
-            labelHealth.setText(game.styles.getFormattedInt(game.gameWorld.player.health));
-        }
-        labelHealthLow.setText(game.styles.getFormattedInt(game.gameWorld.player.health));
-        if (game.gameWorld.player.health < 0.1f * game.gameWorld.player.maxHealth) {
-            labelHealth.setVisible(false);
-            labelHealthLow.setVisible(true);
-        } else {
-            labelHealth.setVisible(true);
-            labelHealthLow.setVisible(false);
-        }
-        labelHealthSeparator.setText(" / ");
-        labelMaxHealth.setText(game.styles.getFormattedInt(game.gameWorld.player.maxHealth));
         labelScoreTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("inGameTitleScore"));
         labelScore.setText(game.styles.getFormattedInt(0));
         labelWaveTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("inGameTitleWave"));
@@ -148,10 +132,6 @@ public class InGameHud extends AbstractHud {
         labelHealthTitle = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarHealth = new ProgressBar(0, 500, 1, false, game.styles.progressBarStyleHealth);
         progressBarHealth.setVisualInterpolation(new Interpolation.Pow(1));
-        labelHealth = new Label("0", game.styles.labelStyleWhiteBig);
-        labelHealthLow = new Label("0", game.styles.labelStyleRedBig);
-        labelMaxHealth = new Label("0", game.styles.labelStyleWhiteBig);
-        labelHealthSeparator = new Label("", game.styles.labelStyleWhiteBig);
         labelAmmoTitle = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoInMag = new Label("0", game.styles.labelStyleWhiteBig);
         labelAmmoRest = new Label("0", game.styles.labelStyleWhiteBig);
@@ -169,13 +149,7 @@ public class InGameHud extends AbstractHud {
         labelWaveBeginningWaveTitle = new Label("WAVE", game.styles.labelStyleWhiteBig);
         labelWaveBeginningWave = new Label("", game.styles.labelStyleWhiteHuge);
 
-        Stack stackHealth = new Stack();
-        stackHealth.add(labelHealth);
-        stackHealth.add(labelHealthLow);
         Table tableHealth = new Table();
-        tableHealth.add(stackHealth).align(Align.left);
-        tableHealth.add(labelHealthSeparator).align(Align.left);
-        tableHealth.add(labelMaxHealth).align(Align.left).padRight(Constants.GAP);
         tableHealth.add(progressBarHealth).align(Align.left).width(Constants.PROGRESS_BAR_WIDTH_HEALTH).height(labelAmmoInMag.getHeight()).expandX();
 
         Stack stackInMag = new Stack();
@@ -216,15 +190,15 @@ public class InGameHud extends AbstractHud {
         ImageButton buttonDown = new ImageButton(game.styles.imageButtonStyleDown);
         ImageButton btBackpack = new ImageButton(game.styles.imageButtonStyleBackpack);
         ImageButton buttonReload = new ImageButton(game.styles.imageButtonStyleReload);
-        btEnterShop = new ImageButton(game.styles.imageButtonStyleEnter);
-        btEnterHospital = new ImageButton(game.styles.imageButtonStyleEnter);
+        buttonEnterShop = new TextButton("", game.styles.textButtonStyleEnterBuilding);
+        buttonEnterHospital = new TextButton("", game.styles.textButtonStyleEnterBuilding);
         Stack stackEnterBuilding = new Stack();
-        stackEnterBuilding.add(btEnterShop);
-        stackEnterBuilding.add(btEnterHospital);
-        btEnterShop.setVisible(false);
-        btEnterHospital.setVisible(false);
-        btEnterShop.addListener(inputListenerEnterShop);
-        btEnterHospital.addListener(inputListenerEnterHospital);
+        stackEnterBuilding.add(buttonEnterShop);
+        stackEnterBuilding.add(buttonEnterHospital);
+        buttonEnterShop.setVisible(false);
+        buttonEnterHospital.setVisible(false);
+        buttonEnterShop.addListener(inputListenerEnterShop);
+        buttonEnterHospital.addListener(inputListenerEnterHospital);
 
         Table tableShootTopRight = new Table();
         tableShootTopRight.setTouchable(Touchable.enabled);
@@ -252,7 +226,7 @@ public class InGameHud extends AbstractHud {
 
         Table tableShootBottomRow2 = new Table();
         tableShootBottomRow2.setTouchable(Touchable.enabled);
-        tableShootBottomRow2.add(stackEnterBuilding).expand().align(Align.bottom).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM);
+        tableShootBottomRow2.add(stackEnterBuilding).expand().align(Align.bottom).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT);
 
         Table tableBottomRow2 = new Table();
         tableBottomRow2.add(buttonLeft).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
@@ -342,7 +316,9 @@ public class InGameHud extends AbstractHud {
         InputListener inputListenerShoot = new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                buttonShootPressed = true;
+                if (!buttonEnterShop.isPressed() && !buttonEnterHospital.isPressed()) {
+                    buttonShootPressed = true;
+                }
                 return true;
             }
 

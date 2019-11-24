@@ -59,6 +59,7 @@ public class Styles {
     public TextButton.TextButtonStyle textButtonStyleGreen;
     public TextButton.TextButtonStyle textButtonStyleRed;
     public TextButton.TextButtonStyle textButtonStyleNoTexture;
+    public TextButton.TextButtonStyle textButtonStyleEnterBuilding;
 
     public ImageButton.ImageButtonStyle imageButtonStyleClose;
     public ImageButton.ImageButtonStyle imageButtonStylePlus;
@@ -71,7 +72,8 @@ public class Styles {
     public ImageButton.ImageButtonStyle imageButtonStyleDown;
     public ImageButton.ImageButtonStyle imageButtonStyleBackpack;
     public ImageButton.ImageButtonStyle imageButtonStyleReload;
-    public ImageButton.ImageButtonStyle imageButtonStyleEnter;
+    public ImageButton.ImageButtonStyle imageButtonStyleGameControllerSignedIn;
+    public ImageButton.ImageButtonStyle imageButtonStyleGameControllerSignedOut;
     public ImageButton.ImageButtonStyle imageButtonStyleAchievements;
     public ImageButton.ImageButtonStyle imageButtonStyleLeaderboards;
 
@@ -109,6 +111,7 @@ public class Styles {
         textButtonStyleGreen = new TextButton.TextButtonStyle();
         textButtonStyleRed = new TextButton.TextButtonStyle();
         textButtonStyleNoTexture = new TextButton.TextButtonStyle();
+        textButtonStyleEnterBuilding = new TextButton.TextButtonStyle();
 
         imageButtonStyleClose = new ImageButton.ImageButtonStyle();
         imageButtonStylePlus = new ImageButton.ImageButtonStyle();
@@ -121,7 +124,8 @@ public class Styles {
         imageButtonStyleDown = new ImageButton.ImageButtonStyle();
         imageButtonStyleBackpack = new ImageButton.ImageButtonStyle();
         imageButtonStyleReload = new ImageButton.ImageButtonStyle();
-        imageButtonStyleEnter = new ImageButton.ImageButtonStyle();
+        imageButtonStyleGameControllerSignedIn = new ImageButton.ImageButtonStyle();
+        imageButtonStyleGameControllerSignedOut = new ImageButton.ImageButtonStyle();
         imageButtonStyleAchievements = new ImageButton.ImageButtonStyle();
         imageButtonStyleLeaderboards = new ImageButton.ImageButtonStyle();
 
@@ -166,6 +170,10 @@ public class Styles {
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN_RED)));
         setTextButtonStyle(textButtonStyleNoTexture,
                 true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorOrange, colorOrange, colorDisabled);
+        setTextButtonStyle(textButtonStyleEnterBuilding,
+                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorWhite, colorDisabled,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_EMPTY_UP)),
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_EMPTY_DOWN)));
 
         setImageButtonStyle(imageButtonStyleClose,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_CLOSE_UP)),
@@ -201,9 +209,12 @@ public class Styles {
         setImageButtonStyle(imageButtonStyleReload,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RELOAD_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RELOAD_DOWN)));
-        setImageButtonStyle(imageButtonStyleEnter,
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_EMPTY_UP)),
-                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_EMPTY_DOWN)));
+        setImageButtonStyle(imageButtonStyleGameControllerSignedIn,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_GAMES_CONRTROLLER_SIGNED_IN)),
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_GAMES_CONRTROLLER_SIGNED_IN)));
+        setImageButtonStyle(imageButtonStyleGameControllerSignedOut,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_GAMES_CONRTROLLER_SIGNED_OUT)),
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_GAMES_CONRTROLLER_SIGNED_OUT)));
         setImageButtonStyleWithDisabled(imageButtonStyleAchievements,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_ACHIEVEMENTS_DOWN)),
@@ -335,10 +346,10 @@ public class Styles {
         scrollPaneStyle.hScrollKnob = scrollKnob;
         scrollPaneStyle.vScroll = scroll;
         scrollPaneStyle.vScrollKnob = scrollKnob;
-        scrollPaneStyle.hScroll.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.hScrollKnob.setMinHeight(Constants.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.vScroll.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
-        scrollPaneStyle.vScrollKnob.setMinWidth(Constants.SCROLL_PANE_SCROLL_SIZE);
+        scrollPaneStyle.hScroll.setMinHeight(Constants.SCROLL_PANE_THICKNESS);
+        scrollPaneStyle.hScrollKnob.setMinHeight(Constants.SCROLL_PANE_THICKNESS);
+        scrollPaneStyle.vScroll.setMinWidth(Constants.SCROLL_PANE_THICKNESS);
+        scrollPaneStyle.vScrollKnob.setMinWidth(Constants.SCROLL_PANE_THICKNESS);
     }
 
     private void setSliderStyle(
@@ -391,8 +402,8 @@ public class Styles {
             NinePatchDrawable knobBefore) {
         progressBarStyle.background = background;
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
-        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.background.setMinHeight(Constants.PROGRESS_BAR_DATA_THICKNESS);
+        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_THICKNESS);
         progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
     }
 
@@ -400,7 +411,7 @@ public class Styles {
             ProgressBar.ProgressBarStyle progressBarStyle,
             NinePatchDrawable knobBefore) {
         progressBarStyle.knobBefore = knobBefore;
-        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_HEIGHT);
+        progressBarStyle.knobBefore.setMinHeight(Constants.PROGRESS_BAR_DATA_THICKNESS);
         progressBarStyle.knobBefore.setMinWidth(Constants.PROGRESS_BAR_MIN_WIDTH);
     }
 

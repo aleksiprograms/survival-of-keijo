@@ -4,6 +4,7 @@ import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.EnemyEmitter;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Building;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles.Coin;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundTop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Shop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletPlayer;
@@ -12,8 +13,6 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CaseP
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Sky;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Grass;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH10;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH20;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH30;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV11;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV5;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyDropObject;
@@ -111,7 +110,7 @@ public class GameWorld {
     private Array<RenderableObject> allAmmunitionAndCases;
     private Array<Coin> allCoins;
     public Array<Building> enterableBuildings;
-    private RenderableObject background;
+    public Sky sky;
     public Player player;
     public Array<SensorObject> sensorObjects;
     public Array<BigAreaManager> bigAreaManagers;
@@ -186,7 +185,7 @@ public class GameWorld {
     }
 
     public void clearWorld() {
-        freeObject(background);
+        freeObject(sky);
         for (i = 0; i < player.weapons.size; i++) {
             freeObject(player.weapons.get(i));
         }
@@ -246,11 +245,11 @@ public class GameWorld {
         if (!paused) {
             enemyManager.update(deltaTime);
             coinManager.update(deltaTime);
-            background.update(deltaTime);
+            sky.update(deltaTime);
             player.update(deltaTime);
             player.currentWeapon.update(deltaTime);
         }
-        modelBatch.render(background);
+        modelBatch.render(sky);
         modelBatch.render(player, environment);
         modelBatch.render(player.currentWeapon, environment);
         modelBatch.render(modelCacheLevel, environment);
@@ -509,14 +508,12 @@ public class GameWorld {
             game.gamePools.caseEnemyPool.free((CaseEnemy) renderableObject);
         } else if (renderableObject instanceof GroundH10) {
             game.gamePools.groundH10Pool.free((GroundH10) renderableObject);
-        } else if (renderableObject instanceof GroundH20) {
-            game.gamePools.groundH20Pool.free((GroundH20) renderableObject);
-        } else if (renderableObject instanceof GroundH30) {
-            game.gamePools.groundH30Pool.free((GroundH30) renderableObject);
         } else if (renderableObject instanceof GroundV5) {
             game.gamePools.groundV5Pool.free((GroundV5) renderableObject);
         } else if (renderableObject instanceof GroundV11) {
             game.gamePools.groundV11Pool.free((GroundV11) renderableObject);
+        } else if (renderableObject instanceof GroundTop) {
+            game.gamePools.groundTopPool.free((GroundTop) renderableObject);
         } else if (renderableObject instanceof Grass) {
             game.gamePools.grassPool.free((Grass) renderableObject);
         } else if (renderableObject instanceof EnemyEmitter) {
@@ -533,7 +530,7 @@ public class GameWorld {
         numberOfBigAreas = 0;
         if (levelNumber == 1) {
             levelModel = game.assetManager.get(Constants.LEVEL_001, Model.class);
-            numberOfBigAreas = 8;
+            numberOfBigAreas = 7;
         }
 
         for (i = 1; i <= numberOfBigAreas; i++) {
@@ -549,7 +546,7 @@ public class GameWorld {
         //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
         //player.currentWeapon.updateScreenData(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
-        background = game.gamePools.backgroundPool.obtain();
+        sky = game.gamePools.backgroundPool.obtain();
 
         for (i = 0; i < levelModel.nodes.size; i++) {
             id = levelModel.nodes.get(i).id;
@@ -563,24 +560,31 @@ public class GameWorld {
             node.rotation.idt();
             node.scale.set(1, 1, 1);
             modelInstance.calculateTransforms();
-            if (id.toLowerCase().contains("ground_h10")) {
+            if (id.toLowerCase().contains("ground-h10")) {
                 allLevelObjects.add(game.gamePools.groundH10Pool.obtain());
                 ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
         /*if (physicalObject instanceof Ground) {
             physicalObject.materials.get(0).set(ColorAttribute.createDiffuse(new Color(0xffffffff)));
         }*/
-            } else if (id.toLowerCase().contains("ground_h20")) {
-                allLevelObjects.add(game.gamePools.groundH20Pool.obtain());
-                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
-            } else if (id.toLowerCase().contains("ground_h30")) {
-                allLevelObjects.add(game.gamePools.groundH30Pool.obtain());
-                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
-            } else if (id.toLowerCase().contains("ground_v5")) {
+            } else if (id.toLowerCase().contains("ground-v5")) {
                 allLevelObjects.add(game.gamePools.groundV5Pool.obtain());
                 ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
-            } else if (id.toLowerCase().contains("ground_v11")) {
+            } else if (id.toLowerCase().contains("ground-v11")) {
                 allLevelObjects.add(game.gamePools.groundV11Pool.obtain());
                 ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
+            } else if (id.toLowerCase().contains("ground-top")) {
+                String string = "";
+                int index = 11;
+                while (index < id.toLowerCase().length()) {
+                    if (Character.isDigit(id.toLowerCase().charAt(index))) {
+                        string += id.toLowerCase().charAt(index);
+                        index++;
+                    } else {
+                        break;
+                    }
+                }
+                allLevelObjects.add(game.gamePools.groundTopPool.obtain());
+                ((GroundTop)allLevelObjects.peek()).init(x, y, z, Integer.valueOf(string));
             } else if (id.toLowerCase().contains("grass")) {
                 String string = "";
                 int index = 6;
@@ -601,19 +605,19 @@ public class GameWorld {
                 Shop shop = new Shop(game);
                 shop.init(x, y, z, 0);
                 enterableBuildings.add(shop);
-            } else if (id.toLowerCase().contains("rock_a")) {
+            } else if (id.toLowerCase().contains("rock-a")) {
                 //addPhysicalObject(game.gamePools.rockAPool.obtain(), x, y, z);
-            } else if (id.toLowerCase().contains("rock_b")) {
+            } else if (id.toLowerCase().contains("rock-b")) {
                 //addPhysicalObject(game.gamePools.rockBPool.obtain(), x, y, z);
-            } else if (id.toLowerCase().contains("enemy_emitter")) {
+            } else if (id.toLowerCase().contains("enemy-emitter")) {
                 allLevelObjects.add(game.gamePools.enemyEmitterPool.obtain());
                 ((EnemyEmitter)allLevelObjects.peek()).init(x, y, z, 0);
                 enemyManager.addEnemyEmitter((EnemyEmitter)allLevelObjects.peek());
-            } else if (id.toLowerCase().contains("coin_emitter")) {
+            } else if (id.toLowerCase().contains("coin-emitter")) {
                 //coinManager.addCoinEmitter(game.gamePools.coinEmitterPool.obtain(), x, y, z);
             } else if (id.toLowerCase().contains("ej")) {
                 String bigAreasS = id.substring(id.indexOf("(") + 1, id.indexOf(")"));
-                String smallAreasS = id.substring(id.indexOf("[") + 1, id.indexOf("]"));
+                String smallAreasS = id.substring(id.indexOf("{") + 1, id.indexOf("}"));
                 Pattern pattern = Pattern.compile("[0-9]+");
                 Matcher matcher = pattern.matcher(bigAreasS);
                 Array<Integer> bigAreas = new Array<Integer>();
@@ -626,14 +630,14 @@ public class GameWorld {
                     smallAreas.add(Integer.parseInt(matcher.group()));
                 }
                 for (j = 0; j < bigAreaManagers.size; j++) {
-                    if (bigAreaManagers.get(j).bigAreaId == Character.getNumericValue(id.charAt(2))) {
+                    if (bigAreaManagers.get(j).bigAreaId == Character.getNumericValue(id.charAt(3))) {
                         bigAreaManagers.get(j).enemyGuides.add(game.gamePools.enemyJumpObjectPool.obtain());
-                        ((EnemyJumpObject)bigAreaManagers.get(j).enemyGuides.peek()).init(x, y, z, Character.getNumericValue(id.charAt(2)), bigAreas, smallAreas, id.toLowerCase().contains("_r"));
+                        ((EnemyJumpObject)bigAreaManagers.get(j).enemyGuides.peek()).init(x, y, z, Character.getNumericValue(id.charAt(3)), bigAreas, smallAreas, id.toLowerCase().contains("-r-"));
                     }
                 }
             } else if (id.toLowerCase().contains("ed")) {
                 String bigAreasS = id.substring(id.indexOf("(") + 1, id.indexOf(")"));
-                String smallAreasS = id.substring(id.indexOf("[") + 1, id.indexOf("]"));
+                String smallAreasS = id.substring(id.indexOf("{") + 1, id.indexOf("}"));
                 Pattern pattern = Pattern.compile("[0-9]+");
                 Matcher matcher = pattern.matcher(bigAreasS);
                 Array<Integer> bigAreas = new Array<Integer>();
@@ -646,12 +650,12 @@ public class GameWorld {
                     smallAreas.add(Integer.parseInt(matcher.group()));
                 }
                 for (j = 0; j < bigAreaManagers.size; j++) {
-                    if (bigAreaManagers.get(j).bigAreaId == Character.getNumericValue(id.charAt(2))) {
+                    if (bigAreaManagers.get(j).bigAreaId == Character.getNumericValue(id.charAt(3))) {
                         bigAreaManagers.get(j).enemyGuides.add(game.gamePools.enemyDropObjectPool.obtain());
-                        ((EnemyDropObject)bigAreaManagers.get(j).enemyGuides.peek()).init(x, y, z, Character.getNumericValue(id.charAt(2)), bigAreas, smallAreas);
+                        ((EnemyDropObject)bigAreaManagers.get(j).enemyGuides.peek()).init(x, y, z, Character.getNumericValue(id.charAt(3)), bigAreas, smallAreas, id.toLowerCase().contains("-r-"));
                     }
                 }
-            } else if (id.toLowerCase().contains("area_big")) {
+            } else if (id.toLowerCase().contains("area-big")) {
                 Pattern pattern = Pattern.compile("[0-9]+");
                 Matcher matcher = pattern.matcher(id.toLowerCase());
                 modelInstance.calculateBoundingBox(boundingBox);
@@ -662,12 +666,13 @@ public class GameWorld {
                         bigAreaManagers.get(j).bigAreas.peek().init(bigAreaId, x, y, boundingBox.getWidth(), boundingBox.getDepth(), false);
                     }
                 }
-            } else if (id.toLowerCase().contains("area_small")) {
+            } else if (id.toLowerCase().contains("area-small")) {
                 Pattern pattern = Pattern.compile("[0-9]+");
                 Matcher matcher = pattern.matcher(id.toLowerCase());
                 modelInstance.calculateBoundingBox(boundingBox);
                 int bigAreaId = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
                 int smallAreaId = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
+                System.out.println("big = " + bigAreaId + " / small = " + smallAreaId);
                 for (j = 0; j < bigAreaManagers.size; j++) {
                     if (bigAreaManagers.get(j).bigAreaId == bigAreaId) {
                         bigAreaManagers.get(j).smallAreas.add(game.gamePools.smallAreaObjectPool.obtain());
@@ -685,7 +690,7 @@ public class GameWorld {
                 addPhysicalObject(game.gamePools.treeBPool.obtain(), x, y, z);
             } */else if (id.toLowerCase().contains("tutorial")) {
                 sensorObjects.add(new TutorialObject(game, modelInstance.transform, com.badlogic.gdx.physics.bullet.Bullet.obtainStaticNodeShape(node, true)));
-            } else if (id.toLowerCase().contains("spikes_up")) {
+            } else if (id.toLowerCase().contains("spikes-up")) {
                 sensorObjects.add(new DeadAreaObject(game, modelInstance.transform, com.badlogic.gdx.physics.bullet.Bullet.obtainStaticNodeShape(node, true)));
                 modelInstance.calculateBoundingBox(boundingBox);
                 for (float sx = x - boundingBox.getWidth() / 2 + 0.25f; sx < x + boundingBox.getWidth() / 2; sx += 0.5f) {
@@ -695,7 +700,7 @@ public class GameWorld {
                         //addSpike(game.gamePools.spikePool.obtain(), sx, y, sz, 0);
                     }
                 }
-            } else if (id.toLowerCase().contains("spikes_down")) {
+            } else if (id.toLowerCase().contains("spikes-down")) {
                 sensorObjects.add(new DeadAreaObject(game, modelInstance.transform, com.badlogic.gdx.physics.bullet.Bullet.obtainStaticNodeShape(node, true)));
                 modelInstance.calculateBoundingBox(boundingBox);
                 for (float sx = x - boundingBox.getWidth() / 2 + 0.25f; sx < x + boundingBox.getWidth() / 2; sx += 0.5f) {
@@ -703,7 +708,7 @@ public class GameWorld {
                         //addSpike(game.gamePools.spikePool.obtain(), sx, y, sz, 180);
                     }
                 }
-            } else if (id.toLowerCase().contains("spikes_right")) {
+            } else if (id.toLowerCase().contains("spikes-right")) {
                 sensorObjects.add(new DeadAreaObject(game, modelInstance.transform, com.badlogic.gdx.physics.bullet.Bullet.obtainStaticNodeShape(node, true)));
                 modelInstance.calculateBoundingBox(boundingBox);
                 for (float sy = y - boundingBox.getHeight() / 2 + 0.25f; sy < y + boundingBox.getHeight() / 2; sy += 0.5f) {
@@ -711,7 +716,7 @@ public class GameWorld {
                         //addSpike(game.gamePools.spikePool.obtain(), x, sy, sz, 270);
                     }
                 }
-            } else if (id.toLowerCase().contains("spikes_left")) {
+            } else if (id.toLowerCase().contains("spikes-left")) {
                 sensorObjects.add(new DeadAreaObject(game, modelInstance.transform, com.badlogic.gdx.physics.bullet.Bullet.obtainStaticNodeShape(node, true)));
                 modelInstance.calculateBoundingBox(boundingBox);
                 for (float sy = y - boundingBox.getHeight() / 2 + 0.25f; sy < y + boundingBox.getHeight() / 2; sy += 0.5f) {

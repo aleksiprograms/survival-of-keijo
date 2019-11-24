@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -57,7 +58,12 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     private void initializeScreen() {
-        Image imageGameController = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_GAMES_CONRTROLLER_SIGNED_IN)));
+        final ImageButton buttonGameControllerSignedIn = new ImageButton(game.styles.imageButtonStyleGameControllerSignedIn);
+        final ImageButton buttonGameControllerSignedOut = new ImageButton(game.styles.imageButtonStyleGameControllerSignedOut);
+        buttonGameControllerSignedOut.setVisible(false);
+        Stack stackGameController = new Stack();
+        stackGameController.add(buttonGameControllerSignedIn);
+        stackGameController.add(buttonGameControllerSignedOut);
         final ImageButton buttonAchievements = new ImageButton(game.styles.imageButtonStyleAchievements);
         final ImageButton buttonLeaderboards = new ImageButton(game.styles.imageButtonStyleLeaderboards);
         final ImageButton buttonSettings = new ImageButton(game.styles.imageButtonStyleSettings);
@@ -78,7 +84,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
         Table tableTop = new Table();
-        tableTop.add(imageGameController).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
+        tableTop.add(stackGameController).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(buttonAchievements).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padLeft(Constants.GAP).padRight(Constants.GAP).align(Align.left);
         tableTop.add(buttonLeaderboards).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(labelScreenTitle).expandX().align(Align.center);
@@ -97,6 +103,36 @@ public class MainMenuScreen extends AbstractScreen {
         table.add(tableContent).align(Align.center).grow().pad(Constants.GAP);
 
         stage.addActor(table);
+
+        buttonGameControllerSignedIn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < buttonGameControllerSignedIn.getWidth() && y > 0 && y < buttonGameControllerSignedIn.getHeight()) {
+                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
+                    game.alertManager.showPopup("SIGNED IN to google play games.\nSign out from settings.");
+                }
+            }
+        });
+
+        buttonGameControllerSignedOut.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < buttonGameControllerSignedOut.getWidth() && y > 0 && y < buttonGameControllerSignedOut.getHeight()) {
+                    //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
+                    game.alertManager.showPopup("SIGNED OUT from google play games.\nSign in from settings.");
+                }
+            }
+        });
 
         buttonSettings.addListener(new InputListener() {
             @Override
@@ -117,7 +153,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     private Table initLevelTable(final LevelInfo levelInfo, final int index) {
         /*Table tableTop = new Table();
-        tableTop.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
+        tableTop.sky(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
         Label labelTitle = new Label(levelInfo.nameID, gameBAS.styles.skinLabelTitle2);
         tableTop.add(labelTitle).expandX().align(Align.center);
 

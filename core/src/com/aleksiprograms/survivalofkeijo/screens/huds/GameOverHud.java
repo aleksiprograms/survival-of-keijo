@@ -32,8 +32,8 @@ public class GameOverHud extends AbstractHud {
         super.center();
         super.setFillParent(true);
 
-        buttonRestart = new TextButton("", game.styles.textButtonStyleRed);
-        buttonHome = new TextButton("", game.styles.textButtonStyleRed);
+        buttonRestart = new TextButton("", game.styles.textButtonStyleOrange);
+        buttonHome = new TextButton("", game.styles.textButtonStyleOrange);
         Table tableButtons = new Table();
         tableButtons.add(buttonRestart).padBottom(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
         tableButtons.row();
@@ -47,7 +47,7 @@ public class GameOverHud extends AbstractHud {
         super.row();
         super.add(tableButtons).expand().align(Align.right);
 
-        buttonRestart.addListener(inputListenerRestart);
-        buttonHome.addListener(inputListenerHome);
+        buttonRestart.addListener(inputListenerRestartWithoutAlert);
+        buttonHome.addListener(inputListenerMainMenuWithoutAlert);
     }
 }

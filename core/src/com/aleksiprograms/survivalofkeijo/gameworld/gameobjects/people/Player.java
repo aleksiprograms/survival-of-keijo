@@ -374,7 +374,7 @@ public class Player extends Person {
 
         xVelocity = 4f - (2f * ((game.gameWorld.weaponManagerPlayer.getWeaponData(currentWeapon.weaponData.ID).weight - game.gameWorld.weaponManagerPlayer.minWeight) / (game.gameWorld.weaponManagerPlayer.maxWeight - game.gameWorld.weaponManagerPlayer.minWeight)));
 
-        if (controlManager.btRightPressed && canMoveRight) {
+        if (controlManager.buttonRightPressed && canMoveRight) {
             movingRight = true;
             if (!inAir) {
                 setAnimationMovementRight();
@@ -389,7 +389,7 @@ public class Player extends Person {
                 velocity.set(xVelocity * 0.4f, rigidBody.getLinearVelocity().y, 0);
                 rigidBody.setLinearVelocity(velocity);
             }
-        } else if (controlManager.btLeftPressed && canMoveLeft) {
+        } else if (controlManager.buttonLeftPressed && canMoveLeft) {
             movingRight = false;
             if (!inAir) {
                 setAnimationMovementLeft();
@@ -434,13 +434,13 @@ public class Player extends Person {
             }
         }
 
-        if (!controlManager.btUpPressed) {
+        if (!controlManager.buttonUpPressed) {
             upButtonPressed = false;
         }
-        if (!controlManager.btDownPressed) {
+        if (!controlManager.buttonDownPressed) {
             downButtonPressed = false;
         }
-        if (controlManager.btUpPressed && !upButtonPressed) {
+        if (controlManager.buttonUpPressed && !upButtonPressed) {
             upButtonPressed = true;
             if (upState.equals(UpState.STAND)) {
                 if (!inAir) {
@@ -480,7 +480,7 @@ public class Player extends Person {
                 }
             }
         }
-        if (controlManager.btDownPressed && !downButtonPressed) {
+        if (controlManager.buttonDownPressed && !downButtonPressed) {
             downButtonPressed = true;
             if (upState.equals(UpState.STAND)) {
                 upState = UpState.CROUCH;
@@ -787,18 +787,18 @@ public class Player extends Person {
 
     private void updateWeapon() {
         currentWeapon.target = ((Person) target);
-        if (!controlManager.btShootPressed) {
+        if (!controlManager.buttonShootPressed) {
             shootButtonPressed = false;
         }
-        if ((controlManager.btShootPressed && !shootButtonPressed) || (controlManager.btShootPressed && currentWeapon.automatic)) {
+        if ((controlManager.buttonShootPressed && !shootButtonPressed) || (controlManager.buttonShootPressed && currentWeapon.automatic)) {
             shootButtonPressed = true;
             currentWeapon.usePlayer();
         }
 
-        if (!controlManager.btReloadPressed) {
+        if (!controlManager.buttonReloadPressed) {
             reloadButtonPressed = false;
         }
-        if (controlManager.btReloadPressed && !reloadButtonPressed) {
+        if (controlManager.buttonReloadPressed && !reloadButtonPressed) {
             reloadButtonPressed = true;
             currentWeapon.reload();
         }

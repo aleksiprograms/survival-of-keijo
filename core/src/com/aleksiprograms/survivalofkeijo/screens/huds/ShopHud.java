@@ -1326,8 +1326,8 @@ public class ShopHud extends AbstractHud {
 
         super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
         super.row();
-        super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_SCROLL_SIZE);
-        super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH_VALUE).align(Align.right).growY();
+        super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_THICKNESS);
+        super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH).align(Align.right).growY();
 
         btClose.addListener(inputListenerClose);
     }
@@ -1345,14 +1345,14 @@ public class ShopHud extends AbstractHud {
         tableDataRow2.add(labelBasicInfoPointsKill).growX().align(Align.topLeft);
         Table tableRows = new Table();
         tableRows.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
-        tableRows.add(labelFireTypeTitle).align(Align.bottomLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padTop(Constants.GAP);
-        tableRows.add(tableDataRow1).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP).padTop(Constants.GAP);
+        tableRows.add(labelFireTypeTitle).align(Align.bottomLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padTop(Constants.GAP);
+        tableRows.add(tableDataRow1).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_WIDTH).padRight(Constants.GAP).padTop(Constants.GAP);
         tableRows.row();
-        tableRows.add(labelPointsTitle).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP);
-        tableRows.add(tableDataRow2).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP);
+        tableRows.add(labelPointsTitle).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_TITLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP);
+        tableRows.add(tableDataRow2).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_WIDTH).padRight(Constants.GAP);
         tableRows.row();
-        tableRows.add(labelAmmoPriceTitle).align(Align.left).width(Constants.WEAPON_BASIC_INFO_TITLE_TABLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padBottom(Constants.GAP);
-        tableRows.add(tableDataRow3).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_TABLE_WIDTH).padRight(Constants.GAP).padBottom(Constants.GAP);
+        tableRows.add(labelAmmoPriceTitle).align(Align.left).width(Constants.WEAPON_BASIC_INFO_TITLE_WIDTH).height(uselessLabel.getHeight()).padLeft(Constants.GAP).padBottom(Constants.GAP);
+        tableRows.add(tableDataRow3).align(Align.topLeft).width(Constants.WEAPON_BASIC_INFO_DATA_WIDTH).padRight(Constants.GAP).padBottom(Constants.GAP);
         return tableRows;
     }
 
@@ -1368,7 +1368,7 @@ public class ShopHud extends AbstractHud {
         tableLevel.add(maxLevel).align(Align.topRight);
         tableData.add(tableLevel).width(Constants.WEAPON_LEVEL_WIDTH).align(Align.topLeft);
         tableData.row();
-        tableData.add(valueProgress).colspan(5).width(Constants.WEAPON_BAR_WIDTH_VALUE).height(Constants.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
+        tableData.add(valueProgress).colspan(5).width(Constants.WEAPON_BAR_WIDTH).height(Constants.PROGRESS_BAR_DATA_THICKNESS).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();
         tableRow.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
         tableRow.add(tableData).growY().pad(Constants.GAP);
@@ -1400,7 +1400,7 @@ public class ShopHud extends AbstractHud {
         stack.add(valueProgress);
         stack.add(doneProgress);
         tableData.row();
-        tableData.add(stack).colspan(7).width(Constants.WEAPON_BAR_WIDTH_UPGRADE).height(Constants.PROGRESS_BAR_DATA_HEIGHT).expandY().align(Align.bottomLeft);
+        tableData.add(stack).colspan(7).width(Constants.WEAPON_BAR_WIDTH_UPGRADE).height(Constants.PROGRESS_BAR_DATA_THICKNESS).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();
         tableRow.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
         tableRow.add(tableData).growY().pad(Constants.GAP);

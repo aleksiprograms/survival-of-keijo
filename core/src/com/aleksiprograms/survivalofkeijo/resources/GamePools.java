@@ -10,10 +10,9 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Bulle
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletPlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CaseEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CasePlayer;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundTop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Sky;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Grass;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH20;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH30;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH10;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV11;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV5;
@@ -58,10 +57,9 @@ public class GamePools {
     public Pool<CoinEmitter> coinEmitterPool;
     public Pool<Sky> backgroundPool;
     public Pool<GroundH10> groundH10Pool;
-    public Pool<GroundH20> groundH20Pool;
-    public Pool<GroundH30> groundH30Pool;
     public Pool<GroundV5> groundV5Pool;
     public Pool<GroundV11> groundV11Pool;
+    public Pool<GroundTop> groundTopPool;
     public Pool<Grass> grassPool;
     public Pool<BulletPlayer> bulletPlayerPool;
     public Pool<BulletEnemy> bulletEnemyPool;
@@ -204,20 +202,6 @@ public class GamePools {
             }
         };
 
-        groundH20Pool = new Pool<GroundH20>(5, 50) {
-            @Override
-            protected GroundH20 newObject() {
-                return new GroundH20(game);
-            }
-        };
-
-        groundH30Pool = new Pool<GroundH30>(5, 50) {
-            @Override
-            protected GroundH30 newObject() {
-                return new GroundH30(game);
-            }
-        };
-
         groundV5Pool = new Pool<GroundV5>(5, 50) {
             @Override
             protected GroundV5 newObject() {
@@ -229,6 +213,13 @@ public class GamePools {
             @Override
             protected GroundV11 newObject() {
                 return new GroundV11(game);
+            }
+        };
+
+        groundTopPool = new Pool<GroundTop>(1, 2) {
+            @Override
+            protected GroundTop newObject() {
+                return new GroundTop(game);
             }
         };
 

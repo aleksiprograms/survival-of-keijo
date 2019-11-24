@@ -6,72 +6,72 @@ import com.badlogic.gdx.Input;
 
 public class ControlManager {
 
-    private float timeFromLastBtLeftPress   = 0;
-    private float timeFromLastBtRightPress  = 0;
-    private float timeFromLastBtUpPress     = 0;
-    private float timeFromLastBtDownPress   = 0;
-    private float timeFromLastBtShootPress  = 0;
-    private float timeFromLastBtReloadPress = 0;
+    private float timeFromLastButtonLeftPress = 0;
+    private float timeFromLastButtonRightPress = 0;
+    private float timeFromLastButtonUpPress = 0;
+    private float timeFromLastButtonDownPress = 0;
+    private float timeFromLastButtonShootPress = 0;
+    private float timeFromLastButtonReloadPress = 0;
 
-    public boolean btLeftPressed   = false;
-    public boolean btRightPressed  = false;
-    public boolean btUpPressed     = false;
-    public boolean btDownPressed   = false;
-    public boolean btShootPressed  = false;
-    public boolean btReloadPressed = false;
+    public boolean buttonLeftPressed = false;
+    public boolean buttonRightPressed = false;
+    public boolean buttonUpPressed = false;
+    public boolean buttonDownPressed = false;
+    public boolean buttonShootPressed = false;
+    public boolean buttonReloadPressed = false;
 
     public ControlManager() {}
 
     public void update(float deltaTime) {
-        timeFromLastBtLeftPress += deltaTime;
-        timeFromLastBtRightPress += deltaTime;
-        timeFromLastBtUpPress += deltaTime;
-        timeFromLastBtDownPress += deltaTime;
-        timeFromLastBtShootPress += deltaTime;
-        timeFromLastBtReloadPress += deltaTime;
+        timeFromLastButtonLeftPress += deltaTime;
+        timeFromLastButtonRightPress += deltaTime;
+        timeFromLastButtonUpPress += deltaTime;
+        timeFromLastButtonDownPress += deltaTime;
+        timeFromLastButtonShootPress += deltaTime;
+        timeFromLastButtonReloadPress += deltaTime;
 
-        if (timeFromLastBtLeftPress > 0.05f)
-            btLeftPressed = false;
-        if (timeFromLastBtRightPress > 0.05f)
-            btRightPressed = false;
-        if (timeFromLastBtUpPress > 0.05f)
-            btUpPressed = false;
-        if (timeFromLastBtDownPress > 0.05f)
-            btDownPressed = false;
-        if (timeFromLastBtShootPress > 0.05f)
-            btShootPressed = false;
-        if (timeFromLastBtReloadPress > 0.05f)
-            btReloadPressed = false;
+        if (timeFromLastButtonLeftPress > 0.1f)
+            buttonLeftPressed = false;
+        if (timeFromLastButtonRightPress > 0.1f)
+            buttonRightPressed = false;
+        if (timeFromLastButtonUpPress > 0.1f)
+            buttonUpPressed = false;
+        if (timeFromLastButtonDownPress > 0.1f)
+            buttonDownPressed = false;
+        if (timeFromLastButtonShootPress > 0.1f)
+            buttonShootPressed = false;
+        if (timeFromLastButtonReloadPress > 0.1f)
+            buttonReloadPressed = false;
 
-        if (InGameHud.buttonLeftPressed || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-            timeFromLastBtLeftPress = 0;
-            if (!btLeftPressed)
-                btLeftPressed = true;
+        if (InGameHud.buttonLeftPressed || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            timeFromLastButtonLeftPress = 0;
+            if (!buttonLeftPressed)
+                buttonLeftPressed = true;
         }
-        if (InGameHud.buttonRightPressed || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-            timeFromLastBtRightPress = 0;
-            if (!btRightPressed)
-                btRightPressed = true;
+        if (InGameHud.buttonRightPressed || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            timeFromLastButtonRightPress = 0;
+            if (!buttonRightPressed)
+                buttonRightPressed = true;
         }
-        if (InGameHud.buttonUpPressed || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-            timeFromLastBtUpPress = 0;
-            if (!btUpPressed)
-                btUpPressed = true;
+        if (InGameHud.buttonUpPressed || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            timeFromLastButtonUpPress = 0;
+            if (!buttonUpPressed)
+                buttonUpPressed = true;
         }
-        if (InGameHud.buttonDownPressed || Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-            timeFromLastBtDownPress = 0;
-            if (!btDownPressed)
-                btDownPressed = true;
+        if (InGameHud.buttonDownPressed || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            timeFromLastButtonDownPress = 0;
+            if (!buttonDownPressed)
+                buttonDownPressed = true;
         }
-        if (InGameHud.buttonShootPressed || Gdx.input.isKeyPressed(Input.Keys.PERIOD)) {
-            timeFromLastBtShootPress = 0;
-            if (!btShootPressed)
-                btShootPressed = true;
+        if (InGameHud.buttonShootPressed || Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            timeFromLastButtonShootPress = 0;
+            if (!buttonShootPressed)
+                buttonShootPressed = true;
         }
-        if (InGameHud.buttonReloadPressed) {
-            timeFromLastBtReloadPress = 0;
-            if (!btReloadPressed)
-                btReloadPressed = true;
+        if (InGameHud.buttonReloadPressed || Gdx.input.isKeyPressed(Input.Keys.R)) {
+            timeFromLastButtonReloadPress = 0;
+            if (!buttonReloadPressed)
+                buttonReloadPressed = true;
         }
     }
 }

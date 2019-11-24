@@ -14,9 +14,11 @@ public abstract class AbstractHud extends Table {
     InputListener inputListenerContinue;
     InputListener inputListenerClose;
     InputListener inputListenerRestart;
-    InputListener inputListenerHome;
-    InputListener inputListenerEnterShop;
+    InputListener inputListenerMainMenu;
+    InputListener inputListenerRestartWithoutAlert;
+    InputListener inputListenerMainMenuWithoutAlert;
     InputListener inputListenerEnterBackpack;
+    InputListener inputListenerEnterShop;
     InputListener inputListenerEnterHospital;
 
     AbstractHud(final TheGame game) {
@@ -27,7 +29,7 @@ public abstract class AbstractHud extends Table {
     public void updateHudData() {}
 
     private void initializeHud() {
-        /*inputListenerHome = new InputListener() {
+        /*inputListenerMainMenu = new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -127,7 +129,7 @@ public abstract class AbstractHud extends Table {
             }
         };
 
-        inputListenerHome = new InputListener() {
+        inputListenerMainMenu = new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -141,7 +143,7 @@ public abstract class AbstractHud extends Table {
             }
         };
 
-        inputListenerEnterShop = new InputListener() {
+        inputListenerRestartWithoutAlert = new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -149,12 +151,28 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
-                    game.gameScreen.setGameState(GameState.IN_SHOP);
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     game.gameScreen.stage.clear();
-                    game.gameWorld.paused = true;
-                    game.gameScreen.shopHud.updateHudData();
-                    game.gameScreen.stage.addActor(game.gameScreen.shopHud);
+                    game.gameWorld.resetWorld();
+                    game.gameScreen.inGameHud.updateHudData();
+                    game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
+                }
+            }
+        };
+
+        inputListenerMainMenuWithoutAlert = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.gameScreen.stage.clear();
+                    game.gameWorld.clearWorld();
+                    game.mainMenuScreen.updateScreenData();
+                    game.setScreen(game.mainMenuScreen);
                 }
             }
         };
@@ -173,6 +191,24 @@ public abstract class AbstractHud extends Table {
                     game.gameWorld.paused = true;
                     game.gameScreen.backpackHud.updateHudData();
                     game.gameScreen.stage.addActor(game.gameScreen.backpackHud);
+                }
+            }
+        };
+
+        inputListenerEnterShop = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
+                    game.gameScreen.setGameState(GameState.IN_SHOP);
+                    game.gameScreen.stage.clear();
+                    game.gameWorld.paused = true;
+                    game.gameScreen.shopHud.updateHudData();
+                    game.gameScreen.stage.addActor(game.gameScreen.shopHud);
                 }
             }
         };

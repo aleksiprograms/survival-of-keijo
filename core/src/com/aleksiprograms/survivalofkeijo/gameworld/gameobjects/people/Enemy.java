@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.BigAreaObject;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyDropObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyGuideObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyJumpObject;
@@ -342,6 +343,14 @@ public class Enemy extends Person {
                             if (game.gameWorld.bigAreaManagers.get(i).bigAreaId == bigArea.area) {
                                 for (j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
                                     if (Math.abs(rigidBody.getCenterOfMassPosition().y - game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).y) < 0.5f) {
+                                        if (game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j) instanceof EnemyDropObject) {
+                                            if (((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight && rigidBody.getCenterOfMassPosition().x < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                                                continue;
+                                            }
+                                            if (!(((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight) && rigidBody.getCenterOfMassPosition().x > game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                                                continue;
+                                            }
+                                        }
                                         for (k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toSmallAreas.size; k++) {
                                             if (game.gameWorld.player.smallArea.area == game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toSmallAreas.get(k)) {
                                                 enemyGuideObject = game.gameWorld.isObjectClosestToEnemy(this, enemyGuideObject, game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j));
@@ -356,6 +365,14 @@ public class Enemy extends Person {
                             if (game.gameWorld.bigAreaManagers.get(i).bigAreaId == bigArea.area) {
                                 for (j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
                                     if (Math.abs(rigidBody.getCenterOfMassPosition().y - game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).y) < 0.5f) {
+                                        if (game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j) instanceof EnemyDropObject) {
+                                            if (((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight && rigidBody.getCenterOfMassPosition().x < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                                                continue;
+                                            }
+                                            if (!(((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight) && rigidBody.getCenterOfMassPosition().x > game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                                                continue;
+                                            }
+                                        }
                                         for (k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toBigAreas.size; k++) {
                                             if (game.gameWorld.player.bigArea.area == game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toBigAreas.get(k)) {
                                                 enemyGuideObject = game.gameWorld.isObjectClosestToEnemy(this, enemyGuideObject, game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j));
@@ -387,9 +404,9 @@ public class Enemy extends Person {
                 lockUpMovementTimer = 0;
                 jumped = true;
                 jumpedTimer = 0;
-                if ((((EnemyJumpObject) enemyGuideObject).rightJump)) {
-                    lookingRight = (((EnemyJumpObject) enemyGuideObject).rightJump);
-                    weapon.lookingRight = (((EnemyJumpObject) enemyGuideObject).rightJump);
+                if ((((EnemyJumpObject) enemyGuideObject).jumpToRight)) {
+                    lookingRight = (((EnemyJumpObject) enemyGuideObject).jumpToRight);
+                    weapon.lookingRight = (((EnemyJumpObject) enemyGuideObject).jumpToRight);
                 } else {
                     lookingRight = false;
                     weapon.lookingRight = false;
