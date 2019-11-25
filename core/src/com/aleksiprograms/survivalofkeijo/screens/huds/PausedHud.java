@@ -2,6 +2,9 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -40,15 +43,18 @@ public class PausedHud extends AbstractHud {
     }
 
     @Override
-    public void updateHudData() {
-        super.updateHudData();
+    public void updateHud() {
+        super.updateHud();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titlePaused"));
         buttonContinue.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonContinue"));
         buttonRestart.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonRestart"));
         buttonHome.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonMainMenu"));
     }
 
-    private void initializeHud() {
+    @Override
+    protected void initializeHud() {
+        super.initializeHud();
+
         super.pad(Constants.GAP);
         super.center();
         super.setFillParent(true);
@@ -128,6 +134,64 @@ public class PausedHud extends AbstractHud {
         super.row();
         //super.add(tableInfo).align(Align.topLeft).expandY();
         super.add(tableButtons).expand().align(Align.right);
+
+        InputListener inputListenerContinue = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.gameScreen.stage.clear();
+                    if (game.gameScreen.previousGameState.equals(GameState.IN_GAME)) {
+                        game.gameScreen.setGameState(GameState.IN_GAME);
+                        game.gameWorld.paused = false;
+                        game.gameScreen.inGameHud.updateHud();
+                        game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
+                    } else if (game.gameScreen.previousGameState.equals(GameState.IN_BACKPACK)) {
+                        game.gameScreen.setGameState(GameState.IN_BACKPACK);
+                        game.gameWorld.paused = true;
+                        game.gameScreen.backpackHud.updateHud();
+                        game.gameScreen.stage.addActor(game.gameScreen.backpackHud);
+                    } else if (game.gameScreen.previousGameState.equals(GameState.IN_SHOP)) {
+                        game.gameScreen.setGameState(GameState.IN_SHOP);
+                        game.gameWorld.paused = true;
+                        game.gameScreen.shopHud.updateHud();
+                        game.gameScreen.stage.addActor(game.gameScreen.shopHud);
+                    }
+                }
+            }
+        };
+
+        InputListener inputListenerRestart = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.alertManager.confirmRestart();
+                }
+            }
+        };
+
+        InputListener inputListenerMainMenu = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.alertManager.confirmToHome();
+                }
+            }
+        };
 
         buttonContinue.addListener(inputListenerContinue);
         buttonRestart.addListener(inputListenerRestart);

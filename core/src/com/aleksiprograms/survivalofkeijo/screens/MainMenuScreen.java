@@ -52,8 +52,8 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     @Override
-    public void updateScreenData() {
-        super.updateScreenData();
+    public void updateScreen() {
+        super.updateScreen();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleMainMenu"));
     }
 
@@ -144,7 +144,7 @@ public class MainMenuScreen extends AbstractScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < buttonSettings.getWidth() && y > 0 && y < buttonSettings.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
-                    game.settingsScreen.updateScreenData();
+                    game.settingsScreen.updateScreen();
                     game.setScreen(game.settingsScreen);
                 }
             }
@@ -220,7 +220,7 @@ public class MainMenuScreen extends AbstractScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (y > 0 && y < btLevel[index].getHeight() && x > 0 && x < btLevel[index].getWidth()) {
                     //gameBAS.gameMode = levelInfo;
-                    game.gameScreen.updateScreenData();
+                    game.gameScreen.updateScreen();
                     game.setScreen(game.gameScreen);
                 }
                 btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));

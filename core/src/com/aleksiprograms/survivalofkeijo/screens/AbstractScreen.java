@@ -55,7 +55,7 @@ public abstract class AbstractScreen implements Screen {
 
     public void resetScreen() {}
 
-    public void updateScreenData() {
+    public void updateScreen() {
         stage.setDebugAll(Constants.DEBUG_DRAW_UI);
         stageExtra.setDebugAll(Constants.DEBUG_DRAW_UI);
     }

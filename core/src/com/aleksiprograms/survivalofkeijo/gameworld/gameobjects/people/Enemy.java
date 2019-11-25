@@ -566,7 +566,7 @@ public class Enemy extends Person {
                 weapon.animationController.setAnimation("Armature|stand", -1);
             }
             game.gameWorld.enemyManager.enemyDied();
-            game.gameScreen.inGameHud.updateHudData();
+            game.gameScreen.inGameHud.updateHud();
         }
     }
 }

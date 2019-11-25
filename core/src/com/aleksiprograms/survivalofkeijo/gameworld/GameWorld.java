@@ -537,9 +537,9 @@ public class GameWorld {
         player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
         //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
-        //player.currentWeapon.updateScreenData(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);
+        //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);
         //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
-        //player.currentWeapon.updateScreenData(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
+        //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
         sky = game.gamePools.backgroundPool.obtain();
 

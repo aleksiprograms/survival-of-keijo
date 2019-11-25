@@ -150,7 +150,7 @@ public class Player extends Person {
     @Override
     public void onHit(int damage) {
         super.onHit(damage);
-        game.gameScreen.inGameHud.updateHudData();
+        game.gameScreen.inGameHud.updateHud();
     }
 
     public void addWeapon(Weapon weapon, WeaponData weaponData, Person owner, Person target, boolean playerWeapon) {
@@ -889,7 +889,7 @@ public class Player extends Person {
             }
             game.gameScreen.setGameState(GameState.GAME_OVER);
             game.gameScreen.stage.clear();
-            game.gameScreen.gameOverHud.updateHudData();
+            game.gameScreen.gameOverHud.updateHud();
             game.gameScreen.stage.addActor(game.gameScreen.gameOverHud);
         }
     }

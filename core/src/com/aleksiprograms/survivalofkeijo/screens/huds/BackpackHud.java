@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
 import com.aleksiprograms.survivalofkeijo.toolbox.TextButtonWithID;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -106,8 +107,8 @@ public class BackpackHud extends AbstractHud {
     }
 
     @Override
-    public void updateHudData() {
-        super.updateHudData();
+    public void updateHud() {
+        super.updateHud();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleBackpack"));
         updateWeaponsTable();
         updateSelectedWeaponTable();
@@ -305,7 +306,10 @@ public class BackpackHud extends AbstractHud {
         }
     }
 
-    private void initializeHud() {
+    @Override
+    protected void initializeHud() {
+        super.initializeHud();
+
         super.pad(Constants.GAP);
         super.center();
         super.setFillParent(true);
@@ -421,6 +425,27 @@ public class BackpackHud extends AbstractHud {
         super.row();
         super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_THICKNESS);
         super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH).align(Align.right).growY();
+
+        InputListener inputListenerClose = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
+                    if (game.gameScreen.currentGameState.equals(GameState.IN_SHOP)) {
+                        game.gameScreen.shopHud.saveScrollAmount();
+                    }
+                    game.gameScreen.setGameState(GameState.IN_GAME);
+                    game.gameScreen.stage.clear();
+                    game.gameWorld.paused = false;
+                    game.gameScreen.inGameHud.updateHud();
+                    game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
+                }
+            }
+        };
 
         btClose.addListener(inputListenerClose);
     }

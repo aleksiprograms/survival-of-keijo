@@ -2,6 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
 import com.aleksiprograms.survivalofkeijo.toolbox.TextButtonWithID;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -291,8 +292,8 @@ public class ShopHud extends AbstractHud {
     }
 
     @Override
-    public void updateHudData() {
-        super.updateHudData();
+    public void updateHud() {
+        super.updateHud();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleShop"));
         buttonPistol.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("pistol") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID).bought ? "*" : ""));
         buttonAssaultRifle.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("assaultRifle") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID).bought ? "*" : ""));
@@ -770,7 +771,10 @@ public class ShopHud extends AbstractHud {
         }
     }
 
-    private void initializeHud() {
+    @Override
+    protected void initializeHud() {
+        super.initializeHud();
+
         super.pad(Constants.GAP);
         super.center();
         super.setFillParent(true);
@@ -971,7 +975,7 @@ public class ShopHud extends AbstractHud {
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel++;
                             updateWeaponUpgradeTable();
-                            updateHudData();
+                            updateHud();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
@@ -994,7 +998,7 @@ public class ShopHud extends AbstractHud {
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel++;
                             updateWeaponUpgradeTable();
-                            updateHudData();
+                            updateHud();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
@@ -1017,7 +1021,7 @@ public class ShopHud extends AbstractHud {
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel++;
                             updateWeaponUpgradeTable();
-                            updateHudData();
+                            updateHud();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
@@ -1040,7 +1044,7 @@ public class ShopHud extends AbstractHud {
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel++;
                             updateWeaponUpgradeTable();
-                            updateHudData();
+                            updateHud();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
@@ -1063,7 +1067,7 @@ public class ShopHud extends AbstractHud {
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel++;
                             updateWeaponUpgradeTable();
-                            updateHudData();
+                            updateHud();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
@@ -1086,7 +1090,7 @@ public class ShopHud extends AbstractHud {
                             game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price;
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel++;
                             updateWeaponUpgradeTable();
-                            updateHudData();
+                            updateHud();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
@@ -1174,7 +1178,7 @@ public class ShopHud extends AbstractHud {
                     if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH_WEAPON && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                         saveScrollAmount();
                         checkedWeaponID = arrayWeaponButtons.get(finalI).ID;
-                        updateHudData();
+                        updateHud();
                     }
                 }
             });
@@ -1229,6 +1233,27 @@ public class ShopHud extends AbstractHud {
         super.row();
         super.add(tableWeapons).growY().align(Align.left).width(Constants.TEXT_BUTTON_WIDTH_WEAPON + 3 * Constants.GAP + Constants.SCROLL_PANE_THICKNESS);
         super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH).align(Align.right).growY();
+
+        InputListener inputListenerClose = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
+                    if (game.gameScreen.currentGameState.equals(GameState.IN_SHOP)) {
+                        game.gameScreen.shopHud.saveScrollAmount();
+                    }
+                    game.gameScreen.setGameState(GameState.IN_GAME);
+                    game.gameScreen.stage.clear();
+                    game.gameWorld.paused = false;
+                    game.gameScreen.inGameHud.updateHud();
+                    game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
+                }
+            }
+        };
 
         btClose.addListener(inputListenerClose);
     }
@@ -1338,7 +1363,7 @@ public class ShopHud extends AbstractHud {
                         game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).bought = true;
                         game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).price;
                         saveScrollAmount();
-                        updateHudData();
+                        updateHud();
                         if (checkedWeaponID == Constants.PISTOL_ID) {
                             game.gameWorld.player.addWeapon(game.gamePools.pistolPlayerPool.obtain(), game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID), game.gameWorld.player, null, true);
                         } else if (checkedWeaponID == Constants.ASSAULT_RIFLE_ID) {
@@ -1425,7 +1450,7 @@ public class ShopHud extends AbstractHud {
                 if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
                     game.gameScreen.setShowStageExtra(false);
                     saveScrollAmountUpgrade();
-                    updateHudData();
+                    updateHud();
                 }
             }
         });
@@ -1477,7 +1502,7 @@ public class ShopHud extends AbstractHud {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
                     game.gameScreen.setShowStageExtra(false);
-                    updateHudData();
+                    updateHud();
                 }
             }
         });
@@ -1589,8 +1614,8 @@ public class ShopHud extends AbstractHud {
                         }
                     }
                     updateBuyAmmoTable();
-                    updateHudData();
-                    game.gameScreen.inGameHud.updateHudData();
+                    updateHud();
+                    game.gameScreen.inGameHud.updateHud();
                 }
             }
         });

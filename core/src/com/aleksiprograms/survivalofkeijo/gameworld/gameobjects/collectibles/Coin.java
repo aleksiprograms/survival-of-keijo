@@ -54,6 +54,6 @@ public class Coin extends GhostObject {
         collected = true;
         free = true;
         game.gameWorld.player.money += 5000;
-        game.gameScreen.inGameHud.updateHudData();
+        game.gameScreen.inGameHud.updateHud();
     }
 }

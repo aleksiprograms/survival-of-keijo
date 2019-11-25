@@ -29,14 +29,14 @@ public class CreditsScreen extends AbstractScreen {
     public void render(float deltaTime) {
         super.render(deltaTime);
         if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            game.mainMenuScreen.updateScreenData();
+            game.mainMenuScreen.updateScreen();
             game.setScreen(game.mainMenuScreen);
         }
     }
 
     @Override
-    public void updateScreenData() {
-        super.updateScreenData();
+    public void updateScreen() {
+        super.updateScreen();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleCredits"));
         buttonSettings.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonSettings"));
     }
@@ -90,7 +90,7 @@ public class CreditsScreen extends AbstractScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < buttonClose.getWidth() && y > 0 && y < buttonClose.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
-                    game.mainMenuScreen.updateScreenData();
+                    game.mainMenuScreen.updateScreen();
                     game.setScreen(game.mainMenuScreen);
                 }
             }
@@ -106,7 +106,7 @@ public class CreditsScreen extends AbstractScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < buttonSettings.getWidth() && y > 0 && y < buttonSettings.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
-                    game.settingsScreen.updateScreenData();
+                    game.settingsScreen.updateScreen();
                     game.setScreen(game.settingsScreen);
                 }
             }

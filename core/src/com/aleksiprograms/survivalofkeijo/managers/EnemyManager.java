@@ -48,7 +48,7 @@ public class EnemyManager {
             startWaveTimer += deltaTime;
             if (startWaveTimer > waveStartTime) {
                 inTheBeginningOfNewWave = false;
-                game.gameScreen.inGameHud.updateHudData();
+                game.gameScreen.inGameHud.updateHud();
             }
         } else {
             if (enemiesEmittedInWave < maxEnemiesInWave) {
@@ -110,7 +110,7 @@ public class EnemyManager {
         inTheBeginningOfNewWave = true;
         startWaveTimer = 0;
         updateNextWaveData();
-        game.gameScreen.inGameHud.updateHudData();
+        game.gameScreen.inGameHud.updateHud();
     }
 
     private void updateNextWaveData() {

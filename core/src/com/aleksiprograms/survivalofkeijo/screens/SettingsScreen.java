@@ -51,7 +51,7 @@ public class SettingsScreen extends AbstractScreen {
     public void render(float deltaTime) {
         super.render(deltaTime);
         if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            game.mainMenuScreen.updateScreenData();
+            game.mainMenuScreen.updateScreen();
             game.setScreen(game.mainMenuScreen);
         }
     }
@@ -67,8 +67,8 @@ public class SettingsScreen extends AbstractScreen {
     }
 
     @Override
-    public void updateScreenData() {
-        super.updateScreenData();
+    public void updateScreen() {
+        super.updateScreen();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleSettings"));
         labelSoundVolumeTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("settingsSoundVolumeTitle"));
         checkBoxSounds.setChecked(game.savedDataManager.savedData.isSounds());
@@ -186,7 +186,7 @@ public class SettingsScreen extends AbstractScreen {
                 if (x > 0 && x < buttonClose.getWidth() && y > 0 && y < buttonClose.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
                     game.savedDataManager.save();
-                    game.mainMenuScreen.updateScreenData();
+                    game.mainMenuScreen.updateScreen();
                     game.setScreen(game.mainMenuScreen);
                 }
             }
@@ -203,7 +203,7 @@ public class SettingsScreen extends AbstractScreen {
                 if (x > 0 && x < buttonCredits.getWidth() && y > 0 && y < buttonCredits.getHeight()) {
                     //gameBAS.sounds.getSoundByID(Constants.SOUND_SRC_BUTTON_NEG).play(gameBAS.saveManager.savedData.getSoundVolume());
                     game.savedDataManager.save();
-                    game.creditsScreen.updateScreenData();
+                    game.creditsScreen.updateScreen();
                     game.setScreen(game.creditsScreen);
                 }
             }
@@ -241,7 +241,7 @@ public class SettingsScreen extends AbstractScreen {
                     game.savedDataManager.savedData.setLanguage(previousLanguage);
                     game.changeLocale();
                     game.styles.setLocale();
-                    updateScreenData();
+                    updateScreen();
                     game.settingsScreen.setShowStageExtra(false);
                 }
             }
@@ -259,7 +259,7 @@ public class SettingsScreen extends AbstractScreen {
                     game.savedDataManager.savedData.setLanguage(Constants.STRING_ENGLISH);
                     game.changeLocale();
                     game.styles.setLocale();
-                    updateScreenData();
+                    updateScreen();
                     selectedLanguage = Constants.STRING_ENGLISH;
                 }
             }
@@ -277,7 +277,7 @@ public class SettingsScreen extends AbstractScreen {
                     game.savedDataManager.savedData.setLanguage(Constants.STRING_FINNISH);
                     game.changeLocale();
                     game.styles.setLocale();
-                    updateScreenData();
+                    updateScreen();
                     selectedLanguage = Constants.STRING_FINNISH;
                 }
             }

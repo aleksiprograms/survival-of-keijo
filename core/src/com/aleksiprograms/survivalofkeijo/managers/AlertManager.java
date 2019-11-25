@@ -200,7 +200,7 @@ public class AlertManager {
                     game.gameScreen.stage.clear();
                     game.gameScreen.resetScreen();
                     game.gameWorld.clearWorld();
-                    game.mainMenuScreen.updateScreenData();
+                    game.mainMenuScreen.updateScreen();
                     game.setScreen(game.mainMenuScreen);
                 }
             }
@@ -253,7 +253,7 @@ public class AlertManager {
                     game.gameScreen.stage.clear();
                     game.gameScreen.resetScreen();
                     game.gameWorld.resetWorld();
-                    game.gameScreen.inGameHud.updateHudData();
+                    game.gameScreen.inGameHud.updateHud();
                     game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
                 }
             }

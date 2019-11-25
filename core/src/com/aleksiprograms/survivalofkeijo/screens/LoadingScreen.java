@@ -36,7 +36,7 @@ public class LoadingScreen extends AbstractScreen {
         progress = game.assetManager.getProgress();
         if (game.assetManager.update()) {
             game.loadRest();
-            game.mainMenuScreen.updateScreenData();
+            game.mainMenuScreen.updateScreen();
             game.setScreen(game.mainMenuScreen);
         } else {
             progressBar.setValue(progress);
@@ -46,8 +46,8 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     @Override
-    public void updateScreenData() {
-        super.updateScreenData();
+    public void updateScreen() {
+        super.updateScreen();
         labelInstruction.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLoading"));
     }
 

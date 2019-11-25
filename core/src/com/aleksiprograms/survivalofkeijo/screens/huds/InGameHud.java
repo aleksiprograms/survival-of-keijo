@@ -3,6 +3,7 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.WeaponWithAmmo;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -70,8 +71,8 @@ public class InGameHud extends AbstractHud {
     }
 
     @Override
-    public void updateHudData() {
-        super.updateHudData();
+    public void updateHud() {
+        super.updateHud();
         buttonEnterShop.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonEnterBuilding"));
         buttonEnterHospital.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonEnterBuilding"));
         if (game.gameWorld.enemyManager.inTheBeginningOfNewWave) {
@@ -124,7 +125,10 @@ public class InGameHud extends AbstractHud {
         //labelMoney.setText(game.styles.getFormattedFloatMoney(game.gameWorld.player.money) + " \u20AC");
     }
 
-    private void initializeHud() {
+    @Override
+    protected void initializeHud() {
+        super.initializeHud();
+        
         super.top();
         super.left();
         super.setFillParent(true);
@@ -197,8 +201,6 @@ public class InGameHud extends AbstractHud {
         stackEnterBuilding.add(buttonEnterHospital);
         buttonEnterShop.setVisible(false);
         buttonEnterHospital.setVisible(false);
-        buttonEnterShop.addListener(inputListenerEnterShop);
-        buttonEnterHospital.addListener(inputListenerEnterHospital);
 
         Table tableShootTopRight = new Table();
         tableShootTopRight.setTouchable(Touchable.enabled);
@@ -247,6 +249,24 @@ public class InGameHud extends AbstractHud {
         super.add(tableBottomRow1).colspan(2).growX();
         super.row();
         super.add(tableBottomRow2).colspan(2).growX();
+
+        InputListener inputListenerPause = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
+                    game.gameScreen.setGameState(GameState.PAUSED);
+                    game.gameScreen.stage.clear();
+                    game.gameWorld.paused = true;
+                    game.gameScreen.pausedHud.updateHud();
+                    game.gameScreen.stage.addActor(game.gameScreen.pausedHud);
+                }
+            }
+        };
 
         InputListener inputListenerLeft = new InputListener() {
             @Override
@@ -328,8 +348,58 @@ public class InGameHud extends AbstractHud {
             }
         };
 
+        InputListener inputListenerEnterBackpack = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
+                    game.gameScreen.setGameState(GameState.IN_BACKPACK);
+                    game.gameScreen.stage.clear();
+                    game.gameWorld.paused = true;
+                    game.gameScreen.backpackHud.updateHud();
+                    game.gameScreen.stage.addActor(game.gameScreen.backpackHud);
+                }
+            }
+        };
+
+        InputListener inputListenerEnterShop = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.gameScreen.setGameState(GameState.IN_SHOP);
+                    game.gameScreen.stage.clear();
+                    game.gameWorld.paused = true;
+                    game.gameScreen.shopHud.updateHud();
+                    game.gameScreen.stage.addActor(game.gameScreen.shopHud);
+                }
+            }
+        };
+
+        InputListener inputListenerEnterHospital = new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {}
+            }
+        };
+
         btPause.addListener(inputListenerPause);
         btBackpack.addListener(inputListenerEnterBackpack);
+        buttonEnterShop.addListener(inputListenerEnterShop);
+        buttonEnterHospital.addListener(inputListenerEnterHospital);
 
         buttonLeft.addListener(inputListenerLeft);
         buttonRight.addListener(inputListenerRight);

@@ -85,7 +85,7 @@ public class TheGame extends Game {
 		assetManager.finishLoading();
 		spriteBatch = new SpriteBatch();
 		loadingScreen = new LoadingScreen(this);
-		loadingScreen.updateScreenData();
+		loadingScreen.updateScreen();
 		setScreen(loadingScreen);
 	}
 

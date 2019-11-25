@@ -97,13 +97,13 @@ public class GameScreen extends AbstractScreen {
     }
 
     @Override
-    public void updateScreenData() {
-        super.updateScreenData();
+    public void updateScreen() {
+        super.updateScreen();
         currentGameState = GameState.IN_GAME;
         previousGameState = GameState.IN_GAME;
         game.gameWorld.createWorld();
         stage.addActor(inGameHud);
-        inGameHud.updateHudData();
+        inGameHud.updateHud();
         game.cameraGame.position.set(0, 0, 8);
         game.cameraGame.near = 1;
         game.cameraGame.far = 60;
@@ -114,7 +114,7 @@ public class GameScreen extends AbstractScreen {
         setGameState(GameState.PAUSED);
         game.gameScreen.stage.clear();
         game.gameWorld.paused = true;
-        game.gameScreen.pausedHud.updateHudData();
+        game.gameScreen.pausedHud.updateHud();
         game.gameScreen.stage.addActor(game.gameScreen.pausedHud);
     }
 
