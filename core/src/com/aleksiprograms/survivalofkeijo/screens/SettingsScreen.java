@@ -282,10 +282,10 @@ public class SettingsScreen extends AbstractScreen {
                 }
             }
         });
-        ButtonGroup<TextButton> btgPriWea = new ButtonGroup<TextButton>(buttonEnglish, buttonSuomi);
-        btgPriWea.setMaxCheckCount(1);
-        btgPriWea.setMinCheckCount(1);
-        btgPriWea.setUncheckLast(true);
+        ButtonGroup<TextButton> buttonGroupLanguages = new ButtonGroup<TextButton>(buttonEnglish, buttonSuomi);
+        buttonGroupLanguages.setMaxCheckCount(1);
+        buttonGroupLanguages.setMinCheckCount(1);
+        buttonGroupLanguages.setUncheckLast(true);
         if (game.locale.equals(Constants.LOCALE_ENGLISH)) {
             buttonEnglish.setChecked(true);
             previousLanguage = Constants.STRING_ENGLISH;

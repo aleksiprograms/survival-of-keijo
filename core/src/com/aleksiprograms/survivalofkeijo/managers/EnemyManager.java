@@ -29,20 +29,11 @@ public class EnemyManager {
     private int weaponsIndex;
     private int[][] numberOfWeapons;
     private float[][] percentsOfWeapons = {
-            {0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f},
             {0.2f, 0.2f, 0.3f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f, 0.4f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}};
-    private int[] weaponIds = {
-            Constants.PISTOL_ID,
-            Constants.ASSAULT_RIFLE_ID,
-            Constants.SHOTGUN_ID,
-            Constants.SNIPER_ID,
-            Constants.MACHINE_GUN_ID,
-            Constants.ROCKET_LAUNCHER_ID,
-            Constants.KNIFE_ID};
     public int health;
 
     public EnemyManager(TheGame game) {
@@ -142,7 +133,7 @@ public class EnemyManager {
             }
         }
         for (int i = weapons.size - 1; i < maxEnemiesInWave; i++) {
-            weapons.add(Constants.KNIFE_ID);
+            weapons.add(Constants.PISTOL_ID);
         }
         timeBetweenEnemyEmits = 2;
         enemiesEmittedInWave = 0;
@@ -154,24 +145,21 @@ public class EnemyManager {
 
     private void setNumberOfWeapons(int wave) {
         for (int i = 0; i < numberOfWeapons.length; i++) {
-            if (weaponIds[i] == Constants.PISTOL_ID) {
-                numberOfWeapons[i][0] = weaponIds[i];
+            if ((i + 1) == Constants.ASSAULT_RIFLE_ID) {
+                numberOfWeapons[i][0] = Constants.ASSAULT_RIFLE_ID;
                 numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[0][wave] : 0.1f));
-            } else if (weaponIds[i] == Constants.ASSAULT_RIFLE_ID) {
-                numberOfWeapons[i][0] = weaponIds[i];
+            } else if ((i + 1) == Constants.SHOTGUN_ID) {
+                numberOfWeapons[i][0] = Constants.SHOTGUN_ID;
                 numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[1][wave] : 0.1f));
-            } else if (weaponIds[i] == Constants.SHOTGUN_ID) {
-                numberOfWeapons[i][0] = weaponIds[i];
+            } else if ((i + 1) == Constants.SNIPER_ID) {
+                numberOfWeapons[i][0] = Constants.SNIPER_ID;
                 numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[2][wave] : 0.1f));
-            } else if (weaponIds[i] == Constants.SNIPER_ID) {
-                numberOfWeapons[i][0] = weaponIds[i];
+            } else if ((i + 1) == Constants.MACHINE_GUN_ID) {
+                numberOfWeapons[i][0] = Constants.MACHINE_GUN_ID;
                 numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[3][wave] : 0.1f));
-            } else if (weaponIds[i] == Constants.MACHINE_GUN_ID) {
-                numberOfWeapons[i][0] = weaponIds[i];
+            } else if ((i + 1) == Constants.ROCKET_LAUNCHER_ID) {
+                numberOfWeapons[i][0] = Constants.ROCKET_LAUNCHER_ID;
                 numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[4][wave] : 0.1f));
-            } else if (weaponIds[i] == Constants.ROCKET_LAUNCHER_ID) {
-                numberOfWeapons[i][0] = weaponIds[i];
-                numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[5][wave] : 0.1f));
             }
         }
     }

@@ -27,11 +27,6 @@ public abstract class WeaponData {
     public ObjectMap<Integer, WeaponUpgradeInteger> ammoDamageUpgrades;
     public int ammoDamageLevel;
     public int ammoDamageMaxLevel;
-    public boolean isMeleeDamage;
-    public int meleeDamage;
-    public ObjectMap<Integer, WeaponUpgradeInteger> meleeDamageUpgrades;
-    public int meleeDamageLevel;
-    public int meleeDamageMaxLevel;
     public boolean isAmmoSpeed;
     public float ammoSpeed;
     public ObjectMap<Integer, WeaponUpgradeFloat> ammoSpeedUpgrades;
@@ -116,7 +111,6 @@ public abstract class WeaponData {
         isMagazineSize = true;
         isReloadTime = true;
         isWeight = true;
-        isMeleeDamage = false;
     }
 
     public WeaponData(
@@ -176,7 +170,6 @@ public abstract class WeaponData {
         isReloadTime = true;
         isWeight = true;
         isRateOfFire = false;
-        isMeleeDamage = false;
     }
 
     public WeaponData(
@@ -232,43 +225,5 @@ public abstract class WeaponData {
         isWeight = true;
         isRateOfFire = false;
         isMagazineSize = false;
-        isMeleeDamage = false;
-    }
-
-    public WeaponData(
-            int ID,
-            String nameID,
-            String imageName,
-            int price,
-            int pointsHit,
-            int pointsKill,
-            int meleeDamage,
-            ObjectMap<Integer, WeaponUpgradeInteger> meleeDamageUpgrades,
-            float weight,
-            ObjectMap<Integer, WeaponUpgradeFloat> weightUpgrades) {
-
-        this.ID = ID;
-        this.nameID = nameID;
-        this.imageName = imageName;
-        this.price = price;
-        bought = false;
-        this.pointsHit = pointsHit;
-        this.pointsKill = pointsKill;
-        attributes = 2;
-        this.meleeDamage = meleeDamage;
-        this.meleeDamageUpgrades = meleeDamageUpgrades;
-        meleeDamageLevel = 1;
-        meleeDamageMaxLevel = 5;
-        this.weight = weight;
-        this.weightUpgrades = weightUpgrades;
-        weightLevel = 1;
-        weightMaxLevel = 5;
-        isMeleeDamage = true;
-        isWeight = true;
-        isRateOfFire = false;
-        isAmmoDamage = false;
-        isAmmoSpeed = false;
-        isMagazineSize = false;
-        isReloadTime = false;
     }
 }

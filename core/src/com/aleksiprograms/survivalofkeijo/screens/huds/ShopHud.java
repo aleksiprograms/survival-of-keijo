@@ -2,13 +2,11 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.toolbox.StackWithID;
-import com.aleksiprograms.survivalofkeijo.toolbox.TableWithID;
+import com.aleksiprograms.survivalofkeijo.toolbox.TextButtonWithID;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -28,7 +26,6 @@ import com.badlogic.gdx.utils.I18NBundle;
 public class ShopHud extends AbstractHud {
 
     private int[] WEAPONS_IDS = {
-            Constants.KNIFE_ID,
             Constants.PISTOL_ID,
             Constants.ASSAULT_RIFLE_ID,
             Constants.SHOTGUN_ID,
@@ -38,9 +35,15 @@ public class ShopHud extends AbstractHud {
 
     private Label labelScreenTitle;
 
-    private Array<TableWithID> weaponButtons;
-    private Array<StackWithID> weaponButtonStacks;
+    private TextButtonWithID buttonPistol;
+    private TextButtonWithID buttonAssaultRifle;
+    private TextButtonWithID buttonShotgun;
+    private TextButtonWithID buttonSniper;
+    private TextButtonWithID buttonMachineGun;
+    private TextButtonWithID buttonRocketLauncher;
+
     private int checkedWeaponID;
+    private ScrollPane scrollPaneWeapons;
     private Label labelMoney;
     private Label uselessLabel;
 
@@ -60,7 +63,6 @@ public class ShopHud extends AbstractHud {
     private Table tableMagazineSize;
     private Table tableReloadTime;
     private Table tableWeight;
-    private Table tableMeleeDamage;
 
     private Label labelBasicInfoFireType;
     private Label labelBasicInfoAmmoPrice;
@@ -117,19 +119,12 @@ public class ShopHud extends AbstractHud {
     private Label labelWeightLevelTitle;
     private Label labelWeightLevel;
     private Label labelWeightMaxLevel;
-    private Label labelMeleeDamageTitle;
-    private Label labelMeleeDamageValue;
-    private Label labelMeleeDamageUnit;
-    private Label labelMeleeDamageLevelTitle;
-    private Label labelMeleeDamageLevel;
-    private Label labelMeleeDamageMaxLevel;
     private ProgressBar progressBarRateOfFire;
     private ProgressBar progressBarAmmoDamage;
     private ProgressBar progressBarAmmoSpeed;
     private ProgressBar progressBarMagazineSize;
     private ProgressBar progressBarReloadTime;
     private ProgressBar progressBarWeight;
-    private ProgressBar progressBarMeleeDamage;
 
     private Table tableWeaponUpgrade;
     private Table tableWeaponRowsUpgrade;
@@ -142,7 +137,6 @@ public class ShopHud extends AbstractHud {
     private Table tableMagazineSizeUpgrade;
     private Table tableReloadTimeUpgrade;
     private Table tableWeightUpgrade;
-    private Table tableMeleeDamageUpgrade;
 
     private Label labelWeaponNameUpgrade;
     private Label labelYourMoneyTitleUpgrade;
@@ -207,16 +201,6 @@ public class ShopHud extends AbstractHud {
     private Label labelWeightUpgradeUnitUpgrade;
     private Label labelWeightPriceUpgrade;
     private Label labelWeightPriceUnitUpgrade;
-    private Label labelMeleeDamageTitleUpgrade;
-    private Label labelMeleeDamageValueUpgrade;
-    private Label labelMeleeDamageUnitUpgrade;
-    private Label labelMeleeDamageLevelTitleUpgrade;
-    private Label labelMeleeDamageLevelUpgrade;
-    private Label labelMeleeDamageMaxLevelUpgrade;
-    private Label labelMeleeDamageUpgradeUpgrade;
-    private Label labelMeleeDamageUpgradeUnitUpgrade;
-    private Label labelMeleeDamagePriceUpgrade;
-    private Label labelMeleeDamagePriceUnitUpgrade;
     private ProgressBar progressBarRateOfFireValueBought;
     private ProgressBar progressBarRateOfFireUpgradeBought;
     private ProgressBar progressBarAmmoDamageValueBought;
@@ -229,29 +213,24 @@ public class ShopHud extends AbstractHud {
     private ProgressBar progressBarReloadTimeUpgradeBought;
     private ProgressBar progressBarWeightValueBought;
     private ProgressBar progressBarWeightUpgradeBought;
-    private ProgressBar progressBarMeleeDamageValueBought;
-    private ProgressBar progressBarMeleeDamageUpgradeBought;
     private ImageButton buttonUpgradeRateOfFire;
     private ImageButton buttonUpgradeAmmoDamage;
     private ImageButton buttonUpgradeAmmoSpeed;
     private ImageButton buttonUpgradeMagazineSize;
     private ImageButton buttonUpgradeReloadTime;
     private ImageButton buttonUpgradeWeight;
-    private ImageButton buttonUpgradeMeleeDamage;
     private ProgressBar progressBarRateOfFireUpgradeDone;
     private ProgressBar progressBarAmmoDamageUpgradeDone;
     private ProgressBar progressBarAmmoSpeedUpgradeDone;
     private ProgressBar progressBarMagazineSizeUpgradeDone;
     private ProgressBar progressBarReloadTimeUpgradeDone;
     private ProgressBar progressBarWeightUpgradeDone;
-    private ProgressBar progressBarMeleeDamageUpgradeDone;
     private Image imageUpgradeRateOfFireDone;
     private Image imageUpgradeAmmoDamageDone;
     private Image imageUpgradeAmmoSpeedDone;
     private Image imageUpgradeMagazineSizeDone;
     private Image imageUpgradeReloadTimeDone;
     private Image imageUpgradeWeightDone;
-    private Image imageUpgradeMeleeDamageDone;
 
     private Table tableBuyAmmo;
     private Label labelWeaponNameBuyAmmo;
@@ -269,20 +248,63 @@ public class ShopHud extends AbstractHud {
     private Slider sliderNumberOfAmmoBuyAmmo;
     private TextButton buttonBuyAmmo;
 
+    private float scrollAmountPistol = 0;
+    private float scrollAmountAssaultRifle = 0;
+    private float scrollAmountShotgun = 0;
+    private float scrollAmountSniper = 0;
+    private float scrollAmountMachineGun = 0;
+    private float scrollAmountRocketLauncher = 0;
+
+    private float scrollAmountPistolUpgrade = 0;
+    private float scrollAmountAssaultRifleUpgrade = 0;
+    private float scrollAmountShotgunUpgrade = 0;
+    private float scrollAmountSniperUpgrade = 0;
+    private float scrollAmountMachineGunUpgrade = 0;
+    private float scrollAmountRocketLauncherUpgrade = 0;
+
     public ShopHud(final TheGame game) {
         super(game);
         initializeHud();
     }
 
     @Override
+    public void resetHud() {
+        super.resetHud();
+
+        scrollPaneWeapons.setVelocityY(0);
+        scrollPaneWeapons.setScrollY(0);
+        scrollPaneWeapons.updateVisualScroll();
+
+        scrollAmountPistol = 0;
+        scrollAmountAssaultRifle = 0;
+        scrollAmountShotgun = 0;
+        scrollAmountSniper = 0;
+        scrollAmountMachineGun = 0;
+        scrollAmountRocketLauncher = 0;
+
+        scrollAmountPistolUpgrade = 0;
+        scrollAmountAssaultRifleUpgrade = 0;
+        scrollAmountShotgunUpgrade = 0;
+        scrollAmountSniperUpgrade = 0;
+        scrollAmountMachineGunUpgrade = 0;
+        scrollAmountRocketLauncherUpgrade = 0;
+    }
+
+    @Override
     public void updateHudData() {
         super.updateHudData();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleShop"));
+        buttonPistol.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("pistol") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID).bought ? "*" : ""));
+        buttonAssaultRifle.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("assaultRifle") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID).bought ? "*" : ""));
+        buttonShotgun.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SHOTGUN_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("shotgun") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SHOTGUN_ID).bought ? "*" : ""));
+        buttonSniper.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SNIPER_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("sniper") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SNIPER_ID).bought ? "*" : ""));
+        buttonMachineGun.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.MACHINE_GUN_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("machineGun") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.MACHINE_GUN_ID).bought ? "*" : ""));
+        buttonRocketLauncher.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ROCKET_LAUNCHER_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("rocketLauncher") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ROCKET_LAUNCHER_ID).bought ? "*" : ""));
         tableWeapon.clearChildren();
         tableWeaponRows.clearChildren();
         updateWeaponInfoBox();
         updateWeaponData();
-        recreateTableWeaponScrollPane();
+        recreateTableWeapon();
         if (!(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).bought)) {
             tableWeapon.add(tableWeaponTopNotBought).align(Align.left).growX();
             tableWeapon.row();
@@ -301,7 +323,7 @@ public class ShopHud extends AbstractHud {
 
     private void updateWeaponUpgradeTable() {
         tableWeaponRowsUpgrade.clearChildren();
-        recreateTableWeaponScrollPaneUpgrade();
+        recreateTableWeaponUpgrade();
         updateWeaponDataUpgrade();
     }
 
@@ -336,7 +358,7 @@ public class ShopHud extends AbstractHud {
         }
     }
 
-    private void recreateTableWeaponScrollPane() {
+    private void recreateTableWeapon() {
         weaponNumberOfRows = 0;
         tableWeaponRows.add(tableWeaponInfoBox).padBottom(Constants.GAP).padRight(Constants.GAP).height(3 * uselessLabel.getHeight() + 2 * Constants.GAP);
         tableWeaponRows.row();
@@ -348,11 +370,6 @@ public class ShopHud extends AbstractHud {
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoDamage) {
             weaponNumberOfRows++;
             tableWeaponRows.add(tableAmmoDamage).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
-            tableWeaponRows.row();
-        }
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
-            weaponNumberOfRows++;
-            tableWeaponRows.add(tableMeleeDamage).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoSpeed) {
@@ -376,13 +393,15 @@ public class ShopHud extends AbstractHud {
             tableWeaponRows.row();
         }
 
+        scrollPaneWeapon.setVelocityY(0);
         scrollPaneWeapon.removeActor(tableWeaponRows);
         scrollPaneWeapon.setActor(tableWeaponRows);
-        scrollPaneWeapon.updateVisualScroll();
         scrollPaneWeapon.layout();
+        scrollPaneWeapon.setScrollY(loadScrollAmount());
+        scrollPaneWeapon.updateVisualScroll();
     }
 
-    private void recreateTableWeaponScrollPaneUpgrade() {
+    private void recreateTableWeaponUpgrade() {
         weaponNumberOfRowsUpgrade = 0;
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isRateOfFire) {
             weaponNumberOfRowsUpgrade++;
@@ -392,11 +411,6 @@ public class ShopHud extends AbstractHud {
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoDamage) {
             weaponNumberOfRowsUpgrade++;
             tableWeaponRowsUpgrade.add(tableAmmoDamageUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
-            tableWeaponRowsUpgrade.row();
-        }
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
-            weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableMeleeDamageUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRowsUpgrade.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoSpeed) {
@@ -420,10 +434,12 @@ public class ShopHud extends AbstractHud {
             tableWeaponRowsUpgrade.row();
         }
 
+        scrollPaneWeaponUpgrade.setVelocityY(0);
         scrollPaneWeaponUpgrade.removeActor(tableWeaponRowsUpgrade);
         scrollPaneWeaponUpgrade.setActor(tableWeaponRowsUpgrade);
-        scrollPaneWeaponUpgrade.updateVisualScroll();
         scrollPaneWeaponUpgrade.layout();
+        scrollPaneWeaponUpgrade.setScrollY(loadScrollAmountUpgrade());
+        scrollPaneWeaponUpgrade.updateVisualScroll();
     }
 
     private void updateWeaponInfoBox() {
@@ -513,16 +529,6 @@ public class ShopHud extends AbstractHud {
             labelWeightLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel + "");
             labelWeightMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel + "");
             progressBarWeight.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
-        }
-
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
-            labelMeleeDamageTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMeleeDamage"));
-            labelMeleeDamageValue.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage));
-            labelMeleeDamageUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMeleeDamageUnit"));
-            labelMeleeDamageLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelMeleeDamageLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel + "");
-            labelMeleeDamageMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageMaxLevel + "");
-            progressBarMeleeDamage.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage);
         }
     }
 
@@ -762,44 +768,6 @@ public class ShopHud extends AbstractHud {
                 imageUpgradeWeightDone.setVisible(false);
             }
         }
-
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
-            labelMeleeDamageTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMeleeDamage"));
-            labelMeleeDamageValueUpgrade.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage));
-            labelMeleeDamageUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMeleeDamageUnit"));
-            labelMeleeDamageLevelTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelMeleeDamageLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel + "");
-            labelMeleeDamageMaxLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageMaxLevel + "");
-            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).meleeDamageLevel >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageMaxLevel) {
-                labelMeleeDamageUpgradeUpgrade.setText("");
-                labelMeleeDamageUpgradeUnitUpgrade.setText("");
-                labelMeleeDamagePriceUpgrade.setText("");
-                labelMeleeDamagePriceUnitUpgrade.setText("");
-                progressBarMeleeDamageValueBought.setVisible(false);
-                progressBarMeleeDamageUpgradeBought.setVisible(false);
-                progressBarMeleeDamageUpgradeDone.setVisible(true);
-                progressBarMeleeDamageUpgradeDone.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage);
-                buttonUpgradeMeleeDamage.setVisible(false);
-                imageUpgradeMeleeDamageDone.setVisible(true);
-            } else {
-                labelMeleeDamageUpgradeUpgrade.setText(game.styles.getFormattedIntWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).upgrade));
-                labelMeleeDamageUpgradeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMeleeDamageUnit"));
-                labelMeleeDamagePriceUpgrade.setText(game.styles.getFormattedIntMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).price));
-                labelMeleeDamagePriceUnitUpgrade.setText(" \u20AC");
-                progressBarMeleeDamageValueBought.setVisible(true);
-                progressBarMeleeDamageUpgradeBought.setVisible(true);
-                progressBarMeleeDamageUpgradeDone.setVisible(false);
-                progressBarMeleeDamageValueBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage);
-                progressBarMeleeDamageUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).upgrade);
-                buttonUpgradeMeleeDamage.setVisible(true);
-                if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).price) {
-                    buttonUpgradeMeleeDamage.setDisabled(false);
-                } else {
-                    buttonUpgradeMeleeDamage.setDisabled(true);
-                }
-                imageUpgradeMeleeDamageDone.setVisible(false);
-            }
-        }
     }
 
     private void initializeHud() {
@@ -862,26 +830,18 @@ public class ShopHud extends AbstractHud {
         labelWeightLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelWeightLevel = new Label("", game.styles.labelStyleBlueSmall);
         labelWeightMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarReloadTime = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarWeight = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         labelRateOfFireValue.setAlignment(Align.topRight);
         labelAmmoDamageValue.setAlignment(Align.topRight);
         labelAmmoSpeedValue.setAlignment(Align.topRight);
         labelMagazineSizeValue.setAlignment(Align.topRight);
         labelReloadTimeValue.setAlignment(Align.topRight);
         labelWeightValue.setAlignment(Align.topRight);
-        labelMeleeDamageValue.setAlignment(Align.topRight);
 
         labelWeaponNameUpgrade = new Label("", game.styles.labelStyleWhiteMedium);
         labelYourMoneyTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
@@ -946,16 +906,6 @@ public class ShopHud extends AbstractHud {
         labelWeightUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelWeightPriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
         labelWeightPriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelMeleeDamageUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamagePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelMeleeDamagePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarRateOfFireValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueBought);
         progressBarRateOfFireUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarAmmoDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueBought);
@@ -968,8 +918,6 @@ public class ShopHud extends AbstractHud {
         progressBarReloadTimeUpgradeBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarWeightValueBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueBought);
         progressBarWeightUpgradeBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleUpgrade);
-        progressBarMeleeDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueBought);
-        progressBarMeleeDamageUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleUpgrade);
         labelRateOfFireValueUpgrade.setAlignment(Align.topRight);
         labelRateOfFireUpgradeUpgrade.setAlignment(Align.topRight);
         labelRateOfFirePriceUpgrade.setAlignment(Align.topRight);
@@ -988,9 +936,6 @@ public class ShopHud extends AbstractHud {
         labelWeightValueUpgrade.setAlignment(Align.topRight);
         labelWeightUpgradeUpgrade.setAlignment(Align.topRight);
         labelWeightPriceUpgrade.setAlignment(Align.topRight);
-        labelMeleeDamageValueUpgrade.setAlignment(Align.topRight);
-        labelMeleeDamageUpgradeUpgrade.setAlignment(Align.topRight);
-        labelMeleeDamagePriceUpgrade.setAlignment(Align.topRight);
 
         labelWeaponNameBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
         labelYourAmmoTitleBuyAmmo = new Label("", game.styles.labelStyleWhiteTiny);
@@ -1010,7 +955,6 @@ public class ShopHud extends AbstractHud {
         buttonUpgradeMagazineSize = new ImageButton(game.styles.imageButtonStylePlus);
         buttonUpgradeReloadTime = new ImageButton(game.styles.imageButtonStylePlus);
         buttonUpgradeWeight = new ImageButton(game.styles.imageButtonStylePlus);
-        buttonUpgradeMeleeDamage = new ImageButton(game.styles.imageButtonStylePlus);
 
         buttonUpgradeRateOfFire.addListener(new InputListener() {
             @Override
@@ -1150,29 +1094,6 @@ public class ShopHud extends AbstractHud {
                 }
             }
         });
-        buttonUpgradeMeleeDamage.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageMaxLevel) {
-                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).price) {
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).upgrade;
-                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel).price;
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel++;
-                            updateWeaponUpgradeTable();
-                            updateHudData();
-                        } else {
-                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
-                        }
-                    }
-                }
-            }
-        });
 
         progressBarRateOfFireUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarAmmoDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
@@ -1180,28 +1101,24 @@ public class ShopHud extends AbstractHud {
         progressBarMagazineSizeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarReloadTimeUpgradeDone = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarWeightUpgradeDone = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
-        progressBarMeleeDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarRateOfFireUpgradeDone.setVisible(false);
         progressBarAmmoDamageUpgradeDone.setVisible(false);
         progressBarAmmoSpeedUpgradeDone.setVisible(false);
         progressBarMagazineSizeUpgradeDone.setVisible(false);
         progressBarReloadTimeUpgradeDone.setVisible(false);
         progressBarWeightUpgradeDone.setVisible(false);
-        progressBarMeleeDamageUpgradeDone.setVisible(false);
         imageUpgradeRateOfFireDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
         imageUpgradeAmmoDamageDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
         imageUpgradeAmmoSpeedDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
         imageUpgradeMagazineSizeDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
         imageUpgradeReloadTimeDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
         imageUpgradeWeightDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
-        imageUpgradeMeleeDamageDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
         imageUpgradeRateOfFireDone.setVisible(false);
         imageUpgradeAmmoDamageDone.setVisible(false);
         imageUpgradeAmmoSpeedDone.setVisible(false);
         imageUpgradeMagazineSizeDone.setVisible(false);
         imageUpgradeReloadTimeDone.setVisible(false);
         imageUpgradeWeightDone.setVisible(false);
-        imageUpgradeMeleeDamageDone.setVisible(false);
 
         tableWeaponInfoBox = createBasicInfoBox();
 
@@ -1211,7 +1128,6 @@ public class ShopHud extends AbstractHud {
         tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, labelMagazineSizeLevelTitle, labelMagazineSizeLevel, labelMagazineSizeMaxLevel, progressBarMagazineSize);
         tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, labelReloadTimeLevelTitle, labelReloadTimeLevel, labelReloadTimeMaxLevel, progressBarReloadTime);
         tableWeight = createRow(labelWeightTitle, labelWeightValue, labelWeightUnit, labelWeightLevelTitle, labelWeightLevel, labelWeightMaxLevel, progressBarWeight);
-        tableMeleeDamage = createRow(labelMeleeDamageTitle, labelMeleeDamageValue, labelMeleeDamageUnit, labelMeleeDamageLevelTitle, labelMeleeDamageLevel, labelMeleeDamageMaxLevel, progressBarMeleeDamage);
 
         tableRateOfFireUpgrade = createRowUpgrade(labelRateOfFireTitleUpgrade, labelRateOfFireValueUpgrade, labelRateOfFireUnitUpgrade, labelRateOfFireLevelTitleUpgrade, labelRateOfFireLevelUpgrade, labelRateOfFireMaxLevelUpgrade, labelRateOfFireUpgradeUpgrade, labelRateOfFireUpgradeUnitUpgrade, false, labelRateOfFirePriceUpgrade, labelRateOfFirePriceUnitUpgrade, progressBarRateOfFireValueBought, progressBarRateOfFireUpgradeBought, progressBarRateOfFireUpgradeDone, buttonUpgradeRateOfFire, imageUpgradeRateOfFireDone);
         tableAmmoDamageUpgrade = createRowUpgrade(labelAmmoDamageTitleUpgrade, labelAmmoDamageValueUpgrade, labelAmmoDamageUnitUpgrade, labelAmmoDamageLevelTitleUpgrade, labelAmmoDamageLevelUpgrade, labelAmmoDamageMaxLevelUpgrade, labelAmmoDamageUpgradeUpgrade, labelAmmoDamageUpgradeUnitUpgrade, false, labelAmmoDamagePriceUpgrade, labelAmmoDamagePriceUnitUpgrade, progressBarAmmoDamageValueBought, progressBarAmmoDamageUpgradeBought, progressBarAmmoDamageUpgradeDone, buttonUpgradeAmmoDamage, imageUpgradeAmmoDamageDone);
@@ -1219,20 +1135,31 @@ public class ShopHud extends AbstractHud {
         tableMagazineSizeUpgrade = createRowUpgrade(labelMagazineSizeTitleUpgrade, labelMagazineSizeValueUpgrade, labelMagazineSizeUnitUpgrade, labelMagazineSizeLevelTitleUpgrade, labelMagazineSizeLevelUpgrade, labelMagazineSizeMaxLevelUpgrade, labelMagazineSizeUpgradeUpgrade, labelMagazineSizeUpgradeUnitUpgrade, false, labelMagazineSizePriceUpgrade, labelMagazineSizePriceUnitUpgrade, progressBarMagazineSizeValueBought, progressBarMagazineSizeUpgradeBought, progressBarMagazineSizeUpgradeDone, buttonUpgradeMagazineSize, imageUpgradeMagazineSizeDone);
         tableReloadTimeUpgrade = createRowUpgrade(labelReloadTimeTitleUpgrade, labelReloadTimeValueUpgrade, labelReloadTimeUnitUpgrade, labelReloadTimeLevelTitleUpgrade, labelReloadTimeLevelUpgrade, labelReloadTimeMaxLevelUpgrade, labelReloadTimeUpgradeUpgrade, labelReloadTimeUpgradeUnitUpgrade, true, labelReloadTimePriceUpgrade, labelReloadTimePriceUnitUpgrade, progressBarReloadTimeValueBought, progressBarReloadTimeUpgradeBought, progressBarReloadTimeUpgradeDone, buttonUpgradeReloadTime, imageUpgradeReloadTimeDone);
         tableWeightUpgrade = createRowUpgrade(labelWeightTitleUpgrade, labelWeightValueUpgrade, labelWeightUnitUpgrade, labelWeightLevelTitleUpgrade, labelWeightLevelUpgrade, labelWeightMaxLevelUpgrade, labelWeightUpgradeUpgrade, labelWeightUpgradeUnitUpgrade, true, labelWeightPriceUpgrade, labelWeightPriceUnitUpgrade, progressBarWeightValueBought, progressBarWeightUpgradeBought, progressBarWeightUpgradeDone, buttonUpgradeWeight, imageUpgradeWeightDone);
-        tableMeleeDamageUpgrade = createRowUpgrade(labelMeleeDamageTitleUpgrade, labelMeleeDamageValueUpgrade, labelMeleeDamageUnitUpgrade, labelMeleeDamageLevelTitleUpgrade, labelMeleeDamageLevelUpgrade, labelMeleeDamageMaxLevelUpgrade, labelMeleeDamageUpgradeUpgrade, labelMeleeDamageUpgradeUnitUpgrade, false, labelMeleeDamagePriceUpgrade, labelMeleeDamagePriceUnitUpgrade, progressBarMeleeDamageValueBought, progressBarMeleeDamageUpgradeBought, progressBarMeleeDamageUpgradeDone, buttonUpgradeMeleeDamage, imageUpgradeMeleeDamageDone);
 
-        weaponButtons = new Array<TableWithID>();
-        weaponButtonStacks = new Array<StackWithID>();
+        buttonPistol = new TextButtonWithID(Constants.PISTOL_ID, game.styles.textButtonStyleWeapon);
+        buttonAssaultRifle = new TextButtonWithID(Constants.ASSAULT_RIFLE_ID, game.styles.textButtonStyleWeapon);
+        buttonShotgun = new TextButtonWithID(Constants.SHOTGUN_ID, game.styles.textButtonStyleWeapon);
+        buttonSniper = new TextButtonWithID(Constants.SNIPER_ID, game.styles.textButtonStyleWeapon);
+        buttonMachineGun = new TextButtonWithID(Constants.MACHINE_GUN_ID, game.styles.textButtonStyleWeapon);
+        buttonRocketLauncher = new TextButtonWithID(Constants.ROCKET_LAUNCHER_ID, game.styles.textButtonStyleWeapon);
+        final Array<TextButtonWithID> arrayWeaponButtons = new Array<TextButtonWithID>();
+        arrayWeaponButtons.add(buttonPistol);
+        arrayWeaponButtons.add(buttonAssaultRifle);
+        arrayWeaponButtons.add(buttonShotgun);
+        arrayWeaponButtons.add(buttonSniper);
+        arrayWeaponButtons.add(buttonMachineGun);
+        arrayWeaponButtons.add(buttonRocketLauncher);
+
+        ButtonGroup<TextButton> buttonGroupWeapons = new ButtonGroup<TextButton>(buttonPistol, buttonAssaultRifle, buttonShotgun, buttonSniper, buttonMachineGun, buttonRocketLauncher);
+        buttonGroupWeapons.setMaxCheckCount(1);
+        buttonGroupWeapons.setMinCheckCount(1);
+        buttonGroupWeapons.setUncheckLast(true);
+        buttonPistol.setChecked(true);
+
         Table tableWeaponButtons = new Table();
         for (int i = 0; i < Constants.NUMBER_OF_WEAPONS; i++) {
-            final TableWithID tableWeaponButton = new TableWithID(WEAPONS_IDS[i]);
-            tableWeaponButton.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
-            tableWeaponButton.setTouchable(Touchable.enabled);
-            StackWithID stack = new StackWithID(WEAPONS_IDS[i]);
-            stack.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP))));
-            tableWeaponButton.add(stack).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
-            weaponButtonStacks.add(stack);
-            tableWeaponButton.addListener(new InputListener() {
+            final int finalI = i;
+            arrayWeaponButtons.get(i).addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     return true;
@@ -1244,30 +1171,18 @@ public class ShopHud extends AbstractHud {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_HUGE) {
-                        for (int k = 0; k < weaponButtons.size; k++) {
-                            if (weaponButtons.get(k).ID == checkedWeaponID) {
-                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
-                            }
-                        }
-                        checkedWeaponID = tableWeaponButton.ID;
-                        for (int k = 0; k < weaponButtons.size; k++) {
-                            if (weaponButtons.get(k).ID == checkedWeaponID) {
-                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
-                            }
-                        }
+                    if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH_WEAPON && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                        saveScrollAmount();
+                        checkedWeaponID = arrayWeaponButtons.get(finalI).ID;
                         updateHudData();
                     }
                 }
             });
-            weaponButtons.add(tableWeaponButton);
-            tableWeaponButtons.add(tableWeaponButton).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
-            if ((i + 1) % Constants.UI_WEAPONS_IN_ROW == 0) {
-                tableWeaponButtons.row();
-            }
+            tableWeaponButtons.add(arrayWeaponButtons.get(i)).width(Constants.TEXT_BUTTON_WIDTH_WEAPON).height(Constants.TEXT_BUTTON_HEIGHT).padRight(Constants.GAP).padBottom(i < Constants.NUMBER_OF_WEAPONS - 1 ? Constants.GAP : 0);
+            tableWeaponButtons.row();
         }
 
-        ScrollPane scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
+        scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
         scrollPaneWeapons.setScrollingDisabled(true, false);
         scrollPaneWeapons.setForceScroll(false, true);
         scrollPaneWeapons.setupOverscroll(Constants.SCROLL_PANE_OVER_SCROLL, Constants.SCROLL_PANE_MIN_SPEED, Constants.SCROLL_PANE_MAX_SPEED);
@@ -1275,20 +1190,6 @@ public class ShopHud extends AbstractHud {
         scrollPaneWeapons.setFlickScrollTapSquareSize(Constants.SCROLL_PANE_SQUARE_SIZE);
         scrollPaneWeapons.updateVisualScroll();
         scrollPaneWeapons.layout();
-
-        checkedWeaponID = weaponButtons.get(0).ID;
-        weaponButtons.get(0).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
-        for (int i = 0; i < Constants.NUMBER_OF_WEAPONS; i++) {
-            for (int j = 0; j < Constants.NUMBER_OF_WEAPONS; j++) {
-                if (weaponButtonStacks.get(j).ID == WEAPONS_IDS[i]) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(WEAPONS_IDS[i]).bought) {
-                        Table table = new Table();
-                        table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
-                        weaponButtonStacks.get(j).add(table);
-                    }
-                }
-            }
-        }
 
         Table tableWeapons = new Table();
         tableWeapons.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
@@ -1326,7 +1227,7 @@ public class ShopHud extends AbstractHud {
 
         super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
         super.row();
-        super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_THICKNESS);
+        super.add(tableWeapons).growY().align(Align.left).width(Constants.TEXT_BUTTON_WIDTH_WEAPON + 3 * Constants.GAP + Constants.SCROLL_PANE_THICKNESS);
         super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH).align(Align.right).growY();
 
         btClose.addListener(inputListenerClose);
@@ -1415,8 +1316,7 @@ public class ShopHud extends AbstractHud {
 
     private void createTableWeaponTopBought() {
         tableWeaponTopBought = new Table();
-        tableWeaponTopBought.add(labelWeaponNameBought).pad(Constants.GAP).align(Align.left);
-        tableWeaponTopBought.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)))).align(Align.left).growX().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE);
+        tableWeaponTopBought.add(labelWeaponNameBought).pad(Constants.GAP).align(Align.left).expandX();
         tableWeaponTopBought.add(labelNumberOfAmmoTitle).padTop(Constants.GAP).padBottom(Constants.GAP).align(Align.right);
         tableWeaponTopBought.add(labelNumberOfAmmo).pad(Constants.GAP).align(Align.right);
     }
@@ -1437,17 +1337,9 @@ public class ShopHud extends AbstractHud {
                     if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).price) {
                         game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).bought = true;
                         game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).price;
+                        saveScrollAmount();
                         updateHudData();
-                        for (int i = 0; i < weaponButtonStacks.size; i++) {
-                            if (weaponButtonStacks.get(i).ID == checkedWeaponID) {
-                                Table table = new Table();
-                                table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)))).align(Align.topLeft).expand().width(Constants.BOUGHT_ICON_SIZE).height(Constants.BOUGHT_ICON_SIZE).pad(Constants.GAP);
-                                weaponButtonStacks.get(i).add(table);
-                            }
-                        }
-                        if (checkedWeaponID == Constants.KNIFE_ID) {
-                            game.gameWorld.player.addWeapon(game.gamePools.knifePool.obtain(), game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.KNIFE_ID), game.gameWorld.player, null, true);
-                        } else if (checkedWeaponID == Constants.PISTOL_ID) {
+                        if (checkedWeaponID == Constants.PISTOL_ID) {
                             game.gameWorld.player.addWeapon(game.gamePools.pistolPlayerPool.obtain(), game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID), game.gameWorld.player, null, true);
                         } else if (checkedWeaponID == Constants.ASSAULT_RIFLE_ID) {
                             game.gameWorld.player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), game.gameWorld.player, null, true);
@@ -1532,6 +1424,7 @@ public class ShopHud extends AbstractHud {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
                     game.gameScreen.setShowStageExtra(false);
+                    saveScrollAmountUpgrade();
                     updateHudData();
                 }
             }
@@ -1725,5 +1618,71 @@ public class ShopHud extends AbstractHud {
         tableBuyAmmo.setFillParent(true);
         tableBuyAmmo.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SCREEN_BACKGROUND_ON_DIALOG_BOX)));
         tableBuyAmmo.add(table).width(Constants.DIALOG_BOX_WIDTH_WEAPON).height(Constants.DIALOG_BOX_HEIGHT_WEAPON);
+    }
+
+    public void saveScrollAmount() {
+        if (checkedWeaponID == Constants.PISTOL_ID) {
+            scrollAmountPistol = scrollPaneWeapon.getScrollY();
+        } else if (checkedWeaponID == Constants.ASSAULT_RIFLE_ID) {
+            scrollAmountAssaultRifle = scrollPaneWeapon.getScrollY();
+        } else if (checkedWeaponID == Constants.SHOTGUN_ID) {
+            scrollAmountShotgun = scrollPaneWeapon.getScrollY();
+        } else if (checkedWeaponID == Constants.SNIPER_ID) {
+            scrollAmountSniper = scrollPaneWeapon.getScrollY();
+        } else if (checkedWeaponID == Constants.MACHINE_GUN_ID) {
+            scrollAmountMachineGun = scrollPaneWeapon.getScrollY();
+        } else if (checkedWeaponID == Constants.ROCKET_LAUNCHER_ID) {
+            scrollAmountRocketLauncher = scrollPaneWeapon.getScrollY();
+        }
+    }
+
+    private float loadScrollAmount() {
+        if (checkedWeaponID == Constants.PISTOL_ID) {
+            return scrollAmountPistol;
+        } else if (checkedWeaponID == Constants.ASSAULT_RIFLE_ID) {
+            return scrollAmountAssaultRifle;
+        } else if (checkedWeaponID == Constants.SHOTGUN_ID) {
+            return scrollAmountShotgun;
+        } else if (checkedWeaponID == Constants.SNIPER_ID) {
+            return scrollAmountSniper;
+        } else if (checkedWeaponID == Constants.MACHINE_GUN_ID) {
+            return scrollAmountMachineGun;
+        } else if (checkedWeaponID == Constants.ROCKET_LAUNCHER_ID) {
+            return scrollAmountRocketLauncher;
+        }
+        return 0;
+    }
+
+    private void saveScrollAmountUpgrade() {
+        if (checkedWeaponID == Constants.PISTOL_ID) {
+            scrollAmountPistolUpgrade = scrollPaneWeaponUpgrade.getScrollY();
+        } else if (checkedWeaponID == Constants.ASSAULT_RIFLE_ID) {
+            scrollAmountAssaultRifleUpgrade = scrollPaneWeaponUpgrade.getScrollY();
+        } else if (checkedWeaponID == Constants.SHOTGUN_ID) {
+            scrollAmountShotgunUpgrade = scrollPaneWeaponUpgrade.getScrollY();
+        } else if (checkedWeaponID == Constants.SNIPER_ID) {
+            scrollAmountSniperUpgrade = scrollPaneWeaponUpgrade.getScrollY();
+        } else if (checkedWeaponID == Constants.MACHINE_GUN_ID) {
+            scrollAmountMachineGunUpgrade = scrollPaneWeaponUpgrade.getScrollY();
+        } else if (checkedWeaponID == Constants.ROCKET_LAUNCHER_ID) {
+            scrollAmountRocketLauncherUpgrade = scrollPaneWeaponUpgrade.getScrollY();
+        }
+    }
+
+    private float loadScrollAmountUpgrade() {
+        if (checkedWeaponID == Constants.PISTOL_ID) {
+            return scrollAmountPistolUpgrade;
+        } else if (checkedWeaponID == Constants.ASSAULT_RIFLE_ID) {
+            return scrollAmountAssaultRifleUpgrade;
+        } else if (checkedWeaponID == Constants.SHOTGUN_ID) {
+            return scrollAmountShotgunUpgrade;
+        } else if (checkedWeaponID == Constants.SNIPER_ID) {
+            return scrollAmountSniperUpgrade;
+        } else if (checkedWeaponID == Constants.MACHINE_GUN_ID) {
+            return scrollAmountMachineGunUpgrade;
+        } else if (checkedWeaponID == Constants.ROCKET_LAUNCHER_ID) {
+            return scrollAmountRocketLauncherUpgrade;
+        }
+        return 0;
     }
 }

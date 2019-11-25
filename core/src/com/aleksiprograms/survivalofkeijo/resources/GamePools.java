@@ -25,7 +25,6 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyJum
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.AssaultRifleEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.AssaultRiflePlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Hands;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Knife;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.MachineGun;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Rocket;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.PistolEnemy;
@@ -43,7 +42,6 @@ public class GamePools {
     public Pool<Player> playerPool;
     public Pool<Enemy> enemyPool;
     public Pool<Hands> handsPool;
-    public Pool<Knife> knifePool;
     public Pool<PistolPlayer> pistolPlayerPool;
     public Pool<PistolEnemy> pistolEnemyPool;
     public Pool<AssaultRiflePlayer> assaultRiflePlayerPool;
@@ -101,13 +99,6 @@ public class GamePools {
             @Override
             protected Hands newObject() {
                 return new Hands(game);
-            }
-        };
-
-        knifePool = new Pool<Knife>(6, 12) {
-            @Override
-            protected Knife newObject() {
-                return new Knife(game);
             }
         };
 

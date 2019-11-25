@@ -53,6 +53,8 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public void dispose() {}
 
+    public void resetScreen() {}
+
     public void updateScreenData() {
         stage.setDebugAll(Constants.DEBUG_DRAW_UI);
         stageExtra.setDebugAll(Constants.DEBUG_DRAW_UI);

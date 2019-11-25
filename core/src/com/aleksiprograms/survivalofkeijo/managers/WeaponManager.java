@@ -1,7 +1,6 @@
 package com.aleksiprograms.survivalofkeijo.managers;
 
 import com.aleksiprograms.survivalofkeijo.data.AssaultRifleData;
-import com.aleksiprograms.survivalofkeijo.data.KnifeData;
 import com.aleksiprograms.survivalofkeijo.data.MachineGunData;
 import com.aleksiprograms.survivalofkeijo.data.PistolData;
 import com.aleksiprograms.survivalofkeijo.data.RocketLauncherData;
@@ -25,8 +24,6 @@ public class WeaponManager {
     public float maxReloadTime = 5;
     public float minWeight = 0.1f;
     public float maxWeight = 10;
-    public float minMeleeDamage = 1;
-    public float maxMeleeDamage = 100;
 
     public WeaponManager() {
         weaponData = new WeaponData[Constants.NUMBER_OF_WEAPONS];
@@ -43,12 +40,11 @@ public class WeaponManager {
     }
 
     public void reset() {
-        weaponData[0] = new KnifeData();
-        weaponData[1] = new PistolData();
-        weaponData[2] = new AssaultRifleData();
-        weaponData[3] = new ShotgunData();
-        weaponData[4] = new SniperData();
-        weaponData[5] = new MachineGunData();
-        weaponData[6] = new RocketLauncherData();
+        weaponData[0] = new PistolData();
+        weaponData[1] = new AssaultRifleData();
+        weaponData[2] = new ShotgunData();
+        weaponData[3] = new SniperData();
+        weaponData[4] = new MachineGunData();
+        weaponData[5] = new RocketLauncherData();
     }
 }

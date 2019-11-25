@@ -59,6 +59,7 @@ public class Styles {
     public TextButton.TextButtonStyle textButtonStyleGreen;
     public TextButton.TextButtonStyle textButtonStyleRed;
     public TextButton.TextButtonStyle textButtonStyleNoTexture;
+    public TextButton.TextButtonStyle textButtonStyleWeapon;
     public TextButton.TextButtonStyle textButtonStyleEnterBuilding;
 
     public ImageButton.ImageButtonStyle imageButtonStyleClose;
@@ -111,6 +112,7 @@ public class Styles {
         textButtonStyleGreen = new TextButton.TextButtonStyle();
         textButtonStyleRed = new TextButton.TextButtonStyle();
         textButtonStyleNoTexture = new TextButton.TextButtonStyle();
+        textButtonStyleWeapon = new TextButton.TextButtonStyle();
         textButtonStyleEnterBuilding = new TextButton.TextButtonStyle();
 
         imageButtonStyleClose = new ImageButton.ImageButtonStyle();
@@ -170,6 +172,11 @@ public class Styles {
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN_RED)));
         setTextButtonStyle(textButtonStyleNoTexture,
                 true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorOrange, colorOrange, colorDisabled);
+        setTextButtonStyle(textButtonStyleWeapon,
+                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorWhite, colorDisabled,
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)),
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)),
+                new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
         setTextButtonStyle(textButtonStyleEnterBuilding,
                 true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorWhite, colorDisabled,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_EMPTY_UP)),
@@ -293,6 +300,26 @@ public class Styles {
         textButtonStyle.disabledFontColor = fontColorDisabled;
         textButtonStyle.up = drawableUp;
         textButtonStyle.down = drawableDown;
+        textButtonStyle.disabled = drawableUp;
+    }
+
+    private void setTextButtonStyle(
+            TextButton.TextButtonStyle textButtonStyle,
+            boolean bold,
+            int fontSize,
+            Color fontColorUp,
+            Color fontColorDown,
+            Color fontColorDisabled,
+            NinePatchDrawable drawableUp,
+            NinePatchDrawable drawableDown,
+            NinePatchDrawable drawableChecked) {
+        textButtonStyle.font = getFont(bold, fontSize);
+        textButtonStyle.fontColor = fontColorUp;
+        textButtonStyle.downFontColor = fontColorDown;
+        textButtonStyle.disabledFontColor = fontColorDisabled;
+        textButtonStyle.up = drawableUp;
+        textButtonStyle.down = drawableDown;
+        textButtonStyle.checked = drawableChecked;
         textButtonStyle.disabled = drawableUp;
     }
 

@@ -30,6 +30,8 @@ public class AssaultRifleData extends WeaponData {
                 5,
                 new ObjectMap<Integer, WeaponUpgradeFloat>(4));
 
+        bought = true;
+
         rateOfFireUpgrades.put(1, new WeaponUpgradeFloat(2,5000));
         rateOfFireUpgrades.put(2, new WeaponUpgradeFloat(2,5000));
         rateOfFireUpgrades.put(3, new WeaponUpgradeFloat(2,5000));

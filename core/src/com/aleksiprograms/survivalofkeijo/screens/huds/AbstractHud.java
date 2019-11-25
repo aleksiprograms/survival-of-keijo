@@ -26,6 +26,8 @@ public abstract class AbstractHud extends Table {
         initializeHud();
     }
 
+    public void resetHud() {}
+
     public void updateHudData() {}
 
     private void initializeHud() {
@@ -106,6 +108,9 @@ public abstract class AbstractHud extends Table {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_SMALL && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_SMALL) {
+                    if (game.gameScreen.currentGameState.equals(GameState.IN_SHOP)) {
+                        game.gameScreen.shopHud.saveScrollAmount();
+                    }
                     game.gameScreen.setGameState(GameState.IN_GAME);
                     game.gameScreen.stage.clear();
                     game.gameWorld.paused = false;
@@ -203,7 +208,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     game.gameScreen.setGameState(GameState.IN_SHOP);
                     game.gameScreen.stage.clear();
                     game.gameWorld.paused = true;
@@ -221,7 +226,7 @@ public abstract class AbstractHud extends Table {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_MEDIUM * 2 && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_MEDIUM) {}
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {}
             }
         };
 

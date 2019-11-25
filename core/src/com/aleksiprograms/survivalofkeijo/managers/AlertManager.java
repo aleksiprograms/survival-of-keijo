@@ -49,7 +49,7 @@ public class AlertManager {
         stagePopup.setDebugAll(Constants.DEBUG_DRAW_UI);
         initializePopupTable();
         initializeDialogBoxExitGame();
-        initializeDialogBoxToHome();
+        initializeDialogBoxMainMenu();
         initializeDialogBoxRestart();
     }
 
@@ -183,7 +183,7 @@ public class AlertManager {
         tableDialogBoxExitGame.add(table).width(Constants.DIALOG_BOX_WIDTH).height(Constants.DIALOG_BOX_HEIGHT);
     }
 
-    private void initializeDialogBoxToHome() {
+    private void initializeDialogBoxMainMenu() {
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
         buttonToHomeYes = new TextButton("", game.styles.textButtonStyleGreen);
@@ -198,6 +198,7 @@ public class AlertManager {
                 if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     setShowStageDialogBox(false);
                     game.gameScreen.stage.clear();
+                    game.gameScreen.resetScreen();
                     game.gameWorld.clearWorld();
                     game.mainMenuScreen.updateScreenData();
                     game.setScreen(game.mainMenuScreen);
@@ -250,6 +251,7 @@ public class AlertManager {
                 if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
                     setShowStageDialogBox(false);
                     game.gameScreen.stage.clear();
+                    game.gameScreen.resetScreen();
                     game.gameWorld.resetWorld();
                     game.gameScreen.inGameHud.updateHudData();
                     game.gameScreen.stage.addActor(game.gameScreen.inGameHud);

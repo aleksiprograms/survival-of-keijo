@@ -91,6 +91,12 @@ public class GameScreen extends AbstractScreen {
     }
 
     @Override
+    public void resetScreen() {
+        super.resetScreen();
+        shopHud.resetHud();
+    }
+
+    @Override
     public void updateScreenData() {
         super.updateScreenData();
         currentGameState = GameState.IN_GAME;

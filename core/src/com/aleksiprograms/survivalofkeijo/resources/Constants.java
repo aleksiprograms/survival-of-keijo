@@ -22,7 +22,7 @@ public class Constants {
     public static final String SAVED_DATA_FILE_NAME = "saveddata.json";
 
     public static final int NUMBER_OF_LEVELS  = 6;
-    public static final int NUMBER_OF_WEAPONS = 7;
+    public static final int NUMBER_OF_WEAPONS = 6;
 
     public static final int UI_WEAPONS_IN_ROW = 3;
     public static final int UI_WEAPONS_IN_FULL_ROW = Constants.NUMBER_OF_WEAPONS - (Constants.NUMBER_OF_WEAPONS % UI_WEAPONS_IN_ROW);
@@ -77,6 +77,8 @@ public class Constants {
     public static final int WEAPON_BAR_WIDTH_UPGRADE     = WEAPON_TITLE_WIDTH_UPGRADE + WEAPON_VALUE_WIDTH_UPGRADE + WEAPON_UNIT_WIDTH_UPGRADE + WEAPON_LEVEL_WIDTH_UPGRADE + WEAPON_UPGRADE_WIDTH_UPGRADE + WEAPON_UNIT_WIDTH_UPGRADE + WEAPON_PRICE_WIDTH_UPGRADE;
     public static final int WEAPON_TABLE_WIDTH_UPGRADE   = 6 * GAP + IMAGE_BUTTON_SIZE_TINY + SCROLL_PANE_THICKNESS + WEAPON_BAR_WIDTH_UPGRADE;
 
+    public static final int TEXT_BUTTON_WIDTH_WEAPON = VIRTUAL_WIDTH - WEAPON_TABLE_WIDTH - 6 * GAP- SCROLL_PANE_THICKNESS;
+
     public static final int DIALOG_BOX_WIDTH_WEAPON  = WEAPON_TABLE_WIDTH_UPGRADE;
     public static final int DIALOG_BOX_HEIGHT_WEAPON = 800;
     public static final int DIALOG_BOX_WIDTH         = 1200;
@@ -107,7 +109,6 @@ public class Constants {
     public static final String MODEL_WEAPON_PISTOL_ENEMY         = "models/weapon-pistol-enemy.g3db";
     public static final String MODEL_WEAPON_ASSAULT_RIFLE_PLAYER = "models/weapon-assault-rifle-player.g3db";
     public static final String MODEL_WEAPON_ASSAULT_RIFLE_ENEMY  = "models/weapon-assault-rifle-enemy.g3db";
-    public static final String MODEL_WEAPON_KNIFE_ENEMY          = "models/weapon-knife-enemy.g3db";
     public static final String MODEL_AMMUNITION_BULLET_PLAYER    = "models/ammunition-bullet-player.g3db";
     public static final String MODEL_AMMUNITION_BULLET_ENEMY     = "models/ammunition-bullet-enemy.g3db";
     public static final String MODEL_AMMUNITION_CASE_PLAYER      = "models/ammunition-case-player.g3db";
@@ -171,13 +172,12 @@ public class Constants {
     public static final String PFX_AMMUNITION_GRASS_HIT_128PX  = "effects/ammunition-hit-grass-128px.pfx";
 
     public static final int HANDS_ID           = -1;
-    public static final int KNIFE_ID           = 0;
-    public static final int PISTOL_ID          = 1;
-    public static final int ASSAULT_RIFLE_ID   = 2;
-    public static final int SHOTGUN_ID         = 3;
-    public static final int SNIPER_ID          = 4;
-    public static final int MACHINE_GUN_ID     = 5;
-    public static final int ROCKET_LAUNCHER_ID = 6;
+    public static final int PISTOL_ID          = 0;
+    public static final int ASSAULT_RIFLE_ID   = 1;
+    public static final int SHOTGUN_ID         = 2;
+    public static final int SNIPER_ID          = 3;
+    public static final int MACHINE_GUN_ID     = 4;
+    public static final int ROCKET_LAUNCHER_ID = 5;
 
     public static final short CATEGORY_PLAYER              = 1;
     public static final short CATEGORY_ENEMY               = 2;

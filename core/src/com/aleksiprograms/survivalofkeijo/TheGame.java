@@ -118,7 +118,6 @@ public class TheGame extends Game {
 		assetManager.load(Constants.MODEL_AMMUNITION_BULLET_ENEMY, Model.class);
 		assetManager.load(Constants.MODEL_AMMUNITION_CASE_PLAYER, Model.class);
 		assetManager.load(Constants.MODEL_AMMUNITION_CASE_ENEMY, Model.class);
-		assetManager.load(Constants.MODEL_WEAPON_KNIFE_ENEMY, Model.class);
 		assetManager.load(Constants.MODEL_BUILDING_ENEMY_EMITTER, Model.class);
 		assetManager.load(Constants.MODEL_SKY_BLUE, Model.class);
 		assetManager.load(Constants.MODEL_WALKABLE_GROUND_H10, Model.class);

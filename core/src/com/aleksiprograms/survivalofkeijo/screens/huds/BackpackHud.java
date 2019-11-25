@@ -2,7 +2,7 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.toolbox.TableWithID;
+import com.aleksiprograms.survivalofkeijo.toolbox.TextButtonWithID;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -23,7 +23,7 @@ public class BackpackHud extends AbstractHud {
     private Label labelScreenTitle;
 
     private Table tableWeaponButtons;
-    private Array<TableWithID> buttonWeapons;
+    private Array<TextButtonWithID> buttonWeapons;
     private int checkedWeaponID;
     private Label labelMoney;
     private Label uselessLabel;
@@ -78,12 +78,6 @@ public class BackpackHud extends AbstractHud {
     private Label labelWeightLevelTitle;
     private Label labelWeightLevel;
     private Label labelWeightMaxLevel;
-    private Label labelMeleeDamageTitle;
-    private Label labelMeleeDamageValue;
-    private Label labelMeleeDamageUnit;
-    private Label labelMeleeDamageLevelTitle;
-    private Label labelMeleeDamageLevel;
-    private Label labelMeleeDamageMaxLevel;
     private ProgressBar progressBarRateOfFire;
     private ProgressBar progressBarAmmoDamage;
     private ProgressBar progressBarAmmoSpeed;
@@ -105,7 +99,6 @@ public class BackpackHud extends AbstractHud {
     private Table tableMagazineSize;
     private Table tableReloadTime;
     private Table tableWeight;
-    private Table tableMeleeDamage;
 
     public BackpackHud(final TheGame game) {
         super(game);
@@ -133,7 +126,7 @@ public class BackpackHud extends AbstractHud {
     private void updateWeaponsTable() {
         buttonWeapons.clear();
         for (int i = 0; i < game.gameWorld.player.weapons.size; i++) {
-            final TableWithID table = new TableWithID(game.gameWorld.player.weapons.get(i).weaponData.ID);
+            final TextButtonWithID table = new TextButtonWithID(game.gameWorld.player.weapons.get(i).weaponData.ID, game.styles.textButtonStyleOrange);
             table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
             table.setTouchable(Touchable.enabled);
             table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP)))).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
@@ -204,11 +197,6 @@ public class BackpackHud extends AbstractHud {
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoDamage) {
             weaponInfoRows++;
             tableWeaponRows.add(tableAmmoDamage).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
-            tableWeaponRows.row();
-        }
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
-            weaponInfoRows++;
-            tableWeaponRows.add(tableMeleeDamage).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoSpeed) {
@@ -315,16 +303,6 @@ public class BackpackHud extends AbstractHud {
             labelWeightMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel + "");
             progressBarWeight.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
         }
-
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMeleeDamage) {
-            labelMeleeDamageTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMeleeDamage"));
-            labelMeleeDamageValue.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage));
-            labelMeleeDamageUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMeleeDamageUnit"));
-            labelMeleeDamageLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelMeleeDamageLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageLevel + "");
-            labelMeleeDamageMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamageMaxLevel + "");
-            progressBarMeleeDamage.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).meleeDamage);
-        }
     }
 
     private void initializeHud() {
@@ -386,19 +364,12 @@ public class BackpackHud extends AbstractHud {
         labelWeightLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelWeightLevel = new Label("", game.styles.labelStyleBlueSmall);
         labelWeightMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMeleeDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMeleeDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelMeleeDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarReloadTime = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarWeight = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarMeleeDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMeleeDamage, game.gameWorld.weaponManagerPlayer.maxMeleeDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
 
         labelRateOfFireValue.setAlignment(Align.topRight);
         labelAmmoDamageValue.setAlignment(Align.topRight);
@@ -406,7 +377,6 @@ public class BackpackHud extends AbstractHud {
         labelMagazineSizeValue.setAlignment(Align.topRight);
         labelReloadTimeValue.setAlignment(Align.topRight);
         labelWeightValue.setAlignment(Align.topRight);
-        labelMeleeDamageValue.setAlignment(Align.topRight);
 
         tableWeaponInfoBox = createBasicInfoBox();
 
@@ -416,9 +386,8 @@ public class BackpackHud extends AbstractHud {
         tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, labelMagazineSizeLevelTitle, labelMagazineSizeLevel, labelMagazineSizeMaxLevel, progressBarMagazineSize);
         tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, labelReloadTimeLevelTitle, labelReloadTimeLevel, labelReloadTimeMaxLevel, progressBarReloadTime);
         tableWeight = createRow(labelWeightTitle, labelWeightValue, labelWeightUnit, labelWeightLevelTitle, labelWeightLevel, labelWeightMaxLevel, progressBarWeight);
-        tableMeleeDamage = createRow(labelMeleeDamageTitle, labelMeleeDamageValue, labelMeleeDamageUnit, labelMeleeDamageLevelTitle, labelMeleeDamageLevel, labelMeleeDamageMaxLevel, progressBarMeleeDamage);
 
-        buttonWeapons = new Array<TableWithID>();
+        buttonWeapons = new Array<TextButtonWithID>();
         tableWeaponButtons = new Table();
 
         ScrollPane scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
