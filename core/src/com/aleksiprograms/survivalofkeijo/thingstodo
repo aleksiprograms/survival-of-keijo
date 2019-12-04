@@ -14,8 +14,6 @@ DONE -building-enemy-emitter
 DONE -sky-blue
 OK -person-player                 *animations when player die
 OK -person-enemy
--weapon-knife-player              *hit animations
--weapon-knife-enemy               *hit animations
 DONE -weapon-pistol-player
 DONE -weapon-pistol-enemy
 DONE -weapon-assault-rifle-player

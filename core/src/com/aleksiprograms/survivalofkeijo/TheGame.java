@@ -108,6 +108,8 @@ public class TheGame extends Game {
 	public void loadAssets() {
 		assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
 		assetManager.load(Constants.LEVEL_001, Model.class);
+		assetManager.load(Constants.LEVEL_002, Model.class);
+		assetManager.load(Constants.LEVEL_003, Model.class);
 		assetManager.load(Constants.MODEL_PERSON_PLAYER, Model.class);
 		assetManager.load(Constants.MODEL_PERSON_ENEMY, Model.class);
 		assetManager.load(Constants.MODEL_WEAPON_PISTOL_PLAYER, Model.class);
@@ -125,6 +127,17 @@ public class TheGame extends Game {
 		assetManager.load(Constants.MODEL_WALKABLE_GROUND_V11, Model.class);
 		assetManager.load(Constants.MODEL_WALKABLE_GROUND_TOP, Model.class);
 		assetManager.load(Constants.MODEL_WALKABLE_GRASS, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_ROCK_H10, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_ROCK_V5, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_ROCK_V11, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_ROCK_TOP, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_ROCK_SURFACE, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_SNOW_H10, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_SNOW_V5, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_SNOW_V11, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_SNOW_TOP, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_SNOW_SURFACE, Model.class);
+		assetManager.load(Constants.MODEL_WALKABLE_ICE, Model.class);
 
 		particleEffectManager = new ParticleEffectManager(this);
 		PointSpriteParticleBatch pointSpriteParticleBatch = new PointSpriteParticleBatch();

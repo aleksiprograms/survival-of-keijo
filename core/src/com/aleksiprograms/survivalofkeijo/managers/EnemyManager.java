@@ -13,7 +13,7 @@ public class EnemyManager {
     public boolean inTheBeginningOfNewWave;
     public Array<EnemyEmitter> enemyEmitters;
     public int emitEnemyFrom;
-    public int[] emitEnemyFromPrevious = new int[2];
+    public int emitEnemyFromPrevious = -1;
     public int emitEnemyFromIterations;
     public int enemiesInWorld;
     public int maxEnemiesInWorld;
@@ -60,7 +60,7 @@ public class EnemyManager {
                         emitEnemyFromIterations = 0;
                         while (true) {
                             emitEnemyFromIterations++;
-                            if (emitEnemyFrom == emitEnemyFromPrevious[0] && emitEnemyFrom == emitEnemyFromPrevious[1]) {
+                            if (emitEnemyFrom == emitEnemyFromPrevious) {
                                 if (emitEnemyFromIterations > 5) {
                                     emitEnemyFrom = emitEnemyFrom == 0 ? 1 : 0;
                                     break;
@@ -68,8 +68,7 @@ public class EnemyManager {
                                     emitEnemyFrom = MathUtils.random(0, enemyEmitters.size - 1);
                                 }
                             } else {
-                                emitEnemyFromPrevious[0] = emitEnemyFromPrevious[1];
-                                emitEnemyFromPrevious[1] = emitEnemyFrom;
+                                emitEnemyFromPrevious = emitEnemyFrom;
                                 break;
                             }
                         }
@@ -101,8 +100,7 @@ public class EnemyManager {
 
     public void init() {
         wave = 0;
-        emitEnemyFromPrevious[0] = -1;
-        emitEnemyFromPrevious[1] = -1;
+        emitEnemyFromPrevious = -1;
         initNewWave();
     }
 

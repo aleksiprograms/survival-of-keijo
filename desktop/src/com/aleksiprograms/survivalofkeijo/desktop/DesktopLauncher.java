@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.x = 50;
 		config.y = 50;
 		config.samples = 8;
+		config.title = "Survival of Keijo";
 		new LwjglApplication(new TheGame(), config);
 	}
 }

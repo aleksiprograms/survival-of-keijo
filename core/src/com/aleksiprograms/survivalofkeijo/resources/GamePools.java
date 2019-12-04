@@ -11,11 +11,22 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Bulle
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CaseEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CasePlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundTop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Ice;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockH10;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockSurface;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockTop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockV11;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockV5;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Sky;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Grass;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH10;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV11;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV5;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowH10;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowSurface;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowTop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowV11;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowV5;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Enemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Player;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.BigAreaObject;
@@ -59,6 +70,17 @@ public class GamePools {
     public Pool<GroundV11> groundV11Pool;
     public Pool<GroundTop> groundTopPool;
     public Pool<Grass> grassPool;
+    public Pool<RockH10> rockH10Pool;
+    public Pool<RockV5> rockV5Pool;
+    public Pool<RockV11> rockV11Pool;
+    public Pool<RockTop> rockTopPool;
+    public Pool<RockSurface> rockSurfacePool;
+    public Pool<SnowH10> snowH10Pool;
+    public Pool<SnowV5> snowV5Pool;
+    public Pool<SnowV11> snowV11Pool;
+    public Pool<SnowTop> snowTopPool;
+    public Pool<SnowSurface> snowSurfacePool;
+    public Pool<Ice> icePool;
     public Pool<BulletPlayer> bulletPlayerPool;
     public Pool<BulletEnemy> bulletEnemyPool;
     public Pool<CasePlayer> casePlayerPool;
@@ -218,6 +240,83 @@ public class GamePools {
             @Override
             protected Grass newObject() {
                 return new Grass(game);
+            }
+        };
+
+        rockH10Pool = new Pool<RockH10>(5, 50) {
+            @Override
+            protected RockH10 newObject() {
+                return new RockH10(game);
+            }
+        };
+
+        rockV5Pool = new Pool<RockV5>(5, 50) {
+            @Override
+            protected RockV5 newObject() {
+                return new RockV5(game);
+            }
+        };
+
+        rockV11Pool = new Pool<RockV11>(5, 50) {
+            @Override
+            protected RockV11 newObject() {
+                return new RockV11(game);
+            }
+        };
+
+        rockTopPool = new Pool<RockTop>(1, 2) {
+            @Override
+            protected RockTop newObject() {
+                return new RockTop(game);
+            }
+        };
+
+        rockSurfacePool = new Pool<RockSurface>(5, 100) {
+            @Override
+            protected RockSurface newObject() {
+                return new RockSurface(game);
+            }
+        };
+
+        snowH10Pool = new Pool<SnowH10>(5, 50) {
+            @Override
+            protected SnowH10 newObject() {
+                return new SnowH10(game);
+            }
+        };
+
+        snowV5Pool = new Pool<SnowV5>(5, 50) {
+            @Override
+            protected SnowV5 newObject() {
+                return new SnowV5(game);
+            }
+        };
+
+        snowV11Pool = new Pool<SnowV11>(5, 50) {
+            @Override
+            protected SnowV11 newObject() {
+                return new SnowV11(game);
+            }
+        };
+
+        snowTopPool = new Pool<SnowTop>(1, 2) {
+            @Override
+            protected SnowTop newObject() {
+                return new SnowTop(game);
+            }
+        };
+
+        snowSurfacePool = new Pool<SnowSurface>(5, 100) {
+            @Override
+            protected SnowSurface newObject() {
+                return new SnowSurface(game);
+            }
+        };
+
+        icePool = new Pool<Ice>(5, 100) {
+            @Override
+            protected Ice newObject() {
+                return new Ice(game);
             }
         };
 

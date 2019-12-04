@@ -13,7 +13,7 @@ public abstract class SolidObject extends PhysicalObject {
         super(game, modelInstance, shape,
                 new BodyDef.BodyDefBuilder()
                         .mass(0)
-                        .friction(0.3f)
+                        .friction(0.2f)
                         .categoryBits(Constants.CATEGORY_SOLID)
                         .maskBits(Constants.MASK_SOLID)
                         .useMotionState(false)

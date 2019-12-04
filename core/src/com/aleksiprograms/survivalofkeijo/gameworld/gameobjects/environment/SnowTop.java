@@ -5,12 +5,12 @@ import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
-public class GroundTop extends Top {
+public class SnowTop extends Top {
 
-    public GroundTop(TheGame game) {
+    public SnowTop(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_GROUND_TOP, Model.class)));
+                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_SNOW_TOP, Model.class)));
 
         rigidBody.userData = this;
     }

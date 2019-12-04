@@ -2,19 +2,17 @@ package com.aleksiprograms.survivalofkeijo.screens;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.toolbox.LevelInfo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -22,23 +20,18 @@ import com.badlogic.gdx.utils.I18NBundle;
 public class MainMenuScreen extends AbstractScreen {
 
     private Label labelScreenTitle;
-    private LevelInfo[] levelInfos;
-    private Table[] btLevel = new Table[Constants.NUMBER_OF_LEVELS];
 
-    class LevelData {
-        Label labelScore;
-        Label labelDistance;
-        Image imageStar1;
-        Image imageStar2;
-        Image imageStar3;
+    class TableLevelStructure {
+        Label title;
+        TextButton buttonNewGame;
+        TextButton buttonContinue;
     }
-    private LevelData[] levelData = new LevelData[Constants.NUMBER_OF_LEVELS];
+    private TableLevelStructure[] tableLevelStructure = new TableLevelStructure[Constants.NUMBER_OF_LEVELS];
 
     public MainMenuScreen(TheGame game) {
         super(game);
-        levelInfos = game.levelManager.getLevelInfos();
-        for (int i = 0; i < 3; i++) {
-            levelData[i] = new LevelData();
+        for (int i = 0; i < Constants.NUMBER_OF_LEVELS; i++) {
+            tableLevelStructure[i] = new TableLevelStructure();
         }
         initializeScreen();
     }
@@ -55,6 +48,12 @@ public class MainMenuScreen extends AbstractScreen {
     public void updateScreen() {
         super.updateScreen();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleMainMenu"));
+        for (int i = 0; i < tableLevelStructure.length; i++) {
+            tableLevelStructure[i].title.setText(game.levelManager.getArrayLevelData()[i].name);
+            tableLevelStructure[i].buttonNewGame.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonNewGame"));
+            tableLevelStructure[i].buttonContinue.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonContinue"));
+            tableLevelStructure[i].buttonContinue.setDisabled(true);
+        }
     }
 
     private void initializeScreen() {
@@ -70,7 +69,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         Table tableLevels = new Table();
         for (int i = 0; i < Constants.NUMBER_OF_LEVELS; i++) {
-            tableLevels.add(initLevelTable(levelInfos[i], i)).align(Align.center).width(Constants.LEVEL_BUTTON_WIDTH).height(Constants.LEVEL_BUTTON_HEIGHT).padRight(i < Constants.NUMBER_OF_LEVELS - 1 ? Constants.GAP : 0).padBottom(Constants.GAP);
+            tableLevels.add(initLevelTable(tableLevelStructure[i], i)).align(Align.center).width(Constants.LEVEL_BUTTON_WIDTH).height(Constants.LEVEL_BUTTON_HEIGHT).padRight(i < Constants.NUMBER_OF_LEVELS - 1 ? Constants.GAP : 0).padBottom(Constants.GAP);
         }
 
         ScrollPane scrollPaneLevels = new ScrollPane(tableLevels, game.styles.scrollPaneStyle);
@@ -151,81 +150,55 @@ public class MainMenuScreen extends AbstractScreen {
         });
     }
 
-    private Table initLevelTable(final LevelInfo levelInfo, final int index) {
-        /*Table tableTop = new Table();
-        tableTop.sky(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
-        Label labelTitle = new Label(levelInfo.nameID, gameBAS.styles.skinLabelTitle2);
-        tableTop.add(labelTitle).expandX().align(Align.center);
-
-        Image imageBackground = new Image(new TextureRegionDrawable(gameBAS.getTextureRegionByID(Constants.TEX_SRC_RECTANGLE_BLACK)));
-        Image imageGameMode = new Image(new TextureRegionDrawable(gameBAS.getTextureRegionByID(levelInfo.imageName)));
-        Table tableImage = new Table();
-        tableImage.add(imageGameMode).width(300).height(150).expand().align(Align.bottom);
-        Table tableInfo = new Table();
-        tableInfo.setWidth(310);
-        tableInfo.setHeight(380);
-        Image imageScore = new Image();
-        imageScore.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_SCORE))));
-        levelData[index].labelScore = new Label("0", gameBAS.styles.skinLabelNumberText);
-        Image imageDistance = new Image();
-        imageDistance.setDrawable(new TextureRegionDrawable(new TextureRegion(gameBAS.getTextureRegionByID(Constants.TEX_SRC_DISTANCE))));
-        levelData[index].labelDistance = new Label("0", gameBAS.styles.skinLabelNumberText);
-        levelData[index].imageStar1 = new Image();
-        levelData[index].imageStar2 = new Image();
-        levelData[index].imageStar3 = new Image();
-
-        Table tableScore = new Table();
-        tableScore.add(imageScore).width(levelData[index].labelScore.getHeight()).height(levelData[index].labelScore.getHeight());
-        tableScore.add(levelData[index].labelScore).padLeft(10);
-        Table tableDistance = new Table();
-        tableDistance.add(imageDistance).width(levelData[index].labelScore.getHeight()).height(levelData[index].labelScore.getHeight());
-        tableDistance.add(levelData[index].labelDistance).padLeft(10);
-        Table tableStars = new Table();
-        tableStars.add(levelData[index].imageStar1).width(levelData[index].labelScore.getHeight()).height(levelData[index].labelScore.getHeight());
-        tableStars.add(levelData[index].imageStar2).padLeft(2).width(levelData[index].labelScore.getHeight()).height(levelData[index].labelScore.getHeight());
-        tableStars.add(levelData[index].imageStar3).padLeft(2).width(levelData[index].labelScore.getHeight()).height(levelData[index].labelScore.getHeight());
-
-        tableInfo.add(tableScore).align(Align.top).padTop(30).expandX();
-        tableInfo.row();
-        tableInfo.add(tableDistance).align(Align.top).padTop(10).expandX();
-        tableInfo.row();
-        tableInfo.add(tableStars).align(Align.top).padTop(10).expand();
-        Stack stackInfo = new Stack();
-        stackInfo.add(imageBackground);
-        stackInfo.add(tableImage);
-        stackInfo.add(tableInfo);
-*/
-        btLevel[index] = new Table();
-        btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
-        btLevel[index].setTouchable(Touchable.enabled);
-        /*btLevel[index].add(tableTop).height(70).fill().expandX();
-        btLevel[index].row();
-        btLevel[index].add(stackInfo).align(Align.center).width(300).height(380).padTop(10);
-*/
-        btLevel[index].addListener(new InputListener() {
+    private Table initLevelTable(final TableLevelStructure tableLevelStructure, final int index) {
+        Label labelTitle = new Label("", game.styles.labelStyleWhiteBig);
+        final TextButton buttonNewGame = new TextButton("", game.styles.textButtonStyleOrange);
+        final TextButton buttonContinue = new TextButton("", game.styles.textButtonStyleOrange);
+        Table tableButtons = new Table();
+        tableButtons.add(buttonNewGame).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom).padRight(Constants.GAP);
+        tableButtons.add(buttonContinue).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.bottom);
+        Table tableLevel = new Table();
+        tableLevel.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
+        tableLevel.add(labelTitle).align(Align.left).expandX().pad(Constants.GAP);
+        tableLevel.row();
+        tableLevel.add(tableButtons).align(Align.bottom).expandY().pad(Constants.GAP);
+        buttonNewGame.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
                 return true;
             }
 
             @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if(!(y > 0 && y < btLevel[index].getHeight()) || !(x > 0 && x < btLevel[index].getWidth())) {
-                    btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (y > 0 && y < buttonNewGame.getHeight() && x > 0 && x < buttonNewGame.getWidth()) {
+                    game.levelManager.currentLevel = index + 1;
+                    game.gameScreen.updateScreen();
+                    game.setScreen(game.gameScreen);
                 }
+            }
+        });
+        buttonContinue.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (y > 0 && y < btLevel[index].getHeight() && x > 0 && x < btLevel[index].getWidth()) {
-                    //gameBAS.gameMode = levelInfo;
-                    game.gameScreen.updateScreen();
-                    game.setScreen(game.gameScreen);
+                if (y > 0 && y < buttonContinue.getHeight() && x > 0 && x < buttonContinue.getWidth()) {
+                    if (buttonContinue.isDisabled()) {
+                        game.alertManager.showPopup("NO previously saved game found.");
+                    } else {
+                        game.levelManager.currentLevel = index + 1;
+                        game.gameScreen.updateScreen();
+                        game.setScreen(game.gameScreen);
+                    }
                 }
-                btLevel[index].background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
             }
         });
-        return btLevel[index];
+        tableLevelStructure.title = labelTitle;
+        tableLevelStructure.buttonNewGame = buttonNewGame;
+        tableLevelStructure.buttonContinue = buttonContinue;
+        return tableLevel;
     }
 }

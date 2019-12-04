@@ -21,7 +21,7 @@ public class Constants {
     public static final int VIRTUAL_HEIGHT    = 1080;
     public static final String SAVED_DATA_FILE_NAME = "saveddata.json";
 
-    public static final int NUMBER_OF_LEVELS  = 6;
+    public static final int NUMBER_OF_LEVELS  = 3;
     public static final int NUMBER_OF_WEAPONS = 6;
 
     public static final int UI_WEAPONS_IN_ROW = 3;
@@ -54,8 +54,8 @@ public class Constants {
     public static final int PROGRESS_BAR_MIN_WIDTH      = SCROLL_PANE_THICKNESS;
     public static final int PROGRESS_BAR_HEIGHT         = SCROLL_PANE_THICKNESS;
     public static final int PROGRESS_BAR_DATA_THICKNESS = 20;
+    public static final int LEVEL_BUTTON_WIDTH          = 2 * TEXT_BUTTON_WIDTH + 3 * GAP;
     public static final int LEVEL_BUTTON_HEIGHT         = VIRTUAL_HEIGHT - 4 * GAP - SCROLL_PANE_THICKNESS - TABLE_TOP_HEIGHT;
-    public static final int LEVEL_BUTTON_WIDTH          = (int)(LEVEL_BUTTON_HEIGHT * 3f/4f);
     public static final int TEXT_RIGHT_GAP              = 25;
     public static final int TEXT_BOTTOM_GAP             = 10;
 
@@ -103,6 +103,17 @@ public class Constants {
     public static final String MODEL_WALKABLE_GROUND_V11         = "models/walkable-ground-v11.g3db";
     public static final String MODEL_WALKABLE_GROUND_TOP         = "models/walkable-ground-top.g3db";
     public static final String MODEL_WALKABLE_GRASS              = "models/walkable-grass.g3db";
+    public static final String MODEL_WALKABLE_ROCK_H10           = "models/walkable-rock-h10.g3db";
+    public static final String MODEL_WALKABLE_ROCK_V5            = "models/walkable-rock-v5.g3db";
+    public static final String MODEL_WALKABLE_ROCK_V11           = "models/walkable-rock-v11.g3db";
+    public static final String MODEL_WALKABLE_ROCK_TOP           = "models/walkable-rock-top.g3db";
+    public static final String MODEL_WALKABLE_ROCK_SURFACE       = "models/walkable-rock-surface.g3db";
+    public static final String MODEL_WALKABLE_SNOW_H10           = "models/walkable-snow-h10.g3db";
+    public static final String MODEL_WALKABLE_SNOW_V5            = "models/walkable-snow-v5.g3db";
+    public static final String MODEL_WALKABLE_SNOW_V11           = "models/walkable-snow-v11.g3db";
+    public static final String MODEL_WALKABLE_SNOW_TOP           = "models/walkable-snow-top.g3db";
+    public static final String MODEL_WALKABLE_SNOW_SURFACE       = "models/walkable-snow-surface.g3db";
+    public static final String MODEL_WALKABLE_ICE                = "models/walkable-ice.g3db";
     public static final String MODEL_SKY_BLUE                    = "models/sky-blue.g3db";
     public static final String MODEL_BUILDING_ENEMY_EMITTER      = "models/building-enemy-emitter.g3db";
     public static final String MODEL_WEAPON_PISTOL_PLAYER        = "models/weapon-pistol-player.g3db";
@@ -115,6 +126,8 @@ public class Constants {
     public static final String MODEL_AMMUNITION_CASE_ENEMY       = "models/ammunition-case-enemy.g3db";
 
     public static final String LEVEL_001 = "levels/level-001.g3db";
+    public static final String LEVEL_002 = "levels/level-002.g3db";
+    public static final String LEVEL_003 = "levels/level-003.g3db";
 
     public static final String TEXTURE_ATLAS                           = "textures/texture-atlas.atlas";
     public static final String TEXTURE_ATLAS_LOADING                   = "textures/texture-atlas-loading.atlas";
@@ -170,6 +183,10 @@ public class Constants {
 
     public static final String PFX_AMMUNITION_GROUND_HIT_128PX = "effects/ammunition-hit-ground-128px.pfx";
     public static final String PFX_AMMUNITION_GRASS_HIT_128PX  = "effects/ammunition-hit-grass-128px.pfx";
+
+    public static final int LEVEL_001_ID = 1;
+    public static final int LEVEL_002_ID = 2;
+    public static final int LEVEL_003_ID = 3;
 
     public static final int HANDS_ID           = -1;
     public static final int PISTOL_ID          = 0;

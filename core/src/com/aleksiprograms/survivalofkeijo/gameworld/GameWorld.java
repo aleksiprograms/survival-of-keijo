@@ -5,6 +5,12 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.EnemyEm
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Building;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles.Coin;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundTop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Ice;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockH10;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockSurface;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockTop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockV11;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockV5;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Shop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletPlayer;
@@ -15,6 +21,14 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Gras
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH10;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV11;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV5;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowH10;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowSurface;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowTop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowV11;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowV5;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Surface;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SurfaceComplex;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Top;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyDropObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.DeadAreaObject;
@@ -51,6 +65,7 @@ import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.badlogic.gdx.physics.bullet.Bullet;
 import com.badlogic.gdx.physics.bullet.DebugDrawer;
 import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 import com.badlogic.gdx.physics.bullet.collision.btBroadphaseInterface;
@@ -172,11 +187,11 @@ public class GameWorld {
         weaponManagerEnemy = new WeaponManager();
     }
 
-    public void createWorld() {
+    public void createWorld(int levelID) {
         paused = false;
         weaponManagerPlayer.reset();
         weaponManagerEnemy.reset();
-        createObjects();
+        createObjects(levelID);
         modelCacheLevel.begin();
         modelCacheLevel.add(allLevelObjects);
         modelCacheLevel.end();
@@ -235,7 +250,7 @@ public class GameWorld {
         game.particleEffectManager.clear();
     }
 
-    public void updateAndRenderGameWorld(
+    public void updateAndRender(
             float deltaTime,
             PerspectiveCamera camera,
             ModelBatch modelBatch) {
@@ -511,6 +526,28 @@ public class GameWorld {
             game.gamePools.groundTopPool.free((GroundTop) renderableObject);
         } else if (renderableObject instanceof Grass) {
             game.gamePools.grassPool.free((Grass) renderableObject);
+        } else if (renderableObject instanceof RockH10) {
+            game.gamePools.rockH10Pool.free((RockH10) renderableObject);
+        } else if (renderableObject instanceof RockV5) {
+            game.gamePools.rockV5Pool.free((RockV5) renderableObject);
+        } else if (renderableObject instanceof RockV11) {
+            game.gamePools.rockV11Pool.free((RockV11) renderableObject);
+        } else if (renderableObject instanceof RockTop) {
+            game.gamePools.rockTopPool.free((RockTop) renderableObject);
+        } else if (renderableObject instanceof RockSurface) {
+            game.gamePools.rockSurfacePool.free((RockSurface) renderableObject);
+        } else if (renderableObject instanceof SnowH10) {
+            game.gamePools.snowH10Pool.free((SnowH10) renderableObject);
+        } else if (renderableObject instanceof SnowV5) {
+            game.gamePools.snowV5Pool.free((SnowV5) renderableObject);
+        } else if (renderableObject instanceof SnowV11) {
+            game.gamePools.snowV11Pool.free((SnowV11) renderableObject);
+        } else if (renderableObject instanceof SnowTop) {
+            game.gamePools.snowTopPool.free((SnowTop) renderableObject);
+        } else if (renderableObject instanceof SnowSurface) {
+            game.gamePools.snowSurfacePool.free((SnowSurface) renderableObject);
+        } else if (renderableObject instanceof Ice) {
+            game.gamePools.icePool.free((Ice) renderableObject);
         } else if (renderableObject instanceof EnemyEmitter) {
             game.gamePools.enemyEmitterPool.free((EnemyEmitter) renderableObject);
         } else if (renderableObject instanceof Coin) {
@@ -520,10 +557,19 @@ public class GameWorld {
         }
     }
 
-    private void createObjects() {
-        levelNumber = 1;
+    private void createObjects(int levelID) {
+        //levelNumber = 3;
         numberOfBigAreas = 0;
-        if (levelNumber == 1) {
+        if (levelID == Constants.LEVEL_001_ID) {
+            levelModel = game.assetManager.get(Constants.LEVEL_001, Model.class);
+            numberOfBigAreas = 7;
+        } else if (levelID == Constants.LEVEL_002_ID) {
+            levelModel = game.assetManager.get(Constants.LEVEL_002, Model.class);
+            numberOfBigAreas = 7;
+        } else if (levelID == Constants.LEVEL_003_ID) {
+            levelModel = game.assetManager.get(Constants.LEVEL_003, Model.class);
+            numberOfBigAreas = 7;
+        } else {
             levelModel = game.assetManager.get(Constants.LEVEL_001, Model.class);
             numberOfBigAreas = 7;
         }
@@ -534,7 +580,7 @@ public class GameWorld {
         }
         player = game.gamePools.playerPool.obtain();
         player.init(0, 0.9f, 0, 0);
-        player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
+        player.addWeapon(game.gamePools.pistolPlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID), player, null, true);
 
         //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
         //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);
@@ -558,9 +604,6 @@ public class GameWorld {
             if (id.toLowerCase().contains("ground-h10")) {
                 allLevelObjects.add(game.gamePools.groundH10Pool.obtain());
                 ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
-        /*if (physicalObject instanceof Ground) {
-            physicalObject.materials.get(0).set(ColorAttribute.createDiffuse(new Color(0xffffffff)));
-        }*/
             } else if (id.toLowerCase().contains("ground-v5")) {
                 allLevelObjects.add(game.gamePools.groundV5Pool.obtain());
                 ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
@@ -568,31 +611,65 @@ public class GameWorld {
                 allLevelObjects.add(game.gamePools.groundV11Pool.obtain());
                 ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
             } else if (id.toLowerCase().contains("ground-top")) {
-                String string = "";
-                int index = 11;
-                while (index < id.toLowerCase().length()) {
-                    if (Character.isDigit(id.toLowerCase().charAt(index))) {
-                        string += id.toLowerCase().charAt(index);
-                        index++;
-                    } else {
-                        break;
-                    }
-                }
+                Pattern pattern = Pattern.compile("[0-9]+");
+                Matcher matcher = pattern.matcher(id.toLowerCase());
+                int widthFactor = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
                 allLevelObjects.add(game.gamePools.groundTopPool.obtain());
-                ((GroundTop)allLevelObjects.peek()).init(x, y, z, Integer.valueOf(string));
+                ((Top)allLevelObjects.peek()).init(x, y, z, widthFactor);
             } else if (id.toLowerCase().contains("grass")) {
-                String string = "";
-                int index = 6;
-                while (index < id.toLowerCase().length()) {
-                    if (Character.isDigit(id.toLowerCase().charAt(index))) {
-                        string += id.toLowerCase().charAt(index);
-                        index++;
-                    } else {
-                        break;
-                    }
-                }
+                Pattern pattern = Pattern.compile("[0-9]+");
+                Matcher matcher = pattern.matcher(id.toLowerCase());
+                int widthFactor = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
                 allLevelObjects.add(game.gamePools.grassPool.obtain());
-                ((Grass)allLevelObjects.peek()).init(x, y, z, Integer.valueOf(string));
+                ((Surface)allLevelObjects.peek()).init(x, y, z, widthFactor);
+            } else if (id.toLowerCase().contains("rock-h10")) {
+                allLevelObjects.add(game.gamePools.rockH10Pool.obtain());
+                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
+            } else if (id.toLowerCase().contains("rock-v5")) {
+                allLevelObjects.add(game.gamePools.rockV5Pool.obtain());
+                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
+            } else if (id.toLowerCase().contains("rock-v11")) {
+                allLevelObjects.add(game.gamePools.rockV11Pool.obtain());
+                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
+            } else if (id.toLowerCase().contains("rock-top")) {
+                Pattern pattern = Pattern.compile("[0-9]+");
+                Matcher matcher = pattern.matcher(id.toLowerCase());
+                int widthFactor = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
+                allLevelObjects.add(game.gamePools.rockTopPool.obtain());
+                ((Top)allLevelObjects.peek()).init(x, y, z, widthFactor);
+            } else if (id.toLowerCase().contains("rock-surface")) {
+                Pattern pattern = Pattern.compile("[0-9]+");
+                Matcher matcher = pattern.matcher(id.toLowerCase());
+                int widthFactor = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
+                allLevelObjects.add(game.gamePools.rockSurfacePool.obtain());
+                ((Surface)allLevelObjects.peek()).init(x, y, z, widthFactor);
+            } else if (id.toLowerCase().contains("snow-h10")) {
+                allLevelObjects.add(game.gamePools.snowH10Pool.obtain());
+                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
+            } else if (id.toLowerCase().contains("snow-v5")) {
+                allLevelObjects.add(game.gamePools.snowV5Pool.obtain());
+                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
+            } else if (id.toLowerCase().contains("snow-v11")) {
+                allLevelObjects.add(game.gamePools.snowV11Pool.obtain());
+                ((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);
+            } else if (id.toLowerCase().contains("snow-top")) {
+                Pattern pattern = Pattern.compile("[0-9]+");
+                Matcher matcher = pattern.matcher(id.toLowerCase());
+                int widthFactor = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
+                allLevelObjects.add(game.gamePools.snowTopPool.obtain());
+                ((Top)allLevelObjects.peek()).init(x, y, z, widthFactor);
+            } else if (id.toLowerCase().contains("snow-surface")) {
+                Pattern pattern = Pattern.compile("[0-9]+");
+                Matcher matcher = pattern.matcher(id.toLowerCase());
+                int widthFactor = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
+                allLevelObjects.add(game.gamePools.snowSurfacePool.obtain());
+                ((SurfaceComplex)allLevelObjects.peek()).init(x, y, z, widthFactor, Bullet.obtainStaticNodeShape(modelInstance.nodes));
+            } else if (id.toLowerCase().contains("ice")) {
+                Pattern pattern = Pattern.compile("[0-9]+");
+                Matcher matcher = pattern.matcher(id.toLowerCase());
+                int widthFactor = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
+                allLevelObjects.add(game.gamePools.icePool.obtain());
+                ((SurfaceComplex)allLevelObjects.peek()).init(x, y, z, widthFactor, Bullet.obtainStaticNodeShape(modelInstance.nodes));
             } else if (id.toLowerCase().contains("shop")) {
                 //allLevelObjects.add(new Shop(game));
                 //((PhysicalObject)allLevelObjects.peek()).init(x, y, z, 0);

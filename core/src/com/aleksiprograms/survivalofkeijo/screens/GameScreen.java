@@ -55,7 +55,7 @@ public class GameScreen extends AbstractScreen {
             game.cameraGame.position.y = game.gameWorld.player.rigidBody.getCenterOfMassPosition().y + 0.75f;
         }
         game.cameraGame.update();
-        game.gameWorld.updateAndRenderGameWorld(deltaTime, game.cameraGame, game.modelBatch);
+        game.gameWorld.updateAndRender(deltaTime, game.cameraGame, game.modelBatch);
         //game.spriteBatch.begin();
         //game.spriteBatch.end();
         game.spriteBatch.setProjectionMatrix(stage.getCamera().combined);
@@ -101,7 +101,7 @@ public class GameScreen extends AbstractScreen {
         super.updateScreen();
         currentGameState = GameState.IN_GAME;
         previousGameState = GameState.IN_GAME;
-        game.gameWorld.createWorld();
+        game.gameWorld.createWorld(game.levelManager.currentLevel);
         stage.addActor(inGameHud);
         inGameHud.updateHud();
         game.cameraGame.position.set(0, 0, 8);

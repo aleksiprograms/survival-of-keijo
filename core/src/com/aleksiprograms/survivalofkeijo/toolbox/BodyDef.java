@@ -36,11 +36,11 @@ public class BodyDef {
         private boolean lockAxisZ;
 
         public BodyDefBuilder() {
-            mass = 1;
-            friction = 0;
-            restitution = 0;
-            linearDamping = 0;
-            angularDamping = 0;
+            mass = 1f;
+            friction = 0f;
+            restitution = 0f;
+            linearDamping = 0f;
+            angularDamping = 0f;
             categoryBits = 0;
             maskBits = 0;
             useMotionState = true;

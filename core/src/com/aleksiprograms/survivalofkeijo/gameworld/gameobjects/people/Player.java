@@ -2,8 +2,10 @@ package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.data.WeaponData;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Ice;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Shop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.PhysicalObject;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SolidObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.BigAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Weapon;
@@ -53,6 +55,10 @@ public class Player extends Person {
     private boolean downButtonPressed;
     private boolean reloadButtonPressed;
     private boolean inAir;
+    private float highestYPositionWhileOnAir;
+    private boolean onIce;
+    private Vector3 forceOnIce;
+    private boolean headHit;
     private boolean canMoveRight;
     private boolean canMoveLeft;
     private boolean lockUpMovement;
@@ -78,6 +84,7 @@ public class Player extends Person {
                 new BodyDef.BodyDefBuilder()
                         .mass(80)
                         .linearDamping(0.1f)
+                        .friction(0.3f)
                         .categoryBits(Constants.CATEGORY_PLAYER)
                         .maskBits(Constants.MASK_PLAYER)
                         .useMotionState(false)
@@ -130,6 +137,9 @@ public class Player extends Person {
         maxHealth = 1000;
         bodyState = BodyState.STAND;
         animationController.setAnimation("Armature|stand", -1);
+        game.gameWorld.dynamicsWorld.removeRigidBody(rigidBody);
+        rigidBody.setCollisionShape(shapeStand);
+        game.gameWorld.dynamicsWorld.addRigidBody(rigidBody, bodyDef.categoryBits, bodyDef.maskBits);
         playerBodyToRight = true;
         movingRight = true;
         lookingRight = true;
@@ -138,6 +148,10 @@ public class Player extends Person {
         downButtonPressed = false;
         reloadButtonPressed = false;
         inAir = false;
+        highestYPositionWhileOnAir = -10000f;
+        onIce = false;
+        forceOnIce = new Vector3();
+        headHit = false;
         canMoveRight = true;
         canMoveLeft = true;
         lockUpMovement = true;
@@ -175,7 +189,9 @@ public class Player extends Person {
             canMoveLeftOrRight();
             updateMovement(deltaTime);
             updateWeapon();
-            isInAir();
+            isInAirOrOnIce();
+            checkFallDamage();
+            checkHeadDamage();
         }
     }
 
@@ -372,44 +388,84 @@ public class Player extends Person {
             }
         }
 
-        xVelocity = 4f - (2f * ((game.gameWorld.weaponManagerPlayer.getWeaponData(currentWeapon.weaponData.ID).weight - game.gameWorld.weaponManagerPlayer.minWeight) / (game.gameWorld.weaponManagerPlayer.maxWeight - game.gameWorld.weaponManagerPlayer.minWeight)));
+        xVelocity = 4f - (1f * ((game.gameWorld.weaponManagerPlayer.getWeaponData(currentWeapon.weaponData.ID).weight - game.gameWorld.weaponManagerPlayer.minWeight) / (game.gameWorld.weaponManagerPlayer.maxWeight - game.gameWorld.weaponManagerPlayer.minWeight)));
 
         if (controlManager.buttonRightPressed && canMoveRight) {
             movingRight = true;
             if (!inAir) {
                 setAnimationMovementRight();
             }
-            if (upState.equals(UpState.STAND) || bodyState.equals(BodyState.AIR_STAND)) {
-                velocity.set(xVelocity, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
-            } else if (upState.equals(UpState.CROUCH)) {
-                velocity.set(xVelocity * 0.7f, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
-            } else if (upState.equals(UpState.PRONE)) {
-                velocity.set(xVelocity * 0.4f, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+            if (onIce) {
+                if (upState.equals(UpState.STAND)) {
+                    if (rigidBody.getLinearVelocity().x <= xVelocity * 2f) {
+                        forceOnIce.set(150, 0, 0);
+                        rigidBody.applyCentralForce(forceOnIce);
+                    }
+                } else if (upState.equals(UpState.CROUCH)) {
+                    if (rigidBody.getLinearVelocity().x <= xVelocity * 2f * 0.7f) {
+                        forceOnIce.set(150 * 0.7f, 0, 0);
+                        rigidBody.applyCentralForce(forceOnIce);
+                    }
+                } else if (upState.equals(UpState.PRONE)) {
+                    if (rigidBody.getLinearVelocity().x <= xVelocity * 2f * 0.4f) {
+                        forceOnIce.set(150 * 0.4f, 0, 0);
+                        rigidBody.applyCentralForce(forceOnIce);
+                    }
+                }
+            } else {
+                if (upState.equals(UpState.STAND)) {
+                    velocity.set(xVelocity, rigidBody.getLinearVelocity().y, 0);
+                    rigidBody.setLinearVelocity(velocity);
+                } else if (upState.equals(UpState.CROUCH)) {
+                    velocity.set(xVelocity * 0.7f, rigidBody.getLinearVelocity().y, 0);
+                    rigidBody.setLinearVelocity(velocity);
+                } else if (upState.equals(UpState.PRONE)) {
+                    velocity.set(xVelocity * 0.4f, rigidBody.getLinearVelocity().y, 0);
+                    rigidBody.setLinearVelocity(velocity);
+                }
             }
         } else if (controlManager.buttonLeftPressed && canMoveLeft) {
             movingRight = false;
             if (!inAir) {
                 setAnimationMovementLeft();
             }
-            if (upState.equals(UpState.STAND) || bodyState.equals(BodyState.AIR_STAND)) {
-                velocity.set(-xVelocity, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
-            } else if (upState.equals(UpState.CROUCH)) {
-                velocity.set(-xVelocity * 0.7f, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
-            } else if (upState.equals(UpState.PRONE)) {
-                velocity.set(-xVelocity * 0.4f, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+            if (onIce) {
+                if (upState.equals(UpState.STAND)) {
+                    if (rigidBody.getLinearVelocity().x >= -xVelocity * 2f) {
+                        forceOnIce.set(-150, 0, 0);
+                        rigidBody.applyCentralForce(forceOnIce);
+                    }
+                } else if (upState.equals(UpState.CROUCH)) {
+                    if (rigidBody.getLinearVelocity().x >= -xVelocity * 2f * 0.7f) {
+                        forceOnIce.set(-150 * 0.7f, 0, 0);
+                        rigidBody.applyCentralForce(forceOnIce);
+                    }
+                } else if (upState.equals(UpState.PRONE)) {
+                    if (rigidBody.getLinearVelocity().x >= -xVelocity * 2f * 0.4f) {
+                        forceOnIce.set(-150 * 0.4f, 0, 0);
+                        rigidBody.applyCentralForce(forceOnIce);
+                    }
+                }
+            } else {
+                if (upState.equals(UpState.STAND)) {
+                    velocity.set(-xVelocity, rigidBody.getLinearVelocity().y, 0);
+                    rigidBody.setLinearVelocity(velocity);
+                } else if (upState.equals(UpState.CROUCH)) {
+                    velocity.set(-xVelocity * 0.7f, rigidBody.getLinearVelocity().y, 0);
+                    rigidBody.setLinearVelocity(velocity);
+                } else if (upState.equals(UpState.PRONE)) {
+                    velocity.set(-xVelocity * 0.4f, rigidBody.getLinearVelocity().y, 0);
+                    rigidBody.setLinearVelocity(velocity);
+                }
             }
         } else {
             if (!inAir) {
                 setAnimationNoMovement();
             }
-            velocity.set(0, rigidBody.getLinearVelocity().y, 0);
-            rigidBody.setLinearVelocity(velocity);
+            if (!onIce) {
+                velocity.set(0, rigidBody.getLinearVelocity().y, 0);
+                rigidBody.setLinearVelocity(velocity);
+            }
         }
 
         if (inAir) {
@@ -804,8 +860,9 @@ public class Player extends Person {
         }
     }
 
-    private void isInAir() {
+    private void isInAirOrOnIce() {
         inAir = true;
+        onIce = false;
         if (rigidBody.getLinearVelocity().y <= 0.1f) {
             if (upState.equals(UpState.STAND)) {
                 for (i = -1; i < 2; i++) {
@@ -827,6 +884,9 @@ public class Player extends Person {
                     game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
                     if (movementCallback.hasHit()) {
                         inAir = false;
+                        if (movementCallback.getCollisionObject().userData instanceof Ice) {
+                            onIce = true;
+                        }
                         break;
                     }
                 }
@@ -850,6 +910,9 @@ public class Player extends Person {
                     game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
                     if (movementCallback.hasHit()) {
                         inAir = false;
+                        if (movementCallback.getCollisionObject().userData instanceof Ice) {
+                            onIce = true;
+                        }
                         break;
                     }
                 }
@@ -870,6 +933,9 @@ public class Player extends Person {
                     game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
                     if (movementCallback.hasHit()) {
                         inAir = false;
+                        if (movementCallback.getCollisionObject().userData instanceof Ice) {
+                            onIce = true;
+                        }
                         break;
                     }
                 }
@@ -891,6 +957,47 @@ public class Player extends Person {
             game.gameScreen.stage.clear();
             game.gameScreen.gameOverHud.updateHud();
             game.gameScreen.stage.addActor(game.gameScreen.gameOverHud);
+        }
+    }
+
+    private void checkFallDamage() {
+        if (inAir) {
+            if (rigidBody.getCenterOfMassPosition().y > highestYPositionWhileOnAir) {
+                highestYPositionWhileOnAir = rigidBody.getCenterOfMassPosition().y;
+            }
+        }
+        if (!inAir) {
+            if (highestYPositionWhileOnAir - rigidBody.getCenterOfMassPosition().y >= 5) {
+                onHit(-(int)((highestYPositionWhileOnAir - rigidBody.getCenterOfMassPosition().y - 5) * 50));
+            }
+            highestYPositionWhileOnAir = -10000f;
+        }
+    }
+
+    private void checkHeadDamage() {
+        if (upState.equals(UpState.STAND)) {
+            movementRayFrom.set(
+                    rigidBody.getCenterOfMassPosition().x,
+                    rigidBody.getCenterOfMassPosition().y,
+                    rigidBody.getCenterOfMassPosition().z);
+            movementRayTo.set(
+                    rigidBody.getCenterOfMassPosition().x,
+                    rigidBody.getCenterOfMassPosition().y + 0.9f + 0.05f,
+                    rigidBody.getCenterOfMassPosition().z);
+            movementCallback.setCollisionObject(null);
+            movementCallback.setClosestHitFraction(1);
+            movementCallback.setRayFromWorld(movementRayFrom);
+            movementCallback.setRayToWorld(movementRayTo);
+            game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
+            if (movementCallback.hasHit() && !headHit) {
+                if (movementCallback.getCollisionObject().userData instanceof SolidObject) {
+                    headHit = true;
+                    onHit(-100);
+                }
+            }
+        }
+        if (!inAir) {
+            headHit = false;
         }
     }
 }

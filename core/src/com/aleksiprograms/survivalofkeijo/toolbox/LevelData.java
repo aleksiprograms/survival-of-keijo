@@ -1,12 +1,12 @@
 package com.aleksiprograms.survivalofkeijo.toolbox;
 
-public class LevelInfo {
+public class LevelData {
 
     public int id;
     public String name;
     public String imageName;
 
-    public LevelInfo(
+    public LevelData(
             int id,
             String name,
             String imageName) {
