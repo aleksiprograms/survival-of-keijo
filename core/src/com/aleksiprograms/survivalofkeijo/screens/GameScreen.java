@@ -7,7 +7,6 @@ import com.aleksiprograms.survivalofkeijo.screens.huds.ShopHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.InGameHud;
 import com.aleksiprograms.survivalofkeijo.screens.huds.PausedHud;
 import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
-import com.aleksiprograms.survivalofkeijo.toolbox.UpState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -47,13 +46,7 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
         game.cameraGame.position.x = game.gameWorld.player.rigidBody.getCenterOfMassPosition().x;
-        if (game.gameWorld.player.upState.equals(UpState.STAND)) {
-            game.cameraGame.position.y = game.gameWorld.player.rigidBody.getCenterOfMassPosition().y;
-        } else if (game.gameWorld.player.upState.equals(UpState.CROUCH)) {
-            game.cameraGame.position.y = game.gameWorld.player.rigidBody.getCenterOfMassPosition().y + 0.25f;
-        } else if (game.gameWorld.player.upState.equals(UpState.PRONE)) {
-            game.cameraGame.position.y = game.gameWorld.player.rigidBody.getCenterOfMassPosition().y + 0.75f;
-        }
+        game.cameraGame.position.y = game.gameWorld.player.rigidBody.getCenterOfMassPosition().y;
         game.cameraGame.update();
         game.gameWorld.updateAndRender(deltaTime, game.cameraGame, game.modelBatch);
         //game.spriteBatch.begin();

@@ -81,7 +81,7 @@ public class MainMenuScreen extends AbstractScreen {
         scrollPaneLevels.updateVisualScroll();
         scrollPaneLevels.layout();
 
-        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHugeWithBorder);
         Table tableTop = new Table();
         tableTop.add(stackGameController).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);
         tableTop.add(buttonAchievements).width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).padLeft(Constants.GAP).padRight(Constants.GAP).align(Align.left);

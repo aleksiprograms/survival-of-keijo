@@ -45,12 +45,16 @@ public class Styles {
     private FreeTypeFontGenerator fontGeneratorBold;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
 
-    public Label.LabelStyle labelStyleWhiteHuge;
+    public Label.LabelStyle labelStyleWhiteHugeWithBorder;
     public Label.LabelStyle labelStyleWhiteBig;
+    public Label.LabelStyle labelStyleWhiteBigWithBorder;
     public Label.LabelStyle labelStyleRedBig;
+    public Label.LabelStyle labelStyleRedBigWithBorder;
     public Label.LabelStyle labelStyleWhiteMedium;
     public Label.LabelStyle labelStyleWhiteSmall;
+    public Label.LabelStyle labelStyleWhiteSmallWithBorder;
     public Label.LabelStyle labelStyleRedSmall;
+    public Label.LabelStyle labelStyleRedSmallWithBorder;
     public Label.LabelStyle labelStyleWhiteTiny;
     public Label.LabelStyle labelStyleBlueSmall;
     public Label.LabelStyle labelStyleGreenSmall;
@@ -98,12 +102,16 @@ public class Styles {
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         setLocale();
 
-        labelStyleWhiteHuge = new Label.LabelStyle();
+        labelStyleWhiteHugeWithBorder = new Label.LabelStyle();
         labelStyleWhiteBig = new Label.LabelStyle();
+        labelStyleWhiteBigWithBorder = new Label.LabelStyle();
         labelStyleRedBig = new Label.LabelStyle();
+        labelStyleRedBigWithBorder = new Label.LabelStyle();
         labelStyleWhiteMedium = new Label.LabelStyle();
         labelStyleWhiteSmall = new Label.LabelStyle();
+        labelStyleWhiteSmallWithBorder = new Label.LabelStyle();
         labelStyleRedSmall = new Label.LabelStyle();
+        labelStyleRedSmallWithBorder = new Label.LabelStyle();
         labelStyleWhiteTiny = new Label.LabelStyle();
         labelStyleBlueSmall = new Label.LabelStyle();
         labelStyleGreenSmall = new Label.LabelStyle();
@@ -143,42 +151,49 @@ public class Styles {
         progressBarStyleUpgradeDone = new ProgressBar.ProgressBarStyle();
 
         setStyles();
+
+        fontGeneratorRegular.dispose();
+        fontGeneratorBold.dispose();
     }
 
     public static void dispose() {}
 
     private void setStyles() {
-        setLabelStyle(labelStyleWhiteHuge, false, Constants.TEXT_SIZE_HUGE, colorWhite);
+        setLabelStyle(labelStyleWhiteHugeWithBorder, true, Constants.TEXT_SIZE_HUGE, colorWhite);
         setLabelStyle(labelStyleWhiteBig, false, Constants.TEXT_SIZE_BIG, colorWhite);
+        setLabelStyle(labelStyleWhiteBigWithBorder, true, Constants.TEXT_SIZE_BIG, colorWhite);
         setLabelStyle(labelStyleRedBig, false, Constants.TEXT_SIZE_BIG, colorRed);
+        setLabelStyle(labelStyleRedBigWithBorder, true, Constants.TEXT_SIZE_BIG, colorRed);
         setLabelStyle(labelStyleWhiteMedium, false, Constants.TEXT_SIZE_MEDIUM, colorWhite);
         setLabelStyle(labelStyleWhiteSmall, false, Constants.TEXT_SIZE_SMALL, colorWhite);
+        setLabelStyle(labelStyleWhiteSmallWithBorder, true, Constants.TEXT_SIZE_SMALL, colorWhite);
         setLabelStyle(labelStyleRedSmall, false, Constants.TEXT_SIZE_SMALL, colorRed);
+        setLabelStyle(labelStyleRedSmallWithBorder, true, Constants.TEXT_SIZE_SMALL, colorRed);
         setLabelStyle(labelStyleWhiteTiny, false, Constants.TEXT_SIZE_TINY, colorWhite);
         setLabelStyle(labelStyleBlueSmall, false, Constants.TEXT_SIZE_SMALL, colorLBlue);
         setLabelStyle(labelStyleGreenSmall, false, Constants.TEXT_SIZE_SMALL, colorGreen);
 
         setTextButtonStyle(textButtonStyleOrange,
-                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorOrange, colorOrange, colorDisabled,
+                Constants.TEXT_BUTTON_TEXT_SIZE, colorOrange, colorOrange, colorDisabled,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
         setTextButtonStyle(textButtonStyleGreen,
-                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorGreen, colorGreen, colorDisabled,
+                Constants.TEXT_BUTTON_TEXT_SIZE, colorGreen, colorGreen, colorDisabled,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN_GREEN)));
         setTextButtonStyle(textButtonStyleRed,
-                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorRed, colorRed, colorDisabled,
+                Constants.TEXT_BUTTON_TEXT_SIZE, colorRed, colorRed, colorDisabled,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN_RED)));
         setTextButtonStyle(textButtonStyleNoTexture,
-                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorOrange, colorOrange, colorDisabled);
+                Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorOrange, colorOrange, colorDisabled);
         setTextButtonStyle(textButtonStyleWeapon,
-                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorWhite, colorDisabled,
+                Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorWhite, colorDisabled,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
         setTextButtonStyle(textButtonStyleEnterBuilding,
-                true, Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorWhite, colorDisabled,
+                Constants.TEXT_BUTTON_TEXT_SIZE, colorWhite, colorWhite, colorDisabled,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_EMPTY_UP)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_EMPTY_DOWN)));
 
@@ -239,7 +254,7 @@ public class Styles {
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BAR_FILL)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_SLIDER_KNOB)));
         setCheckBoxStyle(checkBoxStyle,
-                false, Constants.TEXT_SIZE_SMALL, colorWhite,
+                Constants.TEXT_SIZE_SMALL, colorWhite,
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECKBOX_ON)),
                 new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
         setProgressBarStyle(progressBarStyle,
@@ -264,11 +279,16 @@ public class Styles {
 
     private BitmapFont getFont(
             boolean bold,
+            boolean border,
             int fontSize) {
         fontParameter.size = fontSize;
         fontParameter.minFilter = Texture.TextureFilter.Linear;
         fontParameter.magFilter = Texture.TextureFilter.Linear;
-        //fontGeneratorRegular.dispose();
+        if (border) {
+            fontParameter.borderWidth = 5f;
+        } else {
+            fontParameter.borderWidth = 0f;
+        }
         if (bold) {
             return fontGeneratorBold.generateFont(fontParameter);
         } else {
@@ -278,23 +298,22 @@ public class Styles {
 
     private void setLabelStyle(
             Label.LabelStyle labelStyle,
-            boolean bold,
+            boolean stroke,
             int fontSize,
             Color fontColor) {
-        labelStyle.font = getFont(bold, fontSize);
+        labelStyle.font = getFont(false, stroke, fontSize);
         labelStyle.fontColor = fontColor;
     }
 
     private void setTextButtonStyle(
             TextButton.TextButtonStyle textButtonStyle,
-            boolean bold,
             int fontSize,
             Color fontColorUp,
             Color fontColorDown,
             Color fontColorDisabled,
             NinePatchDrawable drawableUp,
             NinePatchDrawable drawableDown) {
-        textButtonStyle.font = getFont(bold, fontSize);
+        textButtonStyle.font = getFont(true, false, fontSize);
         textButtonStyle.fontColor = fontColorUp;
         textButtonStyle.downFontColor = fontColorDown;
         textButtonStyle.disabledFontColor = fontColorDisabled;
@@ -305,7 +324,6 @@ public class Styles {
 
     private void setTextButtonStyle(
             TextButton.TextButtonStyle textButtonStyle,
-            boolean bold,
             int fontSize,
             Color fontColorUp,
             Color fontColorDown,
@@ -313,7 +331,7 @@ public class Styles {
             NinePatchDrawable drawableUp,
             NinePatchDrawable drawableDown,
             NinePatchDrawable drawableChecked) {
-        textButtonStyle.font = getFont(bold, fontSize);
+        textButtonStyle.font = getFont(true, false, fontSize);
         textButtonStyle.fontColor = fontColorUp;
         textButtonStyle.downFontColor = fontColorDown;
         textButtonStyle.disabledFontColor = fontColorDisabled;
@@ -325,13 +343,12 @@ public class Styles {
 
     private void setTextButtonStyle(
             TextButton.TextButtonStyle textButtonStyle,
-            boolean bold,
             int fontSize,
             Color fontColorUp,
             Color fontColorDown,
             Color fontColorChecked,
             Color fontColorDisabled) {
-        textButtonStyle.font = getFont(bold, fontSize);
+        textButtonStyle.font = getFont(true, false, fontSize);
         textButtonStyle.fontColor = fontColorUp;
         textButtonStyle.downFontColor = fontColorDown;
         textButtonStyle.checkedFontColor = fontColorChecked;
@@ -397,14 +414,13 @@ public class Styles {
 
     private void setCheckBoxStyle(
             CheckBox.CheckBoxStyle checkBoxStyle,
-            boolean bold,
             int fontSize,
             Color fontColor,
             NinePatchDrawable checked,
             NinePatchDrawable unchecked) {
         checkBoxStyle.checkboxOff = unchecked;
         checkBoxStyle.checkboxOn = checked;
-        checkBoxStyle.font = getFont(bold, fontSize);
+        checkBoxStyle.font = getFont(false, false, fontSize);
         checkBoxStyle.fontColor = fontColor;
         checkBoxStyle.checkboxOn.setMinWidth(Constants.IMAGE_BUTTON_SIZE_TINY);
         checkBoxStyle.checkboxOn.setMinHeight(Constants.IMAGE_BUTTON_SIZE_TINY);

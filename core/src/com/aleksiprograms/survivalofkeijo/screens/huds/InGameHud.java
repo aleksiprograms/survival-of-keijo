@@ -1,13 +1,11 @@
 package com.aleksiprograms.survivalofkeijo.screens.huds;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.WeaponWithAmmo;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -47,7 +45,6 @@ public class InGameHud extends AbstractHud {
     public static boolean buttonRightPressed = false;
     public static boolean buttonLeftPressed = false;
     public static boolean buttonUpPressed = false;
-    public static boolean buttonDownPressed = false;
     public static boolean buttonReloadPressed = false;
     public static boolean buttonShootPressed = false;
 
@@ -97,30 +94,26 @@ public class InGameHud extends AbstractHud {
             labelAmmoReloading.setText("");
         }
         labelWeapon.setText("(" + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get(game.gameWorld.player.currentWeapon.weaponData.nameID) + ")");
-        if (game.gameWorld.player.currentWeapon instanceof WeaponWithAmmo) {
             labelAmmoTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("inGameTitleAmmo"));
-            labelAmmoInMag.setText(game.styles.getFormattedInt(((WeaponWithAmmo) game.gameWorld.player.currentWeapon).inMagazine));
-            labelAmmoRest.setText(game.styles.getFormattedInt(game.gameWorld.player.currentWeapon.weaponData.numberOfAmmo - ((WeaponWithAmmo) game.gameWorld.player.currentWeapon).inMagazine));
-            labelAmmoInMagLow.setText(game.styles.getFormattedInt(((WeaponWithAmmo) game.gameWorld.player.currentWeapon).inMagazine));
-            labelAmmoRestLow.setText(game.styles.getFormattedInt(game.gameWorld.player.currentWeapon.weaponData.numberOfAmmo - ((WeaponWithAmmo) game.gameWorld.player.currentWeapon).inMagazine));
+            labelAmmoInMag.setText(game.styles.getFormattedInt((game.gameWorld.player.currentWeapon).inMagazine));
+            labelAmmoRest.setText(game.styles.getFormattedInt(game.gameWorld.player.currentWeapon.weaponData.numberOfAmmo - (game.gameWorld.player.currentWeapon).inMagazine));
+            labelAmmoInMagLow.setText(game.styles.getFormattedInt((game.gameWorld.player.currentWeapon).inMagazine));
+            labelAmmoRestLow.setText(game.styles.getFormattedInt(game.gameWorld.player.currentWeapon.weaponData.numberOfAmmo - (game.gameWorld.player.currentWeapon).inMagazine));
             labelAmmoSeparator.setText(" + ");
-            if (((WeaponWithAmmo) game.gameWorld.player.currentWeapon).inMagazine < 0.35f * ((WeaponWithAmmo) game.gameWorld.player.currentWeapon).weaponData.magazineSize) {
+            if ((game.gameWorld.player.currentWeapon).inMagazine < 0.35f * (game.gameWorld.player.currentWeapon).weaponData.magazineSize) {
                 labelAmmoInMag.setVisible(false);
                 labelAmmoInMagLow.setVisible(true);
             } else {
                 labelAmmoInMag.setVisible(true);
                 labelAmmoInMagLow.setVisible(false);
             }
-            if (((WeaponWithAmmo) game.gameWorld.player.currentWeapon).weaponData.numberOfAmmo - ((WeaponWithAmmo) game.gameWorld.player.currentWeapon).inMagazine - 1 < 2f * ((WeaponWithAmmo) game.gameWorld.player.currentWeapon).weaponData.magazineSize) {
+            if ((game.gameWorld.player.currentWeapon).weaponData.numberOfAmmo - (game.gameWorld.player.currentWeapon).inMagazine - 1 < 2f * (game.gameWorld.player.currentWeapon).weaponData.magazineSize) {
                 labelAmmoRest.setVisible(false);
                 labelAmmoRestLow.setVisible(true);
             } else {
                 labelAmmoRest.setVisible(true);
                 labelAmmoRestLow.setVisible(false);
             }
-        } else {
-            labelAmmoTitle.setText("SHARPNESS");
-        }
         labelMoney.setText("");
         //labelMoney.setText(game.styles.getFormattedFloatMoney(game.gameWorld.player.money) + " \u20AC");
     }
@@ -133,25 +126,25 @@ public class InGameHud extends AbstractHud {
         super.left();
         super.setFillParent(true);
 
-        labelHealthTitle = new Label("", game.styles.labelStyleWhiteSmall);
+        labelHealthTitle = new Label("", game.styles.labelStyleWhiteSmallWithBorder);
         progressBarHealth = new ProgressBar(0, 500, 1, false, game.styles.progressBarStyleHealth);
         progressBarHealth.setVisualInterpolation(new Interpolation.Pow(1));
-        labelAmmoTitle = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoInMag = new Label("0", game.styles.labelStyleWhiteBig);
-        labelAmmoRest = new Label("0", game.styles.labelStyleWhiteBig);
-        labelAmmoInMagLow = new Label("0", game.styles.labelStyleRedBig);
-        labelAmmoRestLow = new Label("0", game.styles.labelStyleRedBig);
-        labelAmmoSeparator = new Label("", game.styles.labelStyleWhiteBig);
-        labelAmmoReloading = new Label("", game.styles.labelStyleRedSmall);
-        labelWeapon = new Label("", game.styles.labelStyleWhiteSmall);
-        labelScoreTitle = new Label("", game.styles.labelStyleWhiteSmall);
-        labelScore = new Label("0", game.styles.labelStyleWhiteBig);
-        labelWaveTitle = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWave = new Label("1", game.styles.labelStyleWhiteBig);
-        labelMoney = new Label("0", game.styles.labelStyleWhiteBig);
+        labelAmmoTitle = new Label("", game.styles.labelStyleWhiteSmallWithBorder);
+        labelAmmoInMag = new Label("0", game.styles.labelStyleWhiteBigWithBorder);
+        labelAmmoRest = new Label("0", game.styles.labelStyleWhiteBigWithBorder);
+        labelAmmoInMagLow = new Label("0", game.styles.labelStyleRedBigWithBorder);
+        labelAmmoRestLow = new Label("0", game.styles.labelStyleRedBigWithBorder);
+        labelAmmoSeparator = new Label("", game.styles.labelStyleWhiteBigWithBorder);
+        labelAmmoReloading = new Label("", game.styles.labelStyleRedSmallWithBorder);
+        labelWeapon = new Label("", game.styles.labelStyleWhiteSmallWithBorder);
+        labelScoreTitle = new Label("", game.styles.labelStyleWhiteSmallWithBorder);
+        labelScore = new Label("0", game.styles.labelStyleWhiteBigWithBorder);
+        labelWaveTitle = new Label("", game.styles.labelStyleWhiteSmallWithBorder);
+        labelWave = new Label("1", game.styles.labelStyleWhiteBigWithBorder);
+        labelMoney = new Label("0", game.styles.labelStyleWhiteBigWithBorder);
 
         labelWaveBeginningWaveTitle = new Label("WAVE", game.styles.labelStyleWhiteBig);
-        labelWaveBeginningWave = new Label("", game.styles.labelStyleWhiteHuge);
+        labelWaveBeginningWave = new Label("", game.styles.labelStyleWhiteHugeWithBorder);
 
         Table tableHealth = new Table();
         tableHealth.add(progressBarHealth).align(Align.left).width(Constants.PROGRESS_BAR_WIDTH_HEALTH).height(labelAmmoInMag.getHeight()).expandX();
@@ -174,7 +167,6 @@ public class InGameHud extends AbstractHud {
 
         Table tableData = new Table();
         tableData.left();
-        tableData.setTouchable(Touchable.enabled);
         tableData.add(labelHealthTitle).align(Align.left).padRight(Constants.GAP);
         tableData.add(tableHealth).align(Align.left).expandX();
         tableData.row();
@@ -191,7 +183,7 @@ public class InGameHud extends AbstractHud {
         ImageButton buttonRight = new ImageButton(game.styles.imageButtonStyleRight);
         ImageButton buttonLeft = new ImageButton(game.styles.imageButtonStyleLeft);
         ImageButton buttonUp = new ImageButton(game.styles.imageButtonStyleUp);
-        ImageButton buttonDown = new ImageButton(game.styles.imageButtonStyleDown);
+        ImageButton buttonShoot = new ImageButton(game.styles.imageButtonStyleDown);
         ImageButton btBackpack = new ImageButton(game.styles.imageButtonStyleBackpack);
         ImageButton buttonReload = new ImageButton(game.styles.imageButtonStyleReload);
         buttonEnterShop = new TextButton("", game.styles.textButtonStyleEnterBuilding);
@@ -202,53 +194,41 @@ public class InGameHud extends AbstractHud {
         buttonEnterShop.setVisible(false);
         buttonEnterHospital.setVisible(false);
 
-        Table tableShootTopRight = new Table();
-        tableShootTopRight.setTouchable(Touchable.enabled);
         Table tableTopRight = new Table();
         Table tableMoney = new Table();
-        tableMoney.setTouchable(Touchable.enabled);
         tableMoney.add(labelMoney).padTop((Constants.IMAGE_BUTTON_SIZE_SMALL - labelMoney.getHeight()) / 2f).align(Align.topRight).expandY();
         tableTopRight.add(tableMoney).padRight(Constants.GAP * 2).align(Align.topRight).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).growY();
         tableTopRight.add(btPause).align(Align.topRight).padBottom(Constants.GAP).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM);
-        tableTopRight.row();
-        tableTopRight.add(tableShootTopRight).colspan(2).grow();
 
         tableWaveBeginning = new Table();
         tableWaveBeginning.add(labelWaveBeginningWaveTitle).padRight(Constants.GAP);
         tableWaveBeginning.add(labelWaveBeginningWave);
 
-        Table tableShootBottomRow1 = new Table();
-        tableShootBottomRow1.setTouchable(Touchable.enabled);
-        tableShootBottomRow1.add(tableWaveBeginning);
+        Table tableBottom1Middle = new Table();
+        tableBottom1Middle.add(tableWaveBeginning);
 
-        Table tableBottomRow1 = new Table();
-        tableBottomRow1.add(btBackpack).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
-        tableBottomRow1.add(tableShootBottomRow1).grow();
-        tableBottomRow1.add(buttonReload).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padLeft(Constants.GAP).padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0);
+        Table tableBottom1 = new Table();
+        tableBottom1.add(btBackpack).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
+        tableBottom1.add(tableBottom1Middle).grow();
+        tableBottom1.add(buttonReload).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_MEDIUM).height(Constants.IMAGE_BUTTON_SIZE_MEDIUM).padTop(Constants.GAP).padLeft(Constants.GAP).padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0);
 
-        Table tableShootBottomRow2 = new Table();
-        tableShootBottomRow2.setTouchable(Touchable.enabled);
-        tableShootBottomRow2.add(stackEnterBuilding).expand().align(Align.bottom).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT);
+        Table tableBottom2Middle = new Table();
+        tableBottom2Middle.add(stackEnterBuilding).expand().align(Align.bottom).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT);
 
-        Table tableBottomRow2 = new Table();
-        tableBottomRow2.add(buttonLeft).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
-        tableBottomRow2.add(buttonRight).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP);
-        tableBottomRow2.add(tableShootBottomRow2).grow().align(Align.bottom).padLeft(Constants.GAP).padRight(Constants.GAP);
-        tableBottomRow2.add(buttonDown).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP);
-        tableBottomRow2.add(buttonUp).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0);
-
-        Table tableMiddle = new Table();
-        tableMiddle.setTouchable(Touchable.enabled);
+        Table tableBottom2 = new Table();
+        tableBottom2.add(buttonLeft).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP).padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
+        tableBottom2.add(buttonRight).align(Align.bottomLeft).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP);
+        tableBottom2.add(tableBottom2Middle).grow().align(Align.bottom).padLeft(Constants.GAP).padRight(Constants.GAP);
+        tableBottom2.add(buttonShoot).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.GAP);
+        tableBottom2.add(buttonUp).align(Align.bottomRight).width(Constants.IMAGE_BUTTON_SIZE_BIG).height(Constants.IMAGE_BUTTON_SIZE_BIG).padTop(Constants.GAP).padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0);
 
         super.pad(Constants.GAP);
-        super.add(tableData).align(Align.topLeft).growX().padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
-        super.add(tableTopRight).fillY().padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0).align(Align.topRight);
+        super.add(tableData).align(Align.topLeft).expand().padLeft(Constants.USE_169_ASPECT_RATION ? 200 : 0);
+        super.add(tableTopRight).padRight(Constants.USE_169_ASPECT_RATION ? 200 : 0).align(Align.topRight);
         super.row();
-        super.add(tableMiddle).colspan(2).grow();
+        super.add(tableBottom1).colspan(2).growX();
         super.row();
-        super.add(tableBottomRow1).colspan(2).growX();
-        super.row();
-        super.add(tableBottomRow2).colspan(2).growX();
+        super.add(tableBottom2).colspan(2).growX();
 
         InputListener inputListenerPause = new InputListener() {
             @Override
@@ -304,19 +284,6 @@ public class InGameHud extends AbstractHud {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 buttonUpPressed = false;
-            }
-        };
-
-        InputListener inputListenerDown = new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                buttonDownPressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                buttonDownPressed = false;
             }
         };
 
@@ -404,14 +371,7 @@ public class InGameHud extends AbstractHud {
         buttonLeft.addListener(inputListenerLeft);
         buttonRight.addListener(inputListenerRight);
         buttonUp.addListener(inputListenerUp);
-        buttonDown.addListener(inputListenerDown);
+        buttonShoot.addListener(inputListenerShoot);
         buttonReload.addListener(inputListenerReload);
-
-        tableMiddle.addListener(inputListenerShoot);
-        tableData.addListener(inputListenerShoot);
-        tableMoney.addListener(inputListenerShoot);
-        tableShootTopRight.addListener(inputListenerShoot);
-        tableShootBottomRow1.addListener(inputListenerShoot);
-        tableShootBottomRow2.addListener(inputListenerShoot);
     }
 }

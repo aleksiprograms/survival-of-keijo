@@ -1199,7 +1199,7 @@ public class ShopHud extends AbstractHud {
         tableWeapons.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
         tableWeapons.add(scrollPaneWeapons).growY().pad(Constants.GAP);
 
-        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHugeWithBorder);
         labelMoney = new Label("", game.styles.labelStyleWhiteBig);
         final ImageButton btClose = new ImageButton(game.styles.imageButtonStyleClose);
         Table tableTopRight = new Table();

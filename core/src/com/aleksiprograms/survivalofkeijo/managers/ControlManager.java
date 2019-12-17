@@ -9,14 +9,12 @@ public class ControlManager {
     private float timeFromLastButtonLeftPress = 0;
     private float timeFromLastButtonRightPress = 0;
     private float timeFromLastButtonUpPress = 0;
-    private float timeFromLastButtonDownPress = 0;
     private float timeFromLastButtonShootPress = 0;
     private float timeFromLastButtonReloadPress = 0;
 
     public boolean buttonLeftPressed = false;
     public boolean buttonRightPressed = false;
     public boolean buttonUpPressed = false;
-    public boolean buttonDownPressed = false;
     public boolean buttonShootPressed = false;
     public boolean buttonReloadPressed = false;
 
@@ -26,7 +24,6 @@ public class ControlManager {
         timeFromLastButtonLeftPress += deltaTime;
         timeFromLastButtonRightPress += deltaTime;
         timeFromLastButtonUpPress += deltaTime;
-        timeFromLastButtonDownPress += deltaTime;
         timeFromLastButtonShootPress += deltaTime;
         timeFromLastButtonReloadPress += deltaTime;
 
@@ -36,8 +33,6 @@ public class ControlManager {
             buttonRightPressed = false;
         if (timeFromLastButtonUpPress > 0.1f)
             buttonUpPressed = false;
-        if (timeFromLastButtonDownPress > 0.1f)
-            buttonDownPressed = false;
         if (timeFromLastButtonShootPress > 0.1f)
             buttonShootPressed = false;
         if (timeFromLastButtonReloadPress > 0.1f)
@@ -57,11 +52,6 @@ public class ControlManager {
             timeFromLastButtonUpPress = 0;
             if (!buttonUpPressed)
                 buttonUpPressed = true;
-        }
-        if (InGameHud.buttonDownPressed || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            timeFromLastButtonDownPress = 0;
-            if (!buttonDownPressed)
-                buttonDownPressed = true;
         }
         if (InGameHud.buttonShootPressed || Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             timeFromLastButtonShootPress = 0;

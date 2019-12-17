@@ -5,7 +5,7 @@ import com.aleksiprograms.survivalofkeijo.data.WeaponData;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Person;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
-public abstract class Pistol extends WeaponWithCase {
+public abstract class Pistol extends Weapon {
 
     public Pistol(final TheGame game, ModelInstance modelInstance) {
         super(game, modelInstance, 0.768f + 0.1f, 0.071f, 0f, 0.602f - 0.05f, 0.071f, 0f);

@@ -421,63 +421,43 @@ public class Enemy extends Person {
     private void setAnimation() {
         if (inAir) {
             if (lookingRight) {
-                if (!bodyState.equals(BodyState.AIR_STAND)) {
-                    bodyState = BodyState.AIR_STAND;
+                if (!bodyState.equals(BodyState.AIR)) {
+                    bodyState = BodyState.AIR;
                     animationController.setAnimation("Armature|air-stand", -1,
                             1, animationListener);
-                    if (weapon.animateOnMoving) {
-                        weapon.animationController.setAnimation("Armature|air", -1);
-                    }
                 }
             } else {
-                if (!bodyState.equals(BodyState.AIR_STAND)) {
-                    bodyState = BodyState.AIR_STAND;
+                if (!bodyState.equals(BodyState.AIR)) {
+                    bodyState = BodyState.AIR;
                     animationController.setAnimation("Armature|air-stand", -1,
                             1, animationListener);
-                    if (weapon.animateOnMoving) {
-                        weapon.animationController.setAnimation("Armature|air", -1);
-                    }
                 }
             }
         } else {
             if (stopToAttack) {
-                if (!bodyState.equals(BodyState.MELEE_ATTACK)) {
-                    bodyState = BodyState.MELEE_ATTACK;
+                if (!bodyState.equals(BodyState.STAND)) {
+                    bodyState = BodyState.STAND;
                     animationController.setAnimation("Armature|stand", -1,
                             1, animationListener);
-                    if (weapon.animateOnMoving) {
-                        weapon.animationController.setAnimation("Armature|use", -1);
-                    }
                 }
             } else if (stopToWait) {
                 if (!bodyState.equals(BodyState.STAND)) {
                     bodyState = BodyState.STAND;
                     animationController.setAnimation("Armature|stand", -1,
                             1, animationListener);
-                    if (weapon.animateOnMoving) {
-                        weapon.animationController.setAnimation("Armature|stand", -1);
-                    }
                 }
             } else {
                 if (lookingRight) {
-                    if (!bodyState.equals(BodyState.STAND_MOVE_RIGHT)) {
-                        bodyState = BodyState.STAND_MOVE_RIGHT;
+                    if (!bodyState.equals(BodyState.MOVE_RIGHT)) {
+                        bodyState = BodyState.MOVE_RIGHT;
                         animationController.setAnimation("Armature|walk", -1,
                                 0.75f, animationListener);
-                        if (weapon.animateOnMoving) {
-                            weapon.animationController.setAnimation("Armature|moving", -1,
-                                    0.75f, animationListener);
-                        }
                     }
                 } else {
-                    if (!bodyState.equals(BodyState.STAND_MOVE_LEFT)) {
-                        bodyState = BodyState.STAND_MOVE_LEFT;
+                    if (!bodyState.equals(BodyState.MOVE_LEFT)) {
+                        bodyState = BodyState.MOVE_LEFT;
                         animationController.setAnimation("Armature|walk", -1,
                                 0.75f, animationListener);
-                        if (weapon.animateOnMoving) {
-                            weapon.animationController.setAnimation("Armature|moving", -1,
-                                    0.75f, animationListener);
-                        }
                     }
                 }
             }
@@ -562,9 +542,6 @@ public class Enemy extends Person {
             bodyState = BodyState.DEAD;
             weapon.ownerDead = true;
             animationController.setAnimation("Armature|die", 1, 2, animationListenerOnDead);
-            if (weapon.animateOnMoving) {
-                weapon.animationController.setAnimation("Armature|stand", -1);
-            }
             game.gameWorld.enemyManager.enemyDied();
             game.gameScreen.inGameHud.updateHud();
         }

@@ -7,7 +7,7 @@ import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
-public class Sniper extends WeaponWithCase {
+public class Sniper extends Weapon {
 
     public Sniper(final TheGame game) {
         super(game, new ModelInstance(game.assetManager.get(Constants.MODEL_WEAPON_PISTOL_PLAYER, Model.class)), 0.8f, 0.075f, 0f, 0, 0, 0);

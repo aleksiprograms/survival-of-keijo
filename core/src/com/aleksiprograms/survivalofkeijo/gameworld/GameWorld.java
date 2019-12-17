@@ -44,7 +44,6 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Ammun
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Case;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.AssaultRifleEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.AssaultRiflePlayer;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Hands;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.PistolEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.PistolPlayer;
 import com.aleksiprograms.survivalofkeijo.managers.BigAreaManager;
@@ -498,8 +497,6 @@ public class GameWorld {
             game.gamePools.playerPool.free((Player) renderableObject);
         } else if (renderableObject instanceof Enemy) {
             game.gamePools.enemyPool.free((Enemy) renderableObject);
-        } else if (renderableObject instanceof Hands) {
-            game.gamePools.handsPool.free((Hands) renderableObject);
         } else if (renderableObject instanceof PistolPlayer) {
             game.gamePools.pistolPlayerPool.free((PistolPlayer) renderableObject);
         } else if (renderableObject instanceof PistolEnemy) {
@@ -580,7 +577,7 @@ public class GameWorld {
         }
         player = game.gamePools.playerPool.obtain();
         player.init(0, 0.9f, 0, 0);
-        player.addWeapon(game.gamePools.pistolPlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID), player, null, true);
+        player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
         //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
         //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);

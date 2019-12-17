@@ -44,7 +44,7 @@ public class GameOverHud extends AbstractHud {
         tableButtons.row();
         tableButtons.add(buttonHome).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
 
-        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHugeWithBorder);
         Table tableTop = new Table();
         tableTop.add(labelScreenTitle).align(Align.center);
 

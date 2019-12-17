@@ -60,7 +60,7 @@ public class CreditsScreen extends AbstractScreen {
         Table tableButtons = new Table();
         tableButtons.add(buttonSettings).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
 
-        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHuge);
+        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHugeWithBorder);
         final ImageButton buttonClose = new ImageButton(game.styles.imageButtonStyleClose);
         Table tableTop = new Table();
         tableTop.add().width(Constants.IMAGE_BUTTON_SIZE_SMALL).height(Constants.IMAGE_BUTTON_SIZE_SMALL).align(Align.left);

@@ -7,10 +7,10 @@ import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
-public class RocketLauncher extends WeaponWithAmmo {
+public class RocketLauncher extends Weapon {
 
     public RocketLauncher(TheGame game) {
-        super(game, new ModelInstance(game.assetManager.get(Constants.MODEL_WEAPON_ASSAULT_RIFLE_PLAYER, Model.class)), 0.78f, 0.1f, 0.17f);
+        super(game, new ModelInstance(game.assetManager.get(Constants.MODEL_WEAPON_ASSAULT_RIFLE_PLAYER, Model.class)), 0.78f, 0.1f, 0.17f, 0f, 0f, 0f);
     }
 
     @Override
