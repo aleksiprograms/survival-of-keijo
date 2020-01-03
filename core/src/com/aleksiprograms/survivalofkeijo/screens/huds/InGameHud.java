@@ -88,26 +88,26 @@ public class InGameHud extends AbstractHud {
         //labelWave.setText(game.styles.getFormattedInt(game.gameWorld.enemyManager.wave));
         progressBarHealth.setRange(0, game.gameWorld.player.maxHealth);
         progressBarHealth.setValue(game.gameWorld.player.health);
-        if (game.gameWorld.player.currentWeapon.reloading) {
+        if (game.gameWorld.player.weapon.reloading) {
             labelAmmoReloading.setText("(RELOADING...)");
         } else {
             labelAmmoReloading.setText("");
         }
-        labelWeapon.setText("(" + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get(game.gameWorld.player.currentWeapon.weaponData.nameID) + ")");
+        labelWeapon.setText("(" + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get(game.gameWorld.player.weapon.weaponData.nameID) + ")");
             labelAmmoTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("inGameTitleAmmo"));
-            labelAmmoInMag.setText(game.styles.getFormattedInt((game.gameWorld.player.currentWeapon).inMagazine));
-            labelAmmoRest.setText(game.styles.getFormattedInt(game.gameWorld.player.currentWeapon.weaponData.numberOfAmmo - (game.gameWorld.player.currentWeapon).inMagazine));
-            labelAmmoInMagLow.setText(game.styles.getFormattedInt((game.gameWorld.player.currentWeapon).inMagazine));
-            labelAmmoRestLow.setText(game.styles.getFormattedInt(game.gameWorld.player.currentWeapon.weaponData.numberOfAmmo - (game.gameWorld.player.currentWeapon).inMagazine));
+            labelAmmoInMag.setText(game.styles.getFormattedInt((game.gameWorld.player.weapon).inMagazine));
+            labelAmmoRest.setText(game.styles.getFormattedInt(game.gameWorld.player.weapon.weaponData.numberOfAmmo - (game.gameWorld.player.weapon).inMagazine));
+            labelAmmoInMagLow.setText(game.styles.getFormattedInt((game.gameWorld.player.weapon).inMagazine));
+            labelAmmoRestLow.setText(game.styles.getFormattedInt(game.gameWorld.player.weapon.weaponData.numberOfAmmo - (game.gameWorld.player.weapon).inMagazine));
             labelAmmoSeparator.setText(" + ");
-            if ((game.gameWorld.player.currentWeapon).inMagazine < 0.35f * (game.gameWorld.player.currentWeapon).weaponData.magazineSize) {
+            if ((game.gameWorld.player.weapon).inMagazine < 0.35f * (game.gameWorld.player.weapon).weaponData.magazineSize) {
                 labelAmmoInMag.setVisible(false);
                 labelAmmoInMagLow.setVisible(true);
             } else {
                 labelAmmoInMag.setVisible(true);
                 labelAmmoInMagLow.setVisible(false);
             }
-            if ((game.gameWorld.player.currentWeapon).weaponData.numberOfAmmo - (game.gameWorld.player.currentWeapon).inMagazine - 1 < 2f * (game.gameWorld.player.currentWeapon).weaponData.magazineSize) {
+            if ((game.gameWorld.player.weapon).weaponData.numberOfAmmo - (game.gameWorld.player.weapon).inMagazine - 1 < 2f * (game.gameWorld.player.weapon).weaponData.magazineSize) {
                 labelAmmoRest.setVisible(false);
                 labelAmmoRestLow.setVisible(true);
             } else {

@@ -260,11 +260,11 @@ public class GameWorld {
             coinManager.update(deltaTime);
             sky.update(deltaTime);
             player.update(deltaTime);
-            player.currentWeapon.update(deltaTime);
+            player.weapon.update(deltaTime);
         }
         modelBatch.render(sky);
         modelBatch.render(player, environment);
-        modelBatch.render(player.currentWeapon, environment);
+        modelBatch.render(player.weapon, environment);
         modelBatch.render(modelCacheLevel, environment);
 
         for (i = 0; i < allCoins.size; i++) {
@@ -389,7 +389,7 @@ public class GameWorld {
         }
     }
 
-    public boolean isEnemyShootable(Enemy enemy) {
+    private boolean isEnemyShootable(Enemy enemy) {
         enemyShootableRayFrom.set(
                 player.rigidBody.getCenterOfMassPosition().x,
                 player.rigidBody.getCenterOfMassPosition().y + 0.5f,
@@ -404,11 +404,7 @@ public class GameWorld {
         enemyShootableCallback.setRayToWorld(enemyShootableRayTo);
         dynamicsWorld.rayTest(enemyShootableRayFrom, enemyShootableRayTo, enemyShootableCallback);
         if (enemyShootableCallback.hasHit() && enemyShootableCallback.getCollisionObject().userData instanceof Enemy) {
-            if (enemyShootableCallback.getCollisionObject().userData == enemy || ((Enemy)enemyShootableCallback.getCollisionObject().userData).dead) {
-                return true;
-            } else {
-                return false;
-            }
+            return enemyShootableCallback.getCollisionObject().userData == enemy || ((Enemy) enemyShootableCallback.getCollisionObject().userData).dead;
         } else {
             return false;
         }
@@ -579,10 +575,10 @@ public class GameWorld {
         player.init(0, 0.9f, 0, 0);
         player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
-        //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
-        //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);
-        //player.currentWeapon = game.gamePools.assaultRiflePlayerPool.obtain();
-        //player.currentWeapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
+        //player.weapon = game.gamePools.assaultRiflePlayerPool.obtain();
+        //player.weapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);
+        //player.weapon = game.gamePools.assaultRiflePlayerPool.obtain();
+        //player.weapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
 
         sky = game.gamePools.backgroundPool.obtain();
 
@@ -674,10 +670,6 @@ public class GameWorld {
                 Shop shop = new Shop(game);
                 shop.init(x, y, z, 0);
                 enterableBuildings.add(shop);
-            } else if (id.toLowerCase().contains("rock-a")) {
-                //addPhysicalObject(game.gamePools.rockAPool.obtain(), x, y, z);
-            } else if (id.toLowerCase().contains("rock-b")) {
-                //addPhysicalObject(game.gamePools.rockBPool.obtain(), x, y, z);
             } else if (id.toLowerCase().contains("enemy-emitter")) {
                 allLevelObjects.add(game.gamePools.enemyEmitterPool.obtain());
                 ((EnemyEmitter)allLevelObjects.peek()).init(x, y, z, 0);
@@ -751,7 +743,7 @@ public class GameWorld {
             }/*else if (ID.toLowerCase().contains("enemy")) {
                 enemy = game.gamePools.enemyPool.obtain();
                 addPhysicalObject(enemy, x, y, z);
-                allEnemiesAndTheirWeapons.add(enemy.currentWeapon);
+                allEnemiesAndTheirWeapons.add(enemy.weapon);
             }*/
             /*else if (ID.toLowerCase().contains("tree_a")) {
                 addPhysicalObject(game.gamePools.treeAPool.obtain(), x, y, z);

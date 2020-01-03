@@ -1600,7 +1600,7 @@ public class ShopHud extends AbstractHud {
                         if (game.gameWorld.player.money >= ((int) (sliderNumberOfMagsBuyAmmo.getValue()) * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoPrice)) {
                             game.gameWorld.player.money -= ((int) (sliderNumberOfMagsBuyAmmo.getValue()) * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoPrice);
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).numberOfAmmo += ((int) (sliderNumberOfMagsBuyAmmo.getValue()) * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize);
-                            game.gameWorld.player.currentWeapon.updateWeaponWhenMoreAmmoIsGiven();
+                            game.gameWorld.player.weapon.updateWeaponWhenMoreAmmoIsGiven();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
@@ -1608,7 +1608,7 @@ public class ShopHud extends AbstractHud {
                         if (game.gameWorld.player.money >= ((int) (sliderNumberOfAmmoBuyAmmo.getValue()) * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoPrice)) {
                             game.gameWorld.player.money -= ((int) (sliderNumberOfAmmoBuyAmmo.getValue()) * game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoPrice);
                             game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).numberOfAmmo += ((int) (sliderNumberOfAmmoBuyAmmo.getValue()));
-                            game.gameWorld.player.currentWeapon.updateWeaponWhenMoreAmmoIsGiven();
+                            game.gameWorld.player.weapon.updateWeaponWhenMoreAmmoIsGiven();
                         } else {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }

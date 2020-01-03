@@ -1,66 +1,27 @@
 package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.BigAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyDropObject;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyGuideObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyJumpObject;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Weapon;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.toolbox.AnimationState;
 import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
-import com.aleksiprograms.survivalofkeijo.toolbox.BodyState;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
 
 public class Enemy extends Person {
 
-    private BodyState bodyState;
-    private Vector3 enemyPosition;
-    private Quaternion enemyQuaternion;
-    private Vector3 enemyScale;
-    private Matrix4 enemyTransform;
-    private Vector3 velocity;
-    private boolean lookingRight;
-    private boolean enemyBodyToRight;
-    public boolean visibleToPlayer;
-    private AnimationController animationController;
-    private AnimationController.AnimationListener animationListener;
-    private AnimationController.AnimationListener animationListenerOnDead;
-    private boolean deadOnGround;
-    private float fallenAfterDeadTimer;
-
-    public Weapon weapon;
-    private int i;
-    private int j;
-    private int k;
-
-    private boolean inAir;
-    private boolean jumped;
-    private float jumpedTimer;
     private boolean stopToWait;
     private boolean stopToAttack;
-    private boolean onExplosion;
     private boolean stuck;
     private float stuckTimer;
     private boolean initStand;
     private float initTimer;
     private EnemyGuideObject enemyGuideObject;
-    private Vector3 movementRayFrom;
-    private Vector3 movementRayTo;
-    private ClosestRayResultCallback movementCallback;
-    private float lockUpMovementTimer;
-    private boolean lockUpMovement;
-    private float deadOnGroundTimer;
-
-    private BigAreaObject bigArea;
-    private SmallAreaObject smallArea;
+    private float deadTimer;
     private int lastBigArea;
     private int lastSmallArea;
     private int playerLastBigArea;
@@ -81,167 +42,39 @@ public class Enemy extends Person {
                         .build());
 
         rigidBody.userData = this;
-        enemyPosition = new Vector3();
-        enemyQuaternion = new Quaternion();
-        enemyScale = new Vector3(1, 1, 1);
-        enemyTransform = new Matrix4();
-        velocity = new Vector3();
-        animationController = new AnimationController(this);
-
-        movementRayFrom = new Vector3();
-        movementRayTo = new Vector3();
-        movementCallback = new ClosestRayResultCallback(movementRayFrom, movementRayTo);
-        movementCallback.setCollisionFilterGroup(Constants.CATEGORY_SENSOR_MOVEMENT);
-        movementCallback.setCollisionFilterMask(Constants.MASK_SENSOR_MOVEMENT);
-        dimensions.set(1.8f, 1.8f, 1);
-
-        animationListener = new AnimationController.AnimationListener() {
-            @Override
-            public void onEnd(AnimationController.AnimationDesc animation) {
-
-            }
-
-            @Override
-            public void onLoop(AnimationController.AnimationDesc animation) {
-
-            }
-        };
-        animationListenerOnDead = new AnimationController.AnimationListener() {
-            @Override
-            public void onEnd(AnimationController.AnimationDesc animation) {
-                deadOnGround = true;
-            }
-
-            @Override
-            public void onLoop(AnimationController.AnimationDesc animation) {
-
-            }
-        };
+        dimensions.set(2f, 2f, 1);
     }
 
     public void init(float x, float y, float z, float angle, int health) {
         super.init(x, y, z, angle);
         this.health = health;
         maxHealth = health;
-        bodyState = BodyState.STAND;
-        lookingRight = false;
-        enemyBodyToRight = true;
         visibleToPlayer = false;
-        animationController.setAnimation("Armature|stand", -1);
 
-        inAir = false;
         stopToWait = false;
         stopToAttack = false;
-        onExplosion = false;
-        jumped = false;
-        jumpedTimer = 0;
         initStand = true;
         initTimer = 0;
         stuck = false;
         stuckTimer = 0;
         enemyGuideObject = null;
 
-        dead = false;
         destroyBody = false;
-        deadOnGroundTimer = 0;
-        deadOnGround = false;
-        fallenAfterDeadTimer = -1.0f;
+        deadTimer = 0;
 
-        bigArea = game.gameWorld.bigAreaManagers.get(0).bigAreaNull;
-        smallArea = game.gameWorld.bigAreaManagers.get(0).smallAreaNull;
         lastBigArea = 0;
         lastSmallArea = 0;
         playerLastBigArea = 0;
         playerLastSmallArea = 0;
     }
 
-    public void onExplosion(Vector3 force) {
-        onExplosion = true;
-        dead = true;
-        rigidBody.applyCentralForce(force);
-    }
-
     @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
-        setEnemyTransform();
-        if (visibleToPlayer) {
-            animationController.update(deltaTime);
-        }
-        if (dead || onExplosion) {
-            deadThings(deltaTime);
-        } else {
-            checkAreaWhereEnemyIs();
-            updateMovement(deltaTime);
-            isInAir();
-        }
-    }
-
-    private void checkAreaWhereEnemyIs() {
-        if (bigArea.nullObject) {
-            bigArea = game.gameWorld.getNewBigArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y);
-        } else {
-            if (rigidBody.getCenterOfMassPosition().x <= bigArea.x - bigArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().x >= bigArea.x + bigArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().y <= bigArea.y - bigArea.height / 2 ||
-                    rigidBody.getCenterOfMassPosition().y >= bigArea.y + bigArea.height / 2) {
-                bigArea = game.gameWorld.getNewBigArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y);
-            }
-        }
-        if (smallArea.nullObject) {
-            if (bigArea.nullObject) {
-                smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, 1);
-            } else {
-                smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, bigArea.area);
-            }
-        } else {
-            if (rigidBody.getCenterOfMassPosition().x <= smallArea.x - smallArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().x >= smallArea.x + smallArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().y <= smallArea.y - smallArea.height / 2 ||
-                    rigidBody.getCenterOfMassPosition().y >= smallArea.y + smallArea.height / 2) {
-                if (bigArea.nullObject) {
-                    smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, 1);
-                } else {
-                    smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, bigArea.area);
-                }
-            }
-        }
-    }
-
-    private void setEnemyTransform() {
-        enemyPosition.set(rigidBody.getCenterOfMassPosition());
-        enemyQuaternion.set(rigidBody.getOrientation());
-        enemyTransform.set(enemyPosition, enemyQuaternion, enemyScale);
-        transform.set(enemyPosition, enemyQuaternion, enemyScale);
-    }
-
-    private void updateMovement(float deltaTime) {
+    void updateMovement(float deltaTime) {
+        super.updateMovement(deltaTime);
         if (initStand) {
             initTimer += deltaTime;
             if (initTimer > 1) {
                 initStand = false;
-            }
-        }
-
-        if (!lockUpMovement) {
-            lockUpMovementTimer += deltaTime;
-        }
-        if (!inAir) {
-            if (lockUpMovementTimer > 0.5f) {
-                lockUpMovement = true;
-            }
-        }
-        if (jumped) {
-            jumpedTimer += deltaTime;
-            if (jumpedTimer > 0.5f) {
-                jumped = false;
-            }
-        }
-
-        if (lockUpMovement) {
-            if (rigidBody.getLinearVelocity().y > 0) {
-                velocity.set(rigidBody.getLinearVelocity().x, 0, 0);
-                rigidBody.setLinearVelocity(velocity);
             }
         }
 
@@ -256,20 +89,15 @@ public class Enemy extends Person {
             stuckTimer = 0;
         }
 
-        checkDirection();
+        guide();
         jumpIfNeeded();
 
-        if (lookingRight) {
-            i = 1;
-        } else {
-            i = -1;
-        }
         movementRayFrom.set(
                 rigidBody.getCenterOfMassPosition().x,
                 rigidBody.getCenterOfMassPosition().y - 0.6f,
                 rigidBody.getCenterOfMassPosition().z);
         movementRayTo.set(
-                rigidBody.getCenterOfMassPosition().x + i * 0.5f,
+                rigidBody.getCenterOfMassPosition().x + (lookingRight ? 1 : -1) * 0.5f,
                 rigidBody.getCenterOfMassPosition().y - 0.6f,
                 rigidBody.getCenterOfMassPosition().z);
         movementCallback.setCollisionObject(null);
@@ -277,41 +105,37 @@ public class Enemy extends Person {
         movementCallback.setRayFromWorld(movementRayFrom);
         movementCallback.setRayToWorld(movementRayTo);
         game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
-        if (movementCallback.hasHit() && movementCallback.getCollisionObject().userData instanceof Enemy && movementCallback.getCollisionObject().userData != this && (((Enemy) movementCallback.getCollisionObject().userData).lookingRight == lookingRight) && !(((Enemy) movementCallback.getCollisionObject().userData).inAir)) {
-            stopToWait = true;
-        } else {
-            stopToWait = false;
-        }
+        stopToWait = movementCallback.hasHit() && movementCallback.getCollisionObject().userData instanceof Enemy && movementCallback.getCollisionObject().userData != this && (((Enemy) movementCallback.getCollisionObject().userData).lookingRight == lookingRight) && !(((Enemy) movementCallback.getCollisionObject().userData).inAir);
 
         if (game.gameWorld.player.dead) {
             stopToWait = true;
         }
 
         if (!initStand) {
-            setAnimation();
             setVelocity();
         }
+        checkAnimation();
+    }
 
-        if (lookingRight) {
-            if (!enemyBodyToRight) {
-                enemyBodyToRight = true;
-                enemyPosition.set(rigidBody.getCenterOfMassPosition());
-                enemyQuaternion.set(Vector3.Y, 0);
-                enemyTransform.set(enemyPosition, enemyQuaternion, enemyScale);
-                rigidBody.setCenterOfMassTransform(enemyTransform);
-            }
-        } else {
-            if (enemyBodyToRight) {
-                enemyBodyToRight = false;
-                enemyPosition.set(rigidBody.getCenterOfMassPosition());
-                enemyQuaternion.set(Vector3.Y, 180);
-                enemyTransform.set(enemyPosition, enemyQuaternion, enemyScale);
-                rigidBody.setCenterOfMassTransform(enemyTransform);
-            }
+    @Override
+    void onDead(float deltaTime) {
+        super.onDead(deltaTime);
+        if (!onDeadThingsDone) {
+            onDeadThingsDone = true;
+            weapon.ownerDead = true;
+            game.gameWorld.enemyManager.enemyDied();
+            game.gameScreen.inGameHud.updateHud();
+        }
+        if (destroyBody) {
+            deadTimer += deltaTime;
+        }
+        if (deadTimer > Constants.ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND) {
+            free = true;
+            weapon.free = true;
         }
     }
 
-    private void checkDirection() {
+    private void guide() {
         if (!(inAir || jumped)) {
             stopToAttack = false;
             if (bigArea.area == game.gameWorld.player.bigArea.area && smallArea.area == game.gameWorld.player.smallArea.area) {
@@ -323,11 +147,7 @@ public class Enemy extends Person {
                     lookingRight = true;
                     weapon.lookingRight = true;
                 }
-                if (Math.abs(rigidBody.getCenterOfMassPosition().x - game.gameWorld.player.rigidBody.getCenterOfMassPosition().x) < 1) {
-                    stopToAttack = true;
-                } else {
-                    stopToAttack = false;
-                }
+                stopToAttack = Math.abs(rigidBody.getCenterOfMassPosition().x - game.gameWorld.player.rigidBody.getCenterOfMassPosition().x) < 1;
             } else {
                 if (playerLastBigArea != game.gameWorld.player.bigArea.area || playerLastSmallArea != game.gameWorld.player.smallArea.area ||
                         lastBigArea != bigArea.area || lastSmallArea != smallArea.area || stuck) {
@@ -339,9 +159,9 @@ public class Enemy extends Person {
                     stuck = false;
                     stuckTimer = 0;
                     if (bigArea.area == game.gameWorld.player.bigArea.area) {
-                        for (i = 0; i < game.gameWorld.bigAreaManagers.size; i++) {
+                        for (int i = 0; i < game.gameWorld.bigAreaManagers.size; i++) {
                             if (game.gameWorld.bigAreaManagers.get(i).bigAreaId == bigArea.area) {
-                                for (j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
+                                for (int j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
                                     if (Math.abs(rigidBody.getCenterOfMassPosition().y - game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).y) < 0.5f) {
                                         if (game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j) instanceof EnemyDropObject) {
                                             if (((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight && rigidBody.getCenterOfMassPosition().x < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
@@ -351,7 +171,7 @@ public class Enemy extends Person {
                                                 continue;
                                             }
                                         }
-                                        for (k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toSmallAreas.size; k++) {
+                                        for (int k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toSmallAreas.size; k++) {
                                             if (game.gameWorld.player.smallArea.area == game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toSmallAreas.get(k)) {
                                                 enemyGuideObject = game.gameWorld.isObjectClosestToEnemy(this, enemyGuideObject, game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j));
                                             }
@@ -361,9 +181,9 @@ public class Enemy extends Person {
                             }
                         }
                     } else {
-                        for (i = 0; i < game.gameWorld.bigAreaManagers.size; i++) {
+                        for (int i = 0; i < game.gameWorld.bigAreaManagers.size; i++) {
                             if (game.gameWorld.bigAreaManagers.get(i).bigAreaId == bigArea.area) {
-                                for (j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
+                                for (int j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
                                     if (Math.abs(rigidBody.getCenterOfMassPosition().y - game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).y) < 0.5f) {
                                         if (game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j) instanceof EnemyDropObject) {
                                             if (((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight && rigidBody.getCenterOfMassPosition().x < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
@@ -373,7 +193,7 @@ public class Enemy extends Person {
                                                 continue;
                                             }
                                         }
-                                        for (k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toBigAreas.size; k++) {
+                                        for (int k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toBigAreas.size; k++) {
                                             if (game.gameWorld.player.bigArea.area == game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toBigAreas.get(k)) {
                                                 enemyGuideObject = game.gameWorld.isObjectClosestToEnemy(this, enemyGuideObject, game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j));
                                             }
@@ -400,10 +220,6 @@ public class Enemy extends Person {
     private void jumpIfNeeded() {
         if (enemyGuideObject instanceof EnemyJumpObject) {
             if (Math.abs(rigidBody.getCenterOfMassPosition().x - enemyGuideObject.x) < 0.1f) {
-                lockUpMovement = false;
-                lockUpMovementTimer = 0;
-                jumped = true;
-                jumpedTimer = 0;
                 if ((((EnemyJumpObject) enemyGuideObject).jumpToRight)) {
                     lookingRight = (((EnemyJumpObject) enemyGuideObject).jumpToRight);
                     weapon.lookingRight = (((EnemyJumpObject) enemyGuideObject).jumpToRight);
@@ -412,59 +228,29 @@ public class Enemy extends Person {
                     weapon.lookingRight = false;
                 }
                 enemyGuideObject = null;
-                velocity.set(rigidBody.getLinearVelocity().x, 8.8f, 0);
-                rigidBody.setLinearVelocity(velocity);
+                jump();
             }
         }
     }
 
-    private void setAnimation() {
-        if (inAir) {
-            if (lookingRight) {
-                if (!bodyState.equals(BodyState.AIR)) {
-                    bodyState = BodyState.AIR;
-                    animationController.setAnimation("Armature|air-stand", -1,
-                            1, animationListener);
-                }
-            } else {
-                if (!bodyState.equals(BodyState.AIR)) {
-                    bodyState = BodyState.AIR;
-                    animationController.setAnimation("Armature|air-stand", -1,
-                            1, animationListener);
-                }
-            }
+    private void checkAnimation() {
+        if (initStand) {
+            setAnimation(AnimationState.STAND);
         } else {
-            if (stopToAttack) {
-                if (!bodyState.equals(BodyState.STAND)) {
-                    bodyState = BodyState.STAND;
-                    animationController.setAnimation("Armature|stand", -1,
-                            1, animationListener);
-                }
-            } else if (stopToWait) {
-                if (!bodyState.equals(BodyState.STAND)) {
-                    bodyState = BodyState.STAND;
-                    animationController.setAnimation("Armature|stand", -1,
-                            1, animationListener);
-                }
+            if (inAir) {
+                setAnimation(AnimationState.AIR);
             } else {
-                if (lookingRight) {
-                    if (!bodyState.equals(BodyState.MOVE_RIGHT)) {
-                        bodyState = BodyState.MOVE_RIGHT;
-                        animationController.setAnimation("Armature|walk", -1,
-                                0.75f, animationListener);
-                    }
+                if (stopToWait || stopToAttack) {
+                    setAnimation(AnimationState.STAND);
                 } else {
-                    if (!bodyState.equals(BodyState.MOVE_LEFT)) {
-                        bodyState = BodyState.MOVE_LEFT;
-                        animationController.setAnimation("Armature|walk", -1,
-                                0.75f, animationListener);
-                    }
+                    setAnimation(AnimationState.WALK);
                 }
             }
         }
     }
 
     private void setVelocity() {
+        xVelocity = 1.5f;
         if (inAir) {
             if (lookingRight) {
                 velocity.set(1.3f, rigidBody.getLinearVelocity().y, 0);
@@ -479,71 +265,13 @@ public class Enemy extends Person {
                 rigidBody.setLinearVelocity(velocity);
             } else {
                 if (lookingRight) {
-                    velocity.set(1.5f, rigidBody.getLinearVelocity().y, 0);
+                    velocity.set(xVelocity, rigidBody.getLinearVelocity().y, 0);
                     rigidBody.setLinearVelocity(velocity);
                 } else {
-                    velocity.set(-1.5f, rigidBody.getLinearVelocity().y, 0);
+                    velocity.set(-xVelocity, rigidBody.getLinearVelocity().y, 0);
                     rigidBody.setLinearVelocity(velocity);
                 }
             }
-        }
-    }
-
-    private void isInAir() {
-        inAir = true;
-        if (rigidBody.getLinearVelocity().y <= 0.01f) {
-            if (lookingRight) {
-                i = -1;
-            } else {
-                i = 1;
-            }
-            movementRayFrom.set(
-                    rigidBody.getCenterOfMassPosition().x + i * 0.15f,
-                    rigidBody.getCenterOfMassPosition().y,
-                    rigidBody.getCenterOfMassPosition().z);
-            movementRayTo.set(
-                    rigidBody.getCenterOfMassPosition().x + i * 0.15f,
-                    rigidBody.getCenterOfMassPosition().y - 0.9f - 0.05f,
-                    rigidBody.getCenterOfMassPosition().z);
-            movementCallback.setCollisionObject(null);
-            movementCallback.setClosestHitFraction(1);
-            movementCallback.setRayFromWorld(movementRayFrom);
-            movementCallback.setRayToWorld(movementRayTo);
-            game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
-            if (movementCallback.hasHit()) {
-                inAir = false;
-            }
-        }
-    }
-
-    private void deadThings(float deltaTime) {
-        if (deadOnGround && destroyBody) {
-            deadOnGroundTimer += deltaTime;
-        }
-        if (!destroyBody) {
-            velocity.set(0, rigidBody.getLinearVelocity().y, 0);
-            rigidBody.setLinearVelocity(velocity);
-            if (rigidBody.getLinearVelocity().y > 0.05f) {
-                fallenAfterDeadTimer = 0;
-            }
-            if (fallenAfterDeadTimer < -0.5f || fallenAfterDeadTimer > 0.2f) {
-                if (Math.abs(rigidBody.getLinearVelocity().y) < 0.1f) {
-                    destroyBody = true;
-                }
-            } else {
-                fallenAfterDeadTimer += deltaTime;
-            }
-        }
-        if (deadOnGroundTimer > Constants.ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND) {
-            free = true;
-            weapon.free = true;
-        }
-        if (!bodyState.equals(BodyState.DEAD)) {
-            bodyState = BodyState.DEAD;
-            weapon.ownerDead = true;
-            animationController.setAnimation("Armature|die", 1, 2, animationListenerOnDead);
-            game.gameWorld.enemyManager.enemyDied();
-            game.gameScreen.inGameHud.updateHud();
         }
     }
 }

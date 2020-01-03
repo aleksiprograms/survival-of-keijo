@@ -158,8 +158,8 @@ public class BackpackHud extends AbstractHud {
                         updateSelectedWeaponTable();
                         for (int i = 0; i < game.gameWorld.player.weapons.size; i++) {
                             if (checkedWeaponID == game.gameWorld.player.weapons.get(i).weaponData.ID) {
-                                game.gameWorld.player.currentWeapon = game.gameWorld.player.weapons.get(i);
-                                game.gameWorld.player.currentWeapon.updateOnEquip();
+                                game.gameWorld.player.weapon = game.gameWorld.player.weapons.get(i);
+                                game.gameWorld.player.weapon.updateOnEquip();
                             }
                         }
                     }
@@ -178,7 +178,7 @@ public class BackpackHud extends AbstractHud {
                 tableWeaponButtons.row();
             }
         }
-        checkedWeaponID = game.gameWorld.player.currentWeapon.weaponData.ID;
+        checkedWeaponID = game.gameWorld.player.weapon.weaponData.ID;
         for (int i = 0; i < buttonWeapons.size; i++) {
             if (checkedWeaponID == buttonWeapons.get(i).ID) {
                 buttonWeapons.get(i).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
