@@ -22,8 +22,6 @@ public class WeaponManager {
     public float maxMagazineSize = 200;
     public float minReloadTime = 0.1f;
     public float maxReloadTime = 5;
-    public float minWeight = 0.1f;
-    public float maxWeight = 10;
 
     public WeaponManager() {
         weaponData = new WeaponData[Constants.NUMBER_OF_WEAPONS];

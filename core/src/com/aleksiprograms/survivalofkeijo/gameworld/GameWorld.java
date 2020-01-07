@@ -242,9 +242,7 @@ public class GameWorld {
         allCoins.clear();
         weaponManagerPlayer.reset();
         weaponManagerEnemy.reset();
-        player = game.gamePools.playerPool.obtain();
-        player.init(0, 0.9f, 0, 0);
-        player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
+        initPlayer();
         enemyManager.init();
         game.particleEffectManager.clear();
     }
@@ -550,6 +548,15 @@ public class GameWorld {
         }
     }
 
+    private void initPlayer() {
+        player = game.gamePools.playerPool.obtain();
+        player.init(0, 0.9f, 0, 0);
+        player.addWeapon(game.gamePools.pistolPlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID), player, null, true);
+        player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
+        weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID).bought = true;
+        weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID).bought = true;
+    }
+
     private void createObjects(int levelID) {
         //levelNumber = 3;
         numberOfBigAreas = 0;
@@ -571,9 +578,7 @@ public class GameWorld {
             bigAreaManagers.add(game.gamePools.bigAreaManagerPool.obtain());
             bigAreaManagers.peek().init(i);
         }
-        player = game.gamePools.playerPool.obtain();
-        player.init(0, 0.9f, 0, 0);
-        player.addWeapon(game.gamePools.assaultRiflePlayerPool.obtain(), weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true);
+        initPlayer();
 
         //player.weapon = game.gamePools.assaultRiflePlayerPool.obtain();
         //player.weapon.updateScreen(game.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID), player, null, true, true);

@@ -8,6 +8,7 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Weapon;
 import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 import com.aleksiprograms.survivalofkeijo.toolbox.AnimationState;
 import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
+import com.aleksiprograms.survivalofkeijo.toolbox.WeightType;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
@@ -101,7 +102,14 @@ public class Player extends Person {
             }
         }
 
-        xVelocity = 4f - (1f * ((game.gameWorld.weaponManagerPlayer.getWeaponData(weapon.weaponData.ID).weight - game.gameWorld.weaponManagerPlayer.minWeight) / (game.gameWorld.weaponManagerPlayer.maxWeight - game.gameWorld.weaponManagerPlayer.minWeight)));
+        if (game.gameWorld.weaponManagerPlayer.getWeaponData(weapon.weaponData.ID).weightType.equals(WeightType.LIGHT))
+            xVelocity = 4f;
+        else if (game.gameWorld.weaponManagerPlayer.getWeaponData(weapon.weaponData.ID).weightType.equals(WeightType.MEDIUM))
+            xVelocity = 3f;
+        else if (game.gameWorld.weaponManagerPlayer.getWeaponData(weapon.weaponData.ID).weightType.equals(WeightType.HEAVY))
+            xVelocity = 2f;
+        else
+            xVelocity = 4f;
 
         if (controlManager.buttonRightPressed && canMoveLeftOrRight(true)) {
             movingRight = true;

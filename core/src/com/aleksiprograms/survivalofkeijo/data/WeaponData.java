@@ -1,7 +1,6 @@
 package com.aleksiprograms.survivalofkeijo.data;
 
-import com.aleksiprograms.survivalofkeijo.toolbox.WeaponUpgradeFloat;
-import com.aleksiprograms.survivalofkeijo.toolbox.WeaponUpgradeInteger;
+import com.aleksiprograms.survivalofkeijo.toolbox.WeightType;
 import com.badlogic.gdx.utils.ObjectMap;
 
 public abstract class WeaponData {
@@ -16,37 +15,27 @@ public abstract class WeaponData {
     public String fireType;
     public int pointsHit;
     public int pointsKill;
+    public WeightType weightType;
+    public int level;
+    public final int MAX_LEVEL = 3;
+    public static final int NUMBER_OF_UPGRADES = 2;
+    public ObjectMap<Integer, Integer> upgradePrices;
     public int attributes;
     public boolean isRateOfFire;
     public float rateOfFire = 1;
-    public ObjectMap<Integer, WeaponUpgradeFloat> rateOfFireUpgrades;
-    public int rateOfFireLevel;
-    public int rateOfFireMaxLevel;
+    public ObjectMap<Integer, Float> rateOfFireUpgrades;
     public boolean isAmmoDamage;
     public int ammoDamage;
-    public ObjectMap<Integer, WeaponUpgradeInteger> ammoDamageUpgrades;
-    public int ammoDamageLevel;
-    public int ammoDamageMaxLevel;
+    public ObjectMap<Integer, Integer> ammoDamageUpgrades;
     public boolean isAmmoSpeed;
     public float ammoSpeed;
-    public ObjectMap<Integer, WeaponUpgradeFloat> ammoSpeedUpgrades;
-    public int ammoSpeedLevel;
-    public int ammoSpeedMaxLevel;
+    public ObjectMap<Integer, Float> ammoSpeedUpgrades;
     public boolean isMagazineSize;
     public int magazineSize = 1;
-    public ObjectMap<Integer, WeaponUpgradeInteger> magazineSizeUpgrades;
-    public int magazineSizeLevel;
-    public int magazineSizeMaxLevel;
+    public ObjectMap<Integer, Integer> magazineSizeUpgrades;
     public boolean isReloadTime;
     public float reloadTime;
-    public ObjectMap<Integer, WeaponUpgradeFloat> reloadTimeUpgrades;
-    public int reloadTimeLevel;
-    public int reloadTimeMaxLevel;
-    public boolean isWeight;
-    public float weight;
-    public ObjectMap<Integer, WeaponUpgradeFloat> weightUpgrades;
-    public int weightLevel;
-    public int weightMaxLevel;
+    public ObjectMap<Integer, Float> reloadTimeUpgrades;
 
     public WeaponData(
             int ID,
@@ -57,18 +46,12 @@ public abstract class WeaponData {
             String fireType,
             int pointsHit,
             int pointsKill,
+            WeightType weightType,
             float rateOfFire,
-            ObjectMap<Integer, WeaponUpgradeFloat> rateOfFireUpgrades,
             int ammoDamage,
-            ObjectMap<Integer, WeaponUpgradeInteger> ammoDamageUpgrades,
             float ammoSpeed,
-            ObjectMap<Integer, WeaponUpgradeFloat> ammoSpeedUpgrades,
             int magazineSize,
-            ObjectMap<Integer, WeaponUpgradeInteger> magazineSizeUpgrades,
-            float reloadTime,
-            ObjectMap<Integer, WeaponUpgradeFloat> reloadTimeUpgrades,
-            float weight,
-            ObjectMap<Integer, WeaponUpgradeFloat> weightUpgrades) {
+            float reloadTime) {
 
         this.ID = ID;
         this.nameID = nameID;
@@ -80,37 +63,19 @@ public abstract class WeaponData {
         this.fireType = fireType;
         this.pointsHit = pointsHit;
         this.pointsKill = pointsKill;
-        attributes = 6;
+        this.weightType = weightType;
+        level = 1;
+        attributes = 5;
         this.rateOfFire = rateOfFire;
-        this.rateOfFireUpgrades = rateOfFireUpgrades;
-        rateOfFireLevel = 1;
-        rateOfFireMaxLevel = 5;
         this.ammoDamage = ammoDamage;
-        this.ammoDamageUpgrades = ammoDamageUpgrades;
-        ammoDamageLevel = 1;
-        ammoDamageMaxLevel = 5;
         this.ammoSpeed = ammoSpeed;
-        this.ammoSpeedUpgrades = ammoSpeedUpgrades;
-        ammoSpeedLevel = 1;
-        ammoSpeedMaxLevel = 5;
         this.magazineSize = magazineSize;
-        this.magazineSizeUpgrades = magazineSizeUpgrades;
-        magazineSizeLevel = 1;
-        magazineSizeMaxLevel = 5;
         this.reloadTime = reloadTime;
-        this.reloadTimeUpgrades = reloadTimeUpgrades;
-        reloadTimeLevel = 1;
-        reloadTimeMaxLevel = 5;
-        this.weight = weight;
-        this.weightUpgrades = weightUpgrades;
-        weightLevel = 1;
-        weightMaxLevel = 5;
         isRateOfFire = true;
         isAmmoDamage = true;
         isAmmoSpeed = true;
         isMagazineSize = true;
         isReloadTime = true;
-        isWeight = true;
     }
 
     public WeaponData(
@@ -122,16 +87,11 @@ public abstract class WeaponData {
             String fireType,
             int pointsHit,
             int pointsKill,
+            WeightType weightType,
             int ammoDamage,
-            ObjectMap<Integer, WeaponUpgradeInteger> ammoDamageUpgrades,
             float ammoSpeed,
-            ObjectMap<Integer, WeaponUpgradeFloat> ammoSpeedUpgrades,
             int magazineSize,
-            ObjectMap<Integer, WeaponUpgradeInteger> magazineSizeUpgrades,
-            float reloadTime,
-            ObjectMap<Integer, WeaponUpgradeFloat> reloadTimeUpgrades,
-            float weight,
-            ObjectMap<Integer, WeaponUpgradeFloat> weightUpgrades) {
+            float reloadTime) {
 
         this.ID = ID;
         this.nameID = nameID;
@@ -143,32 +103,17 @@ public abstract class WeaponData {
         this.fireType = fireType;
         this.pointsHit = pointsHit;
         this.pointsKill = pointsKill;
-        attributes = 5;
+        this.weightType = weightType;
+        level = 1;
+        attributes = 4;
         this.ammoDamage = ammoDamage;
-        this.ammoDamageUpgrades = ammoDamageUpgrades;
-        ammoDamageLevel = 1;
-        ammoDamageMaxLevel = 5;
         this.ammoSpeed = ammoSpeed;
-        this.ammoSpeedUpgrades = ammoSpeedUpgrades;
-        ammoSpeedLevel = 1;
-        ammoSpeedMaxLevel = 5;
         this.magazineSize = magazineSize;
-        this.magazineSizeUpgrades = magazineSizeUpgrades;
-        magazineSizeLevel = 1;
-        magazineSizeMaxLevel = 5;
         this.reloadTime = reloadTime;
-        this.reloadTimeUpgrades = reloadTimeUpgrades;
-        reloadTimeLevel = 1;
-        reloadTimeMaxLevel = 5;
-        this.weight = weight;
-        this.weightUpgrades = weightUpgrades;
-        weightLevel = 1;
-        weightMaxLevel = 5;
         isAmmoDamage = true;
         isAmmoSpeed = true;
         isMagazineSize = true;
         isReloadTime = true;
-        isWeight = true;
         isRateOfFire = false;
     }
 
@@ -181,14 +126,10 @@ public abstract class WeaponData {
             String fireType,
             int pointsHit,
             int pointsKill,
+            WeightType weightType,
             int ammoDamage,
-            ObjectMap<Integer, WeaponUpgradeInteger> ammoDamageUpgrades,
             float ammoSpeed,
-            ObjectMap<Integer, WeaponUpgradeFloat> ammoSpeedUpgrades,
-            float reloadTime,
-            ObjectMap<Integer, WeaponUpgradeFloat> reloadTimeUpgrades,
-            float weight,
-            ObjectMap<Integer, WeaponUpgradeFloat> weightUpgrades) {
+            float reloadTime) {
 
         this.ID = ID;
         this.nameID = nameID;
@@ -200,29 +141,15 @@ public abstract class WeaponData {
         this.fireType = fireType;
         this.pointsHit = pointsHit;
         this.pointsKill = pointsKill;
-        attributes = 4;
+        this.weightType = weightType;
+        level = 1;
+        attributes = 3;
         this.ammoDamage = ammoDamage;
-        this.ammoDamageUpgrades = ammoDamageUpgrades;
-        ammoDamageLevel = 1;
-        ammoDamageMaxLevel = 5;
         this.ammoSpeed = ammoSpeed;
-        this.ammoSpeedUpgrades = ammoSpeedUpgrades;
-        ammoSpeedLevel = 1;
-        ammoSpeedMaxLevel = 5;
-        magazineSizeLevel = 1;
-        magazineSizeMaxLevel = 5;
         this.reloadTime = reloadTime;
-        this.reloadTimeUpgrades = reloadTimeUpgrades;
-        reloadTimeLevel = 1;
-        reloadTimeMaxLevel = 5;
-        this.weight = weight;
-        this.weightUpgrades = weightUpgrades;
-        weightLevel = 1;
-        weightMaxLevel = 5;
         isAmmoDamage = true;
         isAmmoSpeed = true;
         isReloadTime = true;
-        isWeight = true;
         isRateOfFire = false;
         isMagazineSize = false;
     }

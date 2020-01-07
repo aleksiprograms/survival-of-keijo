@@ -3,7 +3,7 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
-import com.aleksiprograms.survivalofkeijo.toolbox.TextButtonWithID;
+import com.aleksiprograms.survivalofkeijo.toolbox.WeaponButton;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -24,7 +24,7 @@ public class BackpackHud extends AbstractHud {
     private Label labelScreenTitle;
 
     private Table tableWeaponButtons;
-    private Array<TextButtonWithID> buttonWeapons;
+    private Array<WeaponButton> buttonWeapons;
     private int checkedWeaponID;
     private Label labelMoney;
     private Label uselessLabel;
@@ -46,46 +46,23 @@ public class BackpackHud extends AbstractHud {
     private Label labelRateOfFireTitle;
     private Label labelRateOfFireValue;
     private Label labelRateOfFireUnit;
-    private Label labelRateOfFireLevelTitle;
-    private Label labelRateOfFireLevel;
-    private Label labelRateOfFireMaxLevel;
     private Label labelAmmoDamageTitle;
     private Label labelAmmoDamageValue;
     private Label labelAmmoDamageUnit;
-    private Label labelAmmoDamageLevelTitle;
-    private Label labelAmmoDamageLevel;
-    private Label labelAmmoDamageMaxLevel;
     private Label labelAmmoSpeedTitle;
     private Label labelAmmoSpeedValue;
     private Label labelAmmoSpeedUnit;
-    private Label labelAmmoSpeedLevelTitle;
-    private Label labelAmmoSpeedLevel;
-    private Label labelAmmoSpeedMaxLevel;
     private Label labelMagazineSizeTitle;
     private Label labelMagazineSizeValue;
     private Label labelMagazineSizeUnit;
-    private Label labelMagazineSizeLevelTitle;
-    private Label labelMagazineSizeLevel;
-    private Label labelMagazineSizeMaxLevel;
     private Label labelReloadTimeTitle;
     private Label labelReloadTimeValue;
     private Label labelReloadTimeUnit;
-    private Label labelReloadTimeLevelTitle;
-    private Label labelReloadTimeLevel;
-    private Label labelReloadTimeMaxLevel;
-    private Label labelWeightTitle;
-    private Label labelWeightValue;
-    private Label labelWeightUnit;
-    private Label labelWeightLevelTitle;
-    private Label labelWeightLevel;
-    private Label labelWeightMaxLevel;
     private ProgressBar progressBarRateOfFire;
     private ProgressBar progressBarAmmoDamage;
     private ProgressBar progressBarAmmoSpeed;
     private ProgressBar progressBarMagazineSize;
     private ProgressBar progressBarReloadTime;
-    private ProgressBar progressBarWeight;
-    private ProgressBar progressBarMeleeDamage;
 
     private Table tableWeapon;
     private Table tableWeaponData;
@@ -99,7 +76,6 @@ public class BackpackHud extends AbstractHud {
     private Table tableAmmoSpeed;
     private Table tableMagazineSize;
     private Table tableReloadTime;
-    private Table tableWeight;
 
     public BackpackHud(final TheGame game) {
         super(game);
@@ -127,7 +103,7 @@ public class BackpackHud extends AbstractHud {
     private void updateWeaponsTable() {
         buttonWeapons.clear();
         for (int i = 0; i < game.gameWorld.player.weapons.size; i++) {
-            final TextButtonWithID table = new TextButtonWithID(game.gameWorld.player.weapons.get(i).weaponData.ID, game.styles.textButtonStyleOrange);
+            final WeaponButton table = new WeaponButton(game.gameWorld.player.weapons.get(i).weaponData.ID);
             table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
             table.setTouchable(Touchable.enabled);
             table.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP)))).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
@@ -215,11 +191,6 @@ public class BackpackHud extends AbstractHud {
             tableWeaponRows.add(tableReloadTime).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
-            weaponInfoRows++;
-            tableWeaponRows.add(tableWeight).padBottom(weaponInfoRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
-            tableWeaponRows.row();
-        }
 
         scrollPaneWeapon.removeActor(tableWeaponRows);
         scrollPaneWeapon.setActor(tableWeaponRows);
@@ -249,9 +220,6 @@ public class BackpackHud extends AbstractHud {
             labelRateOfFireTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelRateOfFire"));
             labelRateOfFireValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire));
             labelRateOfFireUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelRateOfFireUnit"));
-            labelRateOfFireLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelRateOfFireLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel + "");
-            labelRateOfFireMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireMaxLevel + "");
             progressBarRateOfFire.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire);
         }
 
@@ -259,9 +227,6 @@ public class BackpackHud extends AbstractHud {
             labelAmmoDamageTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoDamage"));
             labelAmmoDamageValue.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage));
             labelAmmoDamageUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoDamageUnit"));
-            labelAmmoDamageLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelAmmoDamageLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel + "");
-            labelAmmoDamageMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageMaxLevel + "");
             progressBarAmmoDamage.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage);
         }
 
@@ -269,9 +234,6 @@ public class BackpackHud extends AbstractHud {
             labelAmmoSpeedTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoSpeed"));
             labelAmmoSpeedValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed));
             labelAmmoSpeedUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoSpeedUnit"));
-            labelAmmoSpeedLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelAmmoSpeedLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel + "");
-            labelAmmoSpeedMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedMaxLevel + "");
             progressBarAmmoSpeed.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed);
         }
 
@@ -279,9 +241,6 @@ public class BackpackHud extends AbstractHud {
             labelMagazineSizeTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMagazineSize"));
             labelMagazineSizeValue.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize));
             labelMagazineSizeUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMagazineSizeUnit"));
-            labelMagazineSizeLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelMagazineSizeLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel + "");
-            labelMagazineSizeMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeMaxLevel + "");
             progressBarMagazineSize.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize);
         }
 
@@ -289,20 +248,7 @@ public class BackpackHud extends AbstractHud {
             labelReloadTimeTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelReloadTime"));
             labelReloadTimeValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime));
             labelReloadTimeUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelReloadTimeUnit"));
-            labelReloadTimeLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelReloadTimeLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel + "");
-            labelReloadTimeMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel + "");
             progressBarReloadTime.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
-        }
-
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
-            labelWeightTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelWeight"));
-            labelWeightValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight));
-            labelWeightUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelWeightUnit"));
-            labelWeightLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelWeightLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel + "");
-            labelWeightMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel + "");
-            progressBarWeight.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
         }
     }
 
@@ -335,63 +281,39 @@ public class BackpackHud extends AbstractHud {
         labelRateOfFireTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelRateOfFireValue = new Label("", game.styles.labelStyleBlueSmall);
         labelRateOfFireUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelRateOfFireLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelRateOfFireLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelRateOfFireMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelAmmoDamageValue = new Label("", game.styles.labelStyleBlueSmall);
         labelAmmoDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoSpeedTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelAmmoSpeedValue = new Label("", game.styles.labelStyleBlueSmall);
         labelAmmoSpeedUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoSpeedLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoSpeedLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoSpeedMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelMagazineSizeTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelMagazineSizeValue = new Label("", game.styles.labelStyleBlueSmall);
         labelMagazineSizeUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMagazineSizeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMagazineSizeLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelMagazineSizeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelReloadTimeTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelReloadTimeValue = new Label("", game.styles.labelStyleBlueSmall);
         labelReloadTimeUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelReloadTimeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelReloadTimeLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelReloadTimeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarReloadTime = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarWeight = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
 
         labelRateOfFireValue.setAlignment(Align.topRight);
         labelAmmoDamageValue.setAlignment(Align.topRight);
         labelAmmoSpeedValue.setAlignment(Align.topRight);
         labelMagazineSizeValue.setAlignment(Align.topRight);
         labelReloadTimeValue.setAlignment(Align.topRight);
-        labelWeightValue.setAlignment(Align.topRight);
 
         tableWeaponInfoBox = createBasicInfoBox();
 
-        tableRateOfFire = createRow(labelRateOfFireTitle, labelRateOfFireValue, labelRateOfFireUnit, labelRateOfFireLevelTitle, labelRateOfFireLevel, labelRateOfFireMaxLevel, progressBarRateOfFire);
-        tableAmmoDamage = createRow(labelAmmoDamageTitle, labelAmmoDamageValue, labelAmmoDamageUnit, labelAmmoDamageLevelTitle, labelAmmoDamageLevel, labelAmmoDamageMaxLevel, progressBarAmmoDamage);
-        tableAmmoSpeed = createRow(labelAmmoSpeedTitle, labelAmmoSpeedValue, labelAmmoSpeedUnit, labelAmmoSpeedLevelTitle, labelAmmoSpeedLevel, labelAmmoSpeedMaxLevel, progressBarAmmoSpeed);
-        tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, labelMagazineSizeLevelTitle, labelMagazineSizeLevel, labelMagazineSizeMaxLevel, progressBarMagazineSize);
-        tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, labelReloadTimeLevelTitle, labelReloadTimeLevel, labelReloadTimeMaxLevel, progressBarReloadTime);
-        tableWeight = createRow(labelWeightTitle, labelWeightValue, labelWeightUnit, labelWeightLevelTitle, labelWeightLevel, labelWeightMaxLevel, progressBarWeight);
+        tableRateOfFire = createRow(labelRateOfFireTitle, labelRateOfFireValue, labelRateOfFireUnit, progressBarRateOfFire);
+        tableAmmoDamage = createRow(labelAmmoDamageTitle, labelAmmoDamageValue, labelAmmoDamageUnit, progressBarAmmoDamage);
+        tableAmmoSpeed = createRow(labelAmmoSpeedTitle, labelAmmoSpeedValue, labelAmmoSpeedUnit, progressBarAmmoSpeed);
+        tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, progressBarMagazineSize);
+        tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, progressBarReloadTime);
 
-        buttonWeapons = new Array<TextButtonWithID>();
+        buttonWeapons = new Array<WeaponButton>();
         tableWeaponButtons = new Table();
 
         ScrollPane scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
@@ -474,17 +396,11 @@ public class BackpackHud extends AbstractHud {
         return tableRows;
     }
 
-    private Table createRow(Label title, Label value, Label unit, Label levelTitle, Label level, Label maxLevel, ProgressBar valueProgress) {
+    private Table createRow(Label title, Label value, Label unit, ProgressBar valueProgress) {
         Table tableData = new Table();
         tableData.add(title).width(Constants.WEAPON_TITLE_WIDTH).align(Align.left);
         tableData.add(value).width(Constants.WEAPON_VALUE_WIDTH).align(Align.topLeft);
         tableData.add(unit).width(Constants.WEAPON_UNIT_WIDTH).align(Align.topLeft);
-        Table tableLevel = new Table();
-        tableLevel.add(levelTitle).align(Align.right).expandX();
-        tableLevel.add(level).align(Align.topRight);
-        tableLevel.add(new Label("/", game.styles.labelStyleWhiteSmall)).align(Align.topRight);
-        tableLevel.add(maxLevel).align(Align.topRight);
-        tableData.add(tableLevel).width(Constants.WEAPON_LEVEL_WIDTH).align(Align.topLeft);
         tableData.row();
         tableData.add(valueProgress).colspan(5).width(Constants.WEAPON_BAR_WIDTH).height(Constants.PROGRESS_BAR_DATA_THICKNESS).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();

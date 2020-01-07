@@ -3,11 +3,13 @@ package com.aleksiprograms.survivalofkeijo.screens.huds;
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
-import com.aleksiprograms.survivalofkeijo.toolbox.TextButtonWithID;
+import com.aleksiprograms.survivalofkeijo.toolbox.WeaponButton;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -36,13 +38,7 @@ public class ShopHud extends AbstractHud {
 
     private Label labelScreenTitle;
 
-    private TextButtonWithID buttonPistol;
-    private TextButtonWithID buttonAssaultRifle;
-    private TextButtonWithID buttonShotgun;
-    private TextButtonWithID buttonSniper;
-    private TextButtonWithID buttonMachineGun;
-    private TextButtonWithID buttonRocketLauncher;
-
+    private Array<WeaponButton> weaponButtons;
     private int checkedWeaponID;
     private ScrollPane scrollPaneWeapons;
     private Label labelMoney;
@@ -63,7 +59,6 @@ public class ShopHud extends AbstractHud {
     private Table tableAmmoSpeed;
     private Table tableMagazineSize;
     private Table tableReloadTime;
-    private Table tableWeight;
 
     private Label labelBasicInfoFireType;
     private Label labelBasicInfoAmmoPrice;
@@ -87,45 +82,23 @@ public class ShopHud extends AbstractHud {
     private Label labelRateOfFireTitle;
     private Label labelRateOfFireValue;
     private Label labelRateOfFireUnit;
-    private Label labelRateOfFireLevelTitle;
-    private Label labelRateOfFireLevel;
-    private Label labelRateOfFireMaxLevel;
     private Label labelAmmoDamageTitle;
     private Label labelAmmoDamageValue;
     private Label labelAmmoDamageUnit;
-    private Label labelAmmoDamageLevelTitle;
-    private Label labelAmmoDamageLevel;
-    private Label labelAmmoDamageMaxLevel;
     private Label labelAmmoSpeedTitle;
     private Label labelAmmoSpeedValue;
     private Label labelAmmoSpeedUnit;
-    private Label labelAmmoSpeedLevelTitle;
-    private Label labelAmmoSpeedLevel;
-    private Label labelAmmoSpeedMaxLevel;
     private Label labelMagazineSizeTitle;
     private Label labelMagazineSizeValue;
     private Label labelMagazineSizeUnit;
-    private Label labelMagazineSizeLevelTitle;
-    private Label labelMagazineSizeLevel;
-    private Label labelMagazineSizeMaxLevel;
     private Label labelReloadTimeTitle;
     private Label labelReloadTimeValue;
     private Label labelReloadTimeUnit;
-    private Label labelReloadTimeLevelTitle;
-    private Label labelReloadTimeLevel;
-    private Label labelReloadTimeMaxLevel;
-    private Label labelWeightTitle;
-    private Label labelWeightValue;
-    private Label labelWeightUnit;
-    private Label labelWeightLevelTitle;
-    private Label labelWeightLevel;
-    private Label labelWeightMaxLevel;
     private ProgressBar progressBarRateOfFire;
     private ProgressBar progressBarAmmoDamage;
     private ProgressBar progressBarAmmoSpeed;
     private ProgressBar progressBarMagazineSize;
     private ProgressBar progressBarReloadTime;
-    private ProgressBar progressBarWeight;
 
     private Table tableWeaponUpgrade;
     private Table tableWeaponRowsUpgrade;
@@ -137,71 +110,42 @@ public class ShopHud extends AbstractHud {
     private Table tableAmmoSpeedUpgrade;
     private Table tableMagazineSizeUpgrade;
     private Table tableReloadTimeUpgrade;
-    private Table tableWeightUpgrade;
 
     private Label labelWeaponNameUpgrade;
     private Label labelYourMoneyTitleUpgrade;
     private Label labelYourMoneyUpgrade;
+    private Label labelPriceUpgrade;
+    private TextButton buttonBuyUpgrade;
     private Label labelRateOfFireTitleUpgrade;
     private Label labelRateOfFireValueUpgrade;
     private Label labelRateOfFireUnitUpgrade;
-    private Label labelRateOfFireLevelTitleUpgrade;
-    private Label labelRateOfFireLevelUpgrade;
-    private Label labelRateOfFireMaxLevelUpgrade;
     private Label labelRateOfFireUpgradeUpgrade;
     private Label labelRateOfFireUpgradeUnitUpgrade;
-    private Label labelRateOfFirePriceUpgrade;
-    private Label labelRateOfFirePriceUnitUpgrade;
+    private Label labelRateOfFireCompletedUpgrade;
     private Label labelAmmoDamageTitleUpgrade;
     private Label labelAmmoDamageValueUpgrade;
     private Label labelAmmoDamageUnitUpgrade;
-    private Label labelAmmoDamageLevelTitleUpgrade;
-    private Label labelAmmoDamageLevelUpgrade;
-    private Label labelAmmoDamageMaxLevelUpgrade;
     private Label labelAmmoDamageUpgradeUpgrade;
     private Label labelAmmoDamageUpgradeUnitUpgrade;
-    private Label labelAmmoDamagePriceUpgrade;
-    private Label labelAmmoDamagePriceUnitUpgrade;
+    private Label labelAmmoDamageCompletedUpgrade;
     private Label labelAmmoSpeedTitleUpgrade;
     private Label labelAmmoSpeedValueUpgrade;
     private Label labelAmmoSpeedUnitUpgrade;
-    private Label labelAmmoSpeedLevelTitleUpgrade;
-    private Label labelAmmoSpeedLevelUpgrade;
-    private Label labelAmmoSpeedMaxLevelUpgrade;
     private Label labelAmmoSpeedUpgradeUpgrade;
     private Label labelAmmoSpeedUpgradeUnitUpgrade;
-    private Label labelAmmoSpeedPriceUpgrade;
-    private Label labelAmmoSpeedPriceUnitUpgrade;
+    private Label labelAmmoSpeedCompletedUpgrade;
     private Label labelMagazineSizeTitleUpgrade;
     private Label labelMagazineSizeValueUpgrade;
     private Label labelMagazineSizeUnitUpgrade;
-    private Label labelMagazineSizeLevelTitleUpgrade;
-    private Label labelMagazineSizeLevelUpgrade;
-    private Label labelMagazineSizeMaxLevelUpgrade;
     private Label labelMagazineSizeUpgradeUpgrade;
     private Label labelMagazineSizeUpgradeUnitUpgrade;
-    private Label labelMagazineSizePriceUpgrade;
-    private Label labelMagazineSizePriceUnitUpgrade;
+    private Label labelMagazineSizeCompletedUpgrade;
     private Label labelReloadTimeTitleUpgrade;
     private Label labelReloadTimeValueUpgrade;
     private Label labelReloadTimeUnitUpgrade;
-    private Label labelReloadTimeLevelTitleUpgrade;
-    private Label labelReloadTimeLevelUpgrade;
-    private Label labelReloadTimeMaxLevelUpgrade;
     private Label labelReloadTimeUpgradeUpgrade;
     private Label labelReloadTimeUpgradeUnitUpgrade;
-    private Label labelReloadTimePriceUpgrade;
-    private Label labelReloadTimePriceUnitUpgrade;
-    private Label labelWeightTitleUpgrade;
-    private Label labelWeightValueUpgrade;
-    private Label labelWeightUnitUpgrade;
-    private Label labelWeightLevelTitleUpgrade;
-    private Label labelWeightLevelUpgrade;
-    private Label labelWeightMaxLevelUpgrade;
-    private Label labelWeightUpgradeUpgrade;
-    private Label labelWeightUpgradeUnitUpgrade;
-    private Label labelWeightPriceUpgrade;
-    private Label labelWeightPriceUnitUpgrade;
+    private Label labelReloadTimeCompletedUpgrade;
     private ProgressBar progressBarRateOfFireValueBought;
     private ProgressBar progressBarRateOfFireUpgradeBought;
     private ProgressBar progressBarAmmoDamageValueBought;
@@ -212,26 +156,11 @@ public class ShopHud extends AbstractHud {
     private ProgressBar progressBarMagazineSizeUpgradeBought;
     private ProgressBar progressBarReloadTimeValueBought;
     private ProgressBar progressBarReloadTimeUpgradeBought;
-    private ProgressBar progressBarWeightValueBought;
-    private ProgressBar progressBarWeightUpgradeBought;
-    private ImageButton buttonUpgradeRateOfFire;
-    private ImageButton buttonUpgradeAmmoDamage;
-    private ImageButton buttonUpgradeAmmoSpeed;
-    private ImageButton buttonUpgradeMagazineSize;
-    private ImageButton buttonUpgradeReloadTime;
-    private ImageButton buttonUpgradeWeight;
     private ProgressBar progressBarRateOfFireUpgradeDone;
     private ProgressBar progressBarAmmoDamageUpgradeDone;
     private ProgressBar progressBarAmmoSpeedUpgradeDone;
     private ProgressBar progressBarMagazineSizeUpgradeDone;
     private ProgressBar progressBarReloadTimeUpgradeDone;
-    private ProgressBar progressBarWeightUpgradeDone;
-    private Image imageUpgradeRateOfFireDone;
-    private Image imageUpgradeAmmoDamageDone;
-    private Image imageUpgradeAmmoSpeedDone;
-    private Image imageUpgradeMagazineSizeDone;
-    private Image imageUpgradeReloadTimeDone;
-    private Image imageUpgradeWeightDone;
 
     private Table tableBuyAmmo;
     private Label labelWeaponNameBuyAmmo;
@@ -295,14 +224,9 @@ public class ShopHud extends AbstractHud {
     public void updateHud() {
         super.updateHud();
         labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleShop"));
-        buttonPistol.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("pistol") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.PISTOL_ID).bought ? "*" : ""));
-        buttonAssaultRifle.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("assaultRifle") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ASSAULT_RIFLE_ID).bought ? "*" : ""));
-        buttonShotgun.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SHOTGUN_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("shotgun") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SHOTGUN_ID).bought ? "*" : ""));
-        buttonSniper.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SNIPER_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("sniper") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.SNIPER_ID).bought ? "*" : ""));
-        buttonMachineGun.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.MACHINE_GUN_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("machineGun") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.MACHINE_GUN_ID).bought ? "*" : ""));
-        buttonRocketLauncher.setText((game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ROCKET_LAUNCHER_ID).bought ? "*" : "") + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("rocketLauncher") + (game.gameWorld.weaponManagerPlayer.getWeaponData(Constants.ROCKET_LAUNCHER_ID).bought ? "*" : ""));
         tableWeapon.clearChildren();
         tableWeaponRows.clearChildren();
+        updateWeaponsTable();
         updateWeaponInfoBox();
         updateWeaponData();
         recreateTableWeapon();
@@ -322,13 +246,27 @@ public class ShopHud extends AbstractHud {
         labelMoney.setText(game.styles.getFormattedFloatMoney(game.gameWorld.player.money) + " \u20AC");
     }
 
-    private void updateWeaponUpgradeTable() {
+    private void updateWeaponsTable() {
+        for (int i = 0; i < Constants.NUMBER_OF_WEAPONS; i++) {
+            for (int j = 0; j < Constants.NUMBER_OF_WEAPONS; j++) {
+                if (weaponButtons.get(j).ID == WEAPONS_IDS[i]) {
+                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(WEAPONS_IDS[i]).bought) {
+                        weaponButtons.get(j).labelWeaponLevel.setText("lvl " + game.gameWorld.weaponManagerPlayer.getWeaponData(weaponButtons.get(j).ID).level);
+                    } else {
+                        weaponButtons.get(j).labelWeaponLevel.setText("");
+                    }
+                }
+            }
+        }
+    }
+
+    private void updateUpgradeTable() {
         tableWeaponRowsUpgrade.clearChildren();
         recreateTableWeaponUpgrade();
         updateWeaponDataUpgrade();
     }
 
-    private void updateBuyAmmoTable() {
+    private void updateAmmoTable() {
         labelWeaponNameBuyAmmo.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).nameID));
         labelYourAmmoTitleBuyAmmo.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelNumberOfAmmoTitle"));
         labelYourAmmoBuyAmmo.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).numberOfAmmo));
@@ -388,11 +326,6 @@ public class ShopHud extends AbstractHud {
             tableWeaponRows.add(tableReloadTime).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRows.row();
         }
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
-            weaponNumberOfRows++;
-            tableWeaponRows.add(tableWeight).padBottom(weaponNumberOfRows < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
-            tableWeaponRows.row();
-        }
 
         scrollPaneWeapon.setVelocityY(0);
         scrollPaneWeapon.removeActor(tableWeaponRows);
@@ -429,11 +362,6 @@ public class ShopHud extends AbstractHud {
             tableWeaponRowsUpgrade.add(tableReloadTimeUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
             tableWeaponRowsUpgrade.row();
         }
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
-            weaponNumberOfRowsUpgrade++;
-            tableWeaponRowsUpgrade.add(tableWeightUpgrade).padBottom(weaponNumberOfRowsUpgrade < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).attributes ? Constants.GAP : 0).padRight(Constants.GAP).height(Constants.IMAGE_BUTTON_SIZE_TINY + 2 * Constants.GAP);
-            tableWeaponRowsUpgrade.row();
-        }
 
         scrollPaneWeaponUpgrade.setVelocityY(0);
         scrollPaneWeaponUpgrade.removeActor(tableWeaponRowsUpgrade);
@@ -465,6 +393,11 @@ public class ShopHud extends AbstractHud {
         buttonBuyWeapon.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonBuy"));
         buttonGetAmmo.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonGetAmmo"));
         buttonUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonUpgrade"));
+        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).MAX_LEVEL) {
+            buttonUpgrade.setDisabled(false);
+        } else {
+            buttonUpgrade.setDisabled(true);
+        }
 
         if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).price) {
             buttonBuyWeapon.setDisabled(false);
@@ -476,9 +409,6 @@ public class ShopHud extends AbstractHud {
             labelRateOfFireTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelRateOfFire"));
             labelRateOfFireValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire));
             labelRateOfFireUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelRateOfFireUnit"));
-            labelRateOfFireLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelRateOfFireLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel + "");
-            labelRateOfFireMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireMaxLevel + "");
             progressBarRateOfFire.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire);
         }
 
@@ -486,9 +416,6 @@ public class ShopHud extends AbstractHud {
             labelAmmoDamageTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoDamage"));
             labelAmmoDamageValue.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage));
             labelAmmoDamageUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoDamageUnit"));
-            labelAmmoDamageLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelAmmoDamageLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel + "");
-            labelAmmoDamageMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageMaxLevel + "");
             progressBarAmmoDamage.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage);
         }
 
@@ -496,9 +423,6 @@ public class ShopHud extends AbstractHud {
             labelAmmoSpeedTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoSpeed"));
             labelAmmoSpeedValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed));
             labelAmmoSpeedUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoSpeedUnit"));
-            labelAmmoSpeedLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelAmmoSpeedLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel + "");
-            labelAmmoSpeedMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedMaxLevel + "");
             progressBarAmmoSpeed.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed);
         }
 
@@ -506,9 +430,6 @@ public class ShopHud extends AbstractHud {
             labelMagazineSizeTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMagazineSize"));
             labelMagazineSizeValue.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize));
             labelMagazineSizeUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMagazineSizeUnit"));
-            labelMagazineSizeLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelMagazineSizeLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel + "");
-            labelMagazineSizeMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeMaxLevel + "");
             progressBarMagazineSize.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize);
         }
 
@@ -516,20 +437,7 @@ public class ShopHud extends AbstractHud {
             labelReloadTimeTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelReloadTime"));
             labelReloadTimeValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime));
             labelReloadTimeUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelReloadTimeUnit"));
-            labelReloadTimeLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelReloadTimeLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel + "");
-            labelReloadTimeMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel + "");
             progressBarReloadTime.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
-        }
-
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
-            labelWeightTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelWeight"));
-            labelWeightValue.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight));
-            labelWeightUnit.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelWeightUnit"));
-            labelWeightLevelTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelWeightLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel + "");
-            labelWeightMaxLevel.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel + "");
-            progressBarWeight.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
         }
     }
 
@@ -539,44 +447,36 @@ public class ShopHud extends AbstractHud {
         labelYourMoneyUpgrade.setText(game.styles.getFormattedFloatMoney(game.gameWorld.player.money) + " \u20AC");
         labelNumberOfAmmoTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelNumberOfAmmoTitle"));
         labelNumberOfAmmo.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).numberOfAmmo));
-        buttonGetAmmo.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonGetAmmo"));
-        buttonUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonUpgrade"));
+        buttonBuyUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonBuy"));
+        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).MAX_LEVEL) {
+            buttonBuyUpgrade.setDisabled(false);
+            labelPriceUpgrade.setText(game.styles.getFormattedFloatMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).upgradePrices.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level)) + " \u20AC");
+        } else {
+            buttonBuyUpgrade.setDisabled(true);
+            labelPriceUpgrade.setText("");
+        }
 
         if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isRateOfFire) {
             labelRateOfFireTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelRateOfFire"));
             labelRateOfFireValueUpgrade.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire));
             labelRateOfFireUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelRateOfFireUnit"));
-            labelRateOfFireLevelTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelRateOfFireLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel + "");
-            labelRateOfFireMaxLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireMaxLevel + "");
-            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).rateOfFireLevel >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireMaxLevel) {
+            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).level >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).MAX_LEVEL) {
                 labelRateOfFireUpgradeUpgrade.setText("");
                 labelRateOfFireUpgradeUnitUpgrade.setText("");
-                labelRateOfFirePriceUpgrade.setText("");
-                labelRateOfFirePriceUnitUpgrade.setText("");
+                labelRateOfFireCompletedUpgrade.setText("COMPLETED123");
                 progressBarRateOfFireValueBought.setVisible(false);
                 progressBarRateOfFireUpgradeBought.setVisible(false);
                 progressBarRateOfFireUpgradeDone.setVisible(true);
                 progressBarRateOfFireUpgradeDone.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire);
-                buttonUpgradeRateOfFire.setVisible(false);
-                imageUpgradeRateOfFireDone.setVisible(true);
             } else {
-                labelRateOfFireUpgradeUpgrade.setText(game.styles.getFormattedFloatWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).upgrade));
+                labelRateOfFireUpgradeUpgrade.setText(game.styles.getFormattedFloatWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level)));
                 labelRateOfFireUpgradeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelRateOfFireUnit"));
-                labelRateOfFirePriceUpgrade.setText(game.styles.getFormattedIntMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).price));
-                labelRateOfFirePriceUnitUpgrade.setText(" \u20AC");
+                labelRateOfFireCompletedUpgrade.setText("");
                 progressBarRateOfFireValueBought.setVisible(true);
                 progressBarRateOfFireUpgradeBought.setVisible(true);
                 progressBarRateOfFireUpgradeDone.setVisible(false);
                 progressBarRateOfFireValueBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire);
-                progressBarRateOfFireUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).upgrade);
-                buttonUpgradeRateOfFire.setVisible(true);
-                if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).price) {
-                    buttonUpgradeRateOfFire.setDisabled(false);
-                } else {
-                    buttonUpgradeRateOfFire.setDisabled(true);
-                }
-                imageUpgradeRateOfFireDone.setVisible(false);
+                progressBarRateOfFireUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level));
             }
         }
 
@@ -584,37 +484,23 @@ public class ShopHud extends AbstractHud {
             labelAmmoDamageTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoDamage"));
             labelAmmoDamageValueUpgrade.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage));
             labelAmmoDamageUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoDamageUnit"));
-            labelAmmoDamageLevelTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelAmmoDamageLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel + "");
-            labelAmmoDamageMaxLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageMaxLevel + "");
-            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).ammoDamageLevel >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageMaxLevel) {
+            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).level >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).MAX_LEVEL) {
                 labelAmmoDamageUpgradeUpgrade.setText("");
                 labelAmmoDamageUpgradeUnitUpgrade.setText("");
-                labelAmmoDamagePriceUpgrade.setText("");
-                labelAmmoDamagePriceUnitUpgrade.setText("");
+                labelAmmoDamageCompletedUpgrade.setText("COMPLETED123");
                 progressBarAmmoDamageValueBought.setVisible(false);
                 progressBarAmmoDamageUpgradeBought.setVisible(false);
                 progressBarAmmoDamageUpgradeDone.setVisible(true);
                 progressBarAmmoDamageUpgradeDone.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage);
-                buttonUpgradeAmmoDamage.setVisible(false);
-                imageUpgradeAmmoDamageDone.setVisible(true);
             } else {
-                labelAmmoDamageUpgradeUpgrade.setText(game.styles.getFormattedIntWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).upgrade));
+                labelAmmoDamageUpgradeUpgrade.setText(game.styles.getFormattedIntWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level)));
                 labelAmmoDamageUpgradeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoDamageUnit"));
-                labelAmmoDamagePriceUpgrade.setText(game.styles.getFormattedIntMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).price));
-                labelAmmoDamagePriceUnitUpgrade.setText(" \u20AC");
+                labelAmmoDamageCompletedUpgrade.setText("");
                 progressBarAmmoDamageValueBought.setVisible(true);
                 progressBarAmmoDamageUpgradeBought.setVisible(true);
                 progressBarAmmoDamageUpgradeDone.setVisible(false);
                 progressBarAmmoDamageValueBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage);
-                progressBarAmmoDamageUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).upgrade);
-                buttonUpgradeAmmoDamage.setVisible(true);
-                if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).price) {
-                    buttonUpgradeAmmoDamage.setDisabled(false);
-                } else {
-                    buttonUpgradeAmmoDamage.setDisabled(true);
-                }
-                imageUpgradeAmmoDamageDone.setVisible(false);
+                progressBarAmmoDamageUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level));
             }
         }
 
@@ -622,37 +508,23 @@ public class ShopHud extends AbstractHud {
             labelAmmoSpeedTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoSpeed"));
             labelAmmoSpeedValueUpgrade.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed));
             labelAmmoSpeedUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoSpeedUnit"));
-            labelAmmoSpeedLevelTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelAmmoSpeedLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel + "");
-            labelAmmoSpeedMaxLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedMaxLevel + "");
-            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).ammoSpeedLevel >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedMaxLevel) {
+            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).level >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).MAX_LEVEL) {
                 labelAmmoSpeedUpgradeUpgrade.setText("");
                 labelAmmoSpeedUpgradeUnitUpgrade.setText("");
-                labelAmmoSpeedPriceUpgrade.setText("");
-                labelAmmoSpeedPriceUnitUpgrade.setText("");
+                labelAmmoSpeedCompletedUpgrade.setText("COMPLETED123");
                 progressBarAmmoSpeedValueBought.setVisible(false);
                 progressBarAmmoSpeedUpgradeBought.setVisible(false);
                 progressBarAmmoSpeedUpgradeDone.setVisible(true);
                 progressBarAmmoSpeedUpgradeDone.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed);
-                buttonUpgradeAmmoSpeed.setVisible(false);
-                imageUpgradeAmmoSpeedDone.setVisible(true);
             } else {
-                labelAmmoSpeedUpgradeUpgrade.setText(game.styles.getFormattedFloatWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).upgrade));
+                labelAmmoSpeedUpgradeUpgrade.setText(game.styles.getFormattedFloatWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level)));
                 labelAmmoSpeedUpgradeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelAmmoSpeedUnit"));
-                labelAmmoSpeedPriceUpgrade.setText(game.styles.getFormattedIntMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).price));
-                labelAmmoSpeedPriceUnitUpgrade.setText(" \u20AC");
+                labelAmmoSpeedCompletedUpgrade.setText("");
                 progressBarAmmoSpeedValueBought.setVisible(true);
                 progressBarAmmoSpeedUpgradeBought.setVisible(true);
                 progressBarAmmoSpeedUpgradeDone.setVisible(false);
                 progressBarAmmoSpeedValueBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed);
-                progressBarAmmoSpeedUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).upgrade);
-                buttonUpgradeAmmoSpeed.setVisible(true);
-                if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).price) {
-                    buttonUpgradeAmmoSpeed.setDisabled(false);
-                } else {
-                    buttonUpgradeAmmoSpeed.setDisabled(true);
-                }
-                imageUpgradeAmmoSpeedDone.setVisible(false);
+                progressBarAmmoSpeedUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level));
             }
         }
 
@@ -660,37 +532,23 @@ public class ShopHud extends AbstractHud {
             labelMagazineSizeTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMagazineSize"));
             labelMagazineSizeValueUpgrade.setText(game.styles.getFormattedInt(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize));
             labelMagazineSizeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMagazineSizeUnit"));
-            labelMagazineSizeLevelTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelMagazineSizeLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel + "");
-            labelMagazineSizeMaxLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeMaxLevel + "");
-            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).magazineSizeLevel >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeMaxLevel) {
+            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).level >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).MAX_LEVEL) {
                 labelMagazineSizeUpgradeUpgrade.setText("");
                 labelMagazineSizeUpgradeUnitUpgrade.setText("");
-                labelMagazineSizePriceUpgrade.setText("");
-                labelMagazineSizePriceUnitUpgrade.setText("");
+                labelMagazineSizeCompletedUpgrade.setText("COMPLETED123");
                 progressBarMagazineSizeValueBought.setVisible(false);
                 progressBarMagazineSizeUpgradeBought.setVisible(false);
                 progressBarMagazineSizeUpgradeDone.setVisible(true);
                 progressBarMagazineSizeUpgradeDone.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize);
-                buttonUpgradeMagazineSize.setVisible(false);
-                imageUpgradeMagazineSizeDone.setVisible(true);
             } else {
-                labelMagazineSizeUpgradeUpgrade.setText(game.styles.getFormattedIntWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).upgrade));
+                labelMagazineSizeUpgradeUpgrade.setText(game.styles.getFormattedIntWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level)));
                 labelMagazineSizeUpgradeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelMagazineSizeUnit"));
-                labelMagazineSizePriceUpgrade.setText(game.styles.getFormattedIntMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).price));
-                labelMagazineSizePriceUnitUpgrade.setText(" \u20AC");
+                labelMagazineSizeCompletedUpgrade.setText("");
                 progressBarMagazineSizeValueBought.setVisible(true);
                 progressBarMagazineSizeUpgradeBought.setVisible(true);
                 progressBarMagazineSizeUpgradeDone.setVisible(false);
                 progressBarMagazineSizeValueBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize);
-                progressBarMagazineSizeUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).upgrade);
-                buttonUpgradeMagazineSize.setVisible(true);
-                if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).price) {
-                    buttonUpgradeMagazineSize.setDisabled(false);
-                } else {
-                    buttonUpgradeMagazineSize.setDisabled(true);
-                }
-                imageUpgradeMagazineSizeDone.setVisible(false);
+                progressBarMagazineSizeUpgradeBought.setValue(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize + game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level));
             }
         }
 
@@ -698,75 +556,23 @@ public class ShopHud extends AbstractHud {
             labelReloadTimeTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelReloadTime"));
             labelReloadTimeValueUpgrade.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime));
             labelReloadTimeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelReloadTimeUnit"));
-            labelReloadTimeLevelTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelReloadTimeLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel + "");
-            labelReloadTimeMaxLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel + "");
-            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).reloadTimeLevel >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel) {
+            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).level >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).MAX_LEVEL) {
                 labelReloadTimeUpgradeUpgrade.setText("");
                 labelReloadTimeUpgradeUnitUpgrade.setText("");
-                labelReloadTimePriceUpgrade.setText("");
-                labelReloadTimePriceUnitUpgrade.setText("");
+                labelReloadTimeCompletedUpgrade.setText("COMPLETED123");
                 progressBarReloadTimeValueBought.setVisible(false);
                 progressBarReloadTimeUpgradeBought.setVisible(false);
                 progressBarReloadTimeUpgradeDone.setVisible(true);
                 progressBarReloadTimeUpgradeDone.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
-                buttonUpgradeReloadTime.setVisible(false);
-                imageUpgradeReloadTimeDone.setVisible(true);
             } else {
-                labelReloadTimeUpgradeUpgrade.setText(game.styles.getFormattedFloatWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).upgrade));
+                labelReloadTimeUpgradeUpgrade.setText(game.styles.getFormattedFloatWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level)));
                 labelReloadTimeUpgradeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelReloadTimeUnit"));
-                labelReloadTimePriceUpgrade.setText(game.styles.getFormattedIntMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price));
-                labelReloadTimePriceUnitUpgrade.setText(" \u20AC");
+                labelReloadTimeCompletedUpgrade.setText("");
                 progressBarReloadTimeValueBought.setVisible(true);
                 progressBarReloadTimeUpgradeBought.setVisible(true);
                 progressBarReloadTimeUpgradeDone.setVisible(false);
                 progressBarReloadTimeValueBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime);
-                progressBarReloadTimeUpgradeBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime - game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).upgrade);
-                buttonUpgradeReloadTime.setVisible(true);
-                if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price) {
-                    buttonUpgradeReloadTime.setDisabled(false);
-                } else {
-                    buttonUpgradeReloadTime.setDisabled(true);
-                }
-                imageUpgradeReloadTimeDone.setVisible(false);
-            }
-        }
-
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isWeight) {
-            labelWeightTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelWeight"));
-            labelWeightValueUpgrade.setText(game.styles.getFormattedFloat(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight));
-            labelWeightUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelWeightUnit"));
-            labelWeightLevelTitleUpgrade.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelLevelTile") + " ");
-            labelWeightLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel + "");
-            labelWeightMaxLevelUpgrade.setText(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel + "");
-            if (game.gameWorld.weaponManagerPlayer.getWeaponData(this.checkedWeaponID).weightLevel >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel) {
-                labelWeightUpgradeUpgrade.setText("");
-                labelWeightUpgradeUnitUpgrade.setText("");
-                labelWeightPriceUpgrade.setText("");
-                labelWeightPriceUnitUpgrade.setText("");
-                progressBarWeightValueBought.setVisible(false);
-                progressBarWeightUpgradeBought.setVisible(false);
-                progressBarWeightUpgradeDone.setVisible(true);
-                progressBarWeightUpgradeDone.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
-                buttonUpgradeWeight.setVisible(false);
-                imageUpgradeWeightDone.setVisible(true);
-            } else {
-                labelWeightUpgradeUpgrade.setText(game.styles.getFormattedFloatWithSign(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).upgrade));
-                labelWeightUpgradeUnitUpgrade.setText(" " + game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("labelWeightUnit"));
-                labelWeightPriceUpgrade.setText(game.styles.getFormattedIntMoney(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price));
-                labelWeightPriceUnitUpgrade.setText(" \u20AC");
-                progressBarWeightValueBought.setVisible(true);
-                progressBarWeightUpgradeBought.setVisible(true);
-                progressBarWeightUpgradeDone.setVisible(false);
-                progressBarWeightValueBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight);
-                progressBarWeightUpgradeBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight - game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).upgrade);
-                buttonUpgradeWeight.setVisible(true);
-                if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price) {
-                    buttonUpgradeWeight.setDisabled(false);
-                } else {
-                    buttonUpgradeWeight.setDisabled(true);
-                }
-                imageUpgradeWeightDone.setVisible(false);
+                progressBarReloadTimeUpgradeBought.setValue(-game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime - game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level));
             }
         }
     }
@@ -801,115 +607,63 @@ public class ShopHud extends AbstractHud {
         labelRateOfFireTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelRateOfFireValue = new Label("", game.styles.labelStyleBlueSmall);
         labelRateOfFireUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelRateOfFireLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelRateOfFireLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelRateOfFireMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoDamageTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelAmmoDamageValue = new Label("", game.styles.labelStyleBlueSmall);
         labelAmmoDamageUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoDamageLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoDamageLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoDamageMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoSpeedTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelAmmoSpeedValue = new Label("", game.styles.labelStyleBlueSmall);
         labelAmmoSpeedUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoSpeedLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoSpeedLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoSpeedMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelMagazineSizeTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelMagazineSizeValue = new Label("", game.styles.labelStyleBlueSmall);
         labelMagazineSizeUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMagazineSizeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMagazineSizeLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelMagazineSizeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         labelReloadTimeTitle = new Label("", game.styles.labelStyleWhiteTiny);
         labelReloadTimeValue = new Label("", game.styles.labelStyleBlueSmall);
         labelReloadTimeUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelReloadTimeLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelReloadTimeLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelReloadTimeMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightValue = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightUnit = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightLevelTitle = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightLevel = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightMaxLevel = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarRateOfFire = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoDamage = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarAmmoSpeed = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarMagazineSize = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         progressBarReloadTime = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueNotBought);
-        progressBarWeight = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueNotBought);
         labelRateOfFireValue.setAlignment(Align.topRight);
         labelAmmoDamageValue.setAlignment(Align.topRight);
         labelAmmoSpeedValue.setAlignment(Align.topRight);
         labelMagazineSizeValue.setAlignment(Align.topRight);
         labelReloadTimeValue.setAlignment(Align.topRight);
-        labelWeightValue.setAlignment(Align.topRight);
 
         labelWeaponNameUpgrade = new Label("", game.styles.labelStyleWhiteMedium);
         labelYourMoneyTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
         labelYourMoneyUpgrade = new Label("", game.styles.labelStyleWhiteMedium);
+        labelPriceUpgrade = new Label("", game.styles.labelStyleWhiteMedium);
         labelRateOfFireTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
         labelRateOfFireValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
         labelRateOfFireUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelRateOfFireLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelRateOfFireLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelRateOfFireMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelRateOfFireUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
         labelRateOfFireUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelRateOfFirePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelRateOfFirePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelRateOfFireCompletedUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoDamageTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
         labelAmmoDamageValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
         labelAmmoDamageUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoDamageLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoDamageLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoDamageMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoDamageUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
         labelAmmoDamageUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoDamagePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelAmmoDamagePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoDamageCompletedUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoSpeedTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
         labelAmmoSpeedValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
         labelAmmoSpeedUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoSpeedLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelAmmoSpeedLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelAmmoSpeedMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelAmmoSpeedUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
         labelAmmoSpeedUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelAmmoSpeedPriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelAmmoSpeedPriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelAmmoSpeedCompletedUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelMagazineSizeTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
         labelMagazineSizeValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
         labelMagazineSizeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMagazineSizeLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelMagazineSizeLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelMagazineSizeMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelMagazineSizeUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
         labelMagazineSizeUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelMagazineSizePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelMagazineSizePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelMagazineSizeCompletedUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelReloadTimeTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
         labelReloadTimeValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
         labelReloadTimeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelReloadTimeLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelReloadTimeLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelReloadTimeMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         labelReloadTimeUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
         labelReloadTimeUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelReloadTimePriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelReloadTimePriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightValueUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightLevelTitleUpgrade = new Label("", game.styles.labelStyleWhiteTiny);
-        labelWeightLevelUpgrade = new Label("", game.styles.labelStyleBlueSmall);
-        labelWeightMaxLevelUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightUpgradeUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelWeightUpgradeUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
-        labelWeightPriceUpgrade = new Label("", game.styles.labelStyleGreenSmall);
-        labelWeightPriceUnitUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
+        labelReloadTimeCompletedUpgrade = new Label("", game.styles.labelStyleWhiteSmall);
         progressBarRateOfFireValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleValueBought);
         progressBarRateOfFireUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarAmmoDamageValueBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleValueBought);
@@ -920,26 +674,16 @@ public class ShopHud extends AbstractHud {
         progressBarMagazineSizeUpgradeBought = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgrade);
         progressBarReloadTimeValueBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleValueBought);
         progressBarReloadTimeUpgradeBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleUpgrade);
-        progressBarWeightValueBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleValueBought);
-        progressBarWeightUpgradeBought = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleUpgrade);
         labelRateOfFireValueUpgrade.setAlignment(Align.topRight);
         labelRateOfFireUpgradeUpgrade.setAlignment(Align.topRight);
-        labelRateOfFirePriceUpgrade.setAlignment(Align.topRight);
         labelAmmoDamageValueUpgrade.setAlignment(Align.topRight);
         labelAmmoDamageUpgradeUpgrade.setAlignment(Align.topRight);
-        labelAmmoDamagePriceUpgrade.setAlignment(Align.topRight);
         labelAmmoSpeedValueUpgrade.setAlignment(Align.topRight);
         labelAmmoSpeedUpgradeUpgrade.setAlignment(Align.topRight);
-        labelAmmoSpeedPriceUpgrade.setAlignment(Align.topRight);
         labelMagazineSizeValueUpgrade.setAlignment(Align.topRight);
         labelMagazineSizeUpgradeUpgrade.setAlignment(Align.topRight);
-        labelMagazineSizePriceUpgrade.setAlignment(Align.topRight);
         labelReloadTimeValueUpgrade.setAlignment(Align.topRight);
         labelReloadTimeUpgradeUpgrade.setAlignment(Align.topRight);
-        labelReloadTimePriceUpgrade.setAlignment(Align.topRight);
-        labelWeightValueUpgrade.setAlignment(Align.topRight);
-        labelWeightUpgradeUpgrade.setAlignment(Align.topRight);
-        labelWeightPriceUpgrade.setAlignment(Align.topRight);
 
         labelWeaponNameBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
         labelYourAmmoTitleBuyAmmo = new Label("", game.styles.labelStyleWhiteTiny);
@@ -953,217 +697,45 @@ public class ShopHud extends AbstractHud {
         labelYourMoneyBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
         labelPriceBuyAmmo = new Label("", game.styles.labelStyleWhiteMedium);
 
-        buttonUpgradeRateOfFire = new ImageButton(game.styles.imageButtonStylePlus);
-        buttonUpgradeAmmoDamage = new ImageButton(game.styles.imageButtonStylePlus);
-        buttonUpgradeAmmoSpeed = new ImageButton(game.styles.imageButtonStylePlus);
-        buttonUpgradeMagazineSize = new ImageButton(game.styles.imageButtonStylePlus);
-        buttonUpgradeReloadTime = new ImageButton(game.styles.imageButtonStylePlus);
-        buttonUpgradeWeight = new ImageButton(game.styles.imageButtonStylePlus);
-
-        buttonUpgradeRateOfFire.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireMaxLevel) {
-                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).price) {
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).upgrade;
-                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel).price;
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireLevel++;
-                            updateWeaponUpgradeTable();
-                            updateHud();
-                        } else {
-                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
-                        }
-                    }
-                }
-            }
-        });
-        buttonUpgradeAmmoDamage.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageMaxLevel) {
-                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).price) {
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).upgrade;
-                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel).price;
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageLevel++;
-                            updateWeaponUpgradeTable();
-                            updateHud();
-                        } else {
-                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
-                        }
-                    }
-                }
-            }
-        });
-        buttonUpgradeAmmoSpeed.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedMaxLevel) {
-                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).price) {
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).upgrade;
-                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel).price;
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedLevel++;
-                            updateWeaponUpgradeTable();
-                            updateHud();
-                        } else {
-                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
-                        }
-                    }
-                }
-            }
-        });
-        buttonUpgradeMagazineSize.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeMaxLevel) {
-                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).price) {
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).upgrade;
-                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel).price;
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeLevel++;
-                            updateWeaponUpgradeTable();
-                            updateHud();
-                        } else {
-                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
-                        }
-                    }
-                }
-            }
-        });
-        buttonUpgradeReloadTime.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeMaxLevel) {
-                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price) {
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).upgrade;
-                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel).price;
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeLevel++;
-                            updateWeaponUpgradeTable();
-                            updateHud();
-                        } else {
-                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
-                        }
-                    }
-                }
-            }
-        });
-        buttonUpgradeWeight.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
-                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel) {
-                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price) {
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).upgrade;
-                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price;
-                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel++;
-                            updateWeaponUpgradeTable();
-                            updateHud();
-                        } else {
-                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
-                        }
-                    }
-                }
-            }
-        });
-
         progressBarRateOfFireUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minRateOfFire, game.gameWorld.weaponManagerPlayer.maxRateOfFire, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarAmmoDamageUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoDamage, game.gameWorld.weaponManagerPlayer.maxAmmoDamage, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarAmmoSpeedUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minAmmoSpeed, game.gameWorld.weaponManagerPlayer.maxAmmoSpeed, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarMagazineSizeUpgradeDone = new ProgressBar(game.gameWorld.weaponManagerPlayer.minMagazineSize, game.gameWorld.weaponManagerPlayer.maxMagazineSize, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarReloadTimeUpgradeDone = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxReloadTime, -game.gameWorld.weaponManagerPlayer.minReloadTime, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
-        progressBarWeightUpgradeDone = new ProgressBar(-game.gameWorld.weaponManagerPlayer.maxWeight, -game.gameWorld.weaponManagerPlayer.minWeight, 0.01f, false, game.styles.progressBarStyleUpgradeDone);
         progressBarRateOfFireUpgradeDone.setVisible(false);
         progressBarAmmoDamageUpgradeDone.setVisible(false);
         progressBarAmmoSpeedUpgradeDone.setVisible(false);
         progressBarMagazineSizeUpgradeDone.setVisible(false);
         progressBarReloadTimeUpgradeDone.setVisible(false);
-        progressBarWeightUpgradeDone.setVisible(false);
-        imageUpgradeRateOfFireDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
-        imageUpgradeAmmoDamageDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
-        imageUpgradeAmmoSpeedDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
-        imageUpgradeMagazineSizeDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
-        imageUpgradeReloadTimeDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
-        imageUpgradeWeightDone = new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_CHECK_MARK)));
-        imageUpgradeRateOfFireDone.setVisible(false);
-        imageUpgradeAmmoDamageDone.setVisible(false);
-        imageUpgradeAmmoSpeedDone.setVisible(false);
-        imageUpgradeMagazineSizeDone.setVisible(false);
-        imageUpgradeReloadTimeDone.setVisible(false);
-        imageUpgradeWeightDone.setVisible(false);
 
         tableWeaponInfoBox = createBasicInfoBox();
 
-        tableRateOfFire = createRow(labelRateOfFireTitle, labelRateOfFireValue, labelRateOfFireUnit, labelRateOfFireLevelTitle, labelRateOfFireLevel, labelRateOfFireMaxLevel, progressBarRateOfFire);
-        tableAmmoDamage = createRow(labelAmmoDamageTitle, labelAmmoDamageValue, labelAmmoDamageUnit, labelAmmoDamageLevelTitle, labelAmmoDamageLevel, labelAmmoDamageMaxLevel, progressBarAmmoDamage);
-        tableAmmoSpeed = createRow(labelAmmoSpeedTitle, labelAmmoSpeedValue, labelAmmoSpeedUnit, labelAmmoSpeedLevelTitle, labelAmmoSpeedLevel, labelAmmoSpeedMaxLevel, progressBarAmmoSpeed);
-        tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, labelMagazineSizeLevelTitle, labelMagazineSizeLevel, labelMagazineSizeMaxLevel, progressBarMagazineSize);
-        tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, labelReloadTimeLevelTitle, labelReloadTimeLevel, labelReloadTimeMaxLevel, progressBarReloadTime);
-        tableWeight = createRow(labelWeightTitle, labelWeightValue, labelWeightUnit, labelWeightLevelTitle, labelWeightLevel, labelWeightMaxLevel, progressBarWeight);
+        tableRateOfFire = createRow(labelRateOfFireTitle, labelRateOfFireValue, labelRateOfFireUnit, progressBarRateOfFire);
+        tableAmmoDamage = createRow(labelAmmoDamageTitle, labelAmmoDamageValue, labelAmmoDamageUnit, progressBarAmmoDamage);
+        tableAmmoSpeed = createRow(labelAmmoSpeedTitle, labelAmmoSpeedValue, labelAmmoSpeedUnit, progressBarAmmoSpeed);
+        tableMagazineSize = createRow(labelMagazineSizeTitle, labelMagazineSizeValue, labelMagazineSizeUnit, progressBarMagazineSize);
+        tableReloadTime = createRow(labelReloadTimeTitle, labelReloadTimeValue, labelReloadTimeUnit, progressBarReloadTime);
 
-        tableRateOfFireUpgrade = createRowUpgrade(labelRateOfFireTitleUpgrade, labelRateOfFireValueUpgrade, labelRateOfFireUnitUpgrade, labelRateOfFireLevelTitleUpgrade, labelRateOfFireLevelUpgrade, labelRateOfFireMaxLevelUpgrade, labelRateOfFireUpgradeUpgrade, labelRateOfFireUpgradeUnitUpgrade, false, labelRateOfFirePriceUpgrade, labelRateOfFirePriceUnitUpgrade, progressBarRateOfFireValueBought, progressBarRateOfFireUpgradeBought, progressBarRateOfFireUpgradeDone, buttonUpgradeRateOfFire, imageUpgradeRateOfFireDone);
-        tableAmmoDamageUpgrade = createRowUpgrade(labelAmmoDamageTitleUpgrade, labelAmmoDamageValueUpgrade, labelAmmoDamageUnitUpgrade, labelAmmoDamageLevelTitleUpgrade, labelAmmoDamageLevelUpgrade, labelAmmoDamageMaxLevelUpgrade, labelAmmoDamageUpgradeUpgrade, labelAmmoDamageUpgradeUnitUpgrade, false, labelAmmoDamagePriceUpgrade, labelAmmoDamagePriceUnitUpgrade, progressBarAmmoDamageValueBought, progressBarAmmoDamageUpgradeBought, progressBarAmmoDamageUpgradeDone, buttonUpgradeAmmoDamage, imageUpgradeAmmoDamageDone);
-        tableAmmoSpeedUpgrade = createRowUpgrade(labelAmmoSpeedTitleUpgrade, labelAmmoSpeedValueUpgrade, labelAmmoSpeedUnitUpgrade, labelAmmoSpeedLevelTitleUpgrade, labelAmmoSpeedLevelUpgrade, labelAmmoSpeedMaxLevelUpgrade, labelAmmoSpeedUpgradeUpgrade, labelAmmoSpeedUpgradeUnitUpgrade, false, labelAmmoSpeedPriceUpgrade, labelAmmoSpeedPriceUnitUpgrade, progressBarAmmoSpeedValueBought, progressBarAmmoSpeedUpgradeBought, progressBarAmmoSpeedUpgradeDone, buttonUpgradeAmmoSpeed, imageUpgradeAmmoSpeedDone);
-        tableMagazineSizeUpgrade = createRowUpgrade(labelMagazineSizeTitleUpgrade, labelMagazineSizeValueUpgrade, labelMagazineSizeUnitUpgrade, labelMagazineSizeLevelTitleUpgrade, labelMagazineSizeLevelUpgrade, labelMagazineSizeMaxLevelUpgrade, labelMagazineSizeUpgradeUpgrade, labelMagazineSizeUpgradeUnitUpgrade, false, labelMagazineSizePriceUpgrade, labelMagazineSizePriceUnitUpgrade, progressBarMagazineSizeValueBought, progressBarMagazineSizeUpgradeBought, progressBarMagazineSizeUpgradeDone, buttonUpgradeMagazineSize, imageUpgradeMagazineSizeDone);
-        tableReloadTimeUpgrade = createRowUpgrade(labelReloadTimeTitleUpgrade, labelReloadTimeValueUpgrade, labelReloadTimeUnitUpgrade, labelReloadTimeLevelTitleUpgrade, labelReloadTimeLevelUpgrade, labelReloadTimeMaxLevelUpgrade, labelReloadTimeUpgradeUpgrade, labelReloadTimeUpgradeUnitUpgrade, true, labelReloadTimePriceUpgrade, labelReloadTimePriceUnitUpgrade, progressBarReloadTimeValueBought, progressBarReloadTimeUpgradeBought, progressBarReloadTimeUpgradeDone, buttonUpgradeReloadTime, imageUpgradeReloadTimeDone);
-        tableWeightUpgrade = createRowUpgrade(labelWeightTitleUpgrade, labelWeightValueUpgrade, labelWeightUnitUpgrade, labelWeightLevelTitleUpgrade, labelWeightLevelUpgrade, labelWeightMaxLevelUpgrade, labelWeightUpgradeUpgrade, labelWeightUpgradeUnitUpgrade, true, labelWeightPriceUpgrade, labelWeightPriceUnitUpgrade, progressBarWeightValueBought, progressBarWeightUpgradeBought, progressBarWeightUpgradeDone, buttonUpgradeWeight, imageUpgradeWeightDone);
+        tableRateOfFireUpgrade = createRowUpgrade(labelRateOfFireTitleUpgrade, labelRateOfFireValueUpgrade, labelRateOfFireUnitUpgrade, labelRateOfFireUpgradeUpgrade, labelRateOfFireUpgradeUnitUpgrade, labelRateOfFireCompletedUpgrade, progressBarRateOfFireValueBought, progressBarRateOfFireUpgradeBought, progressBarRateOfFireUpgradeDone);
+        tableAmmoDamageUpgrade = createRowUpgrade(labelAmmoDamageTitleUpgrade, labelAmmoDamageValueUpgrade, labelAmmoDamageUnitUpgrade, labelAmmoDamageUpgradeUpgrade, labelAmmoDamageUpgradeUnitUpgrade, labelAmmoDamageCompletedUpgrade, progressBarAmmoDamageValueBought, progressBarAmmoDamageUpgradeBought, progressBarAmmoDamageUpgradeDone);
+        tableAmmoSpeedUpgrade = createRowUpgrade(labelAmmoSpeedTitleUpgrade, labelAmmoSpeedValueUpgrade, labelAmmoSpeedUnitUpgrade, labelAmmoSpeedUpgradeUpgrade, labelAmmoSpeedUpgradeUnitUpgrade, labelAmmoSpeedCompletedUpgrade, progressBarAmmoSpeedValueBought, progressBarAmmoSpeedUpgradeBought, progressBarAmmoSpeedUpgradeDone);
+        tableMagazineSizeUpgrade = createRowUpgrade(labelMagazineSizeTitleUpgrade, labelMagazineSizeValueUpgrade, labelMagazineSizeUnitUpgrade, labelMagazineSizeUpgradeUpgrade, labelMagazineSizeUpgradeUnitUpgrade, labelMagazineSizeCompletedUpgrade, progressBarMagazineSizeValueBought, progressBarMagazineSizeUpgradeBought, progressBarMagazineSizeUpgradeDone);
+        tableReloadTimeUpgrade = createRowUpgrade(labelReloadTimeTitleUpgrade, labelReloadTimeValueUpgrade, labelReloadTimeUnitUpgrade, labelReloadTimeUpgradeUpgrade, labelReloadTimeUpgradeUnitUpgrade, labelReloadTimeCompletedUpgrade, progressBarReloadTimeValueBought, progressBarReloadTimeUpgradeBought, progressBarReloadTimeUpgradeDone);
 
-        buttonPistol = new TextButtonWithID(Constants.PISTOL_ID, game.styles.textButtonStyleWeapon);
-        buttonAssaultRifle = new TextButtonWithID(Constants.ASSAULT_RIFLE_ID, game.styles.textButtonStyleWeapon);
-        buttonShotgun = new TextButtonWithID(Constants.SHOTGUN_ID, game.styles.textButtonStyleWeapon);
-        buttonSniper = new TextButtonWithID(Constants.SNIPER_ID, game.styles.textButtonStyleWeapon);
-        buttonMachineGun = new TextButtonWithID(Constants.MACHINE_GUN_ID, game.styles.textButtonStyleWeapon);
-        buttonRocketLauncher = new TextButtonWithID(Constants.ROCKET_LAUNCHER_ID, game.styles.textButtonStyleWeapon);
-        final Array<TextButtonWithID> arrayWeaponButtons = new Array<TextButtonWithID>();
-        arrayWeaponButtons.add(buttonPistol);
-        arrayWeaponButtons.add(buttonAssaultRifle);
-        arrayWeaponButtons.add(buttonShotgun);
-        arrayWeaponButtons.add(buttonSniper);
-        arrayWeaponButtons.add(buttonMachineGun);
-        arrayWeaponButtons.add(buttonRocketLauncher);
-
-        ButtonGroup<TextButton> buttonGroupWeapons = new ButtonGroup<TextButton>(buttonPistol, buttonAssaultRifle, buttonShotgun, buttonSniper, buttonMachineGun, buttonRocketLauncher);
-        buttonGroupWeapons.setMaxCheckCount(1);
-        buttonGroupWeapons.setMinCheckCount(1);
-        buttonGroupWeapons.setUncheckLast(true);
-        buttonPistol.setChecked(true);
-
+        weaponButtons = new Array<WeaponButton>();
         Table tableWeaponButtons = new Table();
         for (int i = 0; i < Constants.NUMBER_OF_WEAPONS; i++) {
-            final int finalI = i;
-            arrayWeaponButtons.get(i).addListener(new InputListener() {
+            final WeaponButton tableWeaponButton = new WeaponButton(WEAPONS_IDS[i]);
+            tableWeaponButton.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
+            tableWeaponButton.setTouchable(Touchable.enabled);
+            Stack stack = new Stack();
+            stack.add(new Image(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_GAME_RIGHT_UP))));
+            tableWeaponButton.labelWeaponLevel = new Label("", game.styles.labelStyleWhiteSmall);
+            Table table = new Table();
+            table.add(tableWeaponButton.labelWeaponLevel).align(Align.bottomRight).expand().pad(Constants.GAP);
+            stack.add(table);
+            tableWeaponButton.add(stack).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).align(Align.center);
+            tableWeaponButton.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     return true;
@@ -1175,16 +747,31 @@ public class ShopHud extends AbstractHud {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH_WEAPON && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
-                        saveScrollAmount();
-                        checkedWeaponID = arrayWeaponButtons.get(finalI).ID;
+                    if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_HUGE && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_HUGE) {
+                        for (int k = 0; k < weaponButtons.size; k++) {
+                            if (weaponButtons.get(k).ID == checkedWeaponID) {
+                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_UP_OR_OFF_OR_BG)));
+                            }
+                        }
+                        checkedWeaponID = tableWeaponButton.ID;
+                        for (int k = 0; k < weaponButtons.size; k++) {
+                            if (weaponButtons.get(k).ID == checkedWeaponID) {
+                                weaponButtons.get(k).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
+                            }
+                        }
                         updateHud();
                     }
                 }
             });
-            tableWeaponButtons.add(arrayWeaponButtons.get(i)).width(Constants.TEXT_BUTTON_WIDTH_WEAPON).height(Constants.TEXT_BUTTON_HEIGHT).padRight(Constants.GAP).padBottom(i < Constants.NUMBER_OF_WEAPONS - 1 ? Constants.GAP : 0);
-            tableWeaponButtons.row();
+            weaponButtons.add(tableWeaponButton);
+            tableWeaponButtons.add(tableWeaponButton).width(Constants.IMAGE_BUTTON_SIZE_HUGE).height(Constants.IMAGE_BUTTON_SIZE_HUGE).padRight(Constants.GAP).padBottom(i < Constants.UI_WEAPONS_IN_FULL_ROW ? Constants.GAP : 0);
+            if ((i + 1) % Constants.UI_WEAPONS_IN_ROW == 0) {
+                tableWeaponButtons.row();
+            }
         }
+
+        checkedWeaponID = weaponButtons.get(0).ID;
+        weaponButtons.get(0).background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_BUTTON_DOWN)));
 
         scrollPaneWeapons = new ScrollPane(tableWeaponButtons, game.styles.scrollPaneStyle);
         scrollPaneWeapons.setScrollingDisabled(true, false);
@@ -1231,7 +818,7 @@ public class ShopHud extends AbstractHud {
 
         super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
         super.row();
-        super.add(tableWeapons).growY().align(Align.left).width(Constants.TEXT_BUTTON_WIDTH_WEAPON + 3 * Constants.GAP + Constants.SCROLL_PANE_THICKNESS);
+        super.add(tableWeapons).growY().align(Align.left).width(Constants.UI_WEAPONS_IN_ROW * (Constants.IMAGE_BUTTON_SIZE_HUGE + Constants.GAP) + 2 * Constants.GAP + Constants.SCROLL_PANE_THICKNESS);
         super.add(tableWeapon).width(Constants.WEAPON_TABLE_WIDTH).align(Align.right).growY();
 
         InputListener inputListenerClose = new InputListener() {
@@ -1282,17 +869,11 @@ public class ShopHud extends AbstractHud {
         return tableRows;
     }
 
-    private Table createRow(Label title, Label value, Label unit, Label levelTitle, Label level, Label maxLevel, ProgressBar valueProgress) {
+    private Table createRow(Label title, Label value, Label unit, ProgressBar valueProgress) {
         Table tableData = new Table();
         tableData.add(title).width(Constants.WEAPON_TITLE_WIDTH).align(Align.left);
         tableData.add(value).width(Constants.WEAPON_VALUE_WIDTH).align(Align.topLeft);
         tableData.add(unit).width(Constants.WEAPON_UNIT_WIDTH).align(Align.topLeft);
-        Table tableLevel = new Table();
-        tableLevel.add(levelTitle).align(Align.right).expandX();
-        tableLevel.add(level).align(Align.topRight);
-        tableLevel.add(new Label("/", game.styles.labelStyleWhiteSmall)).align(Align.topRight);
-        tableLevel.add(maxLevel).align(Align.topRight);
-        tableData.add(tableLevel).width(Constants.WEAPON_LEVEL_WIDTH).align(Align.topLeft);
         tableData.row();
         tableData.add(valueProgress).colspan(5).width(Constants.WEAPON_BAR_WIDTH).height(Constants.PROGRESS_BAR_DATA_THICKNESS).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();
@@ -1301,36 +882,29 @@ public class ShopHud extends AbstractHud {
         return tableRow;
     }
 
-    private Table createRowUpgrade(Label title, Label value, Label unit, Label levelTitle, Label level, Label maxLevel, Label upgrade, Label unitUpgrade, boolean negativeUpgrade, Label price, Label priceUnit, ProgressBar valueProgress, ProgressBar upgradeProgress, ProgressBar doneProgress, ImageButton buttonUpgrade, Image imageDone) {
-        Stack stackUpgrade = new Stack();
-        stackUpgrade.add(buttonUpgrade);
-        stackUpgrade.add(imageDone);
+    private Table createRowUpgrade(Label title, Label value, Label unit, Label upgrade, Label unitUpgrade, Label labelCompleted, ProgressBar valueProgress, ProgressBar upgradeProgress, ProgressBar doneProgress) {
         Table tableData = new Table();
         tableData.add(title).width(Constants.WEAPON_TITLE_WIDTH_UPGRADE).align(Align.left);
         tableData.add(value).width(Constants.WEAPON_VALUE_WIDTH_UPGRADE).align(Align.topLeft);
         tableData.add(unit).width(Constants.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
-        Table tableLevel = new Table();
-        tableLevel.add(levelTitle).align(Align.right).expandX();
-        tableLevel.add(level).align(Align.topRight);
-        tableLevel.add(new Label("/", game.styles.labelStyleWhiteSmall)).align(Align.topRight);
-        tableLevel.add(maxLevel).align(Align.topRight);
-        tableData.add(tableLevel).width(Constants.WEAPON_LEVEL_WIDTH_UPGRADE).align(Align.topLeft);
-        tableData.add(upgrade).width(Constants.WEAPON_UPGRADE_WIDTH_UPGRADE).align(Align.topLeft);
-        tableData.add(unitUpgrade).width(Constants.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
-        Table tablePrice = new Table();
-        tablePrice.add(price).expandX().align(Align.topRight);
-        tablePrice.add(priceUnit).align(Align.topRight);
-        tableData.add(tablePrice).width(Constants.WEAPON_PRICE_WIDTH_UPGRADE).align(Align.topLeft);
-        Stack stack = new Stack();
-        stack.add(upgradeProgress);
-        stack.add(valueProgress);
-        stack.add(doneProgress);
+        Table tableUpgrade = new Table();
+        tableUpgrade.add(upgrade).width(Constants.WEAPON_UPGRADE_WIDTH_UPGRADE).align(Align.topLeft);
+        tableUpgrade.add(unitUpgrade).width(Constants.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
+        Table tableCompleted = new Table();
+        tableCompleted.add(labelCompleted).expandX().align(Align.right);
+        Stack stackUpgrade = new Stack();
+        stackUpgrade.add(tableUpgrade);
+        stackUpgrade.add(tableCompleted);
+        tableData.add(stackUpgrade).width(Constants.WEAPON_UPGRADE_WIDTH_UPGRADE + Constants.WEAPON_UNIT_WIDTH_UPGRADE).align(Align.topLeft);
+        Stack stackBar = new Stack();
+        stackBar.add(upgradeProgress);
+        stackBar.add(valueProgress);
+        stackBar.add(doneProgress);
         tableData.row();
-        tableData.add(stack).colspan(7).width(Constants.WEAPON_BAR_WIDTH_UPGRADE).height(Constants.PROGRESS_BAR_DATA_THICKNESS).expandY().align(Align.bottomLeft);
+        tableData.add(stackBar).colspan(7).width(Constants.WEAPON_BAR_WIDTH_UPGRADE).height(Constants.PROGRESS_BAR_DATA_THICKNESS).expandY().align(Align.bottomLeft);
         Table tableRow = new Table();
         tableRow.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND_SECONDARY)));
         tableRow.add(tableData).growY().pad(Constants.GAP);
-        tableRow.add(stackUpgrade).width(Constants.IMAGE_BUTTON_SIZE_TINY).height(Constants.IMAGE_BUTTON_SIZE_TINY).align(Align.left).padTop(Constants.GAP).padBottom(Constants.GAP).padRight(Constants.GAP);
         return tableRow;
     }
 
@@ -1401,12 +975,10 @@ public class ShopHud extends AbstractHud {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < buttonGetAmmo.getWidth() && y > 0 && y < buttonGetAmmo.getHeight()) {
-                    for (int i = 0; i < game.gameScreen.stageExtra.getActors().size; i++) {
-                        game.gameScreen.stageExtra.getActors().get(i).remove();
-                    }
+                    game.gameScreen.stageExtra.clear();
                     game.gameScreen.stageExtra.addActor(tableBuyAmmo);
                     game.gameScreen.setShowStageExtra(true);
-                    updateBuyAmmoTable();
+                    updateAmmoTable();
                 }
             }
         });
@@ -1421,12 +993,14 @@ public class ShopHud extends AbstractHud {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x > 0 && x < buttonUpgrade.getWidth() && y > 0 && y < buttonUpgrade.getHeight()) {
-                    for (int i = 0; i < game.gameScreen.stageExtra.getActors().size; i++) {
-                        game.gameScreen.stageExtra.getActors().get(i).remove();
+                    if (!buttonUpgrade.isDisabled()) {
+                        game.gameScreen.stageExtra.clear();
+                        game.gameScreen.stageExtra.addActor(tableWeaponUpgrade);
+                        game.gameScreen.setShowStageExtra(true);
+                        updateUpgradeTable();
+                    } else {
+                        game.alertManager.showPopup("This weapon is fully upgraded.");
                     }
-                    game.gameScreen.stageExtra.addActor(tableWeaponUpgrade);
-                    game.gameScreen.setShowStageExtra(true);
-                    updateWeaponUpgradeTable();
                 }
             }
         });
@@ -1468,9 +1042,76 @@ public class ShopHud extends AbstractHud {
         scrollPaneWeaponUpgrade.updateVisualScroll();
         scrollPaneWeaponUpgrade.layout();
 
+        /*buttonUpgradeWeight.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
+                    if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel < game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightMaxLevel) {
+                        if (game.gameWorld.player.money >= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price) {
+                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weight += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).upgrade;
+                            game.gameWorld.player.money -= game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel).price;
+                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).weightLevel++;
+                            updateUpgradeTable();
+                            updateHud();
+                        } else {
+                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
+                        }
+                    }
+                }
+            }
+        });*/
+        buttonBuyUpgrade = new TextButton("", game.styles.textButtonStyleOrange);
+        buttonBuyUpgrade.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    if (!buttonBuyUpgrade.isDisabled()) {
+                        if (game.gameWorld.player.money >= (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).upgradePrices.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level))) {
+                            game.gameWorld.player.money -= (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).upgradePrices.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level));
+                            if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isRateOfFire) {
+                                game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFire += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).rateOfFireUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level);
+                            }
+                            if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoDamage) {
+                                game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamage += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoDamageUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level);
+                            }
+                            if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isAmmoSpeed) {
+                                game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeed += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).ammoSpeedUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level);
+                            }
+                            if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isMagazineSize) {
+                                game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSize += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).magazineSizeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level);
+                            }
+                            if (game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).isReloadTime) {
+                                game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTime += game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).reloadTimeUpgrades.get(game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level);
+                            }
+                            game.gameWorld.weaponManagerPlayer.getWeaponData(checkedWeaponID).level++;
+
+                            updateUpgradeTable();
+                            updateHud();
+                            game.gameScreen.inGameHud.updateHud();
+                        } else {
+                            game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
+                        }
+                    } else {
+                        game.alertManager.showPopup("This weapon is fully upgraded!!!!!!");
+                    }
+                }
+            }
+        });
         Table tableBottom = new Table();
         tableBottom.add(labelYourMoneyTitleUpgrade).padRight(Constants.GAP).align(Align.left);
-        tableBottom.add(labelYourMoneyUpgrade).align(Align.left).expandX();
+        tableBottom.add(labelYourMoneyUpgrade).align(Align.left);
+        tableBottom.add(labelPriceUpgrade).expandX().align(Align.right);
+        tableBottom.add(buttonBuyUpgrade).padLeft(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
 
         Table table = new Table();
         table.background(new NinePatchDrawable(game.assetManager.get(Constants.TEXTURE_ATLAS, TextureAtlas.class).createPatch(Constants.TEXTURE_TABLE_BACKGROUND)));
@@ -1524,7 +1165,7 @@ public class ShopHud extends AbstractHud {
                 if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
                     sliderNumberOfMagsBuyAmmo.setVisible(true);
                     sliderNumberOfAmmoBuyAmmo.setVisible(false);
-                    updateBuyAmmoTable();
+                    updateAmmoTable();
                 }
             }
         });
@@ -1540,7 +1181,7 @@ public class ShopHud extends AbstractHud {
                 if (x > 0 && x < Constants.IMAGE_BUTTON_SIZE_TINY && y > 0 && y < Constants.IMAGE_BUTTON_SIZE_TINY) {
                     sliderNumberOfMagsBuyAmmo.setVisible(false);
                     sliderNumberOfAmmoBuyAmmo.setVisible(true);
-                    updateBuyAmmoTable();
+                    updateAmmoTable();
                 }
             }
         });
@@ -1565,7 +1206,7 @@ public class ShopHud extends AbstractHud {
         sliderNumberOfMagsBuyAmmo.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                updateBuyAmmoTable();
+                updateAmmoTable();
             }
         });
         sliderNumberOfAmmoBuyAmmo = new Slider(1, 50, 1, false, game.styles.sliderStyle);
@@ -1577,7 +1218,7 @@ public class ShopHud extends AbstractHud {
         sliderNumberOfAmmoBuyAmmo.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                updateBuyAmmoTable();
+                updateAmmoTable();
             }
         });
         sliderNumberOfAmmoBuyAmmo.setVisible(false);
@@ -1613,7 +1254,7 @@ public class ShopHud extends AbstractHud {
                             game.alertManager.showPopup(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("popupNoMoney"));
                         }
                     }
-                    updateBuyAmmoTable();
+                    updateAmmoTable();
                     updateHud();
                     game.gameScreen.inGameHud.updateHud();
                 }

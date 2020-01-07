@@ -1,8 +1,7 @@
 package com.aleksiprograms.survivalofkeijo.data;
 
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.toolbox.WeaponUpgradeFloat;
-import com.aleksiprograms.survivalofkeijo.toolbox.WeaponUpgradeInteger;
+import com.aleksiprograms.survivalofkeijo.toolbox.WeightType;
 import com.badlogic.gdx.utils.ObjectMap;
 
 public class AssaultRifleData extends WeaponData {
@@ -17,49 +16,27 @@ public class AssaultRifleData extends WeaponData {
                 "Automatic",
                 15,
                 150,
+                WeightType.MEDIUM,
                 10,
-                new ObjectMap<Integer, WeaponUpgradeFloat>(4),
                 30,
-                new ObjectMap<Integer, WeaponUpgradeInteger>(4),
                 10,
-                new ObjectMap<Integer, WeaponUpgradeFloat>(4),
                 30,
-                new ObjectMap<Integer, WeaponUpgradeInteger>(4),
-                4,
-                new ObjectMap<Integer, WeaponUpgradeFloat>(4),
-                5,
-                new ObjectMap<Integer, WeaponUpgradeFloat>(4));
+                4);
 
-        bought = true;
+        upgradePrices = new ObjectMap<>(WeaponData.NUMBER_OF_UPGRADES);
+        rateOfFireUpgrades = new ObjectMap<>(WeaponData.NUMBER_OF_UPGRADES);
+        ammoDamageUpgrades = new ObjectMap<>(WeaponData.NUMBER_OF_UPGRADES);
+        ammoSpeedUpgrades = new ObjectMap<>(WeaponData.NUMBER_OF_UPGRADES);
+        magazineSizeUpgrades = new ObjectMap<>(WeaponData.NUMBER_OF_UPGRADES);
+        reloadTimeUpgrades = new ObjectMap<>(WeaponData.NUMBER_OF_UPGRADES);
 
-        rateOfFireUpgrades.put(1, new WeaponUpgradeFloat(2,5000));
-        rateOfFireUpgrades.put(2, new WeaponUpgradeFloat(2,5000));
-        rateOfFireUpgrades.put(3, new WeaponUpgradeFloat(2,5000));
-        rateOfFireUpgrades.put(4, new WeaponUpgradeFloat(2,5000));
-
-        ammoDamageUpgrades.put(1, new WeaponUpgradeInteger(30,500));
-        ammoDamageUpgrades.put(2, new WeaponUpgradeInteger(30,500));
-        ammoDamageUpgrades.put(3, new WeaponUpgradeInteger(30,500));
-        ammoDamageUpgrades.put(4, new WeaponUpgradeInteger(30,500));
-
-        ammoSpeedUpgrades.put(1, new WeaponUpgradeFloat(2,500));
-        ammoSpeedUpgrades.put(2, new WeaponUpgradeFloat(2,500));
-        ammoSpeedUpgrades.put(3, new WeaponUpgradeFloat(2,500));
-        ammoSpeedUpgrades.put(4, new WeaponUpgradeFloat(2,500));
-
-        magazineSizeUpgrades.put(1, new WeaponUpgradeInteger(5,500));
-        magazineSizeUpgrades.put(2, new WeaponUpgradeInteger(5,500));
-        magazineSizeUpgrades.put(3, new WeaponUpgradeInteger(5,500));
-        magazineSizeUpgrades.put(4, new WeaponUpgradeInteger(5,500));
-
-        reloadTimeUpgrades.put(1, new WeaponUpgradeFloat(-0.6f,500));
-        reloadTimeUpgrades.put(2, new WeaponUpgradeFloat(-0.6f,500));
-        reloadTimeUpgrades.put(3, new WeaponUpgradeFloat(-0.6f,500));
-        reloadTimeUpgrades.put(4, new WeaponUpgradeFloat(-0.6f,500));
-
-        weightUpgrades.put(1, new WeaponUpgradeFloat(-0.5f,500));
-        weightUpgrades.put(2, new WeaponUpgradeFloat(-0.5f,500));
-        weightUpgrades.put(3, new WeaponUpgradeFloat(-0.5f,500));
-        weightUpgrades.put(4, new WeaponUpgradeFloat(-0.5f,500));
+        for (int i = 0; i < WeaponData.NUMBER_OF_UPGRADES; i++) {
+            upgradePrices.put(i+1, price*(i+2));
+            rateOfFireUpgrades.put(i+1, 2f);
+            ammoDamageUpgrades.put(i+1, 30);
+            ammoSpeedUpgrades.put(i+1, 2f);
+            magazineSizeUpgrades.put(i+1, 5);
+            reloadTimeUpgrades.put(i+1, -0.6f);
+        }
     }
 }
