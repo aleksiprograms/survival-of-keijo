@@ -7,8 +7,8 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.BigAreaO
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Weapon;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 import com.aleksiprograms.survivalofkeijo.toolbox.AnimationState;
+import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.math.Matrix4;
@@ -19,39 +19,39 @@ import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 
 public abstract class Person extends PhysicalObject {
 
-    public boolean visibleToPlayer;
-    public Weapon weapon;
-    public boolean dead;
-    public int health;
-    public int maxHealth;
+    protected boolean visibleToPlayer;
+    protected Weapon weapon;
+    protected boolean dead;
+    protected int health;
+    protected int maxHealth;
 
-    Vector3 velocity;
-    boolean lookingRight;
-    float xVelocity;
-    boolean inAir;
-    boolean onIce;
-    Vector3 forceOnIce;
-    boolean jumped;
-    boolean doubleJumpDone;
-    boolean onDeadThingsDone;
-    Vector3 movementRayFrom;
-    Vector3 movementRayTo;
-    ClosestRayResultCallback movementCallback;
-    BigAreaObject bigArea;
-    SmallAreaObject smallArea;
+    protected Vector3 velocity;
+    protected boolean lookingRight;
+    protected float xVelocity;
+    protected boolean inAir;
+    protected boolean onIce;
+    protected Vector3 forceOnIce;
+    protected boolean jumped;
+    protected boolean doubleJumpDone;
+    protected boolean onDeadThingsDone;
+    protected Vector3 movementRayFrom;
+    protected Vector3 movementRayTo;
+    protected ClosestRayResultCallback movementCallback;
+    protected BigAreaObject bigArea;
+    protected SmallAreaObject smallArea;
 
-    private Vector3 personPosition;
-    private Quaternion personQuaternion;
-    private Vector3 personScale;
-    private Matrix4 personTransform;
-    private boolean personBodyToRight;
-    private float jumpedTimer;
-    private boolean explosion;
-    private boolean lockUpMovement;
-    private float lockUpMovementTimer;
-    private AnimationState animationState;
-    private AnimationController animationController;
-    private AnimationController.AnimationListener animationListener;
+    protected Vector3 personPosition;
+    protected Quaternion personQuaternion;
+    protected Vector3 personScale;
+    protected Matrix4 personTransform;
+    protected boolean personBodyToRight;
+    protected float jumpedTimer;
+    protected boolean explosion;
+    protected boolean lockUpMovement;
+    protected float lockUpMovementTimer;
+    protected AnimationState animationState;
+    protected AnimationController animationController;
+    protected AnimationController.AnimationListener animationListener;
 
     public Person(
             TheGame game,
@@ -105,8 +105,8 @@ public abstract class Person extends PhysicalObject {
         dead = false;
         onDeadThingsDone = false;
         explosion = false;
-        bigArea = game.gameWorld.bigAreaManagers.get(0).bigAreaNull;
-        smallArea = game.gameWorld.bigAreaManagers.get(0).smallAreaNull;
+        bigArea = game.getGameWorld().getBigAreaManagers().get(0).getBigAreaNull();
+        smallArea = game.getGameWorld().getBigAreaManagers().get(0).getSmallAreaNull();
     }
 
     @Override
@@ -142,9 +142,9 @@ public abstract class Person extends PhysicalObject {
             }
         }
         if (lockUpMovement) {
-            if (rigidBody.getLinearVelocity().y > 0) {
-                velocity.set(rigidBody.getLinearVelocity().x, 0, 0);
-                rigidBody.setLinearVelocity(velocity);
+            if (getRigidBody().getLinearVelocity().y > 0) {
+                velocity.set(getRigidBody().getLinearVelocity().x, 0, 0);
+                getRigidBody().setLinearVelocity(velocity);
             }
         }
         if (jumped) {
@@ -156,18 +156,18 @@ public abstract class Person extends PhysicalObject {
         if (lookingRight) {
             if (!personBodyToRight) {
                 personBodyToRight = true;
-                personPosition.set(rigidBody.getCenterOfMassPosition());
+                personPosition.set(getRigidBody().getCenterOfMassPosition());
                 personQuaternion.set(Vector3.Y, 0);
                 personTransform.set(personPosition, personQuaternion, personScale);
-                rigidBody.setCenterOfMassTransform(personTransform);
+                getRigidBody().setCenterOfMassTransform(personTransform);
             }
         } else {
             if (personBodyToRight) {
                 personBodyToRight = false;
-                personPosition.set(rigidBody.getCenterOfMassPosition());
+                personPosition.set(getRigidBody().getCenterOfMassPosition());
                 personQuaternion.set(Vector3.Y, 180);
                 personTransform.set(personPosition, personQuaternion, personScale);
-                rigidBody.setCenterOfMassTransform(personTransform);
+                getRigidBody().setCenterOfMassTransform(personTransform);
             }
         }
     }
@@ -177,8 +177,8 @@ public abstract class Person extends PhysicalObject {
         lockUpMovementTimer = 0;
         jumped = true;
         jumpedTimer = 0;
-        velocity.set(rigidBody.getLinearVelocity().x, 8.8f, 0);
-        rigidBody.setLinearVelocity(velocity);
+        velocity.set(getRigidBody().getLinearVelocity().x, 8.8f, 0);
+        getRigidBody().setLinearVelocity(velocity);
     }
 
     public void onHit(int damage) {
@@ -191,7 +191,7 @@ public abstract class Person extends PhysicalObject {
     public void onExplosion(Vector3 force) {
         explosion = true;
         dead = true;
-        rigidBody.applyCentralForce(force);
+        getRigidBody().applyCentralForce(force);
     }
 
     void onDead(float deltaTime) {
@@ -211,8 +211,8 @@ public abstract class Person extends PhysicalObject {
             }
         }
         if (!destroyBody) {
-            velocity.set(0, rigidBody.getLinearVelocity().y, 0);
-            rigidBody.setLinearVelocity(velocity);
+            velocity.set(0, getRigidBody().getLinearVelocity().y, 0);
+            getRigidBody().setLinearVelocity(velocity);
         }
     }
 
@@ -220,58 +220,90 @@ public abstract class Person extends PhysicalObject {
         if (!animationState.equals(this.animationState)) {
             this.animationState = animationState;
             if (animationState.equals(AnimationState.STAND)) {
-                animationController.setAnimation("Armature|stand", -1);
+                animationController.setAnimation(
+                        "Armature|stand", -1);
             } else if (animationState.equals(AnimationState.WALK)) {
-                animationController.setAnimation("Armature|walk", -1, (xVelocity / 2f), animationListener);
+                animationController.setAnimation(
+                        "Armature|walk", -1, (xVelocity / 2f), animationListener);
             } else if (animationState.equals(AnimationState.WALK_REVERSE)) {
-                animationController.setAnimation("Armature|walk", -1, -(xVelocity / 2f), animationListener);
+                animationController.setAnimation(
+                        "Armature|walk", -1, -(xVelocity / 2f), animationListener);
             } else if (animationState.equals(AnimationState.AIR)) {
-                animationController.setAnimation("Armature|air", -1);
+                animationController.setAnimation(
+                        "Armature|air", -1);
             } else if (animationState.equals(AnimationState.DEAD)) {
-                animationController.setAnimation("Armature|dead", 1, 2, animationListener);
+                animationController.setAnimation(
+                        "Armature|dead", 1, 2, animationListener);
             } else if (animationState.equals(AnimationState.DEAD_AIR)) {
-                animationController.setAnimation("Armature|dead-air", 1, 2, animationListener);
+                animationController.setAnimation(
+                        "Armature|dead-air", 1, 2, animationListener);
             } else if (animationState.equals(AnimationState.DEAD_EXPLOSION)) {
-                animationController.setAnimation("Armature|dead-explosion", 1, 2, animationListener);
+                animationController.setAnimation(
+                        "Armature|dead-explosion", 1, 2, animationListener);
             } else if (animationState.equals(AnimationState.DEAD_AIR_EXPLOSION)) {
-                animationController.setAnimation("Armature|dead-air-explosion", 1, 2, animationListener);
+                animationController.setAnimation(
+                        "Armature|dead-air-explosion", 1, 2, animationListener);
             }
         }
     }
 
     private void setPersonTransform() {
-        personPosition.set(rigidBody.getCenterOfMassPosition());
-        personQuaternion.set(rigidBody.getOrientation());
+        personPosition.set(getRigidBody().getCenterOfMassPosition());
+        personQuaternion.set(getRigidBody().getOrientation());
         personTransform.set(personPosition, personQuaternion, personScale);
         transform.set(personPosition, personQuaternion, personScale);
     }
 
     private void checkArea() {
-        if (bigArea.nullObject) {
-            bigArea = game.gameWorld.getNewBigArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y);
+        if (bigArea.isNullObject()) {
+            bigArea = game.getGameWorld().getNewBigArea(
+                    getRigidBody().getCenterOfMassPosition().x,
+                    getRigidBody().getCenterOfMassPosition().y);
         } else {
-            if (rigidBody.getCenterOfMassPosition().x <= bigArea.x - bigArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().x >= bigArea.x + bigArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().y <= bigArea.y - bigArea.height / 2 ||
-                    rigidBody.getCenterOfMassPosition().y >= bigArea.y + bigArea.height / 2) {
-                bigArea = game.gameWorld.getNewBigArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y);
+            if (getRigidBody().getCenterOfMassPosition().x
+                    <= bigArea.getX() - bigArea.getWidth() / 2
+                    || getRigidBody().getCenterOfMassPosition().x
+                    >= bigArea.getX() + bigArea.getWidth() / 2
+                    || getRigidBody().getCenterOfMassPosition().y
+                    <= bigArea.getY() - bigArea.getHeight() / 2
+                    || getRigidBody().getCenterOfMassPosition().y
+                    >= bigArea.getY() + bigArea.getHeight() / 2) {
+                bigArea = game.getGameWorld().getNewBigArea(
+                        getRigidBody().getCenterOfMassPosition().x,
+                        getRigidBody().getCenterOfMassPosition().y);
             }
         }
-        if (smallArea.nullObject) {
-            if (bigArea.nullObject) {
-                smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, 1);
+        if (smallArea.isNullObject()) {
+            if (bigArea.isNullObject()) {
+                smallArea = game.getGameWorld().getNewSmallArea(
+                        getRigidBody().getCenterOfMassPosition().x,
+                        getRigidBody().getCenterOfMassPosition().y,
+                        1);
             } else {
-                smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, bigArea.area);
+                smallArea = game.getGameWorld().getNewSmallArea(
+                        getRigidBody().getCenterOfMassPosition().x,
+                        getRigidBody().getCenterOfMassPosition().y,
+                        bigArea.getArea());
             }
         } else {
-            if (rigidBody.getCenterOfMassPosition().x <= smallArea.x - smallArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().x >= smallArea.x + smallArea.width / 2 ||
-                    rigidBody.getCenterOfMassPosition().y <= smallArea.y - smallArea.height / 2 ||
-                    rigidBody.getCenterOfMassPosition().y >= smallArea.y + smallArea.height / 2) {
-                if (bigArea.nullObject) {
-                    smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, 1);
+            if (getRigidBody().getCenterOfMassPosition().x
+                    <= smallArea.getX() - smallArea.getWidth() / 2
+                    || getRigidBody().getCenterOfMassPosition().x
+                    >= smallArea.getX() + smallArea.getWidth() / 2
+                    || getRigidBody().getCenterOfMassPosition().y
+                    <= smallArea.getY() - smallArea.getHeight() / 2
+                    || getRigidBody().getCenterOfMassPosition().y
+                    >= smallArea.getY() + smallArea.getHeight() / 2) {
+                if (bigArea.isNullObject()) {
+                    smallArea = game.getGameWorld().getNewSmallArea(
+                            getRigidBody().getCenterOfMassPosition().x,
+                            getRigidBody().getCenterOfMassPosition().y,
+                            1);
                 } else {
-                    smallArea = game.gameWorld.getNewSmallArea(rigidBody.getCenterOfMassPosition().x, rigidBody.getCenterOfMassPosition().y, bigArea.area);
+                    smallArea = game.getGameWorld().getNewSmallArea(
+                            getRigidBody().getCenterOfMassPosition().x,
+                            getRigidBody().getCenterOfMassPosition().y,
+                            bigArea.getArea());
                 }
             }
         }
@@ -280,24 +312,25 @@ public abstract class Person extends PhysicalObject {
     private void isInAirOrOnIce() {
         inAir = true;
         onIce = false;
-        if (rigidBody.getLinearVelocity().y <= 0.1f) {
+        if (getRigidBody().getLinearVelocity().y <= 0.1f) {
             for (int i = -1; i < 2; i++) {
                 if (i == 0) {
                     continue;
                 }
                 movementRayFrom.set(
-                        rigidBody.getCenterOfMassPosition().x + i * 0.15f,
-                        rigidBody.getCenterOfMassPosition().y,
-                        rigidBody.getCenterOfMassPosition().z);
+                        getRigidBody().getCenterOfMassPosition().x + i * 0.15f,
+                        getRigidBody().getCenterOfMassPosition().y,
+                        getRigidBody().getCenterOfMassPosition().z);
                 movementRayTo.set(
-                        rigidBody.getCenterOfMassPosition().x + i * 0.15f,
-                        rigidBody.getCenterOfMassPosition().y - 0.9f - 0.05f,
-                        rigidBody.getCenterOfMassPosition().z);
+                        getRigidBody().getCenterOfMassPosition().x + i * 0.15f,
+                        getRigidBody().getCenterOfMassPosition().y - 0.9f - 0.05f,
+                        getRigidBody().getCenterOfMassPosition().z);
                 movementCallback.setCollisionObject(null);
                 movementCallback.setClosestHitFraction(1);
                 movementCallback.setRayFromWorld(movementRayFrom);
                 movementCallback.setRayToWorld(movementRayTo);
-                game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
+                game.getGameWorld().getDynamicsWorld().rayTest(
+                        movementRayFrom, movementRayTo, movementCallback);
                 if (movementCallback.hasHit()) {
                     inAir = false;
                     doubleJumpDone = false;
@@ -308,5 +341,29 @@ public abstract class Person extends PhysicalObject {
                 }
             }
         }
+    }
+
+    public void setVisibleToPlayer(boolean visibleToPlayer) {
+        this.visibleToPlayer = visibleToPlayer;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 }

@@ -2,15 +2,15 @@ package com.aleksiprograms.survivalofkeijo.toolbox;
 
 public class BodyDef {
 
-    public float mass;
-    public float friction;
-    public float restitution;
-    public float linearDamping;
-    public float angularDamping;
-    public short categoryBits;
-    public short maskBits;
-    public boolean useMotionState;
-    public boolean lockAxisZ;
+    private float mass;
+    private float friction;
+    private float restitution;
+    private float linearDamping;
+    private float angularDamping;
+    private short categoryBits;
+    private short maskBits;
+    private boolean useMotionState;
+    private boolean lockAxisZ;
 
     private BodyDef(BodyDefBuilder builder) {
         mass = builder.mass;
@@ -22,6 +22,42 @@ public class BodyDef {
         maskBits = builder.maskBits;
         useMotionState = builder.useMotionState;
         lockAxisZ = builder.lockAxisZ;
+    }
+
+    public float getMass() {
+        return mass;
+    }
+
+    public float getFriction() {
+        return friction;
+    }
+
+    public float getRestitution() {
+        return restitution;
+    }
+
+    public float getLinearDamping() {
+        return linearDamping;
+    }
+
+    public float getAngularDamping() {
+        return angularDamping;
+    }
+
+    public short getCategoryBits() {
+        return categoryBits;
+    }
+
+    public short getMaskBits() {
+        return maskBits;
+    }
+
+    public boolean isUseMotionState() {
+        return useMotionState;
+    }
+
+    public boolean isLockAxisZ() {
+        return lockAxisZ;
     }
 
     public static class BodyDefBuilder {

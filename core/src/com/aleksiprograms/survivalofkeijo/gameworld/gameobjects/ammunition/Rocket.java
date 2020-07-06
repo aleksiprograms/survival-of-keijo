@@ -3,12 +3,12 @@ package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition;
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.PhysicalObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Enemy;
+import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
-import com.aleksiprograms.survivalofkeijo.resources.Constants;
 
 public class Rocket extends Ammunition {
 
@@ -21,10 +21,11 @@ public class Rocket extends Ammunition {
     public Rocket(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_AMMUNITION_BULLET_PLAYER, Model.class)),
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_AMMUNITION_BULLET_PLAYER, Model.class)),
                 new btBoxShape(new Vector3(0.2f, 0.05f, 0.05f)));
 
-        rigidBody.userData = this;
+        getRigidBody().userData = this;
         explosionRayFrom = new Vector3();
         explosionRayTo = new Vector3();
         explosionCallback = new ClosestRayResultCallback(explosionRayFrom, explosionRayTo);
@@ -36,16 +37,18 @@ public class Rocket extends Ammunition {
     @Override
     public void onHit(Vector3 hitPoint, PhysicalObject hitObject) {
         if (!hit) {
-            game.particleEffectManager.add(game.gamePools.rocketExplosionPool.obtain(), hitPoint);
+            game.getParticleEffectManager().add(
+                    game.getGameObjectPools().getRocketExplosionPool().obtain(), hitPoint);
 
-            explosionRayFrom.set(rigidBody.getCenterOfMassPosition());
-            for (Enemy enemy : game.gameWorld.visibleEnemies) {
-                explosionRayTo.set(enemy.rigidBody.getCenterOfMassPosition());
+            explosionRayFrom.set(getRigidBody().getCenterOfMassPosition());
+            for (Enemy enemy : game.getGameWorld().getVisibleEnemies()) {
+                explosionRayTo.set(enemy.getRigidBody().getCenterOfMassPosition());
                 explosionCallback.setCollisionObject(null);
                 explosionCallback.setClosestHitFraction(1);
                 explosionCallback.setRayFromWorld(explosionRayFrom);
                 explosionCallback.setRayToWorld(explosionRayTo);
-                game.gameWorld.dynamicsWorld.rayTest(explosionRayFrom, explosionRayTo, explosionCallback);
+                game.getGameWorld().getDynamicsWorld().rayTest(
+                        explosionRayFrom, explosionRayTo, explosionCallback);
                 if (!explosionCallback.hasHit()) {
                     vector.set(
                             explosionRayTo.x - explosionRayFrom.x,
@@ -53,13 +56,9 @@ public class Rocket extends Ammunition {
                             explosionRayTo.z - explosionRayFrom.z
                     );
                     distance = vector.len2();
-                    System.out.println("Distance = " + distance);
-                    if (distance < 8) { //add distance attribute to explosive weapons (distance <= weaponData.explosiveDistance)
+                    if (distance < 8) {
                         enemy.onExplosion(vector);
                     }
-                    //vector = vector.nor();
-                    //vector = vector.scl(20 / (distance / 300));
-                    //vector.add(0,100,0);//do something else
                 }
             }
         }

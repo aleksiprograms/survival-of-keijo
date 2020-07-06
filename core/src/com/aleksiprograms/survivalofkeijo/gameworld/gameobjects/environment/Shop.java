@@ -10,6 +10,7 @@ public class Shop extends Building {
     public Shop(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_PERSON_PLAYER, Model.class)));
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_PERSON_PLAYER, Model.class)));
     }
 }

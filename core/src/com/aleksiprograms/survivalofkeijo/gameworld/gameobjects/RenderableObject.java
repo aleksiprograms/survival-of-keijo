@@ -12,15 +12,15 @@ import com.badlogic.gdx.utils.Pool;
 
 public abstract class RenderableObject extends ModelInstance implements Pool.Poolable {
 
-    public TheGame game;
-    public Vector3 objectPosition;
-    public Quaternion objectQuaternion;
-    public Vector3 objectScale;
-    public Matrix4 objectTransform;
-    public Vector3 center;
-    public Vector3 dimensions;
-    public BoundingBox boundingBox;
-    public boolean free;
+    protected TheGame game;
+    protected Vector3 objectPosition;
+    protected Quaternion objectQuaternion;
+    protected Vector3 objectScale;
+    protected Matrix4 objectTransform;
+    protected Vector3 center;
+    protected Vector3 dimensions;
+    protected BoundingBox boundingBox;
+    protected boolean free;
 
     public RenderableObject(
             TheGame game,
@@ -40,17 +40,35 @@ public abstract class RenderableObject extends ModelInstance implements Pool.Poo
         boundingBox.getCenter(center);
         boundingBox.getDimensions(dimensions);
         free = false;
-        for(Material material : materials){
+        for (Material material : materials) {
             material.remove(ColorAttribute.Emissive);
         }
     }
 
-    public void init() {}
+    public void init() {
+    }
 
-    public void update(float deltaTime) {}
+    public void update(float deltaTime) {
+    }
 
     @Override
     public void reset() {
         free = false;
+    }
+
+    public Vector3 getCenter() {
+        return center;
+    }
+
+    public Vector3 getDimensions() {
+        return dimensions;
+    }
+
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
     }
 }

@@ -8,18 +8,19 @@ import com.badlogic.gdx.utils.Array;
 
 public class EnemyManager {
 
+    public int health;
     private TheGame game;
-    public int wave;
-    public boolean inTheBeginningOfNewWave;
-    public Array<EnemyEmitter> enemyEmitters;
-    public int emitEnemyFrom;
-    public int emitEnemyFromPrevious = -1;
-    public int emitEnemyFromIterations;
-    public int enemiesInWorld;
-    public int maxEnemiesInWorld;
-    public int maxEnemiesInWave;
-    public int enemiesEmittedInWave;
-    public int enemiesKilledInWave;
+    private int wave;
+    private boolean inTheBeginningOfNewWave;
+    private Array<EnemyEmitter> enemyEmitters;
+    private int emitEnemyFrom;
+    private int emitEnemyFromPrevious = -1;
+    private int emitEnemyFromIterations;
+    private int enemiesInWorld;
+    private int maxEnemiesInWorld;
+    private int maxEnemiesInWave;
+    private int enemiesEmittedInWave;
+    private int enemiesKilledInWave;
     private float timerEnemyEmit;
     private float timeBetweenEnemyEmits;
     private int waveStartTime = 5;
@@ -34,7 +35,6 @@ public class EnemyManager {
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}};
-    public int health;
 
     public EnemyManager(TheGame game) {
         this.game = game;
@@ -48,7 +48,7 @@ public class EnemyManager {
             startWaveTimer += deltaTime;
             if (startWaveTimer > waveStartTime) {
                 inTheBeginningOfNewWave = false;
-                game.gameScreen.inGameHud.updateHud();
+                game.getGameScreen().getInGameHud().updateData();
             }
         } else {
             if (enemiesEmittedInWave < maxEnemiesInWave) {
@@ -108,7 +108,7 @@ public class EnemyManager {
         inTheBeginningOfNewWave = true;
         startWaveTimer = 0;
         updateNextWaveData();
-        game.gameScreen.inGameHud.updateHud();
+        game.getGameScreen().getInGameHud().updateData();
     }
 
     private void updateNextWaveData() {
@@ -145,24 +145,38 @@ public class EnemyManager {
         for (int i = 0; i < numberOfWeapons.length; i++) {
             if ((i + 1) == Constants.ASSAULT_RIFLE_ID) {
                 numberOfWeapons[i][0] = Constants.ASSAULT_RIFLE_ID;
-                numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[0][wave] : 0.1f));
+                numberOfWeapons[i][1] = (int) (maxEnemiesInWave
+                        * (wave < percentsOfWeapons[0].length
+                        ? percentsOfWeapons[0][wave] : 0.1f));
             } else if ((i + 1) == Constants.SHOTGUN_ID) {
                 numberOfWeapons[i][0] = Constants.SHOTGUN_ID;
-                numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[1][wave] : 0.1f));
+                numberOfWeapons[i][1] = (int) (maxEnemiesInWave
+                        * (wave < percentsOfWeapons[0].length
+                        ? percentsOfWeapons[1][wave] : 0.1f));
             } else if ((i + 1) == Constants.SNIPER_ID) {
                 numberOfWeapons[i][0] = Constants.SNIPER_ID;
-                numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[2][wave] : 0.1f));
+                numberOfWeapons[i][1] = (int) (maxEnemiesInWave
+                        * (wave < percentsOfWeapons[0].length
+                        ? percentsOfWeapons[2][wave] : 0.1f));
             } else if ((i + 1) == Constants.MACHINE_GUN_ID) {
                 numberOfWeapons[i][0] = Constants.MACHINE_GUN_ID;
-                numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[3][wave] : 0.1f));
+                numberOfWeapons[i][1] = (int) (maxEnemiesInWave
+                        * (wave < percentsOfWeapons[0].length
+                        ? percentsOfWeapons[3][wave] : 0.1f));
             } else if ((i + 1) == Constants.ROCKET_LAUNCHER_ID) {
                 numberOfWeapons[i][0] = Constants.ROCKET_LAUNCHER_ID;
-                numberOfWeapons[i][1] = (int)(maxEnemiesInWave * (wave < percentsOfWeapons[0].length ? percentsOfWeapons[4][wave] : 0.1f));
+                numberOfWeapons[i][1] = (int) (maxEnemiesInWave
+                        * (wave < percentsOfWeapons[0].length
+                        ? percentsOfWeapons[4][wave] : 0.1f));
             }
         }
     }
 
     public void clear() {
         enemyEmitters.clear();
+    }
+
+    public boolean isInTheBeginningOfNewWave() {
+        return inTheBeginningOfNewWave;
     }
 }

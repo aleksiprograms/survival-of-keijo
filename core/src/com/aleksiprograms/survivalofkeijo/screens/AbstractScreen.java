@@ -9,15 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public abstract class AbstractScreen implements Screen {
 
-    public TheGame game;
-    public Stage stage;
-    public Stage stageExtra;
-    public boolean showStageExtra;
+    protected TheGame game;
+    protected Stage stage;
+    protected Stage stageExtra;
+    protected boolean showStageExtra;
 
     public AbstractScreen(TheGame game) {
         this.game = game;
-        stage = new Stage(game.viewport, game.spriteBatch);
-        stageExtra = new Stage(game.viewport, game.spriteBatch);
+        stage = new Stage(game.getViewport(), game.getSpriteBatch());
+        stageExtra = new Stage(game.getViewport(), game.getSpriteBatch());
         showStageExtra = false;
     }
 
@@ -39,23 +39,29 @@ public abstract class AbstractScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+    }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+    }
 
-    public void resetScreen() {}
+    public void resetScreen() {
+    }
 
-    public void updateScreen() {
+    public void updateData() {
         stage.setDebugAll(Constants.DEBUG_DRAW_UI);
         stageExtra.setDebugAll(Constants.DEBUG_DRAW_UI);
     }
@@ -65,7 +71,15 @@ public abstract class AbstractScreen implements Screen {
         if (showStageExtra) {
             Gdx.input.setInputProcessor(stageExtra);
         } else {
-            Gdx.input.setInputProcessor(game.currentScreen.stage);
+            Gdx.input.setInputProcessor(game.getCurrentScreen().stage);
         }
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public Stage getStageExtra() {
+        return stageExtra;
     }
 }

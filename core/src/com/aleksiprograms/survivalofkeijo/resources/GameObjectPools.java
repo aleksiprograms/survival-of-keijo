@@ -1,16 +1,22 @@
 package com.aleksiprograms.survivalofkeijo.resources;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.CoinEmitter;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.EnemyEmitter;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGrass128px;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGround128px;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles.Coin;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGrass;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGround;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.BulletPlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CaseEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.CasePlayer;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Rocket;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Shot;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.collectibles.Coin;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.CoinEmitter;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.emitters.EnemyEmitter;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Grass;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH10;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundTop;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV11;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV5;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Ice;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockH10;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockSurface;
@@ -18,10 +24,6 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Rock
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockV11;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.RockV5;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Sky;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Grass;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundH10;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV11;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.GroundV5;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowH10;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowSurface;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SnowTop;
@@ -30,77 +32,73 @@ import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Snow
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Enemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Player;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.BigAreaObject;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyDropObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.EnemyJumpObject;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.sensors.SmallAreaObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.AssaultRifleEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.AssaultRiflePlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.MachineGun;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Rocket;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.PistolEnemy;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.PistolPlayer;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.RocketLauncher;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Shot;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Shotgun;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Sniper;
 import com.aleksiprograms.survivalofkeijo.managers.BigAreaManager;
 import com.aleksiprograms.survivalofkeijo.toolbox.PFXPool;
 import com.badlogic.gdx.utils.Pool;
 
-public class GamePools {
+public class GameObjectPools {
 
-    public Pool<Player> playerPool;
-    public Pool<Enemy> enemyPool;
-    public Pool<PistolPlayer> pistolPlayerPool;
-    public Pool<PistolEnemy> pistolEnemyPool;
-    public Pool<AssaultRiflePlayer> assaultRiflePlayerPool;
-    public Pool<AssaultRifleEnemy> assaultRifleEnemyPool;
-    public Pool<Shotgun> shotgunPool;
-    public Pool<Sniper> sniperPool;
-    public Pool<MachineGun> machineGunPool;
-    public Pool<RocketLauncher> rocketLauncherPool;
-    public Pool<EnemyEmitter> enemyEmitterPool;
-    public Pool<Coin> coinPool;
-    public Pool<CoinEmitter> coinEmitterPool;
-    public Pool<Sky> backgroundPool;
-    public Pool<GroundH10> groundH10Pool;
-    public Pool<GroundV5> groundV5Pool;
-    public Pool<GroundV11> groundV11Pool;
-    public Pool<GroundTop> groundTopPool;
-    public Pool<Grass> grassPool;
-    public Pool<RockH10> rockH10Pool;
-    public Pool<RockV5> rockV5Pool;
-    public Pool<RockV11> rockV11Pool;
-    public Pool<RockTop> rockTopPool;
-    public Pool<RockSurface> rockSurfacePool;
-    public Pool<SnowH10> snowH10Pool;
-    public Pool<SnowV5> snowV5Pool;
-    public Pool<SnowV11> snowV11Pool;
-    public Pool<SnowTop> snowTopPool;
-    public Pool<SnowSurface> snowSurfacePool;
-    public Pool<Ice> icePool;
-    public Pool<BulletPlayer> bulletPlayerPool;
-    public Pool<BulletEnemy> bulletEnemyPool;
-    public Pool<CasePlayer> casePlayerPool;
-    public Pool<CaseEnemy> caseEnemyPool;
-    public Pool<Shot> shotPool;
-    public Pool<Rocket> rocketPool;
-    public Pool<BigAreaManager> bigAreaManagerPool;
-    public Pool<BigAreaObject> bigAreaObjectPool;
-    public Pool<SmallAreaObject> smallAreaObjectPool;
-    public Pool<EnemyJumpObject> enemyJumpObjectPool;
-    public Pool<EnemyDropObject> enemyDropObjectPool;
-    public PFXPool ammunitionGroundHitPool;
-    public PFXPool ammunitionGrassHitPool;
-    public PFXPool rocketExplosionPool;
+    private Pool<Player> playerPool;
+    private Pool<Enemy> enemyPool;
+    private Pool<PistolPlayer> pistolPlayerPool;
+    private Pool<PistolEnemy> pistolEnemyPool;
+    private Pool<AssaultRiflePlayer> assaultRiflePlayerPool;
+    private Pool<AssaultRifleEnemy> assaultRifleEnemyPool;
+    private Pool<Shotgun> shotgunPool;
+    private Pool<Sniper> sniperPool;
+    private Pool<MachineGun> machineGunPool;
+    private Pool<RocketLauncher> rocketLauncherPool;
+    private Pool<EnemyEmitter> enemyEmitterPool;
+    private Pool<Coin> coinPool;
+    private Pool<CoinEmitter> coinEmitterPool;
+    private Pool<Sky> backgroundPool;
+    private Pool<GroundH10> groundH10Pool;
+    private Pool<GroundV5> groundV5Pool;
+    private Pool<GroundV11> groundV11Pool;
+    private Pool<GroundTop> groundTopPool;
+    private Pool<Grass> grassPool;
+    private Pool<RockH10> rockH10Pool;
+    private Pool<RockV5> rockV5Pool;
+    private Pool<RockV11> rockV11Pool;
+    private Pool<RockTop> rockTopPool;
+    private Pool<RockSurface> rockSurfacePool;
+    private Pool<SnowH10> snowH10Pool;
+    private Pool<SnowV5> snowV5Pool;
+    private Pool<SnowV11> snowV11Pool;
+    private Pool<SnowTop> snowTopPool;
+    private Pool<SnowSurface> snowSurfacePool;
+    private Pool<Ice> icePool;
+    private Pool<BulletPlayer> bulletPlayerPool;
+    private Pool<BulletEnemy> bulletEnemyPool;
+    private Pool<CasePlayer> casePlayerPool;
+    private Pool<CaseEnemy> caseEnemyPool;
+    private Pool<Shot> shotPool;
+    private Pool<Rocket> rocketPool;
+    private Pool<BigAreaManager> bigAreaManagerPool;
+    private Pool<BigAreaObject> bigAreaObjectPool;
+    private Pool<SmallAreaObject> smallAreaObjectPool;
+    private Pool<EnemyJumpObject> enemyJumpObjectPool;
+    private Pool<EnemyDropObject> enemyDropObjectPool;
+    private PFXPool ammunitionGroundHitPool;
+    private PFXPool ammunitionGrassHitPool;
+    private PFXPool rocketExplosionPool;
 
-    public GamePools(final TheGame game) {
-        initializePools(game);
+    public GameObjectPools(final TheGame game) {
+        initialize(game);
     }
 
-    public void dispose() {}
-
-    private void initializePools(final TheGame game) {
+    private void initialize(final TheGame game) {
         playerPool = new Pool<Player>(1, 2) {
             @Override
             protected Player newObject() {
@@ -388,8 +386,186 @@ public class GamePools {
             }
         };
 
-        ammunitionGroundHitPool = new PFXPool(new AmmunitionHitGround128px(game), 50, 100);
+        ammunitionGroundHitPool = new PFXPool(
+                new AmmunitionHitGround(game), 50, 100);
 
-        ammunitionGrassHitPool = new PFXPool(new AmmunitionHitGrass128px(game), 50, 100);
+        ammunitionGrassHitPool = new PFXPool(
+                new AmmunitionHitGrass(game), 50, 100);
+    }
+
+    public Pool<Player> getPlayerPool() {
+        return playerPool;
+    }
+
+    public Pool<Enemy> getEnemyPool() {
+        return enemyPool;
+    }
+
+    public Pool<PistolPlayer> getPistolPlayerPool() {
+        return pistolPlayerPool;
+    }
+
+    public Pool<PistolEnemy> getPistolEnemyPool() {
+        return pistolEnemyPool;
+    }
+
+    public Pool<AssaultRiflePlayer> getAssaultRiflePlayerPool() {
+        return assaultRiflePlayerPool;
+    }
+
+    public Pool<AssaultRifleEnemy> getAssaultRifleEnemyPool() {
+        return assaultRifleEnemyPool;
+    }
+
+    public Pool<Shotgun> getShotgunPool() {
+        return shotgunPool;
+    }
+
+    public Pool<Sniper> getSniperPool() {
+        return sniperPool;
+    }
+
+    public Pool<MachineGun> getMachineGunPool() {
+        return machineGunPool;
+    }
+
+    public Pool<RocketLauncher> getRocketLauncherPool() {
+        return rocketLauncherPool;
+    }
+
+    public Pool<EnemyEmitter> getEnemyEmitterPool() {
+        return enemyEmitterPool;
+    }
+
+    public Pool<Coin> getCoinPool() {
+        return coinPool;
+    }
+
+    public Pool<CoinEmitter> getCoinEmitterPool() {
+        return coinEmitterPool;
+    }
+
+    public Pool<Sky> getBackgroundPool() {
+        return backgroundPool;
+    }
+
+    public Pool<GroundH10> getGroundH10Pool() {
+        return groundH10Pool;
+    }
+
+    public Pool<GroundV5> getGroundV5Pool() {
+        return groundV5Pool;
+    }
+
+    public Pool<GroundV11> getGroundV11Pool() {
+        return groundV11Pool;
+    }
+
+    public Pool<GroundTop> getGroundTopPool() {
+        return groundTopPool;
+    }
+
+    public Pool<Grass> getGrassPool() {
+        return grassPool;
+    }
+
+    public Pool<RockH10> getRockH10Pool() {
+        return rockH10Pool;
+    }
+
+    public Pool<RockV5> getRockV5Pool() {
+        return rockV5Pool;
+    }
+
+    public Pool<RockV11> getRockV11Pool() {
+        return rockV11Pool;
+    }
+
+    public Pool<RockTop> getRockTopPool() {
+        return rockTopPool;
+    }
+
+    public Pool<RockSurface> getRockSurfacePool() {
+        return rockSurfacePool;
+    }
+
+    public Pool<SnowH10> getSnowH10Pool() {
+        return snowH10Pool;
+    }
+
+    public Pool<SnowV5> getSnowV5Pool() {
+        return snowV5Pool;
+    }
+
+    public Pool<SnowV11> getSnowV11Pool() {
+        return snowV11Pool;
+    }
+
+    public Pool<SnowTop> getSnowTopPool() {
+        return snowTopPool;
+    }
+
+    public Pool<SnowSurface> getSnowSurfacePool() {
+        return snowSurfacePool;
+    }
+
+    public Pool<Ice> getIcePool() {
+        return icePool;
+    }
+
+    public Pool<BulletPlayer> getBulletPlayerPool() {
+        return bulletPlayerPool;
+    }
+
+    public Pool<BulletEnemy> getBulletEnemyPool() {
+        return bulletEnemyPool;
+    }
+
+    public Pool<CasePlayer> getCasePlayerPool() {
+        return casePlayerPool;
+    }
+
+    public Pool<CaseEnemy> getCaseEnemyPool() {
+        return caseEnemyPool;
+    }
+
+    public Pool<Shot> getShotPool() {
+        return shotPool;
+    }
+
+    public Pool<Rocket> getRocketPool() {
+        return rocketPool;
+    }
+
+    public Pool<BigAreaManager> getBigAreaManagerPool() {
+        return bigAreaManagerPool;
+    }
+
+    public Pool<BigAreaObject> getBigAreaObjectPool() {
+        return bigAreaObjectPool;
+    }
+
+    public Pool<SmallAreaObject> getSmallAreaObjectPool() {
+        return smallAreaObjectPool;
+    }
+
+    public Pool<EnemyJumpObject> getEnemyJumpObjectPool() {
+        return enemyJumpObjectPool;
+    }
+
+    public Pool<EnemyDropObject> getEnemyDropObjectPool() {
+        return enemyDropObjectPool;
+    }
+
+    public PFXPool getAmmunitionGroundHitPool() {
+        return ammunitionGroundHitPool;
+    }
+
+    public PFXPool getAmmunitionGrassHitPool() {
+        return ammunitionGrassHitPool;
+    }
+
+    public PFXPool getRocketExplosionPool() {
+        return rocketExplosionPool;
     }
 }

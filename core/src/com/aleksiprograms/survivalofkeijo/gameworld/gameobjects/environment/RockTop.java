@@ -10,8 +10,8 @@ public class RockTop extends Top {
     public RockTop(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_ROCK_TOP, Model.class)));
-
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WALKABLE_ROCK_TOP, Model.class)));
         rigidBody.userData = this;
     }
 }

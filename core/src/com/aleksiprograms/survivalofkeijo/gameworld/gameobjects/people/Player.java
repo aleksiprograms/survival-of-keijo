@@ -1,27 +1,27 @@
 package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.data.WeaponData;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Shop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.PhysicalObject;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.Shop;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons.Weapon;
-import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
+import com.aleksiprograms.survivalofkeijo.managers.ControlManager;
+import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.toolbox.AnimationState;
+import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 import com.aleksiprograms.survivalofkeijo.toolbox.GameState;
 import com.aleksiprograms.survivalofkeijo.toolbox.WeightType;
+import com.aleksiprograms.survivalofkeijo.weapondata.WeaponData;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
-import com.aleksiprograms.survivalofkeijo.managers.ControlManager;
-import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
 import com.badlogic.gdx.utils.Array;
 
 public class Player extends Person {
 
-    public Array<Weapon> weapons;
-    public PhysicalObject target;
-    public float money;
+    private Array<Weapon> weapons;
+    private PhysicalObject target;
+    private float money;
 
     private ControlManager controlManager;
     private boolean movingRight;
@@ -32,7 +32,8 @@ public class Player extends Person {
     public Player(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_PERSON_PLAYER, Model.class)),
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_PERSON_PLAYER, Model.class)),
                 new btBoxShape(new Vector3(0.2f, 0.9f, 0.2f)),
                 new BodyDef.BodyDefBuilder()
                         .mass(80)
@@ -45,7 +46,7 @@ public class Player extends Person {
 
         weapons = new Array<>();
         controlManager = new ControlManager();
-        rigidBody.userData = this;
+        getRigidBody().userData = this;
     }
 
     @Override
@@ -62,7 +63,12 @@ public class Player extends Person {
         weapons.clear();
     }
 
-    public void addWeapon(Weapon weapon, WeaponData weaponData, Person owner, Person target, boolean playerWeapon) {
+    public void addWeapon(
+            Weapon weapon,
+            WeaponData weaponData,
+            Person owner,
+            Person target,
+            boolean playerWeapon) {
         weapons.add(weapon);
         weapons.peek().init(weaponData, owner, target, playerWeapon);
         if (weapons.size == 1) {
@@ -85,33 +91,38 @@ public class Player extends Person {
         super.updateMovement(deltaTime);
 
         if (target != null) {
-            if (target.rigidBody.getCenterOfMassPosition().x >= rigidBody.getCenterOfMassPosition().x) {
+            if (target.getRigidBody().getCenterOfMassPosition().x
+                    >= getRigidBody().getCenterOfMassPosition().x) {
                 lookingRight = true;
-                weapon.lookingRight = true;
+                weapon.setLookingRight(true);
             } else {
                 lookingRight = false;
-                weapon.lookingRight = false;
+                weapon.setLookingRight(false);
             }
         } else {
             if (movingRight) {
                 lookingRight = true;
-                weapon.lookingRight = true;
+                weapon.setLookingRight(true);
             } else {
                 lookingRight = false;
-                weapon.lookingRight = false;
+                weapon.setLookingRight(false);
             }
         }
 
-        if (game.gameWorld.weaponManagerPlayer.getWeaponData(weapon.weaponData.ID).weightType.equals(WeightType.LIGHT))
+        if (game.getGameWorld().getWeaponManagerPlayer().getWeaponData(
+                weapon.getWeaponData().getID()).getWeightType().equals(WeightType.LIGHT)) {
             xVelocity = 4f;
-        else if (game.gameWorld.weaponManagerPlayer.getWeaponData(weapon.weaponData.ID).weightType.equals(WeightType.MEDIUM))
+        } else if (game.getGameWorld().getWeaponManagerPlayer().getWeaponData(
+                weapon.getWeaponData().getID()).getWeightType().equals(WeightType.MEDIUM)) {
             xVelocity = 3f;
-        else if (game.gameWorld.weaponManagerPlayer.getWeaponData(weapon.weaponData.ID).weightType.equals(WeightType.HEAVY))
+        } else if (game.getGameWorld().getWeaponManagerPlayer().getWeaponData(
+                weapon.getWeaponData().getID()).getWeightType().equals(WeightType.HEAVY)) {
             xVelocity = 2f;
-        else
+        } else {
             xVelocity = 4f;
+        }
 
-        if (controlManager.buttonRightPressed && canMoveLeftOrRight(true)) {
+        if (controlManager.isButtonRightPressed() && canMoveLeftOrRight(true)) {
             movingRight = true;
             if (!inAir) {
                 if (lookingRight) {
@@ -121,15 +132,15 @@ public class Player extends Person {
                 }
             }
             if (onIce) {
-                if (rigidBody.getLinearVelocity().x <= xVelocity * 2f) {
+                if (getRigidBody().getLinearVelocity().x <= xVelocity * 2f) {
                     forceOnIce.set(150, 0, 0);
-                    rigidBody.applyCentralForce(forceOnIce);
+                    getRigidBody().applyCentralForce(forceOnIce);
                 }
             } else {
-                velocity.set(xVelocity, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+                velocity.set(xVelocity, getRigidBody().getLinearVelocity().y, 0);
+                getRigidBody().setLinearVelocity(velocity);
             }
-        } else if (controlManager.buttonLeftPressed && canMoveLeftOrRight(false)) {
+        } else if (controlManager.isButtonLeftPressed() && canMoveLeftOrRight(false)) {
             movingRight = false;
             if (!inAir) {
                 if (!lookingRight) {
@@ -139,28 +150,28 @@ public class Player extends Person {
                 }
             }
             if (onIce) {
-                if (rigidBody.getLinearVelocity().x >= -xVelocity * 2f) {
+                if (getRigidBody().getLinearVelocity().x >= -xVelocity * 2f) {
                     forceOnIce.set(-150, 0, 0);
-                    rigidBody.applyCentralForce(forceOnIce);
+                    getRigidBody().applyCentralForce(forceOnIce);
                 }
             } else {
-                velocity.set(-xVelocity, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+                velocity.set(-xVelocity, getRigidBody().getLinearVelocity().y, 0);
+                getRigidBody().setLinearVelocity(velocity);
             }
         } else {
             if (!inAir) {
                 setAnimation(AnimationState.STAND);
             }
             if (!onIce) {
-                velocity.set(0, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+                velocity.set(0, getRigidBody().getLinearVelocity().y, 0);
+                getRigidBody().setLinearVelocity(velocity);
             }
         }
 
-        if (!controlManager.buttonUpPressed) {
+        if (!controlManager.isButtonUpPressed()) {
             upButtonPressed = false;
         }
-        if (controlManager.buttonUpPressed && !upButtonPressed) {
+        if (controlManager.isButtonUpPressed() && !upButtonPressed) {
             upButtonPressed = true;
             if (!inAir) {
                 jump();
@@ -180,7 +191,7 @@ public class Player extends Person {
     @Override
     public void onHit(int damage) {
         super.onHit(damage);
-        game.gameScreen.inGameHud.updateHud();
+        game.getGameScreen().getInGameHud().updateData();
     }
 
     @Override
@@ -188,26 +199,31 @@ public class Player extends Person {
         super.onDead(deltaTime);
         if (!onDeadThingsDone) {
             onDeadThingsDone = true;
-            weapon.ownerDead = true;
-            game.gameScreen.setGameState(GameState.GAME_OVER);
-            game.gameScreen.stage.clear();
-            game.gameScreen.gameOverHud.updateHud();
-            game.gameScreen.stage.addActor(game.gameScreen.gameOverHud);
+            weapon.setOwnerDead(true);
+            game.getGameScreen().changeGameState(GameState.GAME_OVER);
         }
     }
 
     private void isInFrontOfBuilding() {
-        for (int i = 0; i < game.gameWorld.enterableBuildings.size; i++) {
-            if (rigidBody.getCenterOfMassPosition().x >= game.gameWorld.enterableBuildings.get(i).x - game.gameWorld.enterableBuildings.get(i).width / 2 &&
-                    rigidBody.getCenterOfMassPosition().x <= game.gameWorld.enterableBuildings.get(i).x + game.gameWorld.enterableBuildings.get(i).width / 2 &&
-                    rigidBody.getCenterOfMassPosition().y >= game.gameWorld.enterableBuildings.get(i).y - game.gameWorld.enterableBuildings.get(i).height / 2 &&
-                    rigidBody.getCenterOfMassPosition().y <= game.gameWorld.enterableBuildings.get(i).y + game.gameWorld.enterableBuildings.get(i).height / 2) {
-                if (game.gameWorld.enterableBuildings.get(i) instanceof Shop) {
-                    game.gameScreen.inGameHud.setButtonEnterShopVisibility(true);
+        for (int i = 0; i < game.getGameWorld().getEnterableBuildings().size; i++) {
+            if (getRigidBody().getCenterOfMassPosition().x
+                    >= game.getGameWorld().getEnterableBuildings().get(i).getX()
+                    - game.getGameWorld().getEnterableBuildings().get(i).getWidth() / 2
+                    && getRigidBody().getCenterOfMassPosition().x
+                    <= game.getGameWorld().getEnterableBuildings().get(i).getX()
+                    + game.getGameWorld().getEnterableBuildings().get(i).getWidth() / 2
+                    && getRigidBody().getCenterOfMassPosition().y
+                    >= game.getGameWorld().getEnterableBuildings().get(i).getY()
+                    - game.getGameWorld().getEnterableBuildings().get(i).getHeight() / 2
+                    && getRigidBody().getCenterOfMassPosition().y
+                    <= game.getGameWorld().getEnterableBuildings().get(i).getY()
+                    + game.getGameWorld().getEnterableBuildings().get(i).getHeight() / 2) {
+                if (game.getGameWorld().getEnterableBuildings().get(i) instanceof Shop) {
+                    game.getGameScreen().getInGameHud().setButtonEnterShopVisibility(true);
                 }
             } else {
-                if (game.gameWorld.enterableBuildings.get(i) instanceof Shop) {
-                    game.gameScreen.inGameHud.setButtonEnterShopVisibility(false);
+                if (game.getGameWorld().getEnterableBuildings().get(i) instanceof Shop) {
+                    game.getGameScreen().getInGameHud().setButtonEnterShopVisibility(false);
                 }
             }
         }
@@ -215,37 +231,55 @@ public class Player extends Person {
 
     private boolean canMoveLeftOrRight(boolean right) {
         movementRayFrom.set(
-                rigidBody.getCenterOfMassPosition().x,
-                rigidBody.getCenterOfMassPosition().y,
-                rigidBody.getCenterOfMassPosition().z);
+                getRigidBody().getCenterOfMassPosition().x,
+                getRigidBody().getCenterOfMassPosition().y,
+                getRigidBody().getCenterOfMassPosition().z);
         movementRayTo.set(
-                rigidBody.getCenterOfMassPosition().x + (right ? 1 : -1) * 0.4f,
-                rigidBody.getCenterOfMassPosition().y,
-                rigidBody.getCenterOfMassPosition().z);
+                getRigidBody().getCenterOfMassPosition().x + (right ? 1 : -1) * 0.4f,
+                getRigidBody().getCenterOfMassPosition().y,
+                getRigidBody().getCenterOfMassPosition().z);
         movementCallback.setCollisionObject(null);
         movementCallback.setClosestHitFraction(1);
         movementCallback.setRayFromWorld(movementRayFrom);
         movementCallback.setRayToWorld(movementRayTo);
-        game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
+        game.getGameWorld().getDynamicsWorld().rayTest(
+                movementRayFrom, movementRayTo, movementCallback);
         return !movementCallback.hasHit();
     }
 
     private void updateWeapon() {
-        weapon.target = ((Person) target);
-        if (!controlManager.buttonShootPressed) {
+        weapon.setTarget(((Person) target));
+        if (!controlManager.isButtonShootPressed()) {
             shootButtonPressed = false;
         }
-        if ((controlManager.buttonShootPressed && !shootButtonPressed) || (controlManager.buttonShootPressed && weapon.automatic)) {
+        if ((controlManager.isButtonShootPressed() && !shootButtonPressed)
+                || (controlManager.isButtonShootPressed() && weapon.isAutomatic())) {
             shootButtonPressed = true;
             weapon.usePlayer();
         }
 
-        if (!controlManager.buttonReloadPressed) {
+        if (!controlManager.isButtonReloadPressed()) {
             reloadButtonPressed = false;
         }
-        if (controlManager.buttonReloadPressed && !reloadButtonPressed) {
+        if (controlManager.isButtonReloadPressed() && !reloadButtonPressed) {
             reloadButtonPressed = true;
             weapon.reload();
         }
+    }
+
+    public Array<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    public void setTarget(PhysicalObject target) {
+        this.target = target;
+    }
+
+    public float getMoney() {
+        return money;
+    }
+
+    public void setMoney(float money) {
+        this.money = money;
     }
 }

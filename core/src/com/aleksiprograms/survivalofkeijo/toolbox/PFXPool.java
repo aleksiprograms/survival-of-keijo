@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Pool;
 
 public class PFXPool extends Pool<ParticleEffect> {
 
-    public ParticleEffect sourceParticleEffect;
+    private ParticleEffect sourceParticleEffect;
 
     public PFXPool(ParticleEffect sourceParticleEffect, int initialCapacity, int max) {
         super(initialCapacity, max);

@@ -12,7 +12,8 @@ public class SnowV11 extends Snow {
     public SnowV11(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_SNOW_V11, Model.class)),
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WALKABLE_SNOW_V11, Model.class)),
                 new btBoxShape(new Vector3(0.25f, 2.8f, 0.75f)));
     }
 }

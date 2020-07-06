@@ -17,7 +17,7 @@ public abstract class Case extends PhysicalObject {
         super(
                 game,
                 modelInstance,
-                new btBoxShape(new Vector3(0.22f/2f, 0.07f/2f, 0.07f/2f)),
+                new btBoxShape(new Vector3(0.22f / 2f, 0.07f / 2f, 0.07f / 2f)),
                 new BodyDef.BodyDefBuilder()
                         .mass(0.1f)
                         .linearDamping(0.1f)
@@ -27,13 +27,19 @@ public abstract class Case extends PhysicalObject {
                         .categoryBits(Constants.CATEGORY_CASE)
                         .maskBits(Constants.MASK_CASE)
                         .build());
-        rigidBody.userData = this;
+        getRigidBody().userData = this;
     }
 
-    public void init(float x, float y, float z, float angle, Vector3 linearVelocity, Vector3 angularVelocity) {
+    public void init(
+            float x,
+            float y,
+            float z,
+            float angle,
+            Vector3 linearVelocity,
+            Vector3 angularVelocity) {
         super.init(x, y, z, angle);
-        rigidBody.setLinearVelocity(linearVelocity);
-        rigidBody.setAngularVelocity(angularVelocity);
+        getRigidBody().setLinearVelocity(linearVelocity);
+        getRigidBody().setAngularVelocity(angularVelocity);
         timer = 0;
     }
 

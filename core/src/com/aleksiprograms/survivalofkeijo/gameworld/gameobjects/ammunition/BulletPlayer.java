@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 public class BulletPlayer extends Bullet {
 
     public BulletPlayer(TheGame game) {
-        super(game, new ModelInstance(game.assetManager.get(Constants.MODEL_AMMUNITION_BULLET_PLAYER, Model.class)));
+        super(game, new ModelInstance(game.getAssetManager().get(
+                Constants.MODEL_AMMUNITION_BULLET_PLAYER, Model.class)));
     }
 }

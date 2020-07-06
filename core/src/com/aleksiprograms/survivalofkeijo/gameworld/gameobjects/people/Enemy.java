@@ -31,7 +31,8 @@ public class Enemy extends Person {
 
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_PERSON_ENEMY, Model.class)),
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_PERSON_ENEMY, Model.class)),
                 new btBoxShape(new Vector3(0.2f, 0.9f, 0.2f)),
                 new BodyDef.BodyDefBuilder()
                         .mass(80)
@@ -41,7 +42,7 @@ public class Enemy extends Person {
                         .useMotionState(false)
                         .build());
 
-        rigidBody.userData = this;
+        getRigidBody().userData = this;
         dimensions.set(2f, 2f, 1);
     }
 
@@ -78,7 +79,9 @@ public class Enemy extends Person {
             }
         }
 
-        if (Math.abs(rigidBody.getLinearVelocity().len()) < 0.1f && (bigArea.area != game.gameWorld.player.bigArea.area || smallArea.area != game.gameWorld.player.smallArea.area)) {
+        if (Math.abs(getRigidBody().getLinearVelocity().len())
+                < 0.1f && (bigArea.getArea() != game.getGameWorld().getPlayer().bigArea.getArea()
+                || smallArea.getArea() != game.getGameWorld().getPlayer().smallArea.getArea())) {
             stuckTimer += deltaTime;
             if (stuckTimer > 0.5f) {
                 stuck = true;
@@ -93,21 +96,27 @@ public class Enemy extends Person {
         jumpIfNeeded();
 
         movementRayFrom.set(
-                rigidBody.getCenterOfMassPosition().x,
-                rigidBody.getCenterOfMassPosition().y - 0.6f,
-                rigidBody.getCenterOfMassPosition().z);
+                getRigidBody().getCenterOfMassPosition().x,
+                getRigidBody().getCenterOfMassPosition().y - 0.6f,
+                getRigidBody().getCenterOfMassPosition().z);
         movementRayTo.set(
-                rigidBody.getCenterOfMassPosition().x + (lookingRight ? 1 : -1) * 0.5f,
-                rigidBody.getCenterOfMassPosition().y - 0.6f,
-                rigidBody.getCenterOfMassPosition().z);
+                getRigidBody().getCenterOfMassPosition().x + (lookingRight ? 1 : -1) * 0.5f,
+                getRigidBody().getCenterOfMassPosition().y - 0.6f,
+                getRigidBody().getCenterOfMassPosition().z);
         movementCallback.setCollisionObject(null);
         movementCallback.setClosestHitFraction(1);
         movementCallback.setRayFromWorld(movementRayFrom);
         movementCallback.setRayToWorld(movementRayTo);
-        game.gameWorld.dynamicsWorld.rayTest(movementRayFrom, movementRayTo, movementCallback);
-        stopToWait = movementCallback.hasHit() && movementCallback.getCollisionObject().userData instanceof Enemy && movementCallback.getCollisionObject().userData != this && (((Enemy) movementCallback.getCollisionObject().userData).lookingRight == lookingRight) && !(((Enemy) movementCallback.getCollisionObject().userData).inAir);
+        game.getGameWorld().getDynamicsWorld().rayTest(
+                movementRayFrom, movementRayTo, movementCallback);
+        stopToWait = movementCallback.hasHit()
+                && movementCallback.getCollisionObject().userData instanceof Enemy
+                && movementCallback.getCollisionObject().userData != this
+                && (((Enemy) movementCallback.getCollisionObject().userData).lookingRight
+                == lookingRight)
+                && !(((Enemy) movementCallback.getCollisionObject().userData).inAir);
 
-        if (game.gameWorld.player.dead) {
+        if (game.getGameWorld().getPlayer().dead) {
             stopToWait = true;
         }
 
@@ -122,58 +131,87 @@ public class Enemy extends Person {
         super.onDead(deltaTime);
         if (!onDeadThingsDone) {
             onDeadThingsDone = true;
-            weapon.ownerDead = true;
-            game.gameWorld.enemyManager.enemyDied();
-            game.gameScreen.inGameHud.updateHud();
+            weapon.setOwnerDead(true);
+            game.getGameWorld().getEnemyManager().enemyDied();
+            game.getGameScreen().getInGameHud().updateData();
         }
         if (destroyBody) {
             deadTimer += deltaTime;
         }
         if (deadTimer > Constants.ENEMY_VISIBLE_TIME_AFTER_DEAD_ON_GROUND) {
             free = true;
-            weapon.free = true;
+            weapon.setFree(true);
         }
     }
 
     private void guide() {
         if (!(inAir || jumped)) {
             stopToAttack = false;
-            if (bigArea.area == game.gameWorld.player.bigArea.area && smallArea.area == game.gameWorld.player.smallArea.area) {
+            if (bigArea.getArea() == game.getGameWorld().getPlayer().bigArea.getArea()
+                    && smallArea.getArea() == game.getGameWorld().getPlayer().smallArea.getArea()) {
                 enemyGuideObject = null;
-                if (rigidBody.getCenterOfMassPosition().x >= game.gameWorld.player.rigidBody.getCenterOfMassPosition().x) {
+                if (getRigidBody().getCenterOfMassPosition().x
+                        >= game.getGameWorld().getPlayer().getRigidBody()
+                        .getCenterOfMassPosition().x) {
                     lookingRight = false;
-                    weapon.lookingRight = false;
+                    weapon.setLookingRight(false);
                 } else {
                     lookingRight = true;
-                    weapon.lookingRight = true;
+                    weapon.setLookingRight(true);
                 }
-                stopToAttack = Math.abs(rigidBody.getCenterOfMassPosition().x - game.gameWorld.player.rigidBody.getCenterOfMassPosition().x) < 1;
+                stopToAttack = Math.abs(getRigidBody().getCenterOfMassPosition().x
+                        - game.getGameWorld().getPlayer().getRigidBody()
+                        .getCenterOfMassPosition().x) < 1;
             } else {
-                if (playerLastBigArea != game.gameWorld.player.bigArea.area || playerLastSmallArea != game.gameWorld.player.smallArea.area ||
-                        lastBigArea != bigArea.area || lastSmallArea != smallArea.area || stuck) {
-                    playerLastBigArea = game.gameWorld.player.bigArea.area;
-                    playerLastSmallArea = game.gameWorld.player.smallArea.area;
-                    lastBigArea = bigArea.area;
-                    lastSmallArea = smallArea.area;
+                if (playerLastBigArea != game.getGameWorld().getPlayer().bigArea.getArea()
+                        || playerLastSmallArea
+                        != game.getGameWorld().getPlayer().smallArea.getArea()
+                        || lastBigArea != bigArea.getArea()
+                        || lastSmallArea != smallArea.getArea()
+                        || stuck) {
+                    playerLastBigArea = game.getGameWorld().getPlayer().bigArea.getArea();
+                    playerLastSmallArea = game.getGameWorld().getPlayer().smallArea.getArea();
+                    lastBigArea = bigArea.getArea();
+                    lastSmallArea = smallArea.getArea();
                     enemyGuideObject = null;
                     stuck = false;
                     stuckTimer = 0;
-                    if (bigArea.area == game.gameWorld.player.bigArea.area) {
-                        for (int i = 0; i < game.gameWorld.bigAreaManagers.size; i++) {
-                            if (game.gameWorld.bigAreaManagers.get(i).bigAreaId == bigArea.area) {
-                                for (int j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
-                                    if (Math.abs(rigidBody.getCenterOfMassPosition().y - game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).y) < 0.5f) {
-                                        if (game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j) instanceof EnemyDropObject) {
-                                            if (((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight && rigidBody.getCenterOfMassPosition().x < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                    if (bigArea.getArea() == game.getGameWorld().getPlayer().bigArea.getArea()) {
+                        for (int i = 0; i < game.getGameWorld().getBigAreaManagers().size; i++) {
+                            if (game.getGameWorld().getBigAreaManagers().get(i).getBigAreaID()
+                                    == bigArea.getArea()) {
+                                for (int j = 0; j < game.getGameWorld().getBigAreaManagers()
+                                        .get(i).getEnemyGuides().size; j++) {
+                                    if (Math.abs(getRigidBody().getCenterOfMassPosition().y
+                                            - game.getGameWorld().getBigAreaManagers().get(i)
+                                            .getEnemyGuides().get(j).getY()) < 0.5f) {
+                                        if (game.getGameWorld().getBigAreaManagers().get(i)
+                                                .getEnemyGuides().get(j) instanceof EnemyDropObject) {
+                                            if (((EnemyDropObject) game.getGameWorld().getBigAreaManagers()
+                                                    .get(i).getEnemyGuides().get(j)).isApproachableFromRight()
+                                                    && getRigidBody().getCenterOfMassPosition().x
+                                                    < game.getGameWorld().getBigAreaManagers().get(i)
+                                                    .getEnemyGuides().get(j).getX()) {
                                                 continue;
                                             }
-                                            if (!(((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight) && rigidBody.getCenterOfMassPosition().x > game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                                            if (!(((EnemyDropObject) game.getGameWorld().getBigAreaManagers()
+                                                    .get(i).getEnemyGuides().get(j)).isApproachableFromRight())
+                                                    && getRigidBody().getCenterOfMassPosition().x
+                                                    > game.getGameWorld().getBigAreaManagers().get(i)
+                                                    .getEnemyGuides().get(j).getX()) {
                                                 continue;
                                             }
                                         }
-                                        for (int k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toSmallAreas.size; k++) {
-                                            if (game.gameWorld.player.smallArea.area == game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toSmallAreas.get(k)) {
-                                                enemyGuideObject = game.gameWorld.isObjectClosestToEnemy(this, enemyGuideObject, game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j));
+                                        for (int k = 0; k < game.getGameWorld().getBigAreaManagers()
+                                                .get(i).getEnemyGuides().get(j).getToSmallAreas().size; k++) {
+                                            if (game.getGameWorld().getPlayer().smallArea.getArea()
+                                                    == game.getGameWorld().getBigAreaManagers().get(i)
+                                                    .getEnemyGuides().get(j).getToSmallAreas().get(k)) {
+                                                enemyGuideObject = game.getGameWorld()
+                                                        .isObjectClosestToEnemy(
+                                                                this, enemyGuideObject,
+                                                                game.getGameWorld().getBigAreaManagers()
+                                                                        .get(i).getEnemyGuides().get(j));
                                             }
                                         }
                                     }
@@ -181,21 +219,41 @@ public class Enemy extends Person {
                             }
                         }
                     } else {
-                        for (int i = 0; i < game.gameWorld.bigAreaManagers.size; i++) {
-                            if (game.gameWorld.bigAreaManagers.get(i).bigAreaId == bigArea.area) {
-                                for (int j = 0; j < game.gameWorld.bigAreaManagers.get(i).enemyGuides.size; j++) {
-                                    if (Math.abs(rigidBody.getCenterOfMassPosition().y - game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).y) < 0.5f) {
-                                        if (game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j) instanceof EnemyDropObject) {
-                                            if (((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight && rigidBody.getCenterOfMassPosition().x < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                        for (int i = 0; i < game.getGameWorld().getBigAreaManagers().size; i++) {
+                            if (game.getGameWorld().getBigAreaManagers().get(i).getBigAreaID()
+                                    == bigArea.getArea()) {
+                                for (int j = 0; j < game.getGameWorld().getBigAreaManagers()
+                                        .get(i).getEnemyGuides().size; j++) {
+                                    if (Math.abs(getRigidBody().getCenterOfMassPosition().y
+                                            - game.getGameWorld().getBigAreaManagers().get(i)
+                                            .getEnemyGuides().get(j).getY()) < 0.5f) {
+                                        if (game.getGameWorld().getBigAreaManagers().get(i)
+                                                .getEnemyGuides().get(j) instanceof EnemyDropObject) {
+                                            if (((EnemyDropObject) game.getGameWorld().getBigAreaManagers()
+                                                    .get(i).getEnemyGuides().get(j)).isApproachableFromRight()
+                                                    && getRigidBody().getCenterOfMassPosition().x
+                                                    < game.getGameWorld().getBigAreaManagers().get(i)
+                                                    .getEnemyGuides().get(j).getX()) {
                                                 continue;
                                             }
-                                            if (!(((EnemyDropObject) game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j)).approachableFromRight) && rigidBody.getCenterOfMassPosition().x > game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).x) {
+                                            if (!(((EnemyDropObject) game.getGameWorld().getBigAreaManagers()
+                                                    .get(i).getEnemyGuides().get(j)).isApproachableFromRight())
+                                                    && getRigidBody().getCenterOfMassPosition().x
+                                                    > game.getGameWorld().getBigAreaManagers().get(i)
+                                                    .getEnemyGuides().get(j).getX()) {
                                                 continue;
                                             }
                                         }
-                                        for (int k = 0; k < game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toBigAreas.size; k++) {
-                                            if (game.gameWorld.player.bigArea.area == game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j).toBigAreas.get(k)) {
-                                                enemyGuideObject = game.gameWorld.isObjectClosestToEnemy(this, enemyGuideObject, game.gameWorld.bigAreaManagers.get(i).enemyGuides.get(j));
+                                        for (int k = 0; k < game.getGameWorld().getBigAreaManagers()
+                                                .get(i).getEnemyGuides().get(j).getToBigAreas().size; k++) {
+                                            if (game.getGameWorld().getPlayer().bigArea.getArea()
+                                                    == game.getGameWorld().getBigAreaManagers().get(i)
+                                                    .getEnemyGuides().get(j).getToBigAreas().get(k)) {
+                                                enemyGuideObject = game.getGameWorld()
+                                                        .isObjectClosestToEnemy(
+                                                                this, enemyGuideObject,
+                                                                game.getGameWorld().getBigAreaManagers()
+                                                                        .get(i).getEnemyGuides().get(j));
                                             }
                                         }
                                     }
@@ -204,12 +262,12 @@ public class Enemy extends Person {
                         }
                     }
                     if (enemyGuideObject != null) {
-                        if (rigidBody.getCenterOfMassPosition().x >= enemyGuideObject.x) {
+                        if (getRigidBody().getCenterOfMassPosition().x >= enemyGuideObject.getX()) {
                             lookingRight = false;
-                            weapon.lookingRight = false;
+                            weapon.setLookingRight(false);
                         } else {
                             lookingRight = true;
-                            weapon.lookingRight = true;
+                            weapon.setLookingRight(true);
                         }
                     }
                 }
@@ -219,13 +277,15 @@ public class Enemy extends Person {
 
     private void jumpIfNeeded() {
         if (enemyGuideObject instanceof EnemyJumpObject) {
-            if (Math.abs(rigidBody.getCenterOfMassPosition().x - enemyGuideObject.x) < 0.1f) {
-                if ((((EnemyJumpObject) enemyGuideObject).jumpToRight)) {
-                    lookingRight = (((EnemyJumpObject) enemyGuideObject).jumpToRight);
-                    weapon.lookingRight = (((EnemyJumpObject) enemyGuideObject).jumpToRight);
+            if (Math.abs(getRigidBody().getCenterOfMassPosition().x
+                    - enemyGuideObject.getX()) < 0.1f) {
+                if ((((EnemyJumpObject) enemyGuideObject).isJumpToRight())) {
+                    lookingRight = (((EnemyJumpObject) enemyGuideObject).isJumpToRight());
+                    weapon.setLookingRight(
+                            (((EnemyJumpObject) enemyGuideObject).isJumpToRight()));
                 } else {
                     lookingRight = false;
-                    weapon.lookingRight = false;
+                    weapon.setLookingRight(false);
                 }
                 enemyGuideObject = null;
                 jump();
@@ -253,23 +313,23 @@ public class Enemy extends Person {
         xVelocity = 1.5f;
         if (inAir) {
             if (lookingRight) {
-                velocity.set(1.3f, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+                velocity.set(1.3f, getRigidBody().getLinearVelocity().y, 0);
+                getRigidBody().setLinearVelocity(velocity);
             } else {
-                velocity.set(-1.3f, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+                velocity.set(-1.3f, getRigidBody().getLinearVelocity().y, 0);
+                getRigidBody().setLinearVelocity(velocity);
             }
         } else {
             if (stopToWait || stopToAttack) {
-                velocity.set(0, rigidBody.getLinearVelocity().y, 0);
-                rigidBody.setLinearVelocity(velocity);
+                velocity.set(0, getRigidBody().getLinearVelocity().y, 0);
+                getRigidBody().setLinearVelocity(velocity);
             } else {
                 if (lookingRight) {
-                    velocity.set(xVelocity, rigidBody.getLinearVelocity().y, 0);
-                    rigidBody.setLinearVelocity(velocity);
+                    velocity.set(xVelocity, getRigidBody().getLinearVelocity().y, 0);
+                    getRigidBody().setLinearVelocity(velocity);
                 } else {
-                    velocity.set(-xVelocity, rigidBody.getLinearVelocity().y, 0);
-                    rigidBody.setLinearVelocity(velocity);
+                    velocity.set(-xVelocity, getRigidBody().getLinearVelocity().y, 0);
+                    getRigidBody().setLinearVelocity(velocity);
                 }
             }
         }

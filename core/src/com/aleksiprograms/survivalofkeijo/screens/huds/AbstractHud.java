@@ -11,9 +11,12 @@ public abstract class AbstractHud extends Table {
         this.game = game;
     }
 
-    protected void initializeHud() {}
+    protected void initialize() {
+    }
 
-    public void resetHud() {}
+    public void resetHud() {
+    }
 
-    public void updateHud() {}
+    public void updateData() {
+    }
 }

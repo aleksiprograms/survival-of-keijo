@@ -10,7 +10,7 @@ public class CoinEmitter implements Pool.Poolable {
     private float x;
     private float y;
     private float z;
-    public boolean emitted;
+    private boolean emitted;
 
     public CoinEmitter(TheGame game) {
         this.game = game;
@@ -25,15 +25,23 @@ public class CoinEmitter implements Pool.Poolable {
 
     public void emitCoin(CoinType coinType) {
         if (coinType.equals(CoinType.BRONZE)) {
-            game.gameWorld.addCoin(game.gamePools.coinPool.obtain(), x, y, z);
+            game.getGameWorld().addCoin(
+                    game.getGameObjectPools().getCoinPool().obtain(), x, y, z);
         } else if (coinType.equals(CoinType.SILVER)) {
-            game.gameWorld.addCoin(game.gamePools.coinPool.obtain(), x, y, z);
+            game.getGameWorld().addCoin(
+                    game.getGameObjectPools().getCoinPool().obtain(), x, y, z);
         } else if (coinType.equals(CoinType.GOLD)) {
-            game.gameWorld.addCoin(game.gamePools.coinPool.obtain(), x, y, z);
+            game.getGameWorld().addCoin(
+                    game.getGameObjectPools().getCoinPool().obtain(), x, y, z);
         }
         emitted = true;
     }
 
     @Override
-    public void reset() {}
+    public void reset() {
+    }
+
+    public boolean isEmitted() {
+        return emitted;
+    }
 }

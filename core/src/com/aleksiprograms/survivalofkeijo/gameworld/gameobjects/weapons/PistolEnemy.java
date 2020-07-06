@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 public class PistolEnemy extends Pistol {
 
     public PistolEnemy(TheGame game) {
-        super(game, new ModelInstance(game.assetManager.get(Constants.MODEL_WEAPON_PISTOL_ENEMY, Model.class)));
+        super(
+                game,
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WEAPON_PISTOL_ENEMY, Model.class)));
     }
 }

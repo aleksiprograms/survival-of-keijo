@@ -12,14 +12,15 @@ import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
 
 public class Coin extends GhostObject {
 
-    public boolean collected;
-    public AnimationController animationController;
-    public AnimationController.AnimationListener animationListener;
+    protected boolean collected;
+    protected AnimationController animationController;
+    protected AnimationController.AnimationListener animationListener;
 
     public Coin(final TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_AMMUNITION_BULLET_PLAYER, Model.class)),
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_AMMUNITION_BULLET_PLAYER, Model.class)),
                 new btBoxShape(new Vector3(0.5f, 0.5f, 0.5f)),
                 new BodyDef.BodyDefBuilder()
                         .mass(0)
@@ -28,13 +29,16 @@ public class Coin extends GhostObject {
                         .useMotionState(false)
                         .build());
         animationController = new AnimationController(this);
-        animationController.setAnimation("Empty|rotation", -1, 1, animationListener);
+        animationController.setAnimation(
+                "Empty|rotation", -1, 1, animationListener);
         animationListener = new AnimationController.AnimationListener() {
             @Override
-            public void onEnd(AnimationController.AnimationDesc animation) {}
+            public void onEnd(AnimationController.AnimationDesc animation) {
+            }
 
             @Override
-            public void onLoop(AnimationController.AnimationDesc animation) {}
+            public void onLoop(AnimationController.AnimationDesc animation) {
+            }
         };
     }
 
@@ -53,7 +57,12 @@ public class Coin extends GhostObject {
     public void onCollect() {
         collected = true;
         free = true;
-        game.gameWorld.player.money += 5000;
-        game.gameScreen.inGameHud.updateHud();
+        game.getGameWorld().getPlayer().setMoney(
+                game.getGameWorld().getPlayer().getMoney() + 5000);
+        game.getGameScreen().getInGameHud().updateData();
+    }
+
+    public boolean isCollected() {
+        return collected;
     }
 }

@@ -1,17 +1,17 @@
 package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
+import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 import com.badlogic.gdx.physics.bullet.collision.btGhostObject;
-import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
 
 public abstract class GhostObject extends RenderableObject {
 
-    public final btGhostObject ghostObject;
-    public BodyDef bodyDef;
+    protected final btGhostObject ghostObject;
+    protected BodyDef bodyDef;
 
     public GhostObject(
             TheGame game,
@@ -34,7 +34,8 @@ public abstract class GhostObject extends RenderableObject {
 
     public void init(float x, float y, float z) {
         super.init();
-        game.gameWorld.dynamicsWorld.addCollisionObject(ghostObject, bodyDef.categoryBits, bodyDef.maskBits);
+        game.getGameWorld().getDynamicsWorld().addCollisionObject(
+                ghostObject, bodyDef.getCategoryBits(), bodyDef.getMaskBits());
         objectPosition.set(x, y, z);
         objectQuaternion.set(0, 0, 0, 0);
         objectQuaternion.set(Vector3.Z, 0);
@@ -46,6 +47,6 @@ public abstract class GhostObject extends RenderableObject {
     @Override
     public void reset() {
         super.reset();
-        game.gameWorld.dynamicsWorld.removeCollisionObject(ghostObject);
+        game.getGameWorld().getDynamicsWorld().removeCollisionObject(ghostObject);
     }
 }

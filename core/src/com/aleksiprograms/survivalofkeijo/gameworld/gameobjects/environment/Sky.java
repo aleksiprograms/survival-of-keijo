@@ -12,14 +12,15 @@ public class Sky extends RenderableObject {
     public Sky(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_SKY_BLUE, Model.class)));
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_SKY_BLUE, Model.class)));
         objectScale = new Vector3(120, 55, 1);
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        objectPosition.set(game.gameWorld.player.rigidBody.getCenterOfMassPosition());
+        objectPosition.set(game.getGameWorld().getPlayer().getRigidBody().getCenterOfMassPosition());
         transform.set(objectPosition, objectQuaternion, objectScale);
     }
 

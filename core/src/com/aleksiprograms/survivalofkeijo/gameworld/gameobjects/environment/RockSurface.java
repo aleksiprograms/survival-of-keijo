@@ -10,8 +10,8 @@ public class RockSurface extends Surface {
     public RockSurface(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_ROCK_SURFACE, Model.class)));
-
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WALKABLE_ROCK_SURFACE, Model.class)));
         rigidBody.userData = this;
     }
 }

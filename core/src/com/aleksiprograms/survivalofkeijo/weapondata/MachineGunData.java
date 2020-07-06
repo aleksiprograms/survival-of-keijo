@@ -1,4 +1,4 @@
-package com.aleksiprograms.survivalofkeijo.data;
+package com.aleksiprograms.survivalofkeijo.weapondata;
 
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
 import com.aleksiprograms.survivalofkeijo.toolbox.WeightType;
@@ -31,12 +31,12 @@ public class MachineGunData extends WeaponData {
         reloadTimeUpgrades = new ObjectMap<>(WeaponData.NUMBER_OF_UPGRADES);
 
         for (int i = 0; i < WeaponData.NUMBER_OF_UPGRADES; i++) {
-            upgradePrices.put(i+1, price*(i+2));
-            rateOfFireUpgrades.put(i+1, 2f);
-            ammoDamageUpgrades.put(i+1, 30);
-            ammoSpeedUpgrades.put(i+1, 2f);
-            magazineSizeUpgrades.put(i+1, 5);
-            reloadTimeUpgrades.put(i+1, -0.6f);
+            upgradePrices.put(i + 1, price * (i + 2));
+            rateOfFireUpgrades.put(i + 1, 2f);
+            ammoDamageUpgrades.put(i + 1, 30);
+            ammoSpeedUpgrades.put(i + 1, 2f);
+            magazineSizeUpgrades.put(i + 1, 5);
+            reloadTimeUpgrades.put(i + 1, -0.6f);
         }
     }
 }

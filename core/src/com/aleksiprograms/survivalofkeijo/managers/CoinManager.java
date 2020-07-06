@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class CoinManager {
 
-    public Array<CoinEmitter> coinEmitters;
+    private Array<CoinEmitter> coinEmitters;
 
     public CoinManager() {
         coinEmitters = new Array<CoinEmitter>();
@@ -14,7 +14,7 @@ public class CoinManager {
 
     public void update(float deltaTime) {
         for (int i = 0; i < coinEmitters.size; i++) {
-            if (!coinEmitters.get(i).emitted) {
+            if (!coinEmitters.get(i).isEmitted()) {
                 coinEmitters.get(i).emitCoin(CoinType.GOLD);
             }
         }

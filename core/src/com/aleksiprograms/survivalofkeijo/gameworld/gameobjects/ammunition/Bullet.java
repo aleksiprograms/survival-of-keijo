@@ -14,16 +14,18 @@ public abstract class Bullet extends Ammunition {
         super(
                 game,
                 modelInstance,
-                new btBoxShape(new Vector3(0.2f/2f, 0.125f/2f, 0.125f/2f)));
+                new btBoxShape(new Vector3(0.2f / 2f, 0.125f / 2f, 0.125f / 2f)));
     }
 
     @Override
     public void onHit(Vector3 hitPoint, PhysicalObject hitObject) {
         if (!hit) {
             if (hitObject instanceof Ground) {
-                game.particleEffectManager.add(game.gamePools.ammunitionGroundHitPool.obtain(), hitPoint);
+                game.getParticleEffectManager().add(
+                        game.getGameObjectPools().getAmmunitionGroundHitPool().obtain(), hitPoint);
             } else if (hitObject instanceof Grass) {
-                game.particleEffectManager.add(game.gamePools.ammunitionGrassHitPool.obtain(), hitPoint);
+                game.getParticleEffectManager().add(
+                        game.getGameObjectPools().getAmmunitionGrassHitPool().obtain(), hitPoint);
             }
         }
         super.onHit(hitPoint, hitObject);

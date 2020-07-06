@@ -1,48 +1,92 @@
 package com.aleksiprograms.survivalofkeijo.managers;
 
-import com.aleksiprograms.survivalofkeijo.data.AssaultRifleData;
-import com.aleksiprograms.survivalofkeijo.data.MachineGunData;
-import com.aleksiprograms.survivalofkeijo.data.PistolData;
-import com.aleksiprograms.survivalofkeijo.data.RocketLauncherData;
-import com.aleksiprograms.survivalofkeijo.data.ShotgunData;
-import com.aleksiprograms.survivalofkeijo.data.SniperData;
-import com.aleksiprograms.survivalofkeijo.data.WeaponData;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.weapondata.AssaultRifleData;
+import com.aleksiprograms.survivalofkeijo.weapondata.MachineGunData;
+import com.aleksiprograms.survivalofkeijo.weapondata.PistolData;
+import com.aleksiprograms.survivalofkeijo.weapondata.RocketLauncherData;
+import com.aleksiprograms.survivalofkeijo.weapondata.ShotgunData;
+import com.aleksiprograms.survivalofkeijo.weapondata.SniperData;
+import com.aleksiprograms.survivalofkeijo.weapondata.WeaponData;
 
 public class WeaponManager {
 
-    public WeaponData[] weaponData;
-    public float minRateOfFire = 0;
-    public float maxRateOfFire = 16;
-    public float minAmmoDamage = 1;
-    public float maxAmmoDamage = 300;
-    public float minAmmoSpeed = 1;
-    public float maxAmmoSpeed = 15;
-    public float minMagazineSize = 10;
-    public float maxMagazineSize = 200;
-    public float minReloadTime = 0.1f;
-    public float maxReloadTime = 5;
+    private WeaponData[] weaponDataArray;
+    private float minRateOfFire = 0;
+    private float maxRateOfFire = 16;
+    private float minAmmoDamage = 1;
+    private float maxAmmoDamage = 300;
+    private float minAmmoSpeed = 1;
+    private float maxAmmoSpeed = 15;
+    private float minMagazineSize = 10;
+    private float maxMagazineSize = 200;
+    private float minReloadTime = 0.1f;
+    private float maxReloadTime = 5;
 
     public WeaponManager() {
-        weaponData = new WeaponData[Constants.NUMBER_OF_WEAPONS];
+        weaponDataArray = new WeaponData[Constants.NUMBER_OF_WEAPONS];
         reset();
     }
 
     public WeaponData getWeaponData(int weaponID) {
-        for (WeaponData weaponData : weaponData) {
-            if (weaponID == weaponData.ID) {
+        for (WeaponData weaponData : weaponDataArray) {
+            if (weaponID == weaponData.getID()) {
                 return weaponData;
             }
         }
-        return weaponData[0];
+        return weaponDataArray[0];
     }
 
     public void reset() {
-        weaponData[0] = new PistolData();
-        weaponData[1] = new AssaultRifleData();
-        weaponData[2] = new ShotgunData();
-        weaponData[3] = new SniperData();
-        weaponData[4] = new MachineGunData();
-        weaponData[5] = new RocketLauncherData();
+        weaponDataArray[0] = new PistolData();
+        weaponDataArray[1] = new AssaultRifleData();
+        weaponDataArray[2] = new ShotgunData();
+        weaponDataArray[3] = new SniperData();
+        weaponDataArray[4] = new MachineGunData();
+        weaponDataArray[5] = new RocketLauncherData();
+    }
+
+    public WeaponData[] getWeaponDataArray() {
+        return weaponDataArray;
+    }
+
+    public float getMinRateOfFire() {
+        return minRateOfFire;
+    }
+
+    public float getMaxRateOfFire() {
+        return maxRateOfFire;
+    }
+
+    public float getMinAmmoDamage() {
+        return minAmmoDamage;
+    }
+
+    public float getMaxAmmoDamage() {
+        return maxAmmoDamage;
+    }
+
+    public float getMinAmmoSpeed() {
+        return minAmmoSpeed;
+    }
+
+    public float getMaxAmmoSpeed() {
+        return maxAmmoSpeed;
+    }
+
+    public float getMinMagazineSize() {
+        return minMagazineSize;
+    }
+
+    public float getMaxMagazineSize() {
+        return maxMagazineSize;
+    }
+
+    public float getMinReloadTime() {
+        return minReloadTime;
+    }
+
+    public float getMaxReloadTime() {
+        return maxReloadTime;
     }
 }

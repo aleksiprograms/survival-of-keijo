@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 public class CaseEnemy extends Case {
 
     public CaseEnemy(TheGame game) {
-        super(game, new ModelInstance(game.assetManager.get(Constants.MODEL_AMMUNITION_CASE_ENEMY, Model.class)));
+        super(game, new ModelInstance(game.getAssetManager().get(
+                Constants.MODEL_AMMUNITION_CASE_ENEMY, Model.class)));
     }
 }

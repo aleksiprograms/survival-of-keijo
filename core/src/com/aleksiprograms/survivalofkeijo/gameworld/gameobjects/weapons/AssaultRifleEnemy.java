@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 public class AssaultRifleEnemy extends AssaultRifle {
 
     public AssaultRifleEnemy(TheGame game) {
-        super(game, new ModelInstance(game.assetManager.get(Constants.MODEL_WEAPON_ASSAULT_RIFLE_ENEMY, Model.class)));
+        super(
+                game,
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WEAPON_ASSAULT_RIFLE_ENEMY, Model.class)));
     }
 }

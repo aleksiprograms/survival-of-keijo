@@ -18,20 +18,21 @@ public abstract class SurfaceComplex extends SolidObject {
     }
 
     public void init(float x, float y, float z, int widthFactor, btCollisionShape collisionShape) {
-        game.gameWorld.dynamicsWorld.addRigidBody(rigidBody, bodyDef.categoryBits, bodyDef.maskBits);
+        game.getGameWorld().getDynamicsWorld().addRigidBody(
+                getRigidBody(), bodyDef.getCategoryBits(), bodyDef.getMaskBits());
         objectPosition.set(x, y, z);
         objectQuaternion.set(0, 0, 0, 0);
         objectQuaternion.set(Vector3.X, 90);
         objectTransform.set(objectPosition, objectQuaternion, objectScale);
-        rigidBody.setWorldTransform(objectTransform);
+        getRigidBody().setWorldTransform(objectTransform);
 
         objectQuaternion.set(0, 0, 0, 0);
         objectScale.set(widthFactor, 1, 1);
         transform.set(objectPosition, objectQuaternion, objectScale);
 
-        rigidBody.setLinearVelocity(Vector3.Zero);
-        rigidBody.setAngularVelocity(Vector3.Zero);
+        getRigidBody().setLinearVelocity(Vector3.Zero);
+        getRigidBody().setAngularVelocity(Vector3.Zero);
         surfaceShape = collisionShape;
-        rigidBody.setCollisionShape(surfaceShape);
+        getRigidBody().setCollisionShape(surfaceShape);
     }
 }

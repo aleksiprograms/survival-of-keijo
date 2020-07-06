@@ -5,11 +5,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class WeaponButton extends Table {
 
-    public int ID;
+    public int weaponButtonID;
     public Label labelWeaponLevel;
 
-    public WeaponButton(int ID) {
+    public WeaponButton(int weaponButtonID) {
         super();
-        this.ID = ID;
+        this.weaponButtonID = weaponButtonID;
     }
 }

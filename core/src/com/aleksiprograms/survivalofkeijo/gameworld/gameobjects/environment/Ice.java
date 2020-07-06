@@ -10,8 +10,8 @@ public class Ice extends SurfaceComplex {
     public Ice(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_ICE, Model.class)));
-
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WALKABLE_ICE, Model.class)));
         rigidBody.userData = this;
     }
 }

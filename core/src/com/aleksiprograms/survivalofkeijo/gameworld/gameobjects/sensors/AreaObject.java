@@ -4,14 +4,20 @@ import com.badlogic.gdx.utils.Pool;
 
 public abstract class AreaObject implements Pool.Poolable {
 
-    public int area;
-    public float x;
-    public float y;
-    public float width;
-    public float height;
-    public boolean nullObject;
+    protected int area;
+    protected float x;
+    protected float y;
+    protected float width;
+    protected float height;
+    protected boolean nullObject;
 
-    public void init(int area, float x, float y, float width, float height, boolean nullObject) {
+    public void init(
+            int area,
+            float x,
+            float y,
+            float width,
+            float height,
+            boolean nullObject) {
         this.area = area;
         this.x = x;
         this.y = y;
@@ -21,5 +27,30 @@ public abstract class AreaObject implements Pool.Poolable {
     }
 
     @Override
-    public void reset() {}
+    public void reset() {
+    }
+
+    public int getArea() {
+        return area;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public boolean isNullObject() {
+        return nullObject;
+    }
 }

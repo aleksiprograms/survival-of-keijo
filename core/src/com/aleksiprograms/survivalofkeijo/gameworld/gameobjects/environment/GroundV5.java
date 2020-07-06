@@ -12,7 +12,8 @@ public class GroundV5 extends Ground {
     public GroundV5(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_GROUND_V5, Model.class)),
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WALKABLE_GROUND_V5, Model.class)),
                 new btBoxShape(new Vector3(0.25f, 1.3f, 0.75f)));
     }
 }

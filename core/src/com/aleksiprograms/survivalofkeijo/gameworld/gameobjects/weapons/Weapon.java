@@ -1,12 +1,12 @@
 package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.weapons;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.data.WeaponData;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.RenderableObject;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Ammunition;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition.Case;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.people.Person;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
+import com.aleksiprograms.survivalofkeijo.weapondata.WeaponData;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
@@ -18,67 +18,66 @@ import com.badlogic.gdx.utils.Pool;
 
 public abstract class Weapon<A extends Ammunition, B extends Case> extends RenderableObject {
 
-    public WeaponData weaponData;
-    public Person owner;
-    public Person target;
-    public Pool<A> ammoPool;
-    public boolean doThingsAtUse;
-    public int inMagazine;
-    public Vector3 ammoVelocity;
-    public float loadTime = 0;
-    public boolean useTimer = false;
-    public Pool<B> casePool;
-    public float caseOffsetX;
-    public float caseOffsetY;
-    public float caseOffsetZ;
-    public Vector3 caseVelocity;
-    public Vector3 caseAngularVelocity;
-    private Node weaponBone;
-    private Vector3 uselessPosition;
-    public boolean ownerDead;
-    public Vector3 ownerDeadPosition;
-    public boolean lookingRight;
-    public Vector3 weaponPosition;
-    public Quaternion weaponQuaternion;
-    public Vector3 weaponScale;
-    public float weaponAngleDeg = 0;
-    public boolean calculateWeaponAngle;
-    public Vector3 ammoHitPoint;
-    public Vector3 shootRayFrom;
-    public Vector3 shootRayTo;
-    public ClosestRayResultCallback shootCallback;
-    public float reactionTime;
-    public float readyToShootTimer;
-    public float ammoStartOffsetX;
-    public float ammoStartOffsetY;
-    public float ammoEndOffsetX;
-    public float ammoEndOffsetY;
-    private float handsOffsetY;
-    private float handsOffsetX;
-    public float weaponTimer = 0;
-    public boolean playerWeapon;
-    public float lastShot;
-    public boolean onCriticalAnimation;
-    public boolean reloadAfterCriticalAnimation;
-    public boolean automatic;
-    public boolean noAmmo;
-    public boolean noAmmoInMagazine;
-    public boolean canUse;
-    public boolean shotDelayPast;
-    public float ammoOffsetX;
-    public float ammoOffsetY;
-    public float ammoOffsetZ;
-    public boolean reloading;
-    public boolean changeMagWithoutReload;
-    public boolean visibleToPlayer;
-    public boolean animate;
-    public AnimationController animationController;
-    public AnimationController.AnimationListener animationListener;
-    public AnimationController.AnimationListener animationListenerAfterUse;
-    public AnimationController.AnimationListener animationListenerAfterUseEmpty;
-    public AnimationController.AnimationListener animationListenerAfterMagazineEmpty;
-    public AnimationController.AnimationListener animationListenerAfterMagazineNotEmpty;
-    public AnimationController.AnimationListener animationListenerAfterReload;
+    protected WeaponData weaponData;
+    protected boolean playerWeapon;
+    protected Person owner;
+    protected Person target;
+    protected Pool<A> ammoPool;
+    protected Pool<B> casePool;
+    protected boolean visibleToPlayer;
+    protected int inMagazine;
+    protected boolean reloading;
+    protected boolean automatic;
+    protected boolean noAmmo;
+    protected boolean noAmmoInMagazine;
+    protected boolean canUse;
+    protected boolean changeMagWithoutReload;
+    protected boolean doThingsAtUse;
+    protected float loadTime = 0;
+    protected boolean useTimer = false;
+    protected boolean onCriticalAnimation;
+    protected boolean reloadAfterCriticalAnimation;
+    protected Node weaponBone;
+    protected boolean ownerDead;
+    protected Vector3 ownerDeadPosition;
+    protected boolean lookingRight;
+    protected Vector3 weaponPosition;
+    protected Quaternion weaponQuaternion;
+    protected Vector3 weaponScale;
+    protected float weaponAngleDeg = 0;
+    protected boolean calculateWeaponAngle;
+    protected Vector3 ammoHitPoint;
+    protected Vector3 shootRayFrom;
+    protected Vector3 shootRayTo;
+    protected ClosestRayResultCallback shootCallback;
+    protected float reactionTime;
+    protected float readyToShootTimer;
+    protected float weaponTimer = 0;
+    protected float lastShot;
+    protected boolean shotDelayPast;
+    protected Vector3 ammoVelocity;
+    protected Vector3 caseVelocity;
+    protected Vector3 caseAngularVelocity;
+    protected float ammoOffsetX;
+    protected float ammoOffsetY;
+    protected float ammoOffsetZ;
+    protected float ammoStartOffsetX;
+    protected float ammoStartOffsetY;
+    protected float ammoEndOffsetX;
+    protected float ammoEndOffsetY;
+    protected float handsOffsetY;
+    protected float handsOffsetX;
+    protected float caseOffsetX;
+    protected float caseOffsetY;
+    protected float caseOffsetZ;
+    protected boolean animate;
+    protected AnimationController animationController;
+    protected AnimationController.AnimationListener animationListener;
+    protected AnimationController.AnimationListener animationListenerAfterUse;
+    protected AnimationController.AnimationListener animationListenerAfterUseEmpty;
+    protected AnimationController.AnimationListener animationListenerAfterMagazineEmpty;
+    protected AnimationController.AnimationListener animationListenerAfterMagazineNotEmpty;
+    protected AnimationController.AnimationListener animationListenerAfterReload;
 
     public Weapon(final TheGame game, ModelInstance modelInstance,
                   float ammoOffsetX, float ammoOffsetY, float ammoOffsetZ,
@@ -89,7 +88,6 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
         weaponPosition = new Vector3();
         weaponQuaternion = new Quaternion();
         weaponScale = new Vector3(1, 1, 1);
-        uselessPosition = new Vector3();
         ammoHitPoint = new Vector3();
         lastShot = 0;
         canUse = true;
@@ -146,8 +144,12 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
                 if (!noAmmo) {
                     reloading = true;
                     useTimer = true;
-                    game.gameScreen.inGameHud.updateHud();
-                    animationController.setAnimation("Armature|magazine-empty-stand", 1, 1 / (weaponData.reloadTime * 3f / 4f), animationListenerAfterMagazineEmpty);
+                    game.getGameScreen().getInGameHud().updateData();
+                    animationController.setAnimation(
+                            "Armature|magazine-empty-stand",
+                            1,
+                            1 / (weaponData.getReloadTime() * 3f / 4f),
+                            animationListenerAfterMagazineEmpty);
                 } else {
                     animationController.setAnimation("Armature|moving-empty", -1);
                     onCriticalAnimation = false;
@@ -163,7 +165,11 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
         animationListenerAfterMagazineEmpty = new AnimationController.AnimationListener() {
             @Override
             public void onEnd(AnimationController.AnimationDesc animation) {
-                animationController.setAnimation("Armature|reload", 1, 1 / (weaponData.reloadTime * 1f / 4f), animationListenerAfterReload);
+                animationController.setAnimation(
+                        "Armature|reload",
+                        1,
+                        1 / (weaponData.getReloadTime() * 1f / 4f),
+                        animationListenerAfterReload);
             }
 
             @Override
@@ -174,7 +180,11 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
         animationListenerAfterMagazineNotEmpty = new AnimationController.AnimationListener() {
             @Override
             public void onEnd(AnimationController.AnimationDesc animation) {
-                animationController.setAnimation("Armature|reload-not", 1, 1 / (weaponData.reloadTime * 1f / 10f), animationListenerAfterReload);
+                animationController.setAnimation(
+                        "Armature|reload-not",
+                        1,
+                        1 / (weaponData.getReloadTime() * 1f / 10f),
+                        animationListenerAfterReload);
             }
 
             @Override
@@ -186,10 +196,10 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
             @Override
             public void onEnd(AnimationController.AnimationDesc animation) {
                 animationController.setAnimation("Armature|moving", -1);
-                if (weaponData.numberOfAmmo >= weaponData.magazineSize) {
-                    inMagazine = weaponData.magazineSize;
+                if (weaponData.getNumberOfAmmo() >= weaponData.getMagazineSize()) {
+                    inMagazine = weaponData.getMagazineSize();
                 } else {
-                    inMagazine = weaponData.numberOfAmmo;
+                    inMagazine = weaponData.getNumberOfAmmo();
                 }
                 canUse = true;
                 noAmmoInMagazine = false;
@@ -198,7 +208,7 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
                 animate = false;
                 useTimer = false;
                 changeMagWithoutReload = false;
-                game.gameScreen.inGameHud.updateHud();
+                game.getGameScreen().getInGameHud().updateData();
             }
 
             @Override
@@ -243,20 +253,20 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
 
         if (playerWeapon) {
             if (this instanceof RocketLauncher) {
-                this.ammoPool = (Pool<A>) game.gamePools.rocketPool;
+                this.ammoPool = (Pool<A>) game.getGameObjectPools().getRocketPool();
             } else {
-                this.ammoPool = (Pool<A>) game.gamePools.bulletPlayerPool;
+                this.ammoPool = (Pool<A>) game.getGameObjectPools().getBulletPlayerPool();
             }
         } else {
-            this.ammoPool = (Pool<A>) game.gamePools.bulletEnemyPool;
+            this.ammoPool = (Pool<A>) game.getGameObjectPools().getBulletEnemyPool();
         }
         doThingsAtUse = false;
-        if (weaponData.numberOfAmmo >= weaponData.magazineSize) {
-            inMagazine = weaponData.magazineSize;
+        if (weaponData.getNumberOfAmmo() >= weaponData.getMagazineSize()) {
+            inMagazine = weaponData.getMagazineSize();
             noAmmo = false;
             canUse = true;
-        } else if (weaponData.numberOfAmmo > 0) {
-            inMagazine = weaponData.numberOfAmmo;
+        } else if (weaponData.getNumberOfAmmo() > 0) {
+            inMagazine = weaponData.getNumberOfAmmo();
             noAmmo = false;
             canUse = true;
         } else {
@@ -267,23 +277,27 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
         }
 
         if (playerWeapon) {
-            this.casePool = (Pool<B>) game.gamePools.casePlayerPool;
+            this.casePool = (Pool<B>) game.getGameObjectPools().getCasePlayerPool();
         } else {
-            this.casePool = (Pool<B>) game.gamePools.caseEnemyPool;
+            this.casePool = (Pool<B>) game.getGameObjectPools().getCaseEnemyPool();
         }
     }
 
     public void updateWeaponWhenMoreAmmoIsGiven() {
         if (noAmmo) {
-            if (weaponData.numberOfAmmo > 0) {
+            if (weaponData.getNumberOfAmmo() > 0) {
                 noAmmo = false;
                 noAmmoInMagazine = false;
                 reloading = true;
                 useTimer = true;
                 animate = true;
                 onCriticalAnimation = true;
-                game.gameScreen.inGameHud.updateHud();
-                animationController.setAnimation("Armature|magazine-empty-stand", 1, 1 / (weaponData.reloadTime * 3f / 4f), animationListenerAfterMagazineEmpty);
+                game.getGameScreen().getInGameHud().updateData();
+                animationController.setAnimation(
+                        "Armature|magazine-empty-stand",
+                        1,
+                        1 / (weaponData.getReloadTime() * 3f / 4f),
+                        animationListenerAfterMagazineEmpty);
             }
         }
     }
@@ -301,8 +315,8 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
         }
         if (automatic) {
             lastShot += deltaTime;
-            if (lastShot >= (1 / weaponData.rateOfFire)) {
-                lastShot = (1 / weaponData.rateOfFire) + 0.1f;
+            if (lastShot >= (1 / weaponData.getRateOfFire())) {
+                lastShot = (1 / weaponData.getRateOfFire()) + 0.1f;
                 shotDelayPast = true;
             }
             if (!reloading && shotDelayPast && !noAmmo && !noAmmoInMagazine) {
@@ -310,21 +324,27 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
             }
         }
         if (ownerDead) {
-            if (owner.rigidBody != null) {
-                ownerDeadPosition.set(owner.rigidBody.getCenterOfMassPosition());
+            if (owner.getRigidBody() != null) {
+                ownerDeadPosition.set(owner.getRigidBody().getCenterOfMassPosition());
             }
             if (lookingRight) {
                 weaponPosition.set(
-                        ownerDeadPosition.x + weaponBone.globalTransform.getTranslation(uselessPosition).x,
-                        ownerDeadPosition.y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
-                        ownerDeadPosition.z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
+                        ownerDeadPosition.x
+                                + weaponBone.globalTransform.getTranslation(new Vector3()).x,
+                        ownerDeadPosition.y
+                                + weaponBone.globalTransform.getTranslation(new Vector3()).y,
+                        ownerDeadPosition.z
+                                + weaponBone.globalTransform.getTranslation(new Vector3()).z);
                 weaponQuaternion.set(Vector3.Z, -66);
                 transform.set(weaponPosition, weaponQuaternion, weaponScale);
             } else {
                 weaponPosition.set(
-                        ownerDeadPosition.x - weaponBone.globalTransform.getTranslation(uselessPosition).x,
-                        ownerDeadPosition.y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
-                        ownerDeadPosition.z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
+                        ownerDeadPosition.x
+                                - weaponBone.globalTransform.getTranslation(new Vector3()).x,
+                        ownerDeadPosition.y
+                                + weaponBone.globalTransform.getTranslation(new Vector3()).y,
+                        ownerDeadPosition.z
+                                + weaponBone.globalTransform.getTranslation(new Vector3()).z);
                 weaponQuaternion.set(Vector3.Z, 66);
                 transform.set(weaponPosition, weaponQuaternion, weaponScale);
                 transform.rotate(Vector3.Y, 180);
@@ -332,15 +352,9 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
         } else {
             if (visibleToPlayer || playerWeapon) {
                 updateTransform();
-                if (!playerWeapon && !game.gameWorld.player.dead) {
-                    if (shootCallback.hasHit() && shootCallback.getCollisionObject().userData == target) {
-                        /*if (bigArea.area == game.gameWorld.player.bigArea.area && smallArea.area == game.gameWorld.player.smallArea.area) {
-                            if (((ammoHitPoint.x - shootRayFrom.x) * (ammoHitPoint.x - shootRayFrom.x) + (ammoHitPoint.y - shootRayFrom.y) * (ammoHitPoint.y - shootRayFrom.y)) < 1) {
-                                meleeAttack = true;
-                            } else {
-                                meleeAttack = false;
-                            }
-                        }*/
+                if (!playerWeapon && !game.getGameWorld().getPlayer().isDead()) {
+                    if (shootCallback.hasHit()
+                            && shootCallback.getCollisionObject().userData == target) {
                         weaponTimer += deltaTime;
                         if (weaponTimer > 1) {
                             setShootRayFromAccurate();
@@ -353,27 +367,35 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
                 }
             } else {
                 weaponTimer = 0;
-                weaponPosition.set(owner.rigidBody.getCenterOfMassPosition().x, owner.rigidBody.getCenterOfMassPosition().y + handsOffsetY, owner.rigidBody.getCenterOfMassPosition().z);
+                weaponPosition.set(
+                        owner.getRigidBody().getCenterOfMassPosition().x,
+                        owner.getRigidBody().getCenterOfMassPosition().y + handsOffsetY,
+                        owner.getRigidBody().getCenterOfMassPosition().z);
                 transform.set(weaponPosition, weaponQuaternion, weaponScale);
             }
         }
 
         // UNLIMITED AMMUNITION FOR ENEMIES
         if (!playerWeapon) {
-            if (weaponData.numberOfAmmo < 1000) {
-                weaponData.numberOfAmmo += 10000;
+            if (weaponData.getNumberOfAmmo() < 1000) {
+                weaponData.setNumberOfAmmo(weaponData.getNumberOfAmmo() + 10000);
             }
         }
         if (reloadAfterCriticalAnimation) {
             reloadAfterCriticalAnimation = false;
-            if (inMagazine < weaponData.magazineSize && (weaponData.numberOfAmmo - inMagazine) > 0) {
+            if (inMagazine < weaponData.getMagazineSize()
+                    && (weaponData.getNumberOfAmmo() - inMagazine) > 0) {
                 canUse = false;
                 animate = true;
                 reloading = true;
                 useTimer = true;
                 changeMagWithoutReload = true;
-                game.gameScreen.inGameHud.updateHud();
-                animationController.setAnimation("Armature|magazine-not-empty-stand", 1, 1 / (weaponData.reloadTime * 9f / 10f), animationListenerAfterMagazineNotEmpty);
+                game.getGameScreen().getInGameHud().updateData();
+                animationController.setAnimation(
+                        "Armature|magazine-not-empty-stand",
+                        1,
+                        1 / (weaponData.getReloadTime() * 9f / 10f),
+                        animationListenerAfterMagazineNotEmpty);
             }
         }
         if (useTimer) {
@@ -386,14 +408,14 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
 
     private void updateTransform() {
         calculateWeaponAngle = false;
-        if (!playerWeapon && !game.gameWorld.player.dead) {
+        if (!playerWeapon && !game.getGameWorld().getPlayer().isDead()) {
             setShootRayFromNotAccurate();
             setShootRayToWithTarget();
             shootCallback.setCollisionObject(null);
             shootCallback.setClosestHitFraction(1);
             shootCallback.setRayFromWorld(shootRayFrom);
             shootCallback.setRayToWorld(shootRayTo);
-            game.gameWorld.dynamicsWorld.rayTest(shootRayFrom, shootRayTo, shootCallback);
+            game.getGameWorld().getDynamicsWorld().rayTest(shootRayFrom, shootRayTo, shootCallback);
             if (shootCallback.hasHit() && shootCallback.getCollisionObject().userData == target) {
                 calculateWeaponAngle = true;
             }
@@ -412,21 +434,29 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
             }
         } else {
             weaponAngleDeg = MathUtils.radiansToDegrees * MathUtils.atan2(
-                    (target.rigidBody.getCenterOfMassPosition().y + ammoEndOffsetY) - (owner.rigidBody.getCenterOfMassPosition().y + ammoStartOffsetY),
-                    (target.rigidBody.getCenterOfMassPosition().x - ammoEndOffsetX) - (owner.rigidBody.getCenterOfMassPosition().x + ammoStartOffsetX));
+                    (target.getRigidBody().getCenterOfMassPosition().y + ammoEndOffsetY)
+                            - (owner.getRigidBody().getCenterOfMassPosition().y + ammoStartOffsetY),
+                    (target.getRigidBody().getCenterOfMassPosition().x - ammoEndOffsetX)
+                            - (owner.getRigidBody().getCenterOfMassPosition().x + ammoStartOffsetX));
         }
         if (lookingRight) {
             weaponPosition.set(
-                    owner.rigidBody.getCenterOfMassPosition().x + weaponBone.globalTransform.getTranslation(uselessPosition).x,
-                    owner.rigidBody.getCenterOfMassPosition().y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
-                    owner.rigidBody.getCenterOfMassPosition().z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
+                    owner.getRigidBody().getCenterOfMassPosition().x
+                            + weaponBone.globalTransform.getTranslation(new Vector3()).x,
+                    owner.getRigidBody().getCenterOfMassPosition().y
+                            + weaponBone.globalTransform.getTranslation(new Vector3()).y,
+                    owner.getRigidBody().getCenterOfMassPosition().z
+                            + weaponBone.globalTransform.getTranslation(new Vector3()).z);
             weaponQuaternion.set(Vector3.Z, weaponAngleDeg - 90);
             transform.set(weaponPosition, weaponQuaternion, weaponScale);
         } else {
             weaponPosition.set(
-                    owner.rigidBody.getCenterOfMassPosition().x + weaponBone.globalTransform.getTranslation(uselessPosition).x,
-                    owner.rigidBody.getCenterOfMassPosition().y + weaponBone.globalTransform.getTranslation(uselessPosition).y,
-                    owner.rigidBody.getCenterOfMassPosition().z + weaponBone.globalTransform.getTranslation(uselessPosition).z);
+                    owner.getRigidBody().getCenterOfMassPosition().x
+                            + weaponBone.globalTransform.getTranslation(new Vector3()).x,
+                    owner.getRigidBody().getCenterOfMassPosition().y
+                            + weaponBone.globalTransform.getTranslation(new Vector3()).y,
+                    owner.getRigidBody().getCenterOfMassPosition().z
+                            + weaponBone.globalTransform.getTranslation(new Vector3()).z);
             weaponQuaternion.set(Vector3.Z, weaponAngleDeg - 90);
             transform.set(weaponPosition, weaponQuaternion, weaponScale);
             transform.rotate(Vector3.Y, 180);
@@ -440,38 +470,74 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
             animate = true;
             onCriticalAnimation = true;
             inMagazine--;
-            weaponData.numberOfAmmo--;
+            weaponData.setNumberOfAmmo(weaponData.getNumberOfAmmo() - 1);
             if (inMagazine > 0) {
-                animationController.setAnimation("Armature|use", 1, 8, animationListenerAfterUse);
+                animationController.setAnimation(
+                        "Armature|use",
+                        1,
+                        8,
+                        animationListenerAfterUse);
             } else {
                 canUse = false;
                 noAmmoInMagazine = true;
-                if (weaponData.numberOfAmmo <= 0) {
+                if (weaponData.getNumberOfAmmo() <= 0) {
                     noAmmo = true;
                 }
-                animationController.setAnimation("Armature|use-empty", 1, 8, animationListenerAfterUseEmpty);
+                animationController.setAnimation(
+                        "Armature|use-empty",
+                        1,
+                        8,
+                        animationListenerAfterUseEmpty);
             }
             ammoVelocity.set(x2 - x1, y2 - y1, 0);
             ammoVelocity = ammoVelocity.nor();
-            ammoVelocity = ammoVelocity.scl(weaponData.ammoSpeed);
-            game.gameWorld.addAmmunition(ammoPool.obtain(), weaponData.ammoDamage, x1, y1, lookingRight ? ammoOffsetZ : -ammoOffsetZ, weaponAngleDeg, ammoVelocity, playerWeapon ? Constants.CATEGORY_WEAPON_PLAYER : Constants.CATEGORY_WEAPON_ENEMY, playerWeapon ? Constants.MASK_WEAPON_PLAYER : Constants.MASK_WEAPON_ENEMY);
+            ammoVelocity = ammoVelocity.scl(weaponData.getAmmoSpeed());
+            game.getGameWorld().addAmmunition(
+                    ammoPool.obtain(),
+                    weaponData.getAmmoDamage(),
+                    x1,
+                    y1,
+                    lookingRight ? ammoOffsetZ : -ammoOffsetZ,
+                    weaponAngleDeg, ammoVelocity,
+                    playerWeapon
+                            ? Constants.CATEGORY_WEAPON_PLAYER : Constants.CATEGORY_WEAPON_ENEMY,
+                    playerWeapon
+                            ? Constants.MASK_WEAPON_PLAYER : Constants.MASK_WEAPON_ENEMY);
             if (automatic) {
                 lastShot = 0;
                 canUse = false;
                 shotDelayPast = false;
             }
-            game.gameScreen.inGameHud.updateHud();
+            game.getGameScreen().getInGameHud().updateData();
             if (lookingRight) {
-                caseVelocity.set(-MathUtils.random(2f, 3f) * MathUtils.sinDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.cosDeg(weaponAngleDeg), MathUtils.random(2f, 3f) * MathUtils.cosDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.sinDeg(weaponAngleDeg), MathUtils.random(0.3f, 0.6f));
-                caseAngularVelocity.set(0, -MathUtils.random(8f, 12f), MathUtils.random(8f, 12f));
+                caseVelocity.set(
+                        -MathUtils.random(2f, 3f) * MathUtils.sinDeg(weaponAngleDeg)
+                                - MathUtils.random(1f, 1.5f) * MathUtils.cosDeg(weaponAngleDeg),
+                        MathUtils.random(2f, 3f) * MathUtils.cosDeg(weaponAngleDeg)
+                                - MathUtils.random(1f, 1.5f) * MathUtils.sinDeg(weaponAngleDeg),
+                        MathUtils.random(0.3f, 0.6f));
+                caseAngularVelocity.set(
+                        0,
+                        -MathUtils.random(8f, 12f),
+                        MathUtils.random(8f, 12f));
             } else {
-                caseVelocity.set(MathUtils.random(2f, 3f) * MathUtils.sinDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.cosDeg(weaponAngleDeg), -MathUtils.random(2f, 3f) * MathUtils.cosDeg(weaponAngleDeg) - MathUtils.random(1f, 1.5f) * MathUtils.sinDeg(weaponAngleDeg), -MathUtils.random(0.3f, 0.6f));
-                caseAngularVelocity.set(0, MathUtils.random(8f, 12f), -MathUtils.random(8f, 12f));
+                caseVelocity.set(
+                        MathUtils.random(2f, 3f) * MathUtils.sinDeg(weaponAngleDeg)
+                                - MathUtils.random(1f, 1.5f) * MathUtils.cosDeg(weaponAngleDeg),
+                        -MathUtils.random(2f, 3f) * MathUtils.cosDeg(weaponAngleDeg)
+                                - MathUtils.random(1f, 1.5f) * MathUtils.sinDeg(weaponAngleDeg),
+                        -MathUtils.random(0.3f, 0.6f));
+                caseAngularVelocity.set(
+                        0,
+                        MathUtils.random(8f, 12f),
+                        -MathUtils.random(8f, 12f));
             }
-            game.gameWorld.addCase(
+            game.getGameWorld().addCase(
                     casePool.obtain(),
-                    x1 + ((caseOffsetX - ammoOffsetX) * MathUtils.cosDeg(weaponAngleDeg) - (caseOffsetY - ammoOffsetY) * MathUtils.sinDeg(weaponAngleDeg)),
-                    y1 + ((caseOffsetY - ammoOffsetY) * MathUtils.cosDeg(weaponAngleDeg) + (caseOffsetX - ammoOffsetX) * MathUtils.sinDeg(weaponAngleDeg)),
+                    x1 + ((caseOffsetX - ammoOffsetX) * MathUtils.cosDeg(weaponAngleDeg)
+                            - (caseOffsetY - ammoOffsetY) * MathUtils.sinDeg(weaponAngleDeg)),
+                    y1 + ((caseOffsetY - ammoOffsetY) * MathUtils.cosDeg(weaponAngleDeg)
+                            + (caseOffsetX - ammoOffsetX) * MathUtils.sinDeg(weaponAngleDeg)),
                     lookingRight ? caseOffsetZ : -caseOffsetZ,
                     weaponAngleDeg,
                     caseVelocity,
@@ -481,7 +547,8 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
 
     public void reload() {
         if (!reloading) {
-            if (inMagazine < weaponData.magazineSize && (weaponData.numberOfAmmo - inMagazine) > 0) {
+            if (inMagazine < weaponData.getMagazineSize()
+                    && (weaponData.getNumberOfAmmo() - inMagazine) > 0) {
                 if (onCriticalAnimation) {
                     reloadAfterCriticalAnimation = true;
                 } else {
@@ -490,8 +557,12 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
                     reloading = true;
                     useTimer = true;
                     changeMagWithoutReload = true;
-                    game.gameScreen.inGameHud.updateHud();
-                    animationController.setAnimation("Armature|magazine-not-empty-stand", 1, 1 / (weaponData.reloadTime * 9f / 10f), animationListenerAfterMagazineNotEmpty);
+                    game.getGameScreen().getInGameHud().updateData();
+                    animationController.setAnimation(
+                            "Armature|magazine-not-empty-stand",
+                            1,
+                            1 / (weaponData.getReloadTime() * 9f / 10f),
+                            animationListenerAfterMagazineNotEmpty);
                 }
             }
         }
@@ -510,46 +581,50 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
     private void setShootRayFromAccurate() {
         if (lookingRight) {
             shootRayFrom.set(
-                    owner.rigidBody.getCenterOfMassPosition().x + handsOffsetX
-                            + (ammoOffsetX * MathUtils.cosDeg(weaponAngleDeg) - ammoOffsetY * MathUtils.sinDeg(weaponAngleDeg)),
-                    owner.rigidBody.getCenterOfMassPosition().y + handsOffsetY
-                            + (ammoOffsetY * MathUtils.cosDeg(weaponAngleDeg) + ammoOffsetX * MathUtils.sinDeg(weaponAngleDeg)),
-                    owner.rigidBody.getCenterOfMassPosition().z);
+                    owner.getRigidBody().getCenterOfMassPosition().x + handsOffsetX
+                            + (ammoOffsetX * MathUtils.cosDeg(weaponAngleDeg)
+                            - ammoOffsetY * MathUtils.sinDeg(weaponAngleDeg)),
+                    owner.getRigidBody().getCenterOfMassPosition().y + handsOffsetY
+                            + (ammoOffsetY * MathUtils.cosDeg(weaponAngleDeg)
+                            + ammoOffsetX * MathUtils.sinDeg(weaponAngleDeg)),
+                    owner.getRigidBody().getCenterOfMassPosition().z);
         } else {
             shootRayFrom.set(
-                    owner.rigidBody.getCenterOfMassPosition().x + handsOffsetX
-                            + (ammoOffsetX * MathUtils.cosDeg(weaponAngleDeg) - (-ammoOffsetY) * MathUtils.sinDeg(weaponAngleDeg)),
-                    owner.rigidBody.getCenterOfMassPosition().y + handsOffsetY
-                            + ((-ammoOffsetY) * MathUtils.cosDeg(weaponAngleDeg) + ammoOffsetX * MathUtils.sinDeg(weaponAngleDeg)),
-                    owner.rigidBody.getCenterOfMassPosition().z);
+                    owner.getRigidBody().getCenterOfMassPosition().x + handsOffsetX
+                            + (ammoOffsetX * MathUtils.cosDeg(weaponAngleDeg)
+                            - (-ammoOffsetY) * MathUtils.sinDeg(weaponAngleDeg)),
+                    owner.getRigidBody().getCenterOfMassPosition().y + handsOffsetY
+                            + ((-ammoOffsetY) * MathUtils.cosDeg(weaponAngleDeg)
+                            + ammoOffsetX * MathUtils.sinDeg(weaponAngleDeg)),
+                    owner.getRigidBody().getCenterOfMassPosition().z);
         }
     }
 
     private void setShootRayFromNotAccurate() {
         if (lookingRight) {
             shootRayFrom.set(
-                    owner.rigidBody.getCenterOfMassPosition().x + 0.25f,
-                    owner.rigidBody.getCenterOfMassPosition().y + handsOffsetY,
-                    owner.rigidBody.getCenterOfMassPosition().z);
+                    owner.getRigidBody().getCenterOfMassPosition().x + 0.25f,
+                    owner.getRigidBody().getCenterOfMassPosition().y + handsOffsetY,
+                    owner.getRigidBody().getCenterOfMassPosition().z);
         } else {
             shootRayFrom.set(
-                    owner.rigidBody.getCenterOfMassPosition().x - 0.25f,
-                    owner.rigidBody.getCenterOfMassPosition().y + handsOffsetY,
-                    owner.rigidBody.getCenterOfMassPosition().z);
+                    owner.getRigidBody().getCenterOfMassPosition().x - 0.25f,
+                    owner.getRigidBody().getCenterOfMassPosition().y + handsOffsetY,
+                    owner.getRigidBody().getCenterOfMassPosition().z);
         }
     }
 
     private void setShootRayToWithTarget() {
         if (lookingRight) {
             shootRayTo.set(
-                    target.rigidBody.getCenterOfMassPosition().x - ammoEndOffsetX,
-                    target.rigidBody.getCenterOfMassPosition().y + ammoEndOffsetY,
-                    target.rigidBody.getCenterOfMassPosition().z);
+                    target.getRigidBody().getCenterOfMassPosition().x - ammoEndOffsetX,
+                    target.getRigidBody().getCenterOfMassPosition().y + ammoEndOffsetY,
+                    target.getRigidBody().getCenterOfMassPosition().z);
         } else {
             shootRayTo.set(
-                    target.rigidBody.getCenterOfMassPosition().x + ammoEndOffsetX,
-                    target.rigidBody.getCenterOfMassPosition().y + ammoEndOffsetY,
-                    target.rigidBody.getCenterOfMassPosition().z);
+                    target.getRigidBody().getCenterOfMassPosition().x + ammoEndOffsetX,
+                    target.getRigidBody().getCenterOfMassPosition().y + ammoEndOffsetY,
+                    target.getRigidBody().getCenterOfMassPosition().z);
         }
     }
 
@@ -559,5 +634,41 @@ public abstract class Weapon<A extends Ammunition, B extends Case> extends Rende
         } else {
             shootRayTo.set(shootRayFrom.x - 1, shootRayFrom.y, shootRayFrom.z);
         }
+    }
+
+    public WeaponData getWeaponData() {
+        return weaponData;
+    }
+
+    public void setTarget(Person target) {
+        this.target = target;
+    }
+
+    public boolean isAutomatic() {
+        return automatic;
+    }
+
+    public void setAutomatic(boolean automatic) {
+        this.automatic = automatic;
+    }
+
+    public void setOwnerDead(boolean ownerDead) {
+        this.ownerDead = ownerDead;
+    }
+
+    public int getInMagazine() {
+        return inMagazine;
+    }
+
+    public boolean isReloading() {
+        return reloading;
+    }
+
+    public void setLookingRight(boolean lookingRight) {
+        this.lookingRight = lookingRight;
+    }
+
+    public void setVisibleToPlayer(boolean visibleToPlayer) {
+        this.visibleToPlayer = visibleToPlayer;
     }
 }

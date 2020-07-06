@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 
 public class EnemyEmitter extends RenderableObject {
 
+    private final btRigidBody rigidBodyFloor;
+    private final btRigidBody rigidBodyForPlayer;
     private float x;
     private float y;
     private float z;
@@ -20,14 +22,13 @@ public class EnemyEmitter extends RenderableObject {
     private Quaternion objectQuaternion;
     private Vector3 objectScale;
     private Matrix4 objectTransform;
-    public final btRigidBody rigidBodyFloor;
-    public final btRigidBody rigidBodyForPlayer;
 
     public EnemyEmitter(TheGame game) {
 
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_BUILDING_ENEMY_EMITTER, Model.class)));
+                new ModelInstance(game.getAssetManager()
+                        .get(Constants.MODEL_BUILDING_ENEMY_EMITTER, Model.class)));
 
         objectPosition = new Vector3();
         objectQuaternion = new Quaternion();
@@ -39,7 +40,7 @@ public class EnemyEmitter extends RenderableObject {
         constructionInfoFloor = new btRigidBody.btRigidBodyConstructionInfo(
                 0,
                 null,
-                new btBoxShape(new Vector3(1.5f/2f, 0.1f/2f, 1.5f/2f)),
+                new btBoxShape(new Vector3(1.5f / 2f, 0.1f / 2f, 1.5f / 2f)),
                 localInertia);
         rigidBodyFloor = new btRigidBody(constructionInfoFloor);
         constructionInfoFloor.dispose();
@@ -47,7 +48,7 @@ public class EnemyEmitter extends RenderableObject {
         constructionInfoForPlayer = new btRigidBody.btRigidBodyConstructionInfo(
                 0,
                 null,
-                new btBoxShape(new Vector3(1.5f/2f, 2f/2f, 1.5f/2f)),
+                new btBoxShape(new Vector3(1.5f / 2f, 2f / 2f, 1.5f / 2f)),
                 localInertia);
         rigidBodyForPlayer = new btRigidBody(constructionInfoForPlayer);
         constructionInfoForPlayer.dispose();
@@ -58,14 +59,16 @@ public class EnemyEmitter extends RenderableObject {
         this.y = y;
         this.z = z;
 
-        game.gameWorld.dynamicsWorld.addRigidBody(rigidBodyFloor, Constants.CATEGORY_SOLID, Constants.MASK_SOLID);
+        game.getGameWorld().getDynamicsWorld().addRigidBody(
+                rigidBodyFloor, Constants.CATEGORY_SOLID, Constants.MASK_SOLID);
         objectPosition.set(x, y - 0.95f, z);
         objectQuaternion.set(0, 0, 0, 0);
         objectQuaternion.set(Vector3.Z, angle);
         objectTransform.set(objectPosition, objectQuaternion, objectScale);
         rigidBodyFloor.setWorldTransform(objectTransform);
 
-        game.gameWorld.dynamicsWorld.addRigidBody(rigidBodyForPlayer, Constants.CATEGORY_ENEMY_EMITTER, Constants.MASK_ENEMY_EMITTER);
+        game.getGameWorld().getDynamicsWorld().addRigidBody(
+                rigidBodyForPlayer, Constants.CATEGORY_ENEMY_EMITTER, Constants.MASK_ENEMY_EMITTER);
         objectPosition.set(x, y, z);
         objectQuaternion.set(0, 0, 0, 0);
         objectQuaternion.set(Vector3.Z, angle);
@@ -76,13 +79,14 @@ public class EnemyEmitter extends RenderableObject {
     }
 
     public void emitEnemy(int weaponID, int health) {
-        game.gameWorld.addEnemy(game.gamePools.enemyPool.obtain(), x, y, z, weaponID, health);
+        game.getGameWorld().addEnemy(game.getGameObjectPools()
+                .getEnemyPool().obtain(), x, y, z, weaponID, health);
     }
 
     @Override
     public void reset() {
         super.reset();
-        game.gameWorld.dynamicsWorld.removeRigidBody(rigidBodyFloor);
-        game.gameWorld.dynamicsWorld.removeRigidBody(rigidBodyForPlayer);
+        game.getGameWorld().getDynamicsWorld().removeRigidBody(rigidBodyFloor);
+        game.getGameWorld().getDynamicsWorld().removeRigidBody(rigidBodyForPlayer);
     }
 }

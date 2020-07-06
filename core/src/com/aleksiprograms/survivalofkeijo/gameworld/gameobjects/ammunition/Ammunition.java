@@ -3,17 +3,17 @@ package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.ammunition;
 import com.aleksiprograms.survivalofkeijo.TheGame;
 import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.PhysicalObject;
 import com.aleksiprograms.survivalofkeijo.resources.Constants;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.aleksiprograms.survivalofkeijo.toolbox.BodyDef;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.Collision;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 
 public abstract class Ammunition extends PhysicalObject {
 
-    public int damage;
-    public boolean hit;
-    public float angle;
+    protected int damage;
+    protected boolean hit;
+    protected float angle;
 
     public Ammunition(
             TheGame game,
@@ -29,29 +29,46 @@ public abstract class Ammunition extends PhysicalObject {
                         .categoryBits(Constants.CATEGORY_WEAPON_ENEMY)
                         .maskBits(Constants.MASK_WEAPON_ENEMY)
                         .build());
-        rigidBody.userData = this;
+        getRigidBody().userData = this;
     }
 
-    public void init(int damage, float x, float y, float z, float angle, Vector3 velocity, short categoryBits, short maskBits) {
+    public void init(
+            int damage,
+            float x,
+            float y,
+            float z,
+            float angle,
+            Vector3 velocity,
+            short categoryBits,
+            short maskBits) {
         this.damage = -damage;
-        game.gameWorld.dynamicsWorld.addRigidBody(rigidBody, categoryBits, maskBits);
+        game.getGameWorld().getDynamicsWorld().addRigidBody(
+                getRigidBody(), categoryBits, maskBits);
         objectPosition.set(x, y, z);
         objectQuaternion.set(0, 0, 0, 0);
         objectQuaternion.set(Vector3.Z, angle);
         objectTransform.set(objectPosition, objectQuaternion, objectScale);
-        rigidBody.setWorldTransform(objectTransform);
-        transform.set(rigidBody.getWorldTransform());
-        rigidBody.forceActivationState(Collision.DISABLE_DEACTIVATION);
+        getRigidBody().setWorldTransform(objectTransform);
+        transform.set(getRigidBody().getWorldTransform());
+        getRigidBody().forceActivationState(Collision.DISABLE_DEACTIVATION);
         hit = false;
         this.angle = angle;
-        rigidBody.setCcdMotionThreshold((float)1e-7);
-        rigidBody.setCcdSweptSphereRadius(0.03f);
-        rigidBody.setGravity(new Vector3(0, 0, 0));
-        rigidBody.setLinearVelocity(velocity);
+        getRigidBody().setCcdMotionThreshold((float) 1e-7);
+        getRigidBody().setCcdSweptSphereRadius(0.03f);
+        getRigidBody().setGravity(new Vector3(0, 0, 0));
+        getRigidBody().setLinearVelocity(velocity);
     }
 
     public void onHit(Vector3 hitPoint, PhysicalObject hitObject) {
         free = true;
         hit = true;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public boolean isHit() {
+        return hit;
     }
 }

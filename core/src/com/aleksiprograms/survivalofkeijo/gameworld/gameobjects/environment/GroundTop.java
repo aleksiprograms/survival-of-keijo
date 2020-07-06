@@ -10,8 +10,8 @@ public class GroundTop extends Top {
     public GroundTop(TheGame game) {
         super(
                 game,
-                new ModelInstance(game.assetManager.get(Constants.MODEL_WALKABLE_GROUND_TOP, Model.class)));
-
+                new ModelInstance(game.getAssetManager().get(
+                        Constants.MODEL_WALKABLE_GROUND_TOP, Model.class)));
         rigidBody.userData = this;
     }
 }

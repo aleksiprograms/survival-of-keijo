@@ -1,17 +1,16 @@
 package com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameobjects.environment.SolidObject;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
 
 public class Building extends SolidObject {
 
-    public float x;
-    public float y;
-    public float width;
-    public float height;
+    protected float x;
+    protected float y;
+    protected float width;
+    protected float height;
 
     public Building(TheGame game, ModelInstance modelInstance) {
         super(
@@ -32,5 +31,21 @@ public class Building extends SolidObject {
         objectQuaternion.set(Vector3.Z, angle);
         objectTransform.set(objectPosition, objectQuaternion, objectScale);
         rigidBody.setWorldTransform(objectTransform);
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }

@@ -2,17 +2,29 @@ package com.aleksiprograms.survivalofkeijo.toolbox;
 
 public class LevelData {
 
-    public int id;
-    public String name;
-    public String imageName;
+    private int levelID;
+    private String name;
+    private String imageName;
 
     public LevelData(
-            int id,
+            int levelID,
             String name,
             String imageName) {
 
-        this.id = id;
+        this.levelID = levelID;
         this.name = name;
         this.imageName = imageName;
+    }
+
+    public int getLevelID() {
+        return levelID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImageName() {
+        return imageName;
     }
 }

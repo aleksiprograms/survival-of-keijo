@@ -1,8 +1,8 @@
 package com.aleksiprograms.survivalofkeijo.managers;
 
 import com.aleksiprograms.survivalofkeijo.TheGame;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGrass128px;
-import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGround128px;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGrass;
+import com.aleksiprograms.survivalofkeijo.gameworld.gameeffects.AmmunitionHitGround;
 import com.badlogic.gdx.graphics.g3d.Renderable;
 import com.badlogic.gdx.graphics.g3d.RenderableProvider;
 import com.badlogic.gdx.graphics.g3d.particles.ParticleEffect;
@@ -24,8 +24,6 @@ public class ParticleEffectManager implements RenderableProvider {
     private Quaternion effectQuaternion;
     private Vector3 effectScale;
     private Matrix4 effectTransform;
-    private int i;
-    private int j;
 
     public ParticleEffectManager(TheGame game) {
         this.game = game;
@@ -56,13 +54,13 @@ public class ParticleEffectManager implements RenderableProvider {
         effectPosition.set(position);
         effectTransform.set(effectPosition, effectQuaternion, effectScale);
         effect.setTransform(effectTransform);
-        for (i = 0; i < effect.getControllers().size; i++) {
-            DynamicsInfluencer di = effect.getControllers().get(i).findInfluencer(DynamicsInfluencer.class);
+        for (int i = 0; i < effect.getControllers().size; i++) {
+            DynamicsInfluencer di = effect.getControllers().get(i)
+                    .findInfluencer(DynamicsInfluencer.class);
             DynamicsModifier dm;
-            for (j = 0; j < di.velocities.size; j++) {
+            for (int j = 0; j < di.velocities.size; j++) {
                 dm = (DynamicsModifier) di.velocities.get(j);
                 ((DynamicsModifier.PolarAcceleration) dm).phiValue.setHigh(angleLow, angleHigh);
-                //((DynamicsModifier.PolarAcceleration) dm).thetaValue.setHigh(angle - 2, angle + 2);
             }
         }
         effect.start();
@@ -70,14 +68,14 @@ public class ParticleEffectManager implements RenderableProvider {
     }
 
     public void clear() {
-        for (i = 0; i < effects.size; i++) {
+        for (int i = 0; i < effects.size; i++) {
             freeEffect(effects.get(i));
         }
         effects.clear();
     }
 
     public void update() {
-        for (i = 0; i < effects.size; i++) {
+        for (int i = 0; i < effects.size; i++) {
             if (effects.get(i).isComplete()) {
                 freeEffect(effects.get(i));
                 effects.removeIndex(i);
@@ -88,10 +86,10 @@ public class ParticleEffectManager implements RenderableProvider {
     }
 
     private void freeEffect(ParticleEffect particleEffect) {
-        if (particleEffect instanceof AmmunitionHitGround128px) {
-            game.gamePools.ammunitionGroundHitPool.free(particleEffect);
-        } else if (particleEffect instanceof AmmunitionHitGrass128px) {
-            game.gamePools.ammunitionGrassHitPool.free(particleEffect);
+        if (particleEffect instanceof AmmunitionHitGround) {
+            game.getGameObjectPools().getAmmunitionGroundHitPool().free(particleEffect);
+        } else if (particleEffect instanceof AmmunitionHitGrass) {
+            game.getGameObjectPools().getAmmunitionGrassHitPool().free(particleEffect);
         }
     }
 

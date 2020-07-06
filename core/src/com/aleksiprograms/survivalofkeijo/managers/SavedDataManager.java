@@ -12,13 +12,14 @@ public class SavedDataManager {
 
     private FileHandle fileHandle;
     private Json json;
-    public SavedData savedData;
+    private SavedData savedData;
 
     public SavedDataManager() {
         fileHandle = Gdx.files.local(Constants.SAVED_DATA_FILE_NAME);
         json = new Json();
         if (fileHandle.exists()) {
-            savedData = json.fromJson(SavedData.class, Base64Coder.decodeString(fileHandle.readString()));
+            savedData = json.fromJson(
+                    SavedData.class, Base64Coder.decodeString(fileHandle.readString()));
         } else {
             savedData = new SavedData();
         }
@@ -26,6 +27,11 @@ public class SavedDataManager {
 
     public void save() {
         json.setOutputType(JsonWriter.OutputType.json);
-        fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(savedData)), false);
+        fileHandle.writeString(
+                Base64Coder.encodeString(json.prettyPrint(savedData)), false);
+    }
+
+    public SavedData getSavedData() {
+        return savedData;
     }
 }

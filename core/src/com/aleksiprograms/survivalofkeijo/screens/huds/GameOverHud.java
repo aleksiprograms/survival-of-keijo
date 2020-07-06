@@ -18,37 +18,46 @@ public class GameOverHud extends AbstractHud {
 
     public GameOverHud(TheGame game) {
         super(game);
-        initializeHud();
+        initialize();
     }
 
     @Override
-    public void updateHud() {
-        super.updateHud();
-        labelScreenTitle.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("titleGameOver"));
-        buttonRestart.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonRestart"));
-        buttonHome.setText(game.assetManager.get(Constants.BUNDLE, I18NBundle.class).get("buttonMainMenu"));
+    public void updateData() {
+        super.updateData();
+        labelScreenTitle.setText(game.getAssetManager().get(
+                Constants.BUNDLE, I18NBundle.class).get("titleGameOver"));
+        buttonRestart.setText(game.getAssetManager().get(
+                Constants.BUNDLE, I18NBundle.class).get("buttonRestart"));
+        buttonHome.setText(game.getAssetManager().get(
+                Constants.BUNDLE, I18NBundle.class).get("buttonMainMenu"));
     }
 
     @Override
-    protected void initializeHud() {
-        super.initializeHud();
+    protected void initialize() {
+        super.initialize();
 
         super.pad(Constants.GAP);
         super.center();
         super.setFillParent(true);
 
-        buttonRestart = new TextButton("", game.styles.textButtonStyleOrange);
-        buttonHome = new TextButton("", game.styles.textButtonStyleOrange);
+        buttonRestart = new TextButton("", game.getStyles().getTextButtonStyleOrange());
+        buttonHome = new TextButton("", game.getStyles().getTextButtonStyleOrange());
         Table tableButtons = new Table();
-        tableButtons.add(buttonRestart).padBottom(Constants.GAP).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableButtons.add(buttonRestart).padBottom(Constants.GAP).align(Align.right)
+                .width(Constants.TEXT_BUTTON_WIDTH)
+                .height(Constants.TEXT_BUTTON_HEIGHT);
         tableButtons.row();
-        tableButtons.add(buttonHome).width(Constants.TEXT_BUTTON_WIDTH).height(Constants.TEXT_BUTTON_HEIGHT).align(Align.right);
+        tableButtons.add(buttonHome).align(Align.right)
+                .width(Constants.TEXT_BUTTON_WIDTH)
+                .height(Constants.TEXT_BUTTON_HEIGHT);
 
-        labelScreenTitle = new Label("", game.styles.labelStyleWhiteHugeWithBorder);
+        labelScreenTitle = new Label("",
+                game.getStyles().getLabelStyleWhiteHugeWithBorder());
         Table tableTop = new Table();
         tableTop.add(labelScreenTitle).align(Align.center);
 
-        super.add(tableTop).height(Constants.TABLE_TOP_HEIGHT).growX().padBottom(Constants.GAP).align(Align.top).colspan(2);
+        super.add(tableTop).growX().padBottom(Constants.GAP).align(Align.top).colspan(2)
+                .height(Constants.TABLE_TOP_HEIGHT);
         super.row();
         super.add(tableButtons).expand().align(Align.right);
 
@@ -60,11 +69,12 @@ public class GameOverHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
-                    game.gameScreen.stage.clear();
-                    game.gameWorld.resetWorld();
-                    game.gameScreen.inGameHud.updateHud();
-                    game.gameScreen.stage.addActor(game.gameScreen.inGameHud);
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH
+                        && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.getGameScreen().getStage().clear();
+                    game.getGameWorld().resetWorld();
+                    game.getGameScreen().getInGameHud().updateData();
+                    game.getGameScreen().getStage().addActor(game.getGameScreen().getInGameHud());
                 }
             }
         };
@@ -77,11 +87,12 @@ public class GameOverHud extends AbstractHud {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
-                    game.gameScreen.stage.clear();
-                    game.gameWorld.clearWorld();
-                    game.mainMenuScreen.updateScreen();
-                    game.setScreen(game.mainMenuScreen);
+                if (x > 0 && x < Constants.TEXT_BUTTON_WIDTH
+                        && y > 0 && y < Constants.TEXT_BUTTON_HEIGHT) {
+                    game.getGameScreen().getStage().clear();
+                    game.getGameWorld().clearWorld();
+                    game.getMainMenuScreen().updateData();
+                    game.setScreen(game.getMainMenuScreen());
                 }
             }
         };
