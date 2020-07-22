@@ -120,9 +120,9 @@ public class EnemyManager {
         } else if (wave >= 5) {
             maxEnemiesInWorld = 4;
         } else if (wave >= 0) {
-            maxEnemiesInWorld = 4; //3
+            maxEnemiesInWorld = 3;
         }
-        maxEnemiesInWave = 30 + (wave - 1) * 5;
+        maxEnemiesInWave = 10 + (wave - 1) * 5;
         setNumberOfWeapons(wave - 1);
         weapons.clear();
         for (int i = 0; i < numberOfWeapons.length; i++) {
@@ -178,5 +178,9 @@ public class EnemyManager {
 
     public boolean isInTheBeginningOfNewWave() {
         return inTheBeginningOfNewWave;
+    }
+
+    public int getWave() {
+        return wave;
     }
 }

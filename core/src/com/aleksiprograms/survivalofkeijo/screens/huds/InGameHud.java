@@ -91,6 +91,8 @@ public class InGameHud extends AbstractHud {
                 Constants.BUNDLE, I18NBundle.class).get("buttonEnterBuilding"));
         buttonEnterHospital.setText(game.getAssetManager().get(
                 Constants.BUNDLE, I18NBundle.class).get("buttonEnterBuilding"));
+        labelWaveBeginningWave.setText(game.getStyles().getFormattedInt(
+                game.getGameWorld().getEnemyManager().getWave()));
         if (game.getGameWorld().getEnemyManager().isInTheBeginningOfNewWave()) {
             tableWaveBeginning.setVisible(true);
         } else {
@@ -103,7 +105,8 @@ public class InGameHud extends AbstractHud {
         labelScore.setText(game.getStyles().getFormattedInt(0));
         labelWaveTitle.setText(game.getAssetManager().get(
                 Constants.BUNDLE, I18NBundle.class).get("inGameTitleWave"));
-        labelWave.setText("-");
+        labelWave.setText(game.getStyles().getFormattedInt(
+                game.getGameWorld().getEnemyManager().getWave()));
         progressBarHealth.setRange(0, game.getGameWorld().getPlayer().getMaxHealth());
         progressBarHealth.setValue(game.getGameWorld().getPlayer().getHealth());
         if (game.getGameWorld().getPlayer().getWeapon().isReloading()) {
@@ -194,7 +197,7 @@ public class InGameHud extends AbstractHud {
                 game.getStyles().getLabelStyleWhiteBigWithBorder());
 
         labelWaveBeginningWaveTitle = new Label("WAVE",
-                game.getStyles().getLabelStyleWhiteBig());
+                game.getStyles().getLabelStyleWhiteBigWithBorder());
         labelWaveBeginningWave = new Label("",
                 game.getStyles().getLabelStyleWhiteHugeWithBorder());
 
