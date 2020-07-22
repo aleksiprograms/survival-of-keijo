@@ -100,11 +100,8 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void updateData() {
         super.updateData();
-        currentGameState = GameState.IN_GAME;
-        previousGameState = GameState.IN_GAME;
         game.getGameWorld().createWorld(game.getLevelManager().getCurrentLevel());
-        stage.addActor(inGameHud);
-        inGameHud.updateData();
+        changeGameState(GameState.IN_GAME);
         game.getCameraGame().position.set(0, 0, 8);
         game.getCameraGame().near = 1;
         game.getCameraGame().far = 60;
